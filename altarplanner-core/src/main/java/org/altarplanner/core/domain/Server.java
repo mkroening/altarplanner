@@ -17,6 +17,7 @@ public class Server {
     @Getter @Setter private List<DateSpan> absences = new ArrayList<>();
     @Getter @Setter private List<DayOfWeek> weeklyAbsences = new ArrayList<>();
     @Getter @Setter private List<LocalDateTime> dateTimeOnWishes = new ArrayList<>();
+    @Getter @Setter private List<Server> pairedWith = new ArrayList<>();
 
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");

@@ -58,4 +58,11 @@ public class Schedule {
                 .collect(Collectors.toList());
     }
 
+    @ProblemFactCollectionProperty
+    public List<DateTimeOnRequest> getDateTimeOnRequests() {
+        return servers.parallelStream()
+                .flatMap(Server::getDateTimeOnRequestParallelStream)
+                .collect(Collectors.toList());
+    }
+
 }

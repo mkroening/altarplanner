@@ -3,6 +3,7 @@ package org.altarplanner.core.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.altarplanner.core.domain.request.DateOffRequest;
+import org.altarplanner.core.domain.request.DateTimeOnRequest;
 import org.altarplanner.core.domain.request.DayOffRequest;
 import org.altarplanner.core.domain.request.ServiceTypeOffRequest;
 
@@ -43,6 +44,11 @@ public class Server {
     public Stream<ServiceTypeOffRequest> getServiceTypeOffRequestParallelStream() {
         return inabilities.parallelStream()
                 .map(serviceType -> new ServiceTypeOffRequest(this, serviceType));
+    }
+
+    public Stream<DateTimeOnRequest> getDateTimeOnRequestParallelStream() {
+        return dateTimeOnWishes.parallelStream()
+                .map(dateTime -> new DateTimeOnRequest(this, dateTime));
     }
 
 }

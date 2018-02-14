@@ -2,12 +2,14 @@ package org.altarplanner.core.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.altarplanner.core.domain.request.DateOffRequest;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Server {
 
@@ -23,6 +25,12 @@ public class Server {
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
+    }
+
+    public Stream<DateOffRequest> getDateOffRequestParallelStream() {
+        return absences.parallelStream()
+                .flatMap(DateSpan::getDateParallelStream)
+                .map(date -> new DateOffRequest(this, date));
     }
 
 }

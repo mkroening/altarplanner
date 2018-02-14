@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 public class DateSpan {
@@ -14,6 +15,10 @@ public class DateSpan {
 
     public DateSpan() {
         this.end = this.start = LocalDate.now().plusMonths(1);
+    }
+
+    public Stream<LocalDate> getDateParallelStream() {
+        return start.datesUntil(end.plusDays(1)).parallel();
     }
 
 }

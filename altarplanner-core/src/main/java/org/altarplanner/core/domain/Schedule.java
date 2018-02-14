@@ -11,7 +11,11 @@ import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import org.optaplanner.core.api.solver.Solver;
+import org.optaplanner.core.api.solver.SolverFactory;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -62,6 +66,16 @@ public class Schedule {
                 .forEach(value -> services.get(value).setId(value));
 
         this.servers = config.getServers();
+    }
+
+    public Schedule solve() {
+        SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("org/altarplanner/core/solver/solverConfig.xml");
+        Solver<Schedule> solver = solverFactory.buildSolver();
+        solver.addEventListener(bestSolutionChangedEvent -> {
+            String newBestScore = bestSolutionChangedEvent.getNewBestScore().toShortString();
+            System.out.println(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SSS")) + " New best score: " + newBestScore);
+        });
+        return solver.solve(this);
     }
 
     @PlanningEntityCollectionProperty

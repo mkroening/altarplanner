@@ -12,6 +12,21 @@
 
     <artifactId>altarplanner-core</artifactId>
 
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- OptaPlanner Bill Of Materials -->
+            <dependency>
+                <groupId>org.optaplanner</groupId>
+                <artifactId>optaplanner-bom</artifactId>
+                <type>pom</type>
+                <version>7.6.0.Final</version>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
 
         <!-- Project Lombok (against boilerplate code) -->

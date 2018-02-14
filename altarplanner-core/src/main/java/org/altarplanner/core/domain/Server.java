@@ -2,10 +2,7 @@ package org.altarplanner.core.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.altarplanner.core.domain.request.DateOffRequest;
-import org.altarplanner.core.domain.request.DateTimeOnRequest;
-import org.altarplanner.core.domain.request.DayOffRequest;
-import org.altarplanner.core.domain.request.ServiceTypeOffRequest;
+import org.altarplanner.core.domain.request.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -49,6 +46,11 @@ public class Server {
     public Stream<DateTimeOnRequest> getDateTimeOnRequestParallelStream() {
         return dateTimeOnWishes.parallelStream()
                 .map(dateTime -> new DateTimeOnRequest(this, dateTime));
+    }
+
+    public Stream<PairRequest> getPairRequestParallelStream() {
+        return pairedWith.parallelStream()
+                .map(pairedWith -> new PairRequest(this, pairedWith));
     }
 
 }

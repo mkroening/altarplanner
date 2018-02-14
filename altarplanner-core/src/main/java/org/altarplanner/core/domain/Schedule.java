@@ -65,4 +65,11 @@ public class Schedule {
                 .collect(Collectors.toList());
     }
 
+    @ProblemFactCollectionProperty
+    public List<PairRequest> getPairRequests() {
+        return servers.parallelStream()
+                .flatMap(Server::getPairRequestParallelStream)
+                .collect(Collectors.toList());
+    }
+
 }

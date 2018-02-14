@@ -1,0 +1,27 @@
+package org.altarplanner.core.solver;
+dialect  "java"
+
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
+
+import org.altarplanner.core.domain.Service;
+
+global HardSoftScoreHolder scoreHolder;
+
+// ############################################################################
+// Hard constraints
+// ############################################################################
+
+rule "oneServicePerDay"
+    when
+        Service($id : id, $server : server != null, $date : mass.date)
+        Service(mass.date == $date, id > $id, server == $server)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+rule "notEnoughExperience"
+    when
+        Service(server != null, (mass.date.year - server.year) < type.minExp)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end

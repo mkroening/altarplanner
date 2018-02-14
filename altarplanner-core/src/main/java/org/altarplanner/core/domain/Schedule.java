@@ -31,6 +31,12 @@ public class Schedule {
     @PlanningScore
     @Getter @Setter private HardSoftScore score;
 
+    public Schedule() {
+        this.planningWindow = new DateSpan();
+        this.servers = Collections.emptyList();
+        this.masses = Collections.emptyList();
+    }
+
     public Schedule(Schedule lastSchedule, Collection<DiscreteMass> discreteMassesToPlan, Config config) {
         List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
                 .map(PlanningMass::new)

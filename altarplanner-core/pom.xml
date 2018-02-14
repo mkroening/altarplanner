@@ -29,6 +29,12 @@
 
     <dependencies>
 
+        <!-- OptaPlanner planning engine -->
+        <dependency>
+            <groupId>org.optaplanner</groupId>
+            <artifactId>optaplanner-core</artifactId>
+        </dependency>
+
         <!-- Project Lombok (against boilerplate code) -->
         <dependency>
             <groupId>org.projectlombok</groupId>

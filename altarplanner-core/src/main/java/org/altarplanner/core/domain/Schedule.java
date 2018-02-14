@@ -45,7 +45,7 @@ public class Schedule {
     }
 
     @ProblemFactCollectionProperty
-    public List<DayOffRequest> getDayOfWeekOffRequests() {
+    public List<DayOffRequest> getDayOffRequests() {
         return servers.parallelStream()
                 .flatMap(Server::getDayOffRequestParallelStream)
                 .collect(Collectors.toList());

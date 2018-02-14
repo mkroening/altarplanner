@@ -35,6 +35,13 @@
             <artifactId>optaplanner-core</artifactId>
         </dependency>
 
+        <!-- Logback logging framework -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
         <!-- Project Lombok (against boilerplate code) -->
         <dependency>
             <groupId>org.projectlombok</groupId>

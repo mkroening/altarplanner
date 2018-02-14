@@ -2,6 +2,7 @@ package org.altarplanner.core.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
@@ -11,23 +12,56 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @PlanningSolution
 public class Schedule {
 
-    @Getter @Setter private DateSpan planningWindow;
+    @Getter private final DateSpan planningWindow;
     @ValueRangeProvider(id = "serverRange")
     @Getter private final List<Server> servers;
     @Getter private final List<PlanningMass> masses;
     @PlanningScore
     @Getter @Setter private HardSoftScore score;
 
-    public Schedule() {
-        this.servers = new ArrayList<>();
-        this.masses = new ArrayList<>();
+    public Schedule(Schedule lastSchedule, Collection<DiscreteMass> discreteMassesToPlan, Config config) {
+        List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
+                .map(PlanningMass::new)
+                .sorted(Comparator.comparing(PlanningMass::getDate))
+                .collect(Collectors.toList());
+
+        this.planningWindow = new DateSpan(planningMassesToPlan.get(0).getDate(),
+                planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
+
+        DateSpan pastWindow = new DateSpan(planningWindow.getStart().minusWeeks(1), planningWindow.getStart().minusDays(1));
+        List<PlanningMass> pastPlanningMassesToConsider = Optional.ofNullable(lastSchedule)
+                .map(schedule -> schedule.getMasses().parallelStream()
+                        .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
+                        .collect(Collectors.toList()))
+                .orElse(Collections.emptyList());
+
+        DateSpan futureWindow = new DateSpan(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
+        List<PlanningMass> futurePlanningMassesToConsider = config
+                .getDiscreteMassParallelStreamWithin(futureWindow)
+                .map(PlanningMass::new)
+                .collect(Collectors.toList());
+
+        this.masses = Stream
+                .of(pastPlanningMassesToConsider,
+                        planningMassesToPlan,
+                        futurePlanningMassesToConsider)
+                .flatMap(Collection::stream)
+                .sorted(Comparator.comparing(PlanningMass::getDate))
+                .collect(Collectors.toList());
+
+        List<Service> services = getServices();
+        IntStream.range(0, services.size()).parallel()
+                .forEach(value -> services.get(value).setId(value));
+
+        this.servers = config.getServers();
     }
 
     @PlanningEntityCollectionProperty

@@ -17,6 +17,10 @@ public class DateSpan {
         this.end = this.start = LocalDate.now().plusMonths(1);
     }
 
+    public boolean contains(LocalDate date) {
+        return (date.compareTo(start) >= 0) == (date.compareTo(end) <= 0);
+    }
+
     public Stream<LocalDate> getDateParallelStream() {
         return start.datesUntil(end.plusDays(1)).parallel();
     }

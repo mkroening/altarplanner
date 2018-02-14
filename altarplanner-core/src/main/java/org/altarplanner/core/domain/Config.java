@@ -25,8 +25,10 @@ public class Config {
                 .collect(Collectors.groupingBy(RegularMass::getDay));
 
         return dateSpan.getDateParallelStream()
-                .flatMap(date -> dayMassMap.get(date.getDayOfWeek()).parallelStream()
-                        .map(regularMass -> new DiscreteMass(regularMass, date)));
+                .flatMap(date -> Optional.ofNullable(dayMassMap.get(date.getDayOfWeek()))
+                        .map(masses -> masses.parallelStream()
+                                .map(regularMass -> new DiscreteMass(regularMass, date)))
+                        .orElse(null));
     }
 
 }

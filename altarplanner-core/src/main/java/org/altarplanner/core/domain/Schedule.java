@@ -17,6 +17,7 @@ import org.optaplanner.core.api.solver.SolverFactory;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -24,6 +25,7 @@ import java.util.stream.Stream;
 @PlanningSolution
 public class Schedule {
 
+    private Set<Consumer<String>> stringConsumerSet = new HashSet<>();
     @Getter private final DateSpan planningWindow;
     @ValueRangeProvider(id = "serverRange")
     @Getter private final List<Server> servers;
@@ -80,6 +82,7 @@ public class Schedule {
         solver.addEventListener(bestSolutionChangedEvent -> {
             String newBestScore = bestSolutionChangedEvent.getNewBestScore().toShortString();
             System.out.println(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SSS")) + " New best score: " + newBestScore);
+            stringConsumerSet.parallelStream().forEach(stringConsumer -> stringConsumer.accept(newBestScore));
         });
         return solver.solve(this);
     }
@@ -124,6 +127,14 @@ public class Schedule {
         return servers.parallelStream()
                 .flatMap(Server::getPairRequestParallelStream)
                 .collect(Collectors.toList());
+    }
+
+    public void addNewBestScoreStringConsumer(Consumer<String> newBestScoreStringConsumer) {
+        stringConsumerSet.add(newBestScoreStringConsumer);
+    }
+
+    public void removeNewBestScoreStringConsumer(Consumer<String> newBestScoreStringConsumer) {
+        stringConsumerSet.remove(newBestScoreStringConsumer);
     }
 
 }

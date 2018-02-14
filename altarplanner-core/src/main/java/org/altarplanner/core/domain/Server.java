@@ -3,6 +3,7 @@ package org.altarplanner.core.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.altarplanner.core.domain.request.DateOffRequest;
+import org.altarplanner.core.domain.request.DayOffRequest;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -31,6 +32,11 @@ public class Server {
         return absences.parallelStream()
                 .flatMap(DateSpan::getDateParallelStream)
                 .map(date -> new DateOffRequest(this, date));
+    }
+
+    public Stream<DayOffRequest> getDayOffRequestParallelStream() {
+        return weeklyAbsences.parallelStream()
+                .map(day -> new DayOffRequest(this, day));
     }
 
 }

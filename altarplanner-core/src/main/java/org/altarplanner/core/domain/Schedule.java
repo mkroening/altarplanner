@@ -51,4 +51,11 @@ public class Schedule {
                 .collect(Collectors.toList());
     }
 
+    @ProblemFactCollectionProperty
+    public List<ServiceTypeOffRequest> getServiceTypeOffRequests() {
+        return servers.parallelStream()
+                .flatMap(Server::getServiceTypeOffRequestParallelStream)
+                .collect(Collectors.toList());
+    }
+
 }

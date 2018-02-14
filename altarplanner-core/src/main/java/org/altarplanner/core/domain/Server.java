@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.altarplanner.core.domain.request.DateOffRequest;
 import org.altarplanner.core.domain.request.DayOffRequest;
+import org.altarplanner.core.domain.request.ServiceTypeOffRequest;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -37,6 +38,11 @@ public class Server {
     public Stream<DayOffRequest> getDayOffRequestParallelStream() {
         return weeklyAbsences.parallelStream()
                 .map(day -> new DayOffRequest(this, day));
+    }
+
+    public Stream<ServiceTypeOffRequest> getServiceTypeOffRequestParallelStream() {
+        return inabilities.parallelStream()
+                .map(serviceType -> new ServiceTypeOffRequest(this, serviceType));
     }
 
 }

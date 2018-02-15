@@ -50,6 +50,21 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- JUnit 5 testing framework -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.1.0-RC1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Optaplanner test support -->
+        <dependency>
+            <groupId>org.optaplanner</groupId>
+            <artifactId>optaplanner-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -34,3 +34,11 @@ rule "dateOffRequest"
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
+
+rule "dayOffRequest"
+    when
+        DayOffRequest($server : server, $day : day)
+        Service(server == $server, mass.date.dayOfWeek == $day)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end

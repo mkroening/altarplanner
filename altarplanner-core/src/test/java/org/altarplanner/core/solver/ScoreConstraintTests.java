@@ -249,4 +249,24 @@ class ScoreConstraintTests {
         });
     }
 
+    @Test
+    void tooMuchExp() {
+        final String constraintName = "tooMuchExp";
+
+        Config config = new Config();
+        config.getServers().add(new Server());
+        config.getServers().get(0).setYear(LocalDate.now().getYear() - 16);
+        config.getServiceTypes().add(new ServiceType());
+        config.getServiceTypes().get(0).setMaxExp(7);
+
+        DiscreteMass discreteMass = new DiscreteMass();
+        discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(0), 1);
+
+        Schedule schedule = new Schedule(null, List.of(discreteMass), config);
+
+        scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
+        schedule.getServices().get(0).setServer(schedule.getServers().get(0));
+        scoreVerifier.assertSoftWeight(constraintName, - 5 * 9, schedule);
+    }
+
 }

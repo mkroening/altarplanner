@@ -59,3 +59,17 @@ rule "dateTimeOnRequest"
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
+
+// ############################################################################
+// Soft constraints
+// ############################################################################
+
+// TODO: HardConstraint breaks Construction (implement dual move?)
+rule "pairRequest"
+    when
+        PairRequest($server : server, $pairedWith : pairedWith)
+        Service(server == $server, $mass : mass)
+        not Service(server == $pairedWith, mass == $mass)
+    then
+        scoreHolder.addSoftConstraintMatch(kcontext, -1);
+end

@@ -199,4 +199,28 @@ class ScoreConstraintTests {
         });
     }
 
+    @Test
+    void pairRequest() {
+        final String constraintName = "pairRequest";
+
+        Config config = new Config();
+        config.getServers().add(new Server());
+        config.getServers().add(new Server());
+        config.getServers().get(0).getPairedWith().add(config.getServers().get(1));
+        config.getServiceTypes().add(new ServiceType());
+
+        DiscreteMass discreteMass = new DiscreteMass();
+        discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(0), 2);
+
+        Schedule schedule = new Schedule(null, List.of(discreteMass), config);
+
+        scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
+
+        schedule.getServices().get(0).setServer(schedule.getServers().get(0));
+        scoreVerifier.assertSoftWeight(constraintName, -1, schedule);
+
+        schedule.getServices().get(1).setServer(schedule.getServers().get(1));
+        scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
+    }
+
 }

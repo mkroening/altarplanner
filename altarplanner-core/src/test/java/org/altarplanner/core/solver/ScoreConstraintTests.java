@@ -53,4 +53,45 @@ class ScoreConstraintTests {
         });
     }
 
+    @Test
+    void notEnoughExperience() {
+        final String constraintName = "notEnoughExperience";
+
+        Config config = new Config();
+
+        config.setServers(
+                IntStream.range(0, massCount)
+                        .mapToObj(value -> {
+                            Server server = new Server();
+                            server.setYear(LocalDate.now().getYear() - value);
+                            return server;
+                        })
+                        .collect(Collectors.toList())
+        );
+
+        config.setServiceTypes(
+                IntStream.range(0, massCount)
+                        .mapToObj(value -> {
+                            ServiceType serviceType = new ServiceType();
+                            serviceType.setMinExp(value);
+                            return serviceType;
+                        })
+                        .collect(Collectors.toList())
+        );
+
+        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, true);
+
+        Schedule schedule = new Schedule(null, discreteMasses, config);
+
+        scoreVerifier.assertHardWeight(constraintName, 0, schedule);
+
+        IntStream.range(0, massCount).forEach(value -> {
+            schedule.getServices().get(value).setServer(schedule.getServers().get(value));
+            scoreVerifier.assertHardWeight(constraintName, 0, schedule);
+            schedule.getServices().get(value).setServer(schedule.getServers().get(massCount - 1 - value));
+            scoreVerifier.assertHardWeight(constraintName, massCount - 1 - value < value ? -1 : 0, schedule);
+            schedule.getServices().get(value).setServer(null);
+        });
+    }
+
 }

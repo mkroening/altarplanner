@@ -7,6 +7,8 @@ import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.test.impl.score.buildin.hardsoft.HardSoftScoreVerifier;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -167,6 +169,33 @@ class ScoreConstraintTests {
             schedule.getServices().get(value).setServer(schedule.getServers().get(0));
             scoreVerifier.assertHardWeight(constraintName, value % 2 == 0 ? -1 : 0, schedule);
             schedule.getServices().get(value).setServer(null);
+        });
+    }
+
+    @Test
+    void dateTimeOnRequest() {
+        final String constraintName = "dateTimeOnRequest";
+
+        Config config = new Config();
+        config.getServers().add(new Server());
+        config.getServers().get(0).getDateTimeOnWishes()
+                .addAll(IntStream.range(0, massCount / 2)
+                        .mapToObj(value -> LocalDateTime.of(LocalDate.now().plusDays(2 * value), LocalTime.of(11, 0)))
+                        .collect(Collectors.toList()));
+        config.getServiceTypes().add(new ServiceType());
+
+        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+
+        Schedule schedule = new Schedule(null, discreteMasses, config);
+
+        schedule.getServices().forEach(service -> service.setServer(schedule.getServers().get(0)));
+
+        scoreVerifier.assertHardWeight(constraintName, 0, schedule);
+
+        IntStream.range(0, massCount).forEach(value -> {
+            schedule.getServices().get(value).setServer(null);
+            scoreVerifier.assertHardWeight(constraintName, value % 2 == 0 ? -1 : 0, schedule);
+            schedule.getServices().get(value).setServer(schedule.getServers().get(0));
         });
     }
 

@@ -50,3 +50,12 @@ rule "serviceTypeOffRequest"
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
+
+rule "dateTimeOnRequest"
+    when
+        DateTimeOnRequest($server : server, $date : dateTime.toLocalDate(), $time : dateTime.toLocalTime())
+        Service(mass.date == $date, mass.time == $time)
+        not Service(server == $server, mass.date == $date, mass.time == $time)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end

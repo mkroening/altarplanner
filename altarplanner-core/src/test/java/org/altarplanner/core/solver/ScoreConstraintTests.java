@@ -1,0 +1,56 @@
+package org.altarplanner.core.solver;
+
+import org.altarplanner.core.domain.Config;
+import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.Server;
+import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.junit.jupiter.api.Test;
+import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.test.impl.score.buildin.hardsoft.HardSoftScoreVerifier;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+class ScoreConstraintTests {
+
+    private HardSoftScoreVerifier<Schedule> scoreVerifier = new HardSoftScoreVerifier<>(
+            SolverFactory.createFromXmlResource("org/altarplanner/core/solver/solverConfig.xml"));
+
+    private final static int massCount = 10;
+
+    private List<DiscreteMass> generateDiscreteMasses(Config config, boolean subsequentMasses, boolean subsequentServiceTypes) {
+        return IntStream.range(0, massCount)
+                .mapToObj(value -> {
+                    DiscreteMass discreteMass = new DiscreteMass();
+                    discreteMass.setDate(subsequentMasses ? LocalDate.now().plusDays(value) : LocalDate.now());
+                    discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(subsequentServiceTypes ? value : 0), 1);
+                    return discreteMass;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Test
+    void oneServicePerDay() {
+        final String constraintName = "oneServicePerDay";
+
+        Config config = new Config();
+        config.getServers().add(new Server());
+        config.getServiceTypes().add(new ServiceType());
+
+        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, false, false);
+
+        Schedule schedule = new Schedule(null, discreteMasses, config);
+
+        scoreVerifier.assertHardWeight(constraintName, 0, schedule);
+
+        IntStream.range(0, massCount).forEach(value -> {
+            schedule.getServices().get(value).setServer(schedule.getServers().get(0));
+            int expectedWeight = -value * (value + 1) / 2; // equal to -IntStream.range(0, value + 1).sum()
+            scoreVerifier.assertHardWeight(constraintName, expectedWeight, schedule);
+        });
+    }
+
+}

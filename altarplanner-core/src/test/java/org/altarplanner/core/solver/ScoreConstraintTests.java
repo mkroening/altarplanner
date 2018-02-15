@@ -138,4 +138,36 @@ class ScoreConstraintTests {
         });
     }
 
+    @Test
+    void serviceTypeOffRequest() {
+        final String constraintName = "serviceTypeOffRequest";
+
+        Config config = new Config();
+        config.getServers().add(new Server());
+        config.getServiceTypes()
+                .addAll(IntStream.range(0, massCount)
+                        .mapToObj(value -> {
+                            ServiceType serviceType = new ServiceType();
+                            serviceType.setName(String.valueOf(value));
+                            return serviceType;
+                        })
+                        .collect(Collectors.toList()));
+        config.getServers().get(0).getInabilities()
+                .addAll(IntStream.range(0, massCount / 2)
+                        .mapToObj(value -> config.getServiceTypes().get(2 * value))
+                        .collect(Collectors.toList()));
+
+        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, true);
+
+        Schedule schedule = new Schedule(null, discreteMasses, config);
+
+        scoreVerifier.assertHardWeight(constraintName, 0, schedule);
+
+        IntStream.range(0, massCount).forEach(value -> {
+            schedule.getServices().get(value).setServer(schedule.getServers().get(0));
+            scoreVerifier.assertHardWeight(constraintName, value % 2 == 0 ? -1 : 0, schedule);
+            schedule.getServices().get(value).setServer(null);
+        });
+    }
+
 }

@@ -42,3 +42,11 @@ rule "dayOffRequest"
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
+
+rule "serviceTypeOffRequest"
+    when
+        ServiceTypeOffRequest($server : server, $serviceType : serviceType)
+        Service(server == $server, type == $serviceType)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end

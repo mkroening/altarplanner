@@ -223,4 +223,30 @@ class ScoreConstraintTests {
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
     }
 
+    // TODO: refine (no interval with services in between are being tested)
+    @Test
+    void maximizeIntervals() {
+        final String constraintName = "maximizeIntervals";
+
+        Config config = new Config();
+        config.getServers().add(new Server());
+        config.getServiceTypes().add(new ServiceType());
+
+        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+
+        Schedule schedule = new Schedule(null, discreteMasses, config);
+
+        scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
+
+        schedule.getServices().get(0).setServer(schedule.getServers().get(0));
+        scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
+
+        IntStream.range(0, massCount - 1).forEach(value -> {
+            int dist = massCount - 1 - value;
+            schedule.getServices().get(dist).setServer(schedule.getServers().get(0));
+            scoreVerifier.assertSoftWeight(constraintName, - 14 / dist, schedule);
+            schedule.getServices().get(dist).setServer(null);
+        });
+    }
+
 }

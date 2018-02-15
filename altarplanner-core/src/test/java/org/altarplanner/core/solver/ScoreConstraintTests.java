@@ -1,15 +1,13 @@
 package org.altarplanner.core.solver;
 
-import org.altarplanner.core.domain.Config;
-import org.altarplanner.core.domain.Schedule;
-import org.altarplanner.core.domain.Server;
-import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.domain.*;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.test.impl.score.buildin.hardsoft.HardSoftScoreVerifier;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -90,6 +88,28 @@ class ScoreConstraintTests {
             scoreVerifier.assertHardWeight(constraintName, 0, schedule);
             schedule.getServices().get(value).setServer(schedule.getServers().get(massCount - 1 - value));
             scoreVerifier.assertHardWeight(constraintName, massCount - 1 - value < value ? -1 : 0, schedule);
+            schedule.getServices().get(value).setServer(null);
+        });
+    }
+
+    @Test
+    void dateOffRequest() {
+        final String constraintName = "dateOffRequest";
+
+        Config config = new Config();
+        config.getServers().add(new Server());
+        config.getServers().get(0).getAbsences().add(new DateSpan(LocalDate.now(), LocalDate.now().plusDays(massCount / 2)));
+        config.getServiceTypes().add(new ServiceType());
+
+        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+
+        Schedule schedule = new Schedule(null, discreteMasses, config);
+
+        scoreVerifier.assertHardWeight(constraintName, 0, schedule);
+
+        IntStream.range(0, massCount).forEach(value -> {
+            schedule.getServices().get(value).setServer(schedule.getServers().get(0));
+            scoreVerifier.assertHardWeight(constraintName, value <= massCount / 2 ? -1 : 0, schedule);
             schedule.getServices().get(value).setServer(null);
         });
     }

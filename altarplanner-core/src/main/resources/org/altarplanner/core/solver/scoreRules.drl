@@ -3,6 +3,7 @@ dialect  "java"
 
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
 
+import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.domain.Service;
 
 global HardSoftScoreHolder scoreHolder;
@@ -22,6 +23,14 @@ end
 rule "notEnoughExperience"
     when
         Service(server != null, (mass.date.year - server.year) < type.minExp)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+rule "dateOffRequest"
+    when
+        DateOffRequest($server : server, $date : date)
+        Service(server == $server, mass.date == $date)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end

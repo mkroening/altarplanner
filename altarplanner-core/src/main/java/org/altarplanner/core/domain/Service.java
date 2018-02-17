@@ -3,10 +3,11 @@ package org.altarplanner.core.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.altarplanner.core.domain.mass.PlanningMass;
+import org.altarplanner.core.solver.MovableServiceSelectionFilter;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
-@PlanningEntity
+@PlanningEntity(movableEntitySelectionFilter = MovableServiceSelectionFilter.class)
 public class Service {
 
     @Getter @Setter private int id;

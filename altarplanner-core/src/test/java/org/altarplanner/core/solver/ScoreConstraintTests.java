@@ -269,4 +269,34 @@ class ScoreConstraintTests {
         scoreVerifier.assertSoftWeight(constraintName, - 5 * 9, schedule);
     }
 
+    @Test
+    void minimizeServices() {
+        final String constraintName = "minimizeServices";
+
+        Config config = new Config();
+        config.getServers().add(new Server());
+        config.getServers().add(new Server());
+        config.getServiceTypes().add(new ServiceType());
+
+        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+
+        Schedule schedule = new Schedule(null, discreteMasses, config);
+
+        scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
+
+        IntStream.range(0, massCount).forEach(value -> {
+            schedule.getServices().get(value).setServer(schedule.getServers().get(0));
+            int assignments = value + 1;
+            int expectedWeight = - assignments * assignments;
+            scoreVerifier.assertSoftWeight(constraintName, expectedWeight, schedule);
+        });
+
+        IntStream.range(0, massCount).forEach(value -> {
+            schedule.getServices().get(value).setServer(schedule.getServers().get(1));
+            int assignments = value + 1;
+            int other = massCount - 1 - value;
+            scoreVerifier.assertSoftWeight(constraintName, - other * other - assignments * assignments, schedule);
+        });
+    }
+
 }

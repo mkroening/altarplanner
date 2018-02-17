@@ -27,6 +27,7 @@ public class Schedule {
 
     private Set<Consumer<String>> stringConsumerSet = new HashSet<>();
     @Getter private final DateSpan planningWindow;
+    @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "serverRange")
     @Getter private final List<Server> servers;
     @Getter private final List<PlanningMass> masses;

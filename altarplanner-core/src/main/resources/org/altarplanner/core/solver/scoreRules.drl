@@ -4,7 +4,8 @@ dialect  "java"
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
 
 import org.altarplanner.core.domain.request.*;
-import org.altarplanner.core.domain.Service
+import org.altarplanner.core.domain.Server;
+import org.altarplanner.core.domain.Service;
 import java.time.temporal.ChronoUnit;
 
 global HardSoftScoreHolder scoreHolder;
@@ -89,4 +90,17 @@ rule "tooMuchExp"
         Service(server != null, $diff : (mass.date.year - server.year - type.maxExp) > 0)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, - 5 * (int) $diff);
+end
+
+rule "minimizeServices"
+    when
+        $server : Server()
+        accumulate(
+            $assignment : Service(server == $server);
+            $total : count($assignment);
+            $total > 0
+        )
+    then
+        int totalInt = $total.intValue();
+        scoreHolder.addSoftConstraintMatch(kcontext, - totalInt * totalInt);
 end

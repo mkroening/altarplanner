@@ -27,6 +27,11 @@ public class Server {
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
     }
 
+    public boolean isAvailableAt(LocalDate date) {
+        return !weeklyAbsences.contains(date.getDayOfWeek())
+                && absences.parallelStream().noneMatch(absence -> absence.contains(date));
+    }
+
     public Stream<DateOffRequest> getDateOffRequestParallelStream() {
         return absences.parallelStream()
                 .flatMap(DateSpan::getDateParallelStream)

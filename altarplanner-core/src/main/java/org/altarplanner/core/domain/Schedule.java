@@ -14,6 +14,7 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -75,6 +76,13 @@ public class Schedule {
                 .forEach(value -> services.get(value).setId(value));
 
         this.servers = config.getServers();
+    }
+
+    public int getAvailableServerCountAt(LocalDate date) {
+        long count = servers.parallelStream()
+                .filter(server -> server.isAvailableAt(date))
+                .count();
+        return Math.toIntExact(count);
     }
 
     public Schedule solve() {

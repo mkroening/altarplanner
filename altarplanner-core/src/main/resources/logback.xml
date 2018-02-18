@@ -6,6 +6,8 @@
         </encoder>
     </appender>
 
+    <logger name="org.altarplanner" level="info"/>
+
     <logger name="org.optaplanner" level="info"/>
 
     <root level="warn">

@@ -13,10 +13,9 @@ import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -90,7 +89,7 @@ public class Schedule {
         Solver<Schedule> solver = solverFactory.buildSolver();
         solver.addEventListener(bestSolutionChangedEvent -> {
             String newBestScore = bestSolutionChangedEvent.getNewBestScore().toShortString();
-            System.out.println(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SSS")) + " New best score: " + newBestScore);
+            LoggerFactory.getLogger(getClass()).info("New best score ({})", newBestScore);
             stringConsumerSet.parallelStream().forEach(stringConsumer -> stringConsumer.accept(newBestScore));
         });
         return solver.solve(this);

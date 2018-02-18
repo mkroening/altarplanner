@@ -22,9 +22,9 @@ rule "oneServicePerDay"
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
 
-rule "notEnoughExperience"
+rule "notEnoughExp"
     when
-        Service(server != null, (mass.date.year - server.year) < type.minExp)
+        Service(server != null, server.year > type.maxYear)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -88,7 +88,7 @@ end
 
 rule "tooMuchExp"
     when
-        Service(server != null, $diff : (mass.date.year - server.year - type.maxExp) > 0)
+        Service(server != null, $diff : (type.minYear - server.year) > 0)
     then
         scoreHolder.addSoftConstraintMatch(kcontext, - 5 * $diff);
 end

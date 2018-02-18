@@ -9,6 +9,7 @@ import org.optaplanner.test.impl.score.buildin.hardsoft.HardSoftScoreVerifier;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Year;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -53,8 +54,8 @@ class ScoreConstraintTests {
     }
 
     @Test
-    void notEnoughExperience() {
-        final String constraintName = "notEnoughExperience";
+    void notEnoughExp() {
+        final String constraintName = "notEnoughExp";
 
         Config config = new Config();
 
@@ -62,7 +63,7 @@ class ScoreConstraintTests {
                 IntStream.range(0, massCount)
                         .mapToObj(value -> {
                             Server server = new Server();
-                            server.setYear(LocalDate.now().getYear() - value);
+                            server.setYear(Year.now().getValue() - value);
                             return server;
                         })
                         .collect(Collectors.toList())
@@ -72,7 +73,7 @@ class ScoreConstraintTests {
                 IntStream.range(0, massCount)
                         .mapToObj(value -> {
                             ServiceType serviceType = new ServiceType();
-                            serviceType.setMinExp(value);
+                            serviceType.setMaxYear(Year.now().getValue() - value);
                             return serviceType;
                         })
                         .collect(Collectors.toList())
@@ -255,9 +256,9 @@ class ScoreConstraintTests {
 
         Config config = new Config();
         config.getServers().add(new Server());
-        config.getServers().get(0).setYear(LocalDate.now().getYear() - 16);
+        config.getServers().get(0).setYear(Year.now().getValue() - 16);
         config.getServiceTypes().add(new ServiceType());
-        config.getServiceTypes().get(0).setMaxExp(7);
+        config.getServiceTypes().get(0).setMinYear(Year.now().getValue() - 7);
 
         DiscreteMass discreteMass = new DiscreteMass();
         discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(0), 1);

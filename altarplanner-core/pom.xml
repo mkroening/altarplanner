@@ -29,13 +29,13 @@
 
     <dependencies>
 
-        <!-- OptaPlanner planning engine -->
+        <!-- OptaPlanner (constraint solver) -->
         <dependency>
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-core</artifactId>
         </dependency>
 
-        <!-- Logback logging framework -->
+        <!-- Logback (logging framework) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -57,7 +57,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JUnit 5 testing framework -->
+        <!-- JUnit 5 (testing framework) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

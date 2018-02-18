@@ -18,7 +18,7 @@ abstract class EditableMass extends GenericMass {
 
     EditableMass(EditableMass editableMass) {
         super(editableMass);
-        this.serviceTypeCount = editableMass.getServiceTypeCount();
+        this.serviceTypeCount = editableMass.serviceTypeCount;
     }
 
 }

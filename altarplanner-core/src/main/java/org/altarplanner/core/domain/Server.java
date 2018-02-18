@@ -27,8 +27,11 @@ public class Server {
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
     }
 
-    public boolean isAvailableAt(LocalDate date) {
-        return !weeklyAbsences.contains(date.getDayOfWeek())
+    public boolean isAvailableFor(Service service) {
+        LocalDate date = service.getMass().getDate();
+        return !inabilities.contains(service.getType())
+                && year <= service.getType().getMaxYear()
+                && !weeklyAbsences.contains(date.getDayOfWeek())
                 && absences.parallelStream().noneMatch(absence -> absence.contains(date));
     }
 

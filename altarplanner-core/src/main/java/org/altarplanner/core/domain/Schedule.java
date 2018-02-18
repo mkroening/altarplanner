@@ -78,9 +78,9 @@ public class Schedule {
         this.servers = config.getServers();
     }
 
-    public int getAvailableServerCountAt(LocalDate date) {
+    public int getAvailableServerCountFor(Service service) {
         long count = servers.parallelStream()
-                .filter(server -> server.isAvailableAt(date))
+                .filter(server -> server.isAvailableFor(service))
                 .count();
         return Math.toIntExact(count);
     }

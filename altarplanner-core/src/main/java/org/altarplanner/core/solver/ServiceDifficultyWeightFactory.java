@@ -9,7 +9,7 @@ public class ServiceDifficultyWeightFactory implements SelectionSorterWeightFact
 
     @Override
     public Comparable createSorterWeight(Schedule schedule, Service selection) {
-        int availableServers = schedule.getAvailableServerCountAt(selection.getMass().getDate());
+        int availableServers = schedule.getAvailableServerCountFor(selection);
         return new ServiceDifficultyWeight(selection, availableServers);
     }
 

@@ -13,6 +13,7 @@ import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.core.impl.score.director.ScoreDirector;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
@@ -92,7 +93,29 @@ public class Schedule {
             LoggerFactory.getLogger(getClass()).info("New best score ({})", newBestScore);
             stringConsumerSet.parallelStream().forEach(stringConsumer -> stringConsumer.accept(newBestScore));
         });
-        return solver.solve(this);
+        Schedule bestSolution = solver.solve(this);
+
+        // Log constraint break down
+        try (ScoreDirector<Schedule> guiScoreDirector = solver.getScoreDirectorFactory().buildScoreDirector()) {
+            guiScoreDirector.setWorkingSolution(bestSolution);
+            LoggerFactory.getLogger(getClass()).debug("Constraint break down: score ({})", guiScoreDirector.calculateScore());
+
+            guiScoreDirector.getConstraintMatchTotals().forEach(constraintMatchTotal -> {
+                LoggerFactory.getLogger(getClass()).debug(
+                        "Constraint: {} ({})",
+                        constraintMatchTotal.getConstraintName(),
+                        constraintMatchTotal.getScoreTotal());
+
+                constraintMatchTotal.getConstraintMatchSet().forEach(constraintMatch ->
+                        LoggerFactory.getLogger(getClass()).debug(
+                                "Match ({}): {}",
+                                constraintMatch.getConstraintName(),
+                                constraintMatch.getJustificationList())
+                );
+            });
+        }
+
+        return bestSolution;
     }
 
     @PlanningEntityCollectionProperty

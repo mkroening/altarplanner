@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+
+    <solutionClass>org.altarplanner.core.domain.Schedule</solutionClass>
+    <entityClass>org.altarplanner.core.domain.Service</entityClass>
+
+    <scoreDirectorFactory>
+        <scoreDrl>org/altarplanner/core/solver/scoreRules.drl</scoreDrl>
+    </scoreDirectorFactory>
+
+    <termination>
+        <scoreCalculationCountLimit>100000</scoreCalculationCountLimit>
+    </termination>
+
+</solver>

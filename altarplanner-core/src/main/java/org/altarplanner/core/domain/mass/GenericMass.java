@@ -19,9 +19,9 @@ public abstract class GenericMass {
     }
 
     GenericMass(GenericMass genericMass) {
-        this.time = genericMass.getTime();
-        this.church = genericMass.getChurch();
-        this.form = genericMass.getForm();
+        this.time = genericMass.time;
+        this.church = genericMass.church;
+        this.form = genericMass.form;
     }
 
 }

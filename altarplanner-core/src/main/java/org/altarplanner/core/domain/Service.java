@@ -3,12 +3,19 @@ package org.altarplanner.core.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.altarplanner.core.domain.mass.PlanningMass;
+import org.altarplanner.core.solver.MovableServiceSelectionFilter;
+import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
+@PlanningEntity(movableEntitySelectionFilter = MovableServiceSelectionFilter.class,
+        difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
 public class Service {
 
     @Getter @Setter private int id;
     @Getter private final PlanningMass mass;
     @Getter private final ServiceType type;
+    @PlanningVariable(valueRangeProviderRefs = {"serverRange"})
     @Getter @Setter private Server server;
 
     public Service(PlanningMass mass, ServiceType type) {

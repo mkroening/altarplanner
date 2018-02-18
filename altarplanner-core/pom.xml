@@ -12,7 +12,42 @@
 
     <artifactId>altarplanner-core</artifactId>
 
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- OptaPlanner Bill Of Materials -->
+            <dependency>
+                <groupId>org.optaplanner</groupId>
+                <artifactId>optaplanner-bom</artifactId>
+                <type>pom</type>
+                <version>7.6.0.Final</version>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+
+        <!-- OptaPlanner (constraint solver) -->
+        <dependency>
+            <groupId>org.optaplanner</groupId>
+            <artifactId>optaplanner-core</artifactId>
+        </dependency>
+
+        <!-- Logback (logging framework) -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <!-- Commons Lang (java.lang utility classes) -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+        </dependency>
 
         <!-- Project Lombok (against boilerplate code) -->
         <dependency>
@@ -20,6 +55,21 @@
             <artifactId>lombok</artifactId>
             <version>1.16.20</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- JUnit 5 (testing framework) -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.1.0-RC1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Optaplanner test support -->
+        <dependency>
+            <groupId>org.optaplanner</groupId>
+            <artifactId>optaplanner-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

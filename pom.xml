@@ -11,6 +11,7 @@
 
     <modules>
         <module>altarplanner-core</module>
+        <module>altarplanner-app</module>
     </modules>
 
     <properties>

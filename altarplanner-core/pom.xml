@@ -35,6 +35,13 @@
             <artifactId>optaplanner-core</artifactId>
         </dependency>
 
+        <!-- XStream (serialize objects to XML and back again) -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.10</version>
+        </dependency>
+
         <!-- Logback (logging framework) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>

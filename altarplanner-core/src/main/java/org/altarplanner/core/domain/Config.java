@@ -5,7 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
+import org.altarplanner.core.persistence.XStreamFileIO;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.DayOfWeek;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,6 +32,14 @@ public class Config {
                         .map(masses -> masses.parallelStream()
                                 .map(regularMass -> new DiscreteMass(regularMass, date)))
                         .orElse(null));
+    }
+
+    public void save(File file) throws FileNotFoundException {
+        XStreamFileIO.write(this, file);
+    }
+
+    public static Config load(File file) throws FileNotFoundException {
+        return (Config) XStreamFileIO.read(file);
     }
 
 }

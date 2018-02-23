@@ -12,5 +12,14 @@
 
     <artifactId>altarplanner-app</artifactId>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>org.altarplanner</groupId>
+            <artifactId>altarplanner-core</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

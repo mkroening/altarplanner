@@ -56,4 +56,8 @@ public class Launcher extends Application implements ConfigAware {
         this.config = config;
     }
 
+    public void loadServiceTypeEditor() throws IOException {
+        loadParent("config/serviceTypeEditor.fxml", config);
+    }
+
 }

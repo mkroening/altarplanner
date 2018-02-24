@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="300.0"
+      xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.altarplanner.app.config.ServiceTypeEditor">
+    <ToolBar>
+        <Button mnemonicParsing="false" text="%add" onAction="#addServiceType"/>
+        <Button fx:id="removeButton" mnemonicParsing="false" text="%remove" onAction="#removeServiceType"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button mnemonicParsing="false" text="%saveAndExit" onAction="#loadLauncher"/>
+    </ToolBar>
+    <GridPane hgap="10.0" vgap="10.0" minHeight="-Infinity" minWidth="-Infinity">
+        <columnConstraints>
+            <ColumnConstraints/>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+        </columnConstraints>
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </padding>
+        <Label text="%name"/>
+        <TextField fx:id="nameTextField" GridPane.columnIndex="1"/>
+        <Label text="%maxYear" GridPane.rowIndex="1"/>
+        <TextField fx:id="maxYearTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="%minYear" GridPane.rowIndex="2"/>
+        <TextField fx:id="minYearTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    </GridPane>
+    <ListView fx:id="serviceTypeListView" VBox.vgrow="SOMETIMES"/>
+</VBox>

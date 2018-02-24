@@ -8,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.altarplanner.core.domain.Config;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ResourceBundle;
 
 public class Launcher extends Application {
@@ -28,12 +26,7 @@ public class Launcher extends Application {
 
     @FXML
     public void initialize() {
-        try {
-            this.config = Config.load(new File("config.xml"));
-        } catch (FileNotFoundException e) {
-            System.out.println("File");
-            this.config = new Config();
-        }
+        this.config = Config.load();
     }
 
 }

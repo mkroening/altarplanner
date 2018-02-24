@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.persistence.XStreamFileIO;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,8 +39,14 @@ public class Config {
         XStreamFileIO.write(this, file);
     }
 
-    public static Config load(File file) throws FileNotFoundException {
-        return (Config) XStreamFileIO.read(file);
+    public static Config load() {
+        final File defaultFile = new File("config.xml");
+        try {
+            return (Config) XStreamFileIO.read(defaultFile);
+        } catch (FileNotFoundException e) {
+            LoggerFactory.getLogger(Config.class).info("File not found: \"{}\". Creating new config.", defaultFile);
+            return new Config();
+        }
     }
 
 }

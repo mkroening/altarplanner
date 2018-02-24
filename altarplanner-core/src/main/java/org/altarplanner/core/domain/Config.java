@@ -36,6 +36,10 @@ public class Config {
                         .orElse(null));
     }
 
+    public void removeFromRegularMasses(ServiceType serviceType) {
+        regularMasses.parallelStream().forEach(regularMass -> regularMass.getServiceTypeCount().remove(serviceType));
+    }
+
     public void save() throws FileNotFoundException {
         XStreamFileIO.write(this, new File(pathname));
     }

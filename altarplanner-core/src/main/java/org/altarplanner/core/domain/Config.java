@@ -1,5 +1,6 @@
 package org.altarplanner.core.domain;
 
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,9 +22,9 @@ public class Config {
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.core.locale.locale");
     private static final String pathname = "config.xml";
 
-    @Getter @Setter private List<ServiceType> serviceTypes = new ArrayList<>();
-    @Getter @Setter private List<RegularMass> regularMasses = new ArrayList<>();
-    @Getter @Setter private List<Server> servers = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<ServiceType> serviceTypes = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<RegularMass> regularMasses = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<Server> servers = new ArrayList<>();
 
     public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(DateSpan dateSpan) {
         Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.parallelStream()
@@ -47,7 +48,7 @@ public class Config {
     public static Config load() {
         final File defaultFile = new File(pathname);
         try {
-            return (Config) XStreamFileIO.read(defaultFile);
+            return (Config) XStreamFileIO.read(defaultFile, Config.class);
         } catch (FileNotFoundException e) {
             LoggerFactory.getLogger(Config.class).info("File not found: \"{}\". Creating new config.", defaultFile);
             return new Config();

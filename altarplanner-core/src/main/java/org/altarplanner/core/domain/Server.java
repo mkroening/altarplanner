@@ -1,5 +1,6 @@
 package org.altarplanner.core.domain;
 
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Getter;
 import lombok.Setter;
 import org.altarplanner.core.domain.request.*;
@@ -16,11 +17,11 @@ public class Server {
     @Getter @Setter private String forename;
     @Getter @Setter private String surname;
     @Getter @Setter private int year = LocalDate.now().getYear();
-    @Getter @Setter private List<DateSpan> absences = new ArrayList<>();
-    @Getter @Setter private List<DayOfWeek> weeklyAbsences = new ArrayList<>();
-    @Getter @Setter private List<ServiceType> inabilities = new ArrayList<>();
-    @Getter @Setter private List<LocalDateTime> dateTimeOnWishes = new ArrayList<>();
-    @Getter @Setter private List<Server> pairedWith = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<DateSpan> absences = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<DayOfWeek> weeklyAbsences = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<ServiceType> inabilities = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<LocalDateTime> dateTimeOnWishes = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<Server> pairedWith = new ArrayList<>();
 
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");

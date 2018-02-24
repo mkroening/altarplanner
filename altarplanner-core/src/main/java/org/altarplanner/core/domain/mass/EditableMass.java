@@ -1,5 +1,6 @@
 package org.altarplanner.core.domain.mass;
 
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Getter;
 import lombok.Setter;
 import org.altarplanner.core.domain.ServiceType;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 abstract class EditableMass extends GenericMass {
 
-    @Getter @Setter private Map<ServiceType, Integer> serviceTypeCount;
+    @XStreamImplicit @Getter @Setter private Map<ServiceType, Integer> serviceTypeCount;
 
     EditableMass() {
         super();

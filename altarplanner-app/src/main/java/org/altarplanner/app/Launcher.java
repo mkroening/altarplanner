@@ -45,7 +45,9 @@ public class Launcher extends Application implements ConfigAware {
         Launcher.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("launcher.fxml"), RESOURCE_BUNDLE);
         primaryStage.setTitle("AltarPlanner");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("org/altarplanner/app/style.css");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

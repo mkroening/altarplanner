@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 public class Config {
 
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.core.locale.locale");
+    private static final String pathname = "config.xml";
 
     @Getter @Setter private List<ServiceType> serviceTypes = new ArrayList<>();
     @Getter @Setter private List<RegularMass> regularMasses = new ArrayList<>();
@@ -35,12 +36,12 @@ public class Config {
                         .orElse(null));
     }
 
-    public void save(File file) throws FileNotFoundException {
-        XStreamFileIO.write(this, file);
+    public void save() throws FileNotFoundException {
+        XStreamFileIO.write(this, new File(pathname));
     }
 
     public static Config load() {
-        final File defaultFile = new File("config.xml");
+        final File defaultFile = new File(pathname);
         try {
             return (Config) XStreamFileIO.read(defaultFile);
         } catch (FileNotFoundException e) {

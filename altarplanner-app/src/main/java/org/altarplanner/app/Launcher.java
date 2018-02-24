@@ -1,7 +1,6 @@
 package org.altarplanner.app;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +19,9 @@ public class Launcher extends Application implements ConfigAware {
         FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(location), RESOURCE_BUNDLE);
         Parent root = loader.load();
         Object controller = loader.getController();
+
+        if (config == null)
+            config = Config.load();
 
         if (controller instanceof ConfigAware)
             ((ConfigAware) controller).initConfig(config);
@@ -45,11 +47,6 @@ public class Launcher extends Application implements ConfigAware {
         primaryStage.setTitle("AltarPlanner");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-    }
-
-    @FXML
-    public void initialize() {
-        this.config = Config.load();
     }
 
     @Override

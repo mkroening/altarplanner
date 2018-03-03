@@ -11,6 +11,8 @@
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
-      <Button mnemonicParsing="false" text="%serviceTypeEditor" onAction="#loadServiceTypeEditor" />
+    <Button mnemonicParsing="false" onAction="#loadServiceTypeEditor" text="%serviceTypeEditor" />
+    <Button mnemonicParsing="false" onAction="#loadRegularMassEditor" text="%regularMassEditor" GridPane.rowIndex="1" />
 </GridPane>

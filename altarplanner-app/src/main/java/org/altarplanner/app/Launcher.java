@@ -60,4 +60,8 @@ public class Launcher extends Application implements ConfigAware {
         loadParent("config/serviceTypeEditor.fxml", config);
     }
 
+    public void loadRegularMassEditor() throws IOException {
+        loadParent("config/regularMassEditor.fxml", config);
+    }
+
 }

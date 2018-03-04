@@ -20,11 +20,11 @@ public class Launcher extends Application implements ConfigAware {
         Parent root = loader.load();
         Object controller = loader.getController();
 
-        if (config == null)
-            config = Config.load();
-
-        if (controller instanceof ConfigAware)
+        if (controller instanceof ConfigAware) {
+            if (config == null)
+                config = Config.load();
             ((ConfigAware) controller).initConfig(config);
+        }
 
         String name = controller.getClass().getSimpleName();
         String key = name.substring(0, 1).toLowerCase() + name.substring(1);

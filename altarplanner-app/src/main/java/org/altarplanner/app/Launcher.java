@@ -31,11 +31,11 @@ public class Launcher extends Application implements ConfigAware {
         String title = RESOURCE_BUNDLE.getString(key);
 
         primaryStage.setTitle("AltarPlanner - " + title);
-        primaryStage.getScene().setRoot(root);
         primaryStage.setMinHeight(root.minHeight(-1));
         primaryStage.setMinWidth(root.minWidth(-1));
         primaryStage.setHeight(root.prefHeight(-1));
         primaryStage.setWidth(root.prefWidth(-1));
+        primaryStage.getScene().setRoot(root);
     }
 
     private Config config;

@@ -65,7 +65,8 @@ public class ServiceTypeEditor implements ConfigAware {
                     maxYearTextField.getStyleClass().remove("text-input-error");
                     serviceTypeListView.getItems().sort(ServiceType.getAlphabeticComparator());
                 } catch (NumberFormatException e) {
-                    maxYearTextField.getStyleClass().add("text-input-error");
+                    if (!maxYearTextField.getStyleClass().contains("text-input-error"))
+                        maxYearTextField.getStyleClass().add("text-input-error");
                 }
             }
         });
@@ -77,7 +78,8 @@ public class ServiceTypeEditor implements ConfigAware {
                     minYearTextField.getStyleClass().remove("text-input-error");
                     serviceTypeListView.getItems().sort(ServiceType.getAlphabeticComparator());
                 } catch (NumberFormatException e) {
-                    minYearTextField.getStyleClass().add("text-input-error");
+                    if (!minYearTextField.getStyleClass().contains("text-input-error"))
+                        minYearTextField.getStyleClass().add("text-input-error");
                 }
             }
         });

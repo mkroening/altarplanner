@@ -9,6 +9,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -30,6 +31,13 @@ public class Server {
 
     public String getDesc() {
         return surname + ", " + forename;
+    }
+
+    public static Comparator<Server> getAlphabeticComparator() {
+        return Comparator
+                .comparing(Server::getSurname)
+                .thenComparing(Server::getForename)
+                .thenComparing(Server::getYear);
     }
 
     public boolean isAvailableFor(Service service) {

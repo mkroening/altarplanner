@@ -140,6 +140,7 @@ public class RegularMassEditor implements ConfigAware {
     private void setDisable(boolean disable) {
         applyChanges = false;
         removeButton.setDisable(disable);
+        regularMassListView.setDisable(disable);
         dayOfWeekChoiceBox.setDisable(disable);
         timeTextField.setDisable(disable);
         churchTextField.setDisable(disable);

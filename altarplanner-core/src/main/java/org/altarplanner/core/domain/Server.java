@@ -28,6 +28,10 @@ public class Server {
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
     }
 
+    public String getDesc() {
+        return surname + ", " + forename;
+    }
+
     public boolean isAvailableFor(Service service) {
         LocalDate date = service.getMass().getDate();
         return !inabilities.contains(service.getType())

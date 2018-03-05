@@ -15,8 +15,8 @@ import java.util.stream.Stream;
 
 public class Server {
 
-    @Getter @Setter private String forename;
     @Getter @Setter private String surname;
+    @Getter @Setter private String forename;
     @Getter @Setter private int year = LocalDate.now().getYear();
     @XStreamImplicit @Getter @Setter private List<DateSpan> absences = new ArrayList<>();
     @XStreamImplicit @Getter @Setter private List<DayOfWeek> weeklyAbsences = new ArrayList<>();

@@ -14,7 +14,9 @@ import org.altarplanner.core.domain.mass.RegularMass;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 import java.util.stream.Collectors;
 
 public class RegularMassEditor implements ConfigAware {
@@ -52,7 +54,7 @@ public class RegularMassEditor implements ConfigAware {
             if (newValue != null) {
                 applyChanges = false;
                 dayOfWeekChoiceBox.getSelectionModel().select(newValue.getDay());
-                timeTextField.setText(newValue.getTime().toString());
+                timeTextField.setText(newValue.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                 churchTextField.setText(newValue.getChurch());
                 formTextField.setText(newValue.getForm());
                 selectedRegularMass = newValue;
@@ -73,7 +75,7 @@ public class RegularMassEditor implements ConfigAware {
         timeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 try {
-                    selectedRegularMass.setTime(LocalTime.parse(newValue));
+                    selectedRegularMass.setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                     timeTextField.getStyleClass().remove("text-input-error");
                     regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
                 } catch (DateTimeParseException e) {

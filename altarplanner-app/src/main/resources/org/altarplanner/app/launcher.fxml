@@ -12,7 +12,9 @@
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <Button mnemonicParsing="false" onAction="#loadServiceTypeEditor" text="%serviceTypeEditor" />
     <Button mnemonicParsing="false" onAction="#loadRegularMassEditor" text="%regularMassEditor" GridPane.rowIndex="1" />
+    <Button mnemonicParsing="false" onAction="#loadServerEditor" text="%serverEditor" GridPane.rowIndex="2" />
 </GridPane>

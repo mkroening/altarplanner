@@ -62,6 +62,11 @@ public class Server {
         this.pairedWith.removeAll(servers);
     }
 
+    public void removeFromAllPairs() {
+        pairedWith.parallelStream().forEach(server -> server.pairedWith.remove(this));
+        pairedWith.clear();
+    }
+
     public boolean isAvailableFor(Service service) {
         LocalDate date = service.getMass().getDate();
         return !inabilities.contains(service.getType())

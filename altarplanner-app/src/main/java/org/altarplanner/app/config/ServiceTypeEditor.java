@@ -99,10 +99,10 @@ public class ServiceTypeEditor implements ConfigAware {
     private void setDisable(boolean disable) {
         applyChanges = false;
         removeButton.setDisable(disable);
+        serviceTypeListView.setDisable(disable);
         nameTextField.setDisable(disable);
         maxYearTextField.setDisable(disable);
         minYearTextField.setDisable(disable);
-        serviceTypeListView.setDisable(disable);
         if (disable) {
             nameTextField.clear();
             maxYearTextField.clear();

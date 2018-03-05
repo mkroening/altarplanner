@@ -52,6 +52,16 @@ public class Server {
                 .thenComparing(Server::getYear);
     }
 
+    public void addAllPairedWith(List<Server> servers) {
+        servers.parallelStream().forEach(server -> server.pairedWith.add(this));
+        this.pairedWith.addAll(servers);
+    }
+
+    public void removeAllPairedWith(List<Server> servers) {
+        servers.parallelStream().forEach(server -> server.pairedWith.remove(this));
+        this.pairedWith.removeAll(servers);
+    }
+
     public boolean isAvailableFor(Service service) {
         LocalDate date = service.getMass().getDate();
         return !inabilities.contains(service.getType())

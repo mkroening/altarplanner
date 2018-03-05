@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class Server {
@@ -27,6 +28,17 @@ public class Server {
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
+    }
+
+    public Server(Server server) {
+        this.surname = server.surname;
+        this.forename = server.forename;
+        this.year = server.year;
+        Optional.ofNullable(server.absences).ifPresent(absences -> this.absences.addAll(absences));
+        Optional.ofNullable(server.weeklyAbsences).ifPresent(weeklyAbsences -> this.weeklyAbsences.addAll(weeklyAbsences));
+        Optional.ofNullable(server.inabilities).ifPresent(inabilities -> this.inabilities.addAll(inabilities));
+        Optional.ofNullable(server.dateTimeOnWishes).ifPresent(dateTimeOnWishes -> this.dateTimeOnWishes.addAll(dateTimeOnWishes));
+        Optional.ofNullable(server.pairedWith).ifPresent(pairedWith -> this.pairedWith.addAll(pairedWith));
     }
 
     public String getDesc() {

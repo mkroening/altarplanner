@@ -48,7 +48,9 @@ public class Config {
     public static Config load() {
         final File defaultFile = new File(pathname);
         try {
-            return (Config) XStreamFileIO.read(defaultFile, Config.class);
+            Config config = (Config) XStreamFileIO.read(defaultFile, Config.class);
+            config.servers = config.servers.parallelStream().map(Server::new).collect(Collectors.toList());
+            return config;
         } catch (FileNotFoundException e) {
             LoggerFactory.getLogger(Config.class).info("File not found: \"{}\". Creating new config.", defaultFile);
             return new Config();

@@ -22,7 +22,7 @@ public class ServiceType {
                 maxYear + " - " + minYear + ")";
     }
 
-    public static Comparator<ServiceType> getAlphabeticComparator() {
+    public static Comparator<ServiceType> getNaturalOrderComparator() {
         return Comparator
                 .comparing(ServiceType::getName)
                 .thenComparing(ServiceType::getMaxYear)

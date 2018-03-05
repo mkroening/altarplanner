@@ -54,7 +54,7 @@ public class ServiceTypeEditor implements ConfigAware {
         nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 selectedServiceType.setName(newValue);
-                serviceTypeListView.getItems().sort(ServiceType.getAlphabeticComparator());
+                serviceTypeListView.getItems().sort(ServiceType.getNaturalOrderComparator());
             }
         });
 
@@ -63,7 +63,7 @@ public class ServiceTypeEditor implements ConfigAware {
                 try {
                     selectedServiceType.setMaxYear(Integer.parseInt(newValue));
                     maxYearTextField.getStyleClass().remove("text-input-error");
-                    serviceTypeListView.getItems().sort(ServiceType.getAlphabeticComparator());
+                    serviceTypeListView.getItems().sort(ServiceType.getNaturalOrderComparator());
                 } catch (NumberFormatException e) {
                     if (!maxYearTextField.getStyleClass().contains("text-input-error"))
                         maxYearTextField.getStyleClass().add("text-input-error");
@@ -76,7 +76,7 @@ public class ServiceTypeEditor implements ConfigAware {
                 try {
                     selectedServiceType.setMinYear(Integer.parseInt(newValue));
                     minYearTextField.getStyleClass().remove("text-input-error");
-                    serviceTypeListView.getItems().sort(ServiceType.getAlphabeticComparator());
+                    serviceTypeListView.getItems().sort(ServiceType.getNaturalOrderComparator());
                 } catch (NumberFormatException e) {
                     if (!minYearTextField.getStyleClass().contains("text-input-error"))
                         minYearTextField.getStyleClass().add("text-input-error");
@@ -121,7 +121,7 @@ public class ServiceTypeEditor implements ConfigAware {
         serviceTypeListView.getItems().add(serviceType);
         setDisable(false);
         serviceTypeListView.getSelectionModel().select(serviceType);
-        serviceTypeListView.getItems().sort(ServiceType.getAlphabeticComparator());
+        serviceTypeListView.getItems().sort(ServiceType.getNaturalOrderComparator());
     }
 
     @FXML private void removeServiceType() {

@@ -45,7 +45,7 @@ public class Server {
         return surname + ", " + forename;
     }
 
-    public static Comparator<Server> getAlphabeticComparator() {
+    public static Comparator<Server> getNaturalOrderComparator() {
         return Comparator
                 .comparing(Server::getSurname)
                 .thenComparing(Server::getForename)

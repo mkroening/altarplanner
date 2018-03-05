@@ -66,7 +66,7 @@ public class RegularMassEditor implements ConfigAware {
         dayOfWeekChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                  selectedRegularMass.setDay(newValue);
-                 regularMassListView.getItems().sort(RegularMass.getAlphabeticComparator());
+                 regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
             }
         });
 
@@ -75,7 +75,7 @@ public class RegularMassEditor implements ConfigAware {
                 try {
                     selectedRegularMass.setTime(LocalTime.parse(newValue));
                     timeTextField.getStyleClass().remove("text-input-error");
-                    regularMassListView.getItems().sort(RegularMass.getAlphabeticComparator());
+                    regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
                 } catch (DateTimeParseException e) {
                     if (!timeTextField.getStyleClass().contains("text-input-error"))
                         timeTextField.getStyleClass().add("text-input-error");
@@ -86,7 +86,7 @@ public class RegularMassEditor implements ConfigAware {
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 selectedRegularMass.setChurch(newValue);
-                regularMassListView.getItems().sort(RegularMass.getAlphabeticComparator());
+                regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
             }
         });
 
@@ -159,7 +159,7 @@ public class RegularMassEditor implements ConfigAware {
         regularMassListView.getItems().add(regularMass);
         setDisable(false);
         regularMassListView.getSelectionModel().select(regularMass);
-        regularMassListView.getItems().sort(RegularMass.getAlphabeticComparator());
+        regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
     }
 
     @FXML private void removeRegularMass() {

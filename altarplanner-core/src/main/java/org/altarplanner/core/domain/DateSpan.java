@@ -25,7 +25,7 @@ public class DateSpan {
                 end.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
     }
 
-    public static Comparator<DateSpan> getAlphabeticComparator() {
+    public static Comparator<DateSpan> getNaturalOrderComparator() {
         return Comparator
                 .comparing(DateSpan::getEnd)
                 .reversed()

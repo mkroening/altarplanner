@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.Comparator;
 import java.util.Locale;
@@ -14,7 +16,7 @@ public class RegularMass extends EditableMass {
 
     public String getDesc() {
         return day.getDisplayName(TextStyle.FULL, Locale.getDefault()) + " - " +
-                getTime() + " - " +
+                getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + " - " +
                 getChurch();
     }
 

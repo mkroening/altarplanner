@@ -20,6 +20,13 @@
             <version>${parent.version}</version>
         </dependency>
 
+        <!-- ControlsFX (complementary UI controls) -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>9.0.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>

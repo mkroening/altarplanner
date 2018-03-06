@@ -30,19 +30,22 @@ public class Launcher extends Application implements ConfigAware {
         String key = name.substring(0, 1).toLowerCase() + name.substring(1);
         String title = RESOURCE_BUNDLE.getString(key);
 
+        primaryStage.hide();
         primaryStage.setTitle("AltarPlanner - " + title);
         primaryStage.setMinHeight(root.minHeight(-1));
         primaryStage.setMinWidth(root.minWidth(-1));
         primaryStage.setHeight(root.prefHeight(-1));
         primaryStage.setWidth(root.prefWidth(-1));
         if (primaryStage.getScene() != null) {
+            primaryStage.setX(primaryStage.getX());
+            primaryStage.setY(primaryStage.getY());
             primaryStage.getScene().setRoot(root);
         } else {
             Scene scene = new Scene(root);
             scene.getStylesheets().add("org/altarplanner/app/style.css");
             primaryStage.setScene(scene);
-            primaryStage.show();
         }
+        primaryStage.show();
     }
 
     private Config config;

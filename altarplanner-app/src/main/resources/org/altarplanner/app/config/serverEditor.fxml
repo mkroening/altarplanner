@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.CheckComboBox?>
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.altarplanner.app.config.ServerEditor">
+    <ToolBar>
+        <Button mnemonicParsing="false" text="%add" onAction="#addServer"/>
+        <Button fx:id="removeButton" mnemonicParsing="false" text="%remove" onAction="#removeServer"/>
+        <Pane HBox.hgrow="SOMETIMES"/>
+        <Button mnemonicParsing="false" text="%saveAndExit" onAction="#loadLauncher"/>
+    </ToolBar>
+    <SplitPane dividerPositions="0.3" VBox.vgrow="SOMETIMES">
+        <ListView fx:id="serverListView"/>
+        <VBox minHeight="-Infinity">
+            <GridPane hgap="10.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="-Infinity"/>
+                    <ColumnConstraints hgrow="SOMETIMES"/>
+                </columnConstraints>
+                <Label text="%surname"/>
+                <TextField fx:id="surnameTextField" GridPane.columnIndex="1"/>
+                <Label text="%forename" GridPane.rowIndex="1"/>
+                <TextField fx:id="forenameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label text="%year" GridPane.rowIndex="2"/>
+                <TextField fx:id="yearTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="%weeklyAbsences" GridPane.rowIndex="3"/>
+                <CheckComboBox fx:id="weeklyAbsencesCheckComboBox" prefWidth="${surnameTextField.width}"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label text="%pairedWith" GridPane.rowIndex="4"/>
+                <CheckComboBox fx:id="pairedWithCheckComboBox" prefWidth="${surnameTextField.width}"
+                               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <Label text="%inabilities" GridPane.rowIndex="5"/>
+                <CheckComboBox fx:id="inabilitiesCheckComboBox" prefWidth="${surnameTextField.width}"
+                               GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
+            </GridPane>
+            <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="SOMETIMES">
+                <Tab fx:id="absencesTab" text="%absences">
+                    <VBox>
+                        <ToolBar>
+                            <Button mnemonicParsing="false" text="%add" onAction="#addAbsence"/>
+                            <Button fx:id="removeAbsenceButton" mnemonicParsing="false" text="%remove"
+                                    onAction="#removeAbsence"/>
+                        </ToolBar>
+                        <HBox spacing="10.0" alignment="CENTER_LEFT">
+                            <Label text="%start" minWidth="-Infinity"/>
+                            <DatePicker fx:id="absenceStartDatePicker"/>
+                            <Label text="%end" minWidth="-Infinity"/>
+                            <DatePicker fx:id="absenceEndDatePicker"/>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </padding>
+                        </HBox>
+                        <ListView fx:id="absencesListView" VBox.vgrow="SOMETIMES"/>
+                    </VBox>
+                </Tab>
+                <Tab fx:id="assignmentWishesTab" text="%assignmentWishes">
+                    <VBox>
+                        <ToolBar>
+                            <Button mnemonicParsing="false" text="%add" onAction="#addAssignmentWish"/>
+                            <Button fx:id="removeAssignmentWishButton" mnemonicParsing="false" text="%remove"
+                                    onAction="#removeAssignmentWish"/>
+                        </ToolBar>
+                        <HBox spacing="10.0" alignment="CENTER_LEFT">
+                            <Label text="%date" minWidth="-Infinity"/>
+                            <DatePicker fx:id="assignmentWishDatePicker"/>
+                            <Label text="%time" minWidth="-Infinity"/>
+                            <TextField fx:id="assignmentWishTimeTextField"/>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </padding>
+                        </HBox>
+                        <ListView fx:id="assignmentWishesListView" VBox.vgrow="SOMETIMES"/>
+                    </VBox>
+                </Tab>
+            </TabPane>
+        </VBox>
+    </SplitPane>
+</VBox>

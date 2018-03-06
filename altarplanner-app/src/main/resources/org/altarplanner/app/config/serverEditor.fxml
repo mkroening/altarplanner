@@ -15,7 +15,7 @@
     </ToolBar>
     <SplitPane dividerPositions="0.3" VBox.vgrow="SOMETIMES">
         <ListView fx:id="serverListView"/>
-        <VBox minHeight="-Infinity">
+        <VBox>
             <GridPane hgap="10.0" vgap="10.0">
                 <columnConstraints>
                     <ColumnConstraints minWidth="-Infinity"/>

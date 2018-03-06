@@ -14,10 +14,18 @@
 
     <dependencies>
 
+        <!-- AltarPlanner core (domain, solver, IO) -->
         <dependency>
             <groupId>org.altarplanner</groupId>
             <artifactId>altarplanner-core</artifactId>
             <version>${parent.version}</version>
+        </dependency>
+
+        <!-- ControlsFX (complementary UI controls) -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>9.0.0</version>
         </dependency>
 
     </dependencies>

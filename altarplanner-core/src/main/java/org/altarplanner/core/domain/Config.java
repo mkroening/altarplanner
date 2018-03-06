@@ -1,5 +1,6 @@
 package org.altarplanner.core.domain;
 
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,9 +22,9 @@ public class Config {
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.core.locale.locale");
     private static final String pathname = "config.xml";
 
-    @Getter @Setter private List<ServiceType> serviceTypes = new ArrayList<>();
-    @Getter @Setter private List<RegularMass> regularMasses = new ArrayList<>();
-    @Getter @Setter private List<Server> servers = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<ServiceType> serviceTypes = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<RegularMass> regularMasses = new ArrayList<>();
+    @XStreamImplicit @Getter @Setter private List<Server> servers = new ArrayList<>();
 
     public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(DateSpan dateSpan) {
         Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.parallelStream()
@@ -36,6 +37,10 @@ public class Config {
                         .orElse(null));
     }
 
+    public void removeFromRegularMasses(ServiceType serviceType) {
+        regularMasses.parallelStream().forEach(regularMass -> regularMass.getServiceTypeCount().remove(serviceType));
+    }
+
     public void save() throws FileNotFoundException {
         XStreamFileIO.write(this, new File(pathname));
     }
@@ -43,7 +48,9 @@ public class Config {
     public static Config load() {
         final File defaultFile = new File(pathname);
         try {
-            return (Config) XStreamFileIO.read(defaultFile);
+            Config config = (Config) XStreamFileIO.read(defaultFile, Config.class);
+            config.servers = config.servers.parallelStream().map(Server::new).collect(Collectors.toList());
+            return config;
         } catch (FileNotFoundException e) {
             LoggerFactory.getLogger(Config.class).info("File not found: \"{}\". Creating new config.", defaultFile);
             return new Config();

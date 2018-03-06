@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Comparator;
 import java.util.stream.Stream;
 
 @AllArgsConstructor
@@ -15,6 +18,18 @@ public class DateSpan {
 
     public DateSpan() {
         this.end = this.start = LocalDate.now().plusMonths(1);
+    }
+
+    public String getDesc() {
+        return start.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " - " +
+                end.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+    }
+
+    public static Comparator<DateSpan> getNaturalOrderComparator() {
+        return Comparator
+                .comparing(DateSpan::getEnd)
+                .reversed()
+                .thenComparing(DateSpan::getStart);
     }
 
     public boolean contains(LocalDate date) {

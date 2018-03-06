@@ -12,9 +12,9 @@ import java.util.ResourceBundle;
 
 public class Launcher extends Application implements ConfigAware {
 
-    public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
-
+    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
     private static Stage primaryStage;
+
     public static void loadParent(String location, Config config) throws IOException {
         FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(location), RESOURCE_BUNDLE);
         Parent root = loader.load();

@@ -35,7 +35,14 @@ public class Launcher extends Application implements ConfigAware {
         primaryStage.setMinWidth(root.minWidth(-1));
         primaryStage.setHeight(root.prefHeight(-1));
         primaryStage.setWidth(root.prefWidth(-1));
-        primaryStage.getScene().setRoot(root);
+        if (primaryStage.getScene() != null) {
+            primaryStage.getScene().setRoot(root);
+        } else {
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("org/altarplanner/app/style.css");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
     }
 
     private Config config;
@@ -43,12 +50,7 @@ public class Launcher extends Application implements ConfigAware {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Launcher.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("launcher.fxml"), RESOURCE_BUNDLE);
-        primaryStage.setTitle("AltarPlanner");
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("org/altarplanner/app/style.css");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        loadParent("launcher.fxml", null);
     }
 
     @Override

@@ -34,9 +34,12 @@
             </GridPane>
             <TableView fx:id="serviceTypeCountTableView" editable="true" VBox.vgrow="SOMETIMES">
                 <columns>
-                    <TableColumn fx:id="serviceTypeNameColumn" text="%serviceType" editable="false"/>
-                    <TableColumn fx:id="serviceTypeCountColumn" text="%count"/>
+                    <TableColumn fx:id="serviceTypeNameColumn" text="%serviceType" editable="false" minWidth="200"/>
+                    <TableColumn fx:id="serviceTypeCountColumn" text="%count" minWidth="45"/>
                 </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
             </TableView>
         </VBox>
     </SplitPane>

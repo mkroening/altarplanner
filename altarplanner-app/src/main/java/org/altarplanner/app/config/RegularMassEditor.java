@@ -113,10 +113,6 @@ public class RegularMassEditor implements ConfigAware {
             }
         });
 
-        serviceTypeNameColumn.prefWidthProperty().bind(
-                serviceTypeCountTableView.widthProperty()
-                .subtract(62));
-
         serviceTypeNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDesc()));
 
         serviceTypeCountColumn.setCellFactory(param -> new TextFieldTableCell<>(new DefaultStringConverter()));

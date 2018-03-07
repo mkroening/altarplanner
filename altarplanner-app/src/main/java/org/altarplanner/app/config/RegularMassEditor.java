@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.ConfigAware;
 import org.altarplanner.app.Launcher;
@@ -17,6 +18,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class RegularMassEditor implements ConfigAware {
@@ -60,6 +63,18 @@ public class RegularMassEditor implements ConfigAware {
                 selectedRegularMass = newValue;
                 serviceTypeCountTableView.refresh();
                 applyChanges = true;
+            }
+        });
+
+        dayOfWeekChoiceBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(DayOfWeek object) {
+                return object.getDisplayName(TextStyle.FULL, Locale.getDefault());
+            }
+
+            @Override
+            public DayOfWeek fromString(String string) {
+                return null;
             }
         });
 

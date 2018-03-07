@@ -1,6 +1,5 @@
 package org.altarplanner.core.domain;
 
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,9 +21,9 @@ public class Config {
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.core.locale.locale");
     private static final String pathname = "config.xml";
 
-    @XStreamImplicit @Getter @Setter private List<ServiceType> serviceTypes = new ArrayList<>();
-    @XStreamImplicit @Getter @Setter private List<RegularMass> regularMasses = new ArrayList<>();
-    @XStreamImplicit @Getter @Setter private List<Server> servers = new ArrayList<>();
+    @Getter @Setter private List<ServiceType> serviceTypes = new ArrayList<>();
+    @Getter @Setter private List<RegularMass> regularMasses = new ArrayList<>();
+    @Getter @Setter private List<Server> servers = new ArrayList<>();
 
     public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(DateSpan dateSpan) {
         Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.parallelStream()

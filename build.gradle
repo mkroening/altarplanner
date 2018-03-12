@@ -9,6 +9,6 @@ subprojects {
     targetCompatibility = 1.9
   
     repositories {
-        maven { url "http://repo.maven.apache.org/maven2" }
+        jcenter()
     }
 }

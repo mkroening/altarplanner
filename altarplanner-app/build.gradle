@@ -1,4 +1,4 @@
-description = 'This module contains the GUI written in JavaFX with FXML.'
+description = "This module contains the GUI written in JavaFX with FXML."
 
 dependencies {
     // AltarPlanner core (domain, solver, IO)

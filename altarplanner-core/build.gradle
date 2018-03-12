@@ -1,4 +1,4 @@
-description = 'This project contains the domain specific implementation of the problem, the integration with OptaPlanner and the IO.'
+description = "This project contains the domain specific implementation of the problem, the integration with OptaPlanner and the IO."
 
 apply plugin: 'java-library'
 

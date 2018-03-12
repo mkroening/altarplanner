@@ -1,0 +1,6 @@
+
+description = ''
+dependencies {
+  compile project(':altarplanner-core')
+    compile group: 'org.controlsfx', name: 'controlsfx', version:'9.0.0'
+}

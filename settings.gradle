@@ -1,0 +1,6 @@
+rootProject.name = 'altarplanner'
+include ':altarplanner-core'
+include ':altarplanner-app'
+
+project(':altarplanner-core').projectDir = "$rootDir/altarplanner-core" as File
+project(':altarplanner-app').projectDir = "$rootDir/altarplanner-app" as File

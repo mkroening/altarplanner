@@ -1,3 +1,5 @@
+description = 'AltarPlanner creates altar server schedules. This project is the multiproject parent.'
+
 allprojects  {
     group = 'org.altarplanner'
     version = '1.0-SNAPSHOT'

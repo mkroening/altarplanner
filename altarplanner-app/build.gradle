@@ -1,6 +1,9 @@
 description = ''
 
 dependencies {
+    // AltarPlanner core (domain, solver, IO)
     compile project(':altarplanner-core')
+
+    // ControlsFX (complementary UI controls)
     compile 'org.controlsfx:controlsfx:9.0.0'
 }

@@ -1,5 +1,9 @@
 description = "This module contains the GUI written in JavaFX with FXML."
 
+apply plugin: 'application'
+
+mainClassName = "org.altarplanner.app.Launcher"
+
 dependencies {
     // AltarPlanner core (domain, solver, IO)
     compile project(':altarplanner-core')

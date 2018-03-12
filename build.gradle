@@ -1,4 +1,4 @@
-description = 'AltarPlanner creates altar server schedules. This project is the multiproject parent.'
+description = 'AltarPlanner creates altar server schedules. This project is the multi-project parent.'
 
 allprojects  {
     group = 'org.altarplanner'

@@ -1,12 +1,25 @@
 description = ''
 
 dependencies {
+    // OptaPlanner (constraint solver)
     compile 'org.optaplanner:optaplanner-core:7.6.0.Final'
-    compile 'com.thoughtworks.xstream:xstream:1.4.10'
+
+    // Logback (logging framework)
     compile 'ch.qos.logback:logback-classic:1.2.3'
+
+    // Commons Lang (java.lang utility classes)
     compile 'org.apache.commons:commons-lang3:3.7'
+
+    // XStream (serialize objects to XML and back again)
+    compile 'com.thoughtworks.xstream:xstream:1.4.10'
+
+    // JUnit 5 (testing framework)
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.0-RC1'
+
+    // Optaplanner test support
     testCompile 'org.optaplanner:optaplanner-test:7.6.0.Final'
+
+    // Project Lombok (against boilerplate code)
     compileOnly 'org.projectlombok:lombok:1.16.20'
     annotationProcessor 'org.projectlombok:lombok:1.16.20'
 }

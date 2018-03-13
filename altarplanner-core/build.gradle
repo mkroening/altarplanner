@@ -1,0 +1,27 @@
+description = "This project contains the domain specific implementation of the problem, the integration with OptaPlanner and the IO."
+
+apply plugin: 'java-library'
+
+dependencies {
+    // OptaPlanner (constraint solver)
+    implementation 'org.optaplanner:optaplanner-core:7.6.0.Final'
+
+    // Logback (logging framework)
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+
+    // Commons Lang (java.lang utility classes)
+    implementation 'org.apache.commons:commons-lang3:3.7'
+
+    // XStream (serialize objects to XML and back again)
+    implementation 'com.thoughtworks.xstream:xstream:1.4.10'
+
+    // JUnit 5 (testing framework)
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0-RC1'
+
+    // Optaplanner test support
+    testImplementation 'org.optaplanner:optaplanner-test:7.6.0.Final'
+
+    // Project Lombok (against boilerplate code)
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+    annotationProcessor 'org.projectlombok:lombok:1.16.20'
+}

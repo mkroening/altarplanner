@@ -1,5 +1,5 @@
-# altarplanner
-Java application to create altar server schedules.
+# AltarPlanner
+Application to create altar server schedules.
 ## Quick development start
 Requires Java 9. To build and run from source:
 ```

@@ -8,9 +8,11 @@ import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
+import java.io.Serializable;
+
 @PlanningEntity(movableEntitySelectionFilter = MovableServiceSelectionFilter.class,
         difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
-public class Service {
+public class Service implements Serializable {
 
     @Getter @Setter private int id;
     @Getter private final PlanningMass mass;

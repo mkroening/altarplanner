@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -11,7 +12,7 @@ import java.util.Comparator;
 import java.util.stream.Stream;
 
 @AllArgsConstructor
-public class DateSpan {
+public class DateSpan implements Serializable {
 
     @Getter @Setter private LocalDate start;
     @Getter @Setter private LocalDate end;

@@ -3,10 +3,11 @@ package org.altarplanner.core.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.Year;
 import java.util.Comparator;
 
-public class ServiceType {
+public class ServiceType implements Serializable {
 
     @Getter @Setter private String name;
     @Getter @Setter private int maxYear = Year.now().getValue();

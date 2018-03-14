@@ -3,7 +3,9 @@ package org.altarplanner.core.domain.request;
 import lombok.Getter;
 import org.altarplanner.core.domain.Server;
 
-public abstract class GenericRequest {
+import java.io.Serializable;
+
+public abstract class GenericRequest implements Serializable {
 
     @Getter private final Server server;
 

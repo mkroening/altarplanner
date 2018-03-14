@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.altarplanner.core.domain.request.*;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class Server {
+public class Server implements Serializable {
 
     @Getter @Setter private String surname;
     @Getter @Setter private String forename;

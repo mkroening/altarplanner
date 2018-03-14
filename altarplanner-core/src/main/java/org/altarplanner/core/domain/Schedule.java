@@ -12,13 +12,14 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @PlanningSolution
-public class Schedule {
+public class Schedule implements Serializable {
 
     @Getter private final DateSpan planningWindow;
     @ProblemFactCollectionProperty

@@ -7,7 +7,7 @@ import org.altarplanner.core.domain.Config;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-public abstract class GenericMass implements Serializable {
+abstract class GenericMass implements Serializable {
 
     @Getter @Setter private LocalTime time;
     @Getter @Setter private String church;

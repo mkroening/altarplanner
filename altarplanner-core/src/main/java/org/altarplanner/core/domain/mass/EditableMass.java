@@ -7,7 +7,7 @@ import org.altarplanner.core.domain.ServiceType;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract class EditableMass extends GenericMass {
+public abstract class EditableMass extends GenericMass {
 
     @Getter @Setter private Map<ServiceType, Integer> serviceTypeCount;
 

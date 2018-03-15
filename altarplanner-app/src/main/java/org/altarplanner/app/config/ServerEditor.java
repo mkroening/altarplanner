@@ -4,7 +4,6 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
-import org.altarplanner.app.ConfigAware;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.DateSpan;
@@ -26,7 +25,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ServerEditor implements ConfigAware {
+public class ServerEditor {
 
     @FXML private Button removeButton;
     @FXML private ListView<Server> serverListView;
@@ -283,8 +282,7 @@ public class ServerEditor implements ConfigAware {
 
     }
 
-    @Override
-    public void initConfig(Config config) {
+    public void initData(Config config) {
         this.config = config;
         inabilitiesCheckComboBox.getItems().setAll(config.getServiceTypes());
         serverListView.getItems().setAll(config.getServers());
@@ -369,7 +367,7 @@ public class ServerEditor implements ConfigAware {
         applyListViews();
         config.setServers(serverListView.getItems().parallelStream().collect(Collectors.toList()));
         config.save();
-        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initConfig(config));
+        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(config));
     }
 
     @FXML private void addAbsence() {

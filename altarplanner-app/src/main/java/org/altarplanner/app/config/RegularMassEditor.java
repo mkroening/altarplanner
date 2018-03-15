@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
-import org.altarplanner.app.ConfigAware;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
@@ -22,7 +21,7 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class RegularMassEditor implements ConfigAware {
+public class RegularMassEditor {
 
     @FXML private Button removeButton;
     @FXML private ListView<RegularMass> regularMassListView;
@@ -139,8 +138,7 @@ public class RegularMassEditor implements ConfigAware {
 
     }
 
-    @Override
-    public void initConfig(Config config) {
+    public void initData(Config config) {
         this.config = config;
         regularMassListView.getItems().setAll(config.getRegularMasses());
         serviceTypeCountTableView.getItems().setAll(config.getServiceTypes());
@@ -185,7 +183,7 @@ public class RegularMassEditor implements ConfigAware {
     @FXML private void loadLauncher() throws IOException {
         config.setRegularMasses(regularMassListView.getItems().parallelStream().collect(Collectors.toList()));
         config.save();
-        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initConfig(config));
+        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(config));
     }
 
 }

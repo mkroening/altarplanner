@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-public class Launcher extends Application implements ConfigAware {
+public class Launcher extends Application {
 
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
     private static Stage primaryStage;
@@ -56,28 +56,27 @@ public class Launcher extends Application implements ConfigAware {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Launcher.primaryStage = primaryStage;
-        loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initConfig(Config.load()));
+        loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(Config.load()));
     }
 
-    @Override
-    public void initConfig(Config config) {
+    public void initData(Config config) {
         this.config = config;
     }
 
     public void loadServiceTypeEditor() throws IOException {
-        loadParent("config/serviceTypeEditor.fxml", serviceTypeEditor -> ((ServiceTypeEditor)serviceTypeEditor).initConfig(config));
+        loadParent("config/serviceTypeEditor.fxml", serviceTypeEditor -> ((ServiceTypeEditor)serviceTypeEditor).initData(config));
     }
 
     public void loadRegularMassEditor() throws IOException {
-        loadParent("config/regularMassEditor.fxml", regularMassEditor -> ((RegularMassEditor)regularMassEditor).initConfig(config));
+        loadParent("config/regularMassEditor.fxml", regularMassEditor -> ((RegularMassEditor)regularMassEditor).initData(config));
     }
 
     public void loadServerEditor() throws IOException {
-        loadParent("config/serverEditor.fxml", serverEditor -> ((ServerEditor)serverEditor).initConfig(config));
+        loadParent("config/serverEditor.fxml", serverEditor -> ((ServerEditor)serverEditor).initData(config));
     }
 
     public void loadDiscreteMassGenerator() throws IOException {
-        loadParent("planning/discreteMassGenerator.fxml", discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator).initConfig(config));
+        loadParent("planning/discreteMassGenerator.fxml", discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator).initData(config));
     }
 
 }

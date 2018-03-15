@@ -8,17 +8,22 @@ import javafx.stage.Stage;
 import org.altarplanner.core.domain.Config;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class Launcher extends Application implements ConfigAware {
 
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
     private static Stage primaryStage;
 
-    public static void loadParent(String location, Config config) throws IOException {
+    @SafeVarargs
+    public static void loadParent(String location, Config config, Consumer<Object>... controllerConsumers) throws IOException {
         FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(location), RESOURCE_BUNDLE);
         Parent root = loader.load();
         Object controller = loader.getController();
+
+        List.of(controllerConsumers).forEach(controllerConsumer -> controllerConsumer.accept(controller));
 
         if (controller instanceof ConfigAware) {
             if (config == null)

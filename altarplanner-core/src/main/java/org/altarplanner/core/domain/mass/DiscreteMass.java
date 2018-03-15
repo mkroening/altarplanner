@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Comparator;
 
 public class DiscreteMass extends EditableMass {
 
@@ -25,6 +26,14 @@ public class DiscreteMass extends EditableMass {
         return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " - " +
                 getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + " - " +
                 getChurch();
+    }
+
+    public static Comparator<DiscreteMass> getNaturalOrderComparator() {
+        return Comparator
+                .comparing(DiscreteMass::getDate)
+                .thenComparing(GenericMass::getTime)
+                .thenComparing(GenericMass::getChurch)
+                .thenComparing(GenericMass::getForm);
     }
 
 }

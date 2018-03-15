@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class DiscreteMass extends EditableMass {
 
@@ -17,6 +19,12 @@ public class DiscreteMass extends EditableMass {
     public DiscreteMass(EditableMass editableMass, LocalDate date) {
         super(editableMass);
         this.date = date;
+    }
+
+    public String getDesc() {
+        return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " - " +
+                getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + " - " +
+                getChurch();
     }
 
 }

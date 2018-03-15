@@ -73,4 +73,8 @@ public class Launcher extends Application implements ConfigAware {
         loadParent("config/serverEditor.fxml", config);
     }
 
+    public void loadDiscreteMassGenerator() throws IOException {
+        loadParent("planning/discreteMassGenerator.fxml", config);
+    }
+
 }

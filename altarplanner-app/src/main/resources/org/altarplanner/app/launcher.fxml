@@ -13,6 +13,8 @@
             GridPane.halignment="CENTER"/>
     <Button mnemonicParsing="false" onAction="#loadServerEditor" text="%serverEditor" GridPane.rowIndex="2"
             GridPane.halignment="CENTER"/>
+    <Button mnemonicParsing="false" onAction="#loadDiscreteMassGenerator" text="%discreteMassGenerator" GridPane.rowIndex="3"
+            GridPane.halignment="CENTER"/>
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
     </padding>

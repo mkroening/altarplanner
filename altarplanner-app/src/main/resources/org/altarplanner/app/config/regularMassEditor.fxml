@@ -21,7 +21,7 @@
                     <ColumnConstraints hgrow="SOMETIMES"/>
                 </columnConstraints>
                 <Label text="%dayOfWeek"/>
-                <ChoiceBox fx:id="dayOfWeekChoiceBox" prefWidth="150.0" GridPane.columnIndex="1"/>
+                <ChoiceBox fx:id="dayOfWeekChoiceBox" GridPane.columnIndex="1"/>
                 <Label text="%time" GridPane.rowIndex="1"/>
                 <TextField fx:id="timeTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <Label text="%church" GridPane.rowIndex="2"/>

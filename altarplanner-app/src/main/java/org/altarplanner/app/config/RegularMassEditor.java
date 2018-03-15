@@ -185,7 +185,7 @@ public class RegularMassEditor implements ConfigAware {
     @FXML private void loadLauncher() throws IOException {
         config.setRegularMasses(regularMassListView.getItems().parallelStream().collect(Collectors.toList()));
         config.save();
-        Launcher.loadParent("launcher.fxml", config);
+        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initConfig(config));
     }
 
 }

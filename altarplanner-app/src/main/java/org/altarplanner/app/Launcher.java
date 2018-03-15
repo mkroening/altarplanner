@@ -5,6 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.altarplanner.app.config.RegularMassEditor;
+import org.altarplanner.app.config.ServerEditor;
+import org.altarplanner.app.config.ServiceTypeEditor;
+import org.altarplanner.app.planning.DiscreteMassGenerator;
 import org.altarplanner.core.domain.Config;
 
 import java.io.IOException;
@@ -18,18 +22,12 @@ public class Launcher extends Application implements ConfigAware {
     private static Stage primaryStage;
 
     @SafeVarargs
-    public static void loadParent(String location, Config config, Consumer<Object>... controllerConsumers) throws IOException {
+    public static void loadParent(String location, Consumer<Object>... controllerConsumers) throws IOException {
         FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(location), RESOURCE_BUNDLE);
         Parent root = loader.load();
         Object controller = loader.getController();
 
         List.of(controllerConsumers).forEach(controllerConsumer -> controllerConsumer.accept(controller));
-
-        if (controller instanceof ConfigAware) {
-            if (config == null)
-                config = Config.load();
-            ((ConfigAware) controller).initConfig(config);
-        }
 
         String name = controller.getClass().getSimpleName();
         String key = name.substring(0, 1).toLowerCase() + name.substring(1);
@@ -58,7 +56,7 @@ public class Launcher extends Application implements ConfigAware {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Launcher.primaryStage = primaryStage;
-        loadParent("launcher.fxml", null);
+        loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initConfig(Config.load()));
     }
 
     @Override
@@ -67,19 +65,19 @@ public class Launcher extends Application implements ConfigAware {
     }
 
     public void loadServiceTypeEditor() throws IOException {
-        loadParent("config/serviceTypeEditor.fxml", config);
+        loadParent("config/serviceTypeEditor.fxml", serviceTypeEditor -> ((ServiceTypeEditor)serviceTypeEditor).initConfig(config));
     }
 
     public void loadRegularMassEditor() throws IOException {
-        loadParent("config/regularMassEditor.fxml", config);
+        loadParent("config/regularMassEditor.fxml", regularMassEditor -> ((RegularMassEditor)regularMassEditor).initConfig(config));
     }
 
     public void loadServerEditor() throws IOException {
-        loadParent("config/serverEditor.fxml", config);
+        loadParent("config/serverEditor.fxml", serverEditor -> ((ServerEditor)serverEditor).initConfig(config));
     }
 
     public void loadDiscreteMassGenerator() throws IOException {
-        loadParent("planning/discreteMassGenerator.fxml", config);
+        loadParent("planning/discreteMassGenerator.fxml", discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator).initConfig(config));
     }
 
 }

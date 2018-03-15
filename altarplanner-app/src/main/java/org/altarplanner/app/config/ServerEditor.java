@@ -369,7 +369,7 @@ public class ServerEditor implements ConfigAware {
         applyListViews();
         config.setServers(serverListView.getItems().parallelStream().collect(Collectors.toList()));
         config.save();
-        Launcher.loadParent("launcher.fxml", config);
+        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initConfig(config));
     }
 
     @FXML private void addAbsence() {

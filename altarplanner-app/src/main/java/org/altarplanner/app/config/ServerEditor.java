@@ -108,14 +108,14 @@ public class ServerEditor {
         surnameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyMainChanges) {
                 selectedServer.setSurname(newValue);
-                serverListView.getItems().sort(Server.getNaturalOrderComparator());
+                serverListView.getItems().sort(Server.getDescComparator());
             }
         });
 
         forenameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyMainChanges) {
                 selectedServer.setForename(newValue);
-                serverListView.getItems().sort(Server.getNaturalOrderComparator());
+                serverListView.getItems().sort(Server.getDescComparator());
             }
         });
 
@@ -219,14 +219,14 @@ public class ServerEditor {
         absenceStartDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
                 selectedAbsence.setStart(newValue);
-                absencesListView.getItems().sort(DateSpan.getNaturalOrderComparator());
+                absencesListView.getItems().sort(DateSpan.getDescComparator());
             }
         });
 
         absenceEndDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
                 selectedAbsence.setEnd(newValue);
-                absencesListView.getItems().sort(DateSpan.getNaturalOrderComparator());
+                absencesListView.getItems().sort(DateSpan.getDescComparator());
             }
         });
 
@@ -353,7 +353,7 @@ public class ServerEditor {
         serverListView.getItems().add(server);
         setDisable(false);
         serverListView.getSelectionModel().select(server);
-        serverListView.getItems().sort(Server.getNaturalOrderComparator());
+        serverListView.getItems().sort(Server.getDescComparator());
     }
 
     @FXML private void removeServer() {
@@ -375,7 +375,7 @@ public class ServerEditor {
         absencesListView.getItems().add(absence);
         setAbsenceDisable(false);
         absencesListView.getSelectionModel().select(absence);
-        absencesListView.getItems().sort(DateSpan.getNaturalOrderComparator());
+        absencesListView.getItems().sort(DateSpan.getDescComparator());
     }
 
     @FXML private void removeAbsence() {

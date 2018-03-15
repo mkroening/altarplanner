@@ -23,7 +23,7 @@ public class ServiceType implements Serializable {
                 maxYear + " - " + minYear + ")";
     }
 
-    public static Comparator<ServiceType> getNaturalOrderComparator() {
+    public static Comparator<ServiceType> getDescComparator() {
         return Comparator
                 .comparing(ServiceType::getName)
                 .thenComparing(ServiceType::getMaxYear)

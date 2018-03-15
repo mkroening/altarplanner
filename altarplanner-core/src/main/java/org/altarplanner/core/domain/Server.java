@@ -45,7 +45,7 @@ public class Server implements Serializable {
         return surname + ", " + forename;
     }
 
-    public static Comparator<Server> getNaturalOrderComparator() {
+    public static Comparator<Server> getDescComparator() {
         return Comparator
                 .comparing(Server::getSurname)
                 .thenComparing(Server::getForename)

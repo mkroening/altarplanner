@@ -82,7 +82,7 @@ public class RegularMassEditor {
         dayOfWeekChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                  selectedRegularMass.setDay(newValue);
-                 regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
+                 regularMassListView.getItems().sort(RegularMass.getDescComparator());
             }
         });
 
@@ -91,7 +91,7 @@ public class RegularMassEditor {
                 try {
                     selectedRegularMass.setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                     timeTextField.getStyleClass().remove("text-input-error");
-                    regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
+                    regularMassListView.getItems().sort(RegularMass.getDescComparator());
                 } catch (DateTimeParseException e) {
                     if (!timeTextField.getStyleClass().contains("text-input-error"))
                         timeTextField.getStyleClass().add("text-input-error");
@@ -102,7 +102,7 @@ public class RegularMassEditor {
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 selectedRegularMass.setChurch(newValue);
-                regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
+                regularMassListView.getItems().sort(RegularMass.getDescComparator());
             }
         });
 
@@ -171,7 +171,7 @@ public class RegularMassEditor {
         regularMassListView.getItems().add(regularMass);
         setDisable(false);
         regularMassListView.getSelectionModel().select(regularMass);
-        regularMassListView.getItems().sort(RegularMass.getNaturalOrderComparator());
+        regularMassListView.getItems().sort(RegularMass.getDescComparator());
     }
 
     @FXML private void removeRegularMass() {

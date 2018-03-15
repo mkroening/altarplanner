@@ -20,7 +20,7 @@ public class RegularMass extends EditableMass {
                 getChurch();
     }
 
-    public static Comparator<RegularMass> getNaturalOrderComparator() {
+    public static Comparator<RegularMass> getDescComparator() {
         return Comparator
                 .comparing(RegularMass::getDay)
                 .thenComparing(GenericMass::getTime)

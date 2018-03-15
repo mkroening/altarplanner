@@ -28,7 +28,7 @@ public class DiscreteMass extends EditableMass {
                 getChurch();
     }
 
-    public static Comparator<DiscreteMass> getNaturalOrderComparator() {
+    public static Comparator<DiscreteMass> getDescComparator() {
         return Comparator
                 .comparing(DiscreteMass::getDate)
                 .thenComparing(GenericMass::getTime)

@@ -6,6 +6,8 @@ import org.altarplanner.core.domain.Config;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public abstract class GenericMass implements Serializable {
 
@@ -23,6 +25,11 @@ public abstract class GenericMass implements Serializable {
         this.time = genericMass.time;
         this.church = genericMass.church;
         this.form = genericMass.form;
+    }
+
+    public String getGenericDesc() {
+        return time.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + " - " +
+                church;
     }
 
 }

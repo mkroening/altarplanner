@@ -22,11 +22,11 @@ import java.util.stream.Stream;
 @PlanningSolution
 public class Schedule implements Serializable {
 
-    @Getter private final DateSpan planningWindow;
+    @Getter @Setter private DateSpan planningWindow;
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "serverRange")
-    @Getter private final List<Server> servers;
-    @Getter private final List<PlanningMass> masses;
+    @Getter @Setter private List<Server> servers;
+    @Getter @Setter private List<PlanningMass> masses;
     @PlanningScore
     @Getter @Setter private HardSoftScore score;
 

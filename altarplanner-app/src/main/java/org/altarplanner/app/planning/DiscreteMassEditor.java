@@ -5,11 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DefaultStringConverter;
+import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -161,9 +163,10 @@ public class DiscreteMassEditor {
             setDisable(true);
     }
 
-    @FXML private void planMasses() {
+    @FXML private void planMasses() throws IOException {
         List<DiscreteMass> masses = discreteMassListView.getItems().parallelStream().collect(Collectors.toList());
         Schedule schedule = new Schedule(null, masses, config);
+        Launcher.loadParent("planning/solverView.fxml", solverView -> ((SolverView)solverView).initData(schedule));
     }
 
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
+      xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.altarplanner.app.planning.SolverView">
+    <ToolBar>
+        <Button mnemonicParsing="false" text="Button"/>
+        <Pane HBox.hgrow="SOMETIMES"/>
+        <Label fx:id="scoreLabel"/>
+    </ToolBar>
+    <TableView fx:id="tableView" VBox.vgrow="SOMETIMES">
+        <columns>
+            <TableColumn fx:id="serverColumn" text="%servers"/>
+        </columns>
+    </TableView>
+</VBox>

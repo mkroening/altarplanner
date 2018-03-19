@@ -5,7 +5,7 @@ import org.altarplanner.core.domain.Server;
 
 import java.io.Serializable;
 
-public abstract class GenericRequest implements Serializable {
+abstract class GenericRequest implements Serializable {
 
     @Getter private final Server server;
 

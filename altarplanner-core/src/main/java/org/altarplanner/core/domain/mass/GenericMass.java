@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Comparator;
 
 public abstract class GenericMass implements Serializable {
 
@@ -30,6 +31,13 @@ public abstract class GenericMass implements Serializable {
     public String getGenericDesc() {
         return time.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + " - " +
                 church;
+    }
+
+    public static Comparator<GenericMass> getGenericDescComparator() {
+        return Comparator
+                .comparing(GenericMass::getTime)
+                .thenComparing(GenericMass::getChurch)
+                .thenComparing(GenericMass::getForm);
     }
 
 }

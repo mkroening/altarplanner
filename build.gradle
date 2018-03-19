@@ -1,6 +1,6 @@
 description = "AltarPlanner creates altar server schedules. This project is the multi-project parent."
 
-allprojects  {
+allprojects {
     group = 'org.altarplanner'
     version = '1.0-SNAPSHOT'
 }
@@ -9,7 +9,7 @@ subprojects {
     apply plugin: 'java'
     sourceCompatibility = 1.9
     targetCompatibility = 1.9
-  
+
     repositories {
         jcenter()
     }

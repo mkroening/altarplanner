@@ -15,10 +15,13 @@ import java.io.Serializable;
 public class Service implements Serializable {
 
     @Getter @Setter private int id;
-    @Getter private final PlanningMass mass;
-    @Getter private final ServiceType type;
+    @Getter @Setter private PlanningMass mass;
+    @Getter @Setter private ServiceType type;
     @PlanningVariable(valueRangeProviderRefs = {"serverRange"})
     @Getter @Setter private Server server;
+
+    public Service() {
+    }
 
     public Service(PlanningMass mass, ServiceType type) {
         this.mass = mass;

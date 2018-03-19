@@ -1,17 +1,23 @@
 package org.altarplanner.core.domain.mass;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.altarplanner.core.domain.Service;
+import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@DeepPlanningClone
 public class PlanningMass extends GenericMass {
 
-    @Getter private final List<Service> services;
-    @Getter private final LocalDate date;
+    @Getter @Setter private List<Service> services;
+    @Getter @Setter private LocalDate date;
+
+    public PlanningMass() {
+    }
 
     public PlanningMass(DiscreteMass discreteMass) {
         super(discreteMass);

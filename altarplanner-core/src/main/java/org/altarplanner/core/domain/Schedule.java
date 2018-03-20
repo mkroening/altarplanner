@@ -13,6 +13,7 @@ import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,11 +22,11 @@ import java.util.stream.Stream;
 @PlanningSolution
 public class Schedule implements Serializable {
 
-    @Getter private final DateSpan planningWindow;
+    @Getter @Setter private DateSpan planningWindow;
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "serverRange")
-    @Getter private final List<Server> servers;
-    @Getter private final List<PlanningMass> masses;
+    @Getter @Setter private List<Server> servers;
+    @Getter @Setter private List<PlanningMass> masses;
     @PlanningScore
     @Getter @Setter private HardSoftScore score;
 
@@ -70,6 +71,10 @@ public class Schedule implements Serializable {
                 .forEach(value -> services.get(value).setId(value));
 
         this.servers = config.getServers();
+    }
+
+    public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
+        return masses.parallelStream().collect(Collectors.groupingByConcurrent(PlanningMass::getDate));
     }
 
     public int getAvailableServerCountFor(Service service) {

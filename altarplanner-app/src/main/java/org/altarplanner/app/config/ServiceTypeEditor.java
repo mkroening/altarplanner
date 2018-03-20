@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import org.altarplanner.app.ConfigAware;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
@@ -13,7 +12,7 @@ import org.altarplanner.core.domain.ServiceType;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-public class ServiceTypeEditor implements ConfigAware {
+public class ServiceTypeEditor {
 
     @FXML private Button removeButton;
     @FXML private TextField nameTextField;
@@ -54,7 +53,7 @@ public class ServiceTypeEditor implements ConfigAware {
         nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 selectedServiceType.setName(newValue);
-                serviceTypeListView.getItems().sort(ServiceType.getNaturalOrderComparator());
+                serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
             }
         });
 
@@ -63,7 +62,7 @@ public class ServiceTypeEditor implements ConfigAware {
                 try {
                     selectedServiceType.setMaxYear(Integer.parseInt(newValue));
                     maxYearTextField.getStyleClass().remove("text-input-error");
-                    serviceTypeListView.getItems().sort(ServiceType.getNaturalOrderComparator());
+                    serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
                 } catch (NumberFormatException e) {
                     if (!maxYearTextField.getStyleClass().contains("text-input-error"))
                         maxYearTextField.getStyleClass().add("text-input-error");
@@ -76,7 +75,7 @@ public class ServiceTypeEditor implements ConfigAware {
                 try {
                     selectedServiceType.setMinYear(Integer.parseInt(newValue));
                     minYearTextField.getStyleClass().remove("text-input-error");
-                    serviceTypeListView.getItems().sort(ServiceType.getNaturalOrderComparator());
+                    serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
                 } catch (NumberFormatException e) {
                     if (!minYearTextField.getStyleClass().contains("text-input-error"))
                         minYearTextField.getStyleClass().add("text-input-error");
@@ -86,8 +85,7 @@ public class ServiceTypeEditor implements ConfigAware {
 
     }
 
-    @Override
-    public void initConfig(Config config) {
+    public void initData(Config config) {
         this.config = config;
         serviceTypeListView.getItems().setAll(config.getServiceTypes());
         if (!serviceTypeListView.getItems().isEmpty())
@@ -113,7 +111,7 @@ public class ServiceTypeEditor implements ConfigAware {
     @FXML private void loadLauncher() throws IOException {
         config.setServiceTypes(serviceTypeListView.getItems().parallelStream().collect(Collectors.toList()));
         config.save();
-        Launcher.loadParent("launcher.fxml", config);
+        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(config));
     }
 
     @FXML private void addServiceType() {
@@ -121,7 +119,7 @@ public class ServiceTypeEditor implements ConfigAware {
         serviceTypeListView.getItems().add(serviceType);
         setDisable(false);
         serviceTypeListView.getSelectionModel().select(serviceType);
-        serviceTypeListView.getItems().sort(ServiceType.getNaturalOrderComparator());
+        serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
     }
 
     @FXML private void removeServiceType() {

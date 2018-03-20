@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.*?>
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.altarplanner.app.config.RegularMassEditor">
+      fx:controller="org.altarplanner.app.planning.DiscreteMassEditor">
     <ToolBar>
-        <Button mnemonicParsing="false" text="%add" onAction="#addRegularMass"/>
-        <Button fx:id="removeButton" mnemonicParsing="false" text="%remove" onAction="#removeRegularMass"/>
+        <Button mnemonicParsing="false" text="%add" onAction="#addDiscreteMass"/>
+        <Button fx:id="removeButton" mnemonicParsing="false" text="%remove" onAction="#removeDiscreteMass"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" text="%saveAndExit" onAction="#loadLauncher"/>
+        <Button mnemonicParsing="false" text="%planMasses" onAction="#planMasses"/>
     </ToolBar>
     <SplitPane dividerPositions="0.4" VBox.vgrow="SOMETIMES">
-        <ListView fx:id="regularMassListView"/>
+        <ListView fx:id="discreteMassListView"/>
         <VBox>
             <GridPane hgap="10.0" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0">
                 <columnConstraints>
@@ -21,7 +21,7 @@
                     <ColumnConstraints hgrow="SOMETIMES"/>
                 </columnConstraints>
                 <Label text="%dayOfWeek"/>
-                <ChoiceBox fx:id="dayOfWeekChoiceBox" GridPane.columnIndex="1"/>
+                <DatePicker fx:id="datePicker" GridPane.columnIndex="1"/>
                 <Label text="%time" GridPane.rowIndex="1"/>
                 <TextField fx:id="timeTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <Label text="%church" GridPane.rowIndex="2"/>

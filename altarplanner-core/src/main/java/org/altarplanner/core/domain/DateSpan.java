@@ -26,7 +26,7 @@ public class DateSpan implements Serializable {
                 end.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
     }
 
-    public static Comparator<DateSpan> getNaturalOrderComparator() {
+    public static Comparator<DateSpan> getDescComparator() {
         return Comparator
                 .comparing(DateSpan::getEnd)
                 .reversed()

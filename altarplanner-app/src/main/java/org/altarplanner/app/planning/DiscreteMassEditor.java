@@ -1,31 +1,29 @@
-package org.altarplanner.app.config;
+package org.altarplanner.app.planning;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
+import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.mass.RegularMass;
+import org.altarplanner.core.domain.mass.DiscreteMass;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
-import java.time.format.TextStyle;
-import java.util.Locale;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class RegularMassEditor {
+public class DiscreteMassEditor {
 
     @FXML private Button removeButton;
-    @FXML private ListView<RegularMass> regularMassListView;
-    @FXML private ChoiceBox<DayOfWeek> dayOfWeekChoiceBox;
+    @FXML private ListView<DiscreteMass> discreteMassListView;
+    @FXML private DatePicker datePicker;
     @FXML private TextField timeTextField;
     @FXML private TextField churchTextField;
     @FXML private TextField formTextField;
@@ -34,13 +32,13 @@ public class RegularMassEditor {
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
     private Config config;
-    private RegularMass selectedRegularMass;
+    private DiscreteMass selectedRegularMass;
     private boolean applyChanges;
 
     @FXML private void initialize() {
-        regularMassListView.setCellFactory(param -> new ListCell<>() {
+        discreteMassListView.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(RegularMass item, boolean empty) {
+            protected void updateItem(DiscreteMass item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null) {
@@ -52,10 +50,10 @@ public class RegularMassEditor {
             }
         });
 
-        regularMassListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        discreteMassListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 applyChanges = false;
-                dayOfWeekChoiceBox.getSelectionModel().select(newValue.getDay());
+                datePicker.setValue(newValue.getDate());
                 timeTextField.setText(newValue.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                 churchTextField.setText(newValue.getChurch());
                 formTextField.setText(newValue.getForm());
@@ -65,24 +63,10 @@ public class RegularMassEditor {
             }
         });
 
-        dayOfWeekChoiceBox.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(DayOfWeek object) {
-                return object.getDisplayName(TextStyle.FULL, Locale.getDefault());
-            }
-
-            @Override
-            public DayOfWeek fromString(String string) {
-                return null;
-            }
-        });
-
-        dayOfWeekChoiceBox.getItems().setAll(DayOfWeek.values());
-
-        dayOfWeekChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                 selectedRegularMass.setDay(newValue);
-                 regularMassListView.getItems().sort(RegularMass.getDescComparator());
+                selectedRegularMass.setDate(newValue);
+                discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
             }
         });
 
@@ -91,7 +75,7 @@ public class RegularMassEditor {
                 try {
                     selectedRegularMass.setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                     timeTextField.getStyleClass().remove("text-input-error");
-                    regularMassListView.getItems().sort(RegularMass.getDescComparator());
+                    discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
                 } catch (DateTimeParseException e) {
                     if (!timeTextField.getStyleClass().contains("text-input-error"))
                         timeTextField.getStyleClass().add("text-input-error");
@@ -102,7 +86,7 @@ public class RegularMassEditor {
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 selectedRegularMass.setChurch(newValue);
-                regularMassListView.getItems().sort(RegularMass.getDescComparator());
+                discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
             }
         });
 
@@ -135,15 +119,14 @@ public class RegularMassEditor {
                 }
             }
         });
-
     }
 
-    public void initData(Config config) {
+    public void initData(Config config, List<DiscreteMass> generatedMasses) {
         this.config = config;
-        regularMassListView.getItems().setAll(config.getRegularMasses());
+        discreteMassListView.getItems().setAll(generatedMasses);
         serviceTypeCountTableView.getItems().setAll(config.getServiceTypes());
-        if (!regularMassListView.getItems().isEmpty())
-            regularMassListView.getSelectionModel().selectFirst();
+        if (!discreteMassListView.getItems().isEmpty())
+            discreteMassListView.getSelectionModel().selectFirst();
         else
             setDisable(true);
     }
@@ -151,14 +134,14 @@ public class RegularMassEditor {
     private void setDisable(boolean disable) {
         applyChanges = false;
         removeButton.setDisable(disable);
-        regularMassListView.setDisable(disable);
-        dayOfWeekChoiceBox.setDisable(disable);
+        discreteMassListView.setDisable(disable);
+        datePicker.setDisable(disable);
         timeTextField.setDisable(disable);
         churchTextField.setDisable(disable);
         formTextField.setDisable(disable);
         serviceTypeCountTableView.setEditable(!disable);
         if (disable) {
-            dayOfWeekChoiceBox.getSelectionModel().clearSelection();
+            datePicker.setValue(null);
             timeTextField.clear();
             churchTextField.clear();
             formTextField.clear();
@@ -166,24 +149,24 @@ public class RegularMassEditor {
         }
     }
 
-    @FXML private void addRegularMass() {
-        RegularMass regularMass = new RegularMass();
-        regularMassListView.getItems().add(regularMass);
+    @FXML private void addDiscreteMass() {
+        DiscreteMass discreteMass = new DiscreteMass();
+        discreteMassListView.getItems().add(discreteMass);
         setDisable(false);
-        regularMassListView.getSelectionModel().select(regularMass);
-        regularMassListView.getItems().sort(RegularMass.getDescComparator());
+        discreteMassListView.getSelectionModel().select(discreteMass);
+        discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
     }
 
-    @FXML private void removeRegularMass() {
-        regularMassListView.getItems().remove(selectedRegularMass);
-        if (regularMassListView.getItems().isEmpty())
+    @FXML private void removeDiscreteMass() {
+        discreteMassListView.getItems().remove(selectedRegularMass);
+        if (discreteMassListView.getItems().isEmpty())
             setDisable(true);
     }
 
-    @FXML private void loadLauncher() throws IOException {
-        config.setRegularMasses(regularMassListView.getItems().parallelStream().collect(Collectors.toList()));
-        config.save();
-        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(config));
+    @FXML private void planMasses() throws IOException {
+        List<DiscreteMass> masses = discreteMassListView.getItems().parallelStream().collect(Collectors.toList());
+        Schedule schedule = new Schedule(null, masses, config);
+        Launcher.loadParent("planning/solverView.fxml", solverView -> ((SolverView)solverView).initData(schedule));
     }
 
 }

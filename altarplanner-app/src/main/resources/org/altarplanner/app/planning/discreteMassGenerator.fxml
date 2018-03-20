@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0"
+      xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.altarplanner.app.planning.DiscreteMassGenerator">
+    <ToolBar>
+        <Pane HBox.hgrow="SOMETIMES"/>
+        <Button mnemonicParsing="false" text="%editMasses" onAction="#editMasses"/>
+    </ToolBar>
+    <GridPane hgap="10.0" vgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints minWidth="-Infinity"/>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+        </columnConstraints>
+        <Label text="%start"/>
+        <Label text="%end" GridPane.rowIndex="1"/>
+        <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1"/>
+        <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </padding>
+    </GridPane>
+</VBox>

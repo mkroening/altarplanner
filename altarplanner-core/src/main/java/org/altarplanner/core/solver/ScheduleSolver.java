@@ -7,9 +7,19 @@ import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.impl.score.director.ScoreDirector;
 import org.slf4j.LoggerFactory;
 
+import java.util.function.Consumer;
+
 public class ScheduleSolver {
 
     @Getter private final Solver<Schedule> solver;
+
+    public void addNewBestUiScoreStringConsumer(Consumer<String> consumer) {
+        this.solver.addEventListener(event -> consumer.accept(event.getNewBestScore().toShortString()));
+    }
+
+    public void addNewBestScheduleConsumer(Consumer<Schedule> consumer) {
+        this.solver.addEventListener(event -> consumer.accept(event.getNewBestSolution()));
+    }
 
     public ScheduleSolver() {
         SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("org/altarplanner/core/solver/solverConfig.xml");

@@ -9,6 +9,7 @@
       fx:controller="org.altarplanner.app.planning.SolverView">
     <ToolBar>
         <Pane HBox.hgrow="SOMETIMES"/>
+        <Label text="%score"/>
         <Label fx:id="scoreLabel"/>
     </ToolBar>
     <TableView fx:id="tableView" VBox.vgrow="SOMETIMES">

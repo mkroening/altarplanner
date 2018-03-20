@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
-import org.altarplanner.core.persistence.XStreamFileIO;
+import org.altarplanner.core.io.XStreamFileIO;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;

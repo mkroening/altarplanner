@@ -1,4 +1,4 @@
-package org.altarplanner.core.persistence;
+package org.altarplanner.core.io;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;

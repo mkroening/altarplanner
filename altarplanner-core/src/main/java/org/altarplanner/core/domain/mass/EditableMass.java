@@ -1,7 +1,5 @@
 package org.altarplanner.core.domain.mass;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.altarplanner.core.domain.ServiceType;
 
 import java.util.HashMap;
@@ -9,7 +7,7 @@ import java.util.Map;
 
 public abstract class EditableMass extends GenericMass {
 
-    @Getter @Setter private Map<ServiceType, Integer> serviceTypeCount;
+    private Map<ServiceType, Integer> serviceTypeCount;
 
     EditableMass() {
         super();
@@ -19,6 +17,14 @@ public abstract class EditableMass extends GenericMass {
     EditableMass(EditableMass editableMass) {
         super(editableMass);
         this.serviceTypeCount = editableMass.serviceTypeCount;
+    }
+
+    public Map<ServiceType, Integer> getServiceTypeCount() {
+        return serviceTypeCount;
+    }
+
+    public void setServiceTypeCount(Map<ServiceType, Integer> serviceTypeCount) {
+        this.serviceTypeCount = serviceTypeCount;
     }
 
 }

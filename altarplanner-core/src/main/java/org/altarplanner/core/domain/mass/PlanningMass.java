@@ -1,7 +1,5 @@
 package org.altarplanner.core.domain.mass;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.Service;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
@@ -17,8 +15,8 @@ import java.util.stream.IntStream;
 @DeepPlanningClone
 public class PlanningMass extends GenericMass {
 
-    @Getter @Setter private List<Service> services;
-    @Getter @Setter private LocalDate date;
+    private List<Service> services;
+    private LocalDate date;
 
     public PlanningMass() {
     }
@@ -48,6 +46,22 @@ public class PlanningMass extends GenericMass {
     public String serviceDescOf(Server server) {
         Optional<Service> optionalService = services.parallelStream().filter(service -> service.getServer() == server).findAny();
         return optionalService.map(service -> service.getType().getDesc()).orElse(null);
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
 }

@@ -1,8 +1,5 @@
 package org.altarplanner.core.domain.mass;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -12,7 +9,7 @@ import java.util.Locale;
 
 public class RegularMass extends EditableMass {
 
-    @Getter @Setter private DayOfWeek day = DayOfWeek.SUNDAY;
+    private DayOfWeek day = DayOfWeek.SUNDAY;
 
     public String getDesc() {
         return day.getDisplayName(TextStyle.FULL, Locale.getDefault()) + " - " +
@@ -26,6 +23,14 @@ public class RegularMass extends EditableMass {
                 .thenComparing(GenericMass::getTime)
                 .thenComparing(GenericMass::getChurch)
                 .thenComparing(GenericMass::getForm);
+    }
+
+    public DayOfWeek getDay() {
+        return day;
+    }
+
+    public void setDay(DayOfWeek day) {
+        this.day = day;
     }
 
 }

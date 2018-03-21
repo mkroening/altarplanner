@@ -1,8 +1,5 @@
 package org.altarplanner.core.domain.mass;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -10,7 +7,7 @@ import java.util.Comparator;
 
 public class DiscreteMass extends EditableMass {
 
-    @Getter @Setter private LocalDate date;
+    private LocalDate date;
 
     public DiscreteMass() {
         super();
@@ -34,6 +31,14 @@ public class DiscreteMass extends EditableMass {
                 .thenComparing(GenericMass::getTime)
                 .thenComparing(GenericMass::getChurch)
                 .thenComparing(GenericMass::getForm);
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
 }

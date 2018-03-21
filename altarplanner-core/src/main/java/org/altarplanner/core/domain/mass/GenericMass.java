@@ -1,7 +1,5 @@
 package org.altarplanner.core.domain.mass;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.altarplanner.core.domain.Config;
 
 import java.io.Serializable;
@@ -12,9 +10,9 @@ import java.util.Comparator;
 
 public abstract class GenericMass implements Serializable {
 
-    @Getter @Setter private LocalTime time;
-    @Getter @Setter private String church;
-    @Getter @Setter private String form;
+    private LocalTime time;
+    private String church;
+    private String form;
 
     GenericMass() {
         this.time = LocalTime.of(11, 0);
@@ -38,6 +36,30 @@ public abstract class GenericMass implements Serializable {
                 .comparing(GenericMass::getTime)
                 .thenComparing(GenericMass::getChurch)
                 .thenComparing(GenericMass::getForm);
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public String getChurch() {
+        return church;
+    }
+
+    public void setChurch(String church) {
+        this.church = church;
+    }
+
+    public String getForm() {
+        return form;
+    }
+
+    public void setForm(String form) {
+        this.form = form;
     }
 
 }

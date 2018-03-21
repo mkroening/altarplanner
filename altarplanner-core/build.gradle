@@ -25,8 +25,4 @@ dependencies {
 
     // Optaplanner test support
     testImplementation 'org.optaplanner:optaplanner-test:7.6.0.Final'
-
-    // Project Lombok (against boilerplate code)
-    compileOnly 'org.projectlombok:lombok:1.16.20'
-    annotationProcessor 'org.projectlombok:lombok:1.16.20'
 }

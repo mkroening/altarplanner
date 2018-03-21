@@ -1,7 +1,5 @@
 package org.altarplanner.core.domain;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.solver.MovableServiceSelectionFilter;
 import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
@@ -15,11 +13,11 @@ import java.util.Comparator;
         difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
 public class Service implements Serializable {
 
-    @Getter @Setter private int id;
-    @Getter @Setter private PlanningMass mass;
-    @Getter @Setter private ServiceType type;
+    private int id;
+    private PlanningMass mass;
+    private ServiceType type;
     @PlanningVariable(valueRangeProviderRefs = {"serverRange"})
-    @Getter @Setter private Server server;
+    private Server server;
 
     public Service() {
     }
@@ -37,6 +35,38 @@ public class Service implements Serializable {
         return Comparator
                 .comparing(Service::getServer, Server.getDescComparator())
                 .thenComparing(service -> service.getType().getName());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public PlanningMass getMass() {
+        return mass;
+    }
+
+    public void setMass(PlanningMass mass) {
+        this.mass = mass;
+    }
+
+    public ServiceType getType() {
+        return type;
+    }
+
+    public void setType(ServiceType type) {
+        this.type = type;
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
     }
 
 }

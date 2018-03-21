@@ -1,7 +1,5 @@
 package org.altarplanner.core.domain;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.altarplanner.core.domain.request.*;
 
 import java.io.Serializable;
@@ -16,14 +14,14 @@ import java.util.stream.Stream;
 
 public class Server implements Serializable {
 
-    @Getter @Setter private String surname;
-    @Getter @Setter private String forename;
-    @Getter @Setter private int year = LocalDate.now().getYear();
-    @Getter @Setter private List<DateSpan> absences = new ArrayList<>();
-    @Getter @Setter private List<DayOfWeek> weeklyAbsences = new ArrayList<>();
-    @Getter @Setter private List<ServiceType> inabilities = new ArrayList<>();
-    @Getter @Setter private List<LocalDateTime> dateTimeOnWishes = new ArrayList<>();
-    @Getter @Setter private List<Server> pairedWith = new ArrayList<>();
+    private String surname;
+    private String forename;
+    private int year = LocalDate.now().getYear();
+    private List<DateSpan> absences = new ArrayList<>();
+    private List<DayOfWeek> weeklyAbsences = new ArrayList<>();
+    private List<ServiceType> inabilities = new ArrayList<>();
+    private List<LocalDateTime> dateTimeOnWishes = new ArrayList<>();
+    private List<Server> pairedWith = new ArrayList<>();
 
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");
@@ -99,6 +97,70 @@ public class Server implements Serializable {
     public Stream<PairRequest> getPairRequestParallelStream() {
         return pairedWith.parallelStream()
                 .map(pairedWith -> new PairRequest(this, pairedWith));
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getForename() {
+        return forename;
+    }
+
+    public void setForename(String forename) {
+        this.forename = forename;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public List<DateSpan> getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(List<DateSpan> absences) {
+        this.absences = absences;
+    }
+
+    public List<DayOfWeek> getWeeklyAbsences() {
+        return weeklyAbsences;
+    }
+
+    public void setWeeklyAbsences(List<DayOfWeek> weeklyAbsences) {
+        this.weeklyAbsences = weeklyAbsences;
+    }
+
+    public List<ServiceType> getInabilities() {
+        return inabilities;
+    }
+
+    public void setInabilities(List<ServiceType> inabilities) {
+        this.inabilities = inabilities;
+    }
+
+    public List<LocalDateTime> getDateTimeOnWishes() {
+        return dateTimeOnWishes;
+    }
+
+    public void setDateTimeOnWishes(List<LocalDateTime> dateTimeOnWishes) {
+        this.dateTimeOnWishes = dateTimeOnWishes;
+    }
+
+    public List<Server> getPairedWith() {
+        return pairedWith;
+    }
+
+    public void setPairedWith(List<Server> pairedWith) {
+        this.pairedWith = pairedWith;
     }
 
 }

@@ -1,9 +1,5 @@
 package org.altarplanner.core.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,14 +7,19 @@ import java.time.format.FormatStyle;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-@AllArgsConstructor
 public class DateSpan implements Serializable {
 
-    @Getter @Setter private LocalDate start;
-    @Getter @Setter private LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
 
     public DateSpan() {
         this.end = this.start = LocalDate.now().plusMonths(1);
+    }
+
+    @java.beans.ConstructorProperties({"start", "end"})
+    public DateSpan(LocalDate start, LocalDate end) {
+        this.start = start;
+        this.end = end;
     }
 
     public String getDesc() {
@@ -39,6 +40,22 @@ public class DateSpan implements Serializable {
 
     public Stream<LocalDate> getDateParallelStream() {
         return start.datesUntil(end.plusDays(1)).parallel();
+    }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+    public void setStart(LocalDate start) {
+        this.start = start;
+    }
+
+    public LocalDate getEnd() {
+        return end;
+    }
+
+    public void setEnd(LocalDate end) {
+        this.end = end;
     }
 
 }

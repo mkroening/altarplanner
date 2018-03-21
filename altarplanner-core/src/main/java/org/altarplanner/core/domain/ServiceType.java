@@ -1,17 +1,14 @@
 package org.altarplanner.core.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.time.Year;
 import java.util.Comparator;
 
 public class ServiceType implements Serializable {
 
-    @Getter @Setter private String name;
-    @Getter @Setter private int maxYear = Year.now().getValue();
-    @Getter @Setter private int minYear = Year.now().getValue() - 5;
+    private String name;
+    private int maxYear = Year.now().getValue();
+    private int minYear = Year.now().getValue() - 5;
 
     public ServiceType() {
         this.name = Config.RESOURCE_BUNDLE.getString("serviceType.name");
@@ -28,6 +25,30 @@ public class ServiceType implements Serializable {
                 .comparing(ServiceType::getName)
                 .thenComparing(ServiceType::getMaxYear)
                 .thenComparing(ServiceType::getMinYear);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getMaxYear() {
+        return maxYear;
+    }
+
+    public void setMaxYear(int maxYear) {
+        this.maxYear = maxYear;
+    }
+
+    public int getMinYear() {
+        return minYear;
+    }
+
+    public void setMinYear(int minYear) {
+        this.minYear = minYear;
     }
 
 }

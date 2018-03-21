@@ -1,8 +1,5 @@
 package org.altarplanner.core.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.io.XML;
@@ -16,15 +13,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@NoArgsConstructor
 public class Config implements Serializable {
 
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.core.locale.locale");
     private static final String pathname = "config.xml";
 
-    @Getter @Setter private List<ServiceType> serviceTypes = new ArrayList<>();
-    @Getter @Setter private List<RegularMass> regularMasses = new ArrayList<>();
-    @Getter @Setter private List<Server> servers = new ArrayList<>();
+    private List<ServiceType> serviceTypes = new ArrayList<>();
+    private List<RegularMass> regularMasses = new ArrayList<>();
+    private List<Server> servers = new ArrayList<>();
+
+    public Config() {
+    }
 
     public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(DateSpan dateSpan) {
         Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.parallelStream()
@@ -55,6 +54,30 @@ public class Config implements Serializable {
             LoggerFactory.getLogger(Config.class).info("File not found: \"{}\". Creating new config.", defaultFile);
             return new Config();
         }
+    }
+
+    public List<ServiceType> getServiceTypes() {
+        return serviceTypes;
+    }
+
+    public void setServiceTypes(List<ServiceType> serviceTypes) {
+        this.serviceTypes = serviceTypes;
+    }
+
+    public List<RegularMass> getRegularMasses() {
+        return regularMasses;
+    }
+
+    public void setRegularMasses(List<RegularMass> regularMasses) {
+        this.regularMasses = regularMasses;
+    }
+
+    public List<Server> getServers() {
+        return servers;
+    }
+
+    public void setServers(List<Server> servers) {
+        this.servers = servers;
     }
 
 }

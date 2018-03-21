@@ -1,7 +1,5 @@
 package org.altarplanner.core.domain;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
@@ -22,13 +20,13 @@ import java.util.stream.Stream;
 @PlanningSolution
 public class Schedule implements Serializable {
 
-    @Getter @Setter private DateSpan planningWindow;
+    private DateSpan planningWindow;
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "serverRange")
-    @Getter @Setter private List<Server> servers;
-    @Getter @Setter private List<PlanningMass> masses;
+    private List<Server> servers;
+    private List<PlanningMass> masses;
     @PlanningScore
-    @Getter @Setter private HardSoftScore score;
+    private HardSoftScore score;
 
     public Schedule() {
         this.planningWindow = new DateSpan();
@@ -124,6 +122,38 @@ public class Schedule implements Serializable {
         return servers.parallelStream()
                 .flatMap(Server::getPairRequestParallelStream)
                 .collect(Collectors.toList());
+    }
+
+    public DateSpan getPlanningWindow() {
+        return planningWindow;
+    }
+
+    public void setPlanningWindow(DateSpan planningWindow) {
+        this.planningWindow = planningWindow;
+    }
+
+    public List<Server> getServers() {
+        return servers;
+    }
+
+    public void setServers(List<Server> servers) {
+        this.servers = servers;
+    }
+
+    public List<PlanningMass> getMasses() {
+        return masses;
+    }
+
+    public void setMasses(List<PlanningMass> masses) {
+        this.masses = masses;
+    }
+
+    public HardSoftScore getScore() {
+        return score;
+    }
+
+    public void setScore(HardSoftScore score) {
+        this.score = score;
     }
 
 }

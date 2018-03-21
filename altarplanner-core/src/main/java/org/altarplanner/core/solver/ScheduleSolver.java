@@ -1,6 +1,5 @@
 package org.altarplanner.core.solver;
 
-import lombok.Getter;
 import org.altarplanner.core.domain.Schedule;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
@@ -11,7 +10,7 @@ import java.util.function.Consumer;
 
 public class ScheduleSolver {
 
-    @Getter private final Solver<Schedule> solver;
+    private final Solver<Schedule> solver;
 
     public void addNewBestUiScoreStringConsumer(Consumer<String> consumer) {
         this.solver.addEventListener(event -> consumer.accept(event.getNewBestScore().toShortString()));
@@ -55,6 +54,10 @@ public class ScheduleSolver {
         }
 
         return bestSolution;
+    }
+
+    public Solver<Schedule> getSolver() {
+        return solver;
     }
 
 }

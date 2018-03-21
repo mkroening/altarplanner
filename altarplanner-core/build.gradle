@@ -21,6 +21,7 @@ dependencies {
     // Simple Java API for ODF (working with Open Document Format documents)
     implementation('org.apache.odftoolkit:simple-odf:0.8.2-incubating') {
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'log4j', module: 'log4j'
     }
 
     // JUnit Jupiter (testing framework)

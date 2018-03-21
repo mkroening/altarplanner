@@ -7,6 +7,8 @@ import org.altarplanner.core.domain.Service;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +33,16 @@ public class PlanningMass extends GenericMass {
                 .collect(Collectors.toList());
 
         this.date = discreteMass.getDate();
+    }
+
+    public String getDateTimeString() {
+        return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " - " +
+                getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
+    }
+
+    public String getChurchFormString() {
+        return getChurch() + " - " +
+                getForm();
     }
 
     public String serviceDescOf(Server server) {

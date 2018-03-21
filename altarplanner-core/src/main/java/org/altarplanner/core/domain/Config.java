@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
-import org.altarplanner.core.persistence.XStreamFileIO;
+import org.altarplanner.core.io.XML;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -42,13 +42,13 @@ public class Config implements Serializable {
     }
 
     public void save() throws FileNotFoundException {
-        XStreamFileIO.write(this, new File(pathname));
+        XML.write(this, new File(pathname));
     }
 
     public static Config load() {
         final File defaultFile = new File(pathname);
         try {
-            Config config = (Config) XStreamFileIO.read(defaultFile, Config.class);
+            Config config = (Config) XML.read(defaultFile, Config.class);
             config.servers = config.servers.parallelStream().map(Server::new).collect(Collectors.toList());
             return config;
         } catch (FileNotFoundException e) {

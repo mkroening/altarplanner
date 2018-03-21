@@ -15,6 +15,11 @@ dependencies {
     // XStream (serialize objects to XML and back again)
     implementation 'com.thoughtworks.xstream:xstream:1.4.10'
 
+    // Simple Java API for ODF (working with Open Document Format documents)
+    implementation('org.apache.odftoolkit:simple-odf:0.8.2-incubating') {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+
     // JUnit 5 (testing framework)
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0-RC1'
 

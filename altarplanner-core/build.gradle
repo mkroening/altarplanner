@@ -20,7 +20,7 @@ dependencies {
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
     }
 
-    // JUnit 5 (testing framework)
+    // JUnit Jupiter (testing framework)
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
 

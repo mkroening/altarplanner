@@ -39,6 +39,8 @@ public class Launcher extends Application {
         primaryStage.setMinWidth(root.minWidth(-1));
         primaryStage.setHeight(root.prefHeight(-1));
         primaryStage.setWidth(root.prefWidth(-1));
+        primaryStage.setMaxHeight(root.maxHeight(-1));
+        primaryStage.setMaxWidth(root.maxWidth(-1));
         if (primaryStage.getScene() != null) {
             primaryStage.setX(primaryStage.getX());
             primaryStage.setY(primaryStage.getY());

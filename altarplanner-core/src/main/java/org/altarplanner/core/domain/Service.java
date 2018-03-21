@@ -9,6 +9,7 @@ import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 @PlanningEntity(movableEntitySelectionFilter = MovableServiceSelectionFilter.class,
         difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
@@ -26,6 +27,16 @@ public class Service implements Serializable {
     public Service(PlanningMass mass, ServiceType type) {
         this.mass = mass;
         this.type = type;
+    }
+
+    public String getDesc() {
+        return server.getDesc() + " (" + type.getName() + ")";
+    }
+
+    public static Comparator<Service> getDescComparator() {
+        return Comparator
+                .comparing(Service::getServer, Server.getDescComparator())
+                .thenComparing(service -> service.getType().getName());
     }
 
 }

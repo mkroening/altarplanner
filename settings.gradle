@@ -1,3 +1,4 @@
 rootProject.name = 'altarplanner'
 include ':altarplanner-core'
 include ':altarplanner-app'
+enableFeaturePreview('IMPROVED_POM_SUPPORT')

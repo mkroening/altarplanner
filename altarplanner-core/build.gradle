@@ -3,8 +3,11 @@ description = "This project contains the domain specific implementation of the p
 apply plugin: 'java-library'
 
 dependencies {
-    // OptaPlanner (constraint solver)
-    implementation 'org.optaplanner:optaplanner-core:7.6.0.Final'
+    // OptaPlanner Bill Of Materials
+    implementation 'org.optaplanner:optaplanner-bom:7.6.0.Final'
+
+    // OptaPlanner core (constraint solver)
+    implementation 'org.optaplanner:optaplanner-core'
 
     // Logback (logging framework)
     implementation 'ch.qos.logback:logback-classic:1.2.3'
@@ -24,8 +27,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
 
-    // Optaplanner test support
-    testImplementation 'org.optaplanner:optaplanner-test:7.6.0.Final'
+    // Optaplanner test (testing framework support)
+    testImplementation 'org.optaplanner:optaplanner-test'
 }
 
 test {

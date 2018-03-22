@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.*?>
-<GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" maxHeight="-Infinity" maxWidth="-Infinity"
-          hgap="10.0" vgap="10.0" alignment="CENTER"
-          xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="org.altarplanner.app.Launcher">
-    <Button mnemonicParsing="false" onAction="#loadServiceTypeEditor" text="%serviceTypeEditor"
-            GridPane.halignment="CENTER"/>
-    <Button mnemonicParsing="false" onAction="#loadRegularMassEditor" text="%regularMassEditor" GridPane.rowIndex="1"
-            GridPane.halignment="CENTER"/>
-    <Button mnemonicParsing="false" onAction="#loadServerEditor" text="%serverEditor" GridPane.rowIndex="2"
-            GridPane.halignment="CENTER"/>
-    <Button mnemonicParsing="false" onAction="#loadDiscreteMassGenerator" text="%discreteMassGenerator" GridPane.rowIndex="3"
-            GridPane.halignment="CENTER"/>
-    <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-    </padding>
-</GridPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="200.0" maxHeight="-Infinity" maxWidth="-Infinity"
+      alignment="CENTER" spacing="10.0"
+      xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.altarplanner.app.Launcher">
+    <Label text="%altarplanner">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <Separator/>
+    <Label text="%config" underline="true">
+        <font>
+            <Font size="16"/>
+        </font>
+    </Label>
+    <Button mnemonicParsing="false" text="%serviceTypeEditor" onAction="#loadServiceTypeEditor"/>
+    <Button mnemonicParsing="false" text="%regularMassEditor" onAction="#loadRegularMassEditor"/>
+    <Button mnemonicParsing="false" text="%serverEditor" onAction="#loadServerEditor"/>
+    <Separator/>
+    <Label text="%scheduleCreation" underline="true">
+        <font>
+            <Font size="16"/>
+        </font>
+    </Label>
+    <Button mnemonicParsing="false" text="%discreteMassGenerator" onAction="#loadDiscreteMassGenerator"/>
+</VBox>

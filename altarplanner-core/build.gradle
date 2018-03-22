@@ -3,33 +3,43 @@ description = "This project contains the domain specific implementation of the p
 apply plugin: 'java-library'
 
 dependencies {
-    // OptaPlanner Bill Of Materials
-    implementation 'org.optaplanner:optaplanner-bom:7.6.0.Final'
+    implementation('org.optaplanner:optaplanner-bom:7.6.0.Final') {
+        because 'we depend on optaplanner projects'
+    }
 
-    // OptaPlanner core (constraint solver)
-    implementation 'org.optaplanner:optaplanner-core'
+    implementation('org.optaplanner:optaplanner-core') {
+        because 'we require a constraint solver'
+    }
 
-    // Logback (logging framework)
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation('ch.qos.logback:logback-classic:1.2.3') {
+        because 'we need a SLF4J binding for logging'
+    }
 
-    // Commons Lang (java.lang utility classes)
-    implementation 'org.apache.commons:commons-lang3:3.7'
+    implementation('org.apache.commons:commons-lang3:3.7') {
+        because 'we use the CompareToBuilder'
+    }
 
-    // XStream (serialize objects to XML and back again)
-    implementation 'com.thoughtworks.xstream:xstream:1.4.10'
+    implementation('com.thoughtworks.xstream:xstream:1.4.10') {
+        because 'we have to serialize objects to disk and back again'
+    }
 
-    // Simple Java API for ODF (working with Open Document Format documents)
     implementation('org.apache.odftoolkit:simple-odf:0.8.2-incubating') {
+        because 'we export the final schedule to a spreadsheet'
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
         exclude group: 'log4j', module: 'log4j'
     }
 
-    // JUnit Jupiter (testing framework)
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0') {
+        because 'we require a testing API for writing tests'
+    }
 
-    // Optaplanner test (testing framework support)
-    testImplementation 'org.optaplanner:optaplanner-test'
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0') {
+        because 'a test engine implementation is required for running the tests'
+    }
+
+    testImplementation('org.optaplanner:optaplanner-test') {
+        because 'we use this JUnit integration to test score rules in DRL'
+    }
 }
 
 test {

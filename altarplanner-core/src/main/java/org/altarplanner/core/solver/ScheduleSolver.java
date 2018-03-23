@@ -4,12 +4,14 @@ import org.altarplanner.core.domain.Schedule;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.core.impl.score.director.ScoreDirector;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
 
 public class ScheduleSolver {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(ScheduleSolver.class);
     private final Solver<Schedule> solver;
 
     public void addNewBestUiScoreStringConsumer(Consumer<String> consumer) {
@@ -25,7 +27,7 @@ public class ScheduleSolver {
         this.solver = solverFactory.buildSolver();
 
         this.solver.addEventListener(bestSolutionChangedEvent ->
-                LoggerFactory.getLogger(getClass()).info(
+                LOGGER.info(
                         "New best score ({})",
                         bestSolutionChangedEvent.getNewBestScore()));
     }
@@ -36,16 +38,16 @@ public class ScheduleSolver {
         // Log constraint break down
         try (ScoreDirector<Schedule> guiScoreDirector = solver.getScoreDirectorFactory().buildScoreDirector()) {
             guiScoreDirector.setWorkingSolution(bestSolution);
-            LoggerFactory.getLogger(getClass()).debug("Constraint break down: score ({})", guiScoreDirector.calculateScore());
+            LOGGER.debug("Constraint break down: score ({})", guiScoreDirector.calculateScore());
 
             guiScoreDirector.getConstraintMatchTotals().forEach(constraintMatchTotal -> {
-                LoggerFactory.getLogger(getClass()).debug(
+                LOGGER.debug(
                         "Constraint: {} ({})",
                         constraintMatchTotal.getConstraintName(),
                         constraintMatchTotal.getScoreTotal());
 
                 constraintMatchTotal.getConstraintMatchSet().forEach(constraintMatch ->
-                        LoggerFactory.getLogger(getClass()).debug(
+                        LOGGER.debug(
                                 "Match ({}): {}",
                                 constraintMatch.getConstraintName(),
                                 constraintMatch.getJustificationList())

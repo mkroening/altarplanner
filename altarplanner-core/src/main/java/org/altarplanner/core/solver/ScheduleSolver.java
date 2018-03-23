@@ -58,8 +58,4 @@ public class ScheduleSolver {
         return bestSolution;
     }
 
-    public Solver<Schedule> getSolver() {
-        return solver;
-    }
-
 }

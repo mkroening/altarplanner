@@ -16,7 +16,6 @@ public class DateSpan implements Serializable {
         this.end = this.start = LocalDate.now().plusMonths(1);
     }
 
-    @java.beans.ConstructorProperties({"start", "end"})
     public DateSpan(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;

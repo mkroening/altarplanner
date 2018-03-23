@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
 import java.io.*;
+import java.util.Optional;
 
 public class XML {
 
@@ -24,6 +25,7 @@ public class XML {
 
     public static void write(Object obj, File outputFile) throws FileNotFoundException {
         XStream xStream = makeXStream(obj.getClass());
+        Optional.ofNullable(outputFile.getParentFile()).ifPresent(File::mkdirs);
         Writer writer = new OutputStreamWriter(new FileOutputStream(outputFile));
         xStream.toXML(obj, writer);
     }

@@ -168,4 +168,16 @@ public class DiscreteMassEditor {
         Launcher.loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(schedule));
     }
 
+    @FXML private void generateFromRegularMasses() throws IOException {
+        Launcher.loadParent("planning/discreteMassGenerator.fxml", false,
+                discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator)
+                        .initData(config, discreteMasses -> {
+                            discreteMassListView.getItems().addAll(discreteMasses);
+                            setDisable(false);
+                            if (selectedDiscreteMass == null)
+                                discreteMassListView.getSelectionModel().selectFirst();
+                            discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
+                        }));
+    }
+
 }

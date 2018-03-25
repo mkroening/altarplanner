@@ -9,6 +9,7 @@
     <ToolBar>
         <Button mnemonicParsing="false" text="%add" onAction="#addDiscreteMass"/>
         <Button fx:id="removeButton" mnemonicParsing="false" text="%remove" onAction="#removeDiscreteMass"/>
+        <Button mnemonicParsing="false" text="%generateFromRegularMasses" onAction="#generateFromRegularMasses"/>
         <Pane HBox.hgrow="ALWAYS"/>
         <Button mnemonicParsing="false" text="%planMasses" onAction="#planMasses"/>
     </ToolBar>

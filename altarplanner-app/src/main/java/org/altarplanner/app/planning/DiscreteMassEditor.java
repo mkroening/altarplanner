@@ -32,7 +32,7 @@ public class DiscreteMassEditor {
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
     private Config config;
-    private DiscreteMass selectedRegularMass;
+    private DiscreteMass selectedDiscreteMass;
     private boolean applyChanges;
 
     @FXML private void initialize() {
@@ -57,7 +57,7 @@ public class DiscreteMassEditor {
                 timeTextField.setText(newValue.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                 churchTextField.setText(newValue.getChurch());
                 formTextField.setText(newValue.getForm());
-                selectedRegularMass = newValue;
+                selectedDiscreteMass = newValue;
                 serviceTypeCountTableView.refresh();
                 applyChanges = true;
             }
@@ -65,7 +65,7 @@ public class DiscreteMassEditor {
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedRegularMass.setDate(newValue);
+                selectedDiscreteMass.setDate(newValue);
                 discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
             }
         });
@@ -73,7 +73,7 @@ public class DiscreteMassEditor {
         timeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 try {
-                    selectedRegularMass.setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
+                    selectedDiscreteMass.setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                     timeTextField.getStyleClass().remove("text-input-error");
                     discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
                 } catch (DateTimeParseException e) {
@@ -85,14 +85,14 @@ public class DiscreteMassEditor {
 
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedRegularMass.setChurch(newValue);
+                selectedDiscreteMass.setChurch(newValue);
                 discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
             }
         });
 
         formTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedRegularMass.setForm(newValue);
+                selectedDiscreteMass.setForm(newValue);
             }
         });
 
@@ -102,7 +102,7 @@ public class DiscreteMassEditor {
 
         serviceTypeCountColumn.setCellValueFactory(param -> {
             if (applyChanges)
-                return new SimpleStringProperty(String.valueOf(selectedRegularMass.getServiceTypeCount().getOrDefault(param.getValue(), 0)));
+                return new SimpleStringProperty(String.valueOf(selectedDiscreteMass.getServiceTypeCount().getOrDefault(param.getValue(), 0)));
             else
                 return null;
         });
@@ -111,9 +111,9 @@ public class DiscreteMassEditor {
             if (applyChanges) {
                 String newValue = event.getNewValue();
                 if ("".equals(newValue) || "0".equals(newValue)) {
-                    selectedRegularMass.getServiceTypeCount().remove(event.getRowValue());
+                    selectedDiscreteMass.getServiceTypeCount().remove(event.getRowValue());
                 } else try {
-                    selectedRegularMass.getServiceTypeCount().put(event.getRowValue(), Integer.parseInt(newValue));
+                    selectedDiscreteMass.getServiceTypeCount().put(event.getRowValue(), Integer.parseInt(newValue));
                 } catch (NumberFormatException e) {
                     serviceTypeCountTableView.refresh();
                 }
@@ -158,7 +158,7 @@ public class DiscreteMassEditor {
     }
 
     @FXML private void removeDiscreteMass() {
-        discreteMassListView.getItems().remove(selectedRegularMass);
+        discreteMassListView.getItems().remove(selectedDiscreteMass);
         if (discreteMassListView.getItems().isEmpty())
             setDisable(true);
     }

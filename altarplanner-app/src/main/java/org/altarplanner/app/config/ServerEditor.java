@@ -367,7 +367,7 @@ public class ServerEditor {
         applyListViews();
         config.setServers(serverListView.getItems().parallelStream().collect(Collectors.toList()));
         config.save();
-        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(config));
+        Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
     }
 
     @FXML private void addAbsence() {

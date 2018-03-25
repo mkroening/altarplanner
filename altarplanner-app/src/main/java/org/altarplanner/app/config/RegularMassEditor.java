@@ -183,7 +183,7 @@ public class RegularMassEditor {
     @FXML private void loadLauncher() throws IOException {
         config.setRegularMasses(regularMassListView.getItems().parallelStream().collect(Collectors.toList()));
         config.save();
-        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(config));
+        Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
     }
 
 }

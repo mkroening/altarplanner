@@ -165,7 +165,7 @@ public class DiscreteMassEditor {
     @FXML private void planMasses() throws IOException {
         List<DiscreteMass> masses = discreteMassListView.getItems().parallelStream().collect(Collectors.toList());
         Schedule schedule = new Schedule(null, masses, config);
-        Launcher.loadParent("planning/solverView.fxml", solverView -> ((SolverView)solverView).initData(schedule));
+        Launcher.loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(schedule));
     }
 
 }

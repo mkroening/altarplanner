@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.altarplanner.app.config.RegularMassEditor;
 import org.altarplanner.app.config.ServerEditor;
@@ -33,7 +34,14 @@ public class Launcher extends Application {
         String key = name.substring(0, 1).toLowerCase() + name.substring(1);
         String title = RESOURCE_BUNDLE.getString(key);
 
-        Stage stage = inPrimaryStage ? primaryStage : new Stage();
+        Stage stage;
+        if (inPrimaryStage) {
+            stage = primaryStage;
+        } else {
+            stage = new Stage();
+            stage.initOwner(primaryStage);
+            stage.initModality(Modality.WINDOW_MODAL);
+        }
 
         stage.hide();
         stage.setTitle("AltarPlanner - " + title);

@@ -121,9 +121,8 @@ public class DiscreteMassEditor {
         });
     }
 
-    public void initData(Config config, List<DiscreteMass> generatedMasses) {
+    public void initData(Config config) {
         this.config = config;
-        discreteMassListView.getItems().setAll(generatedMasses);
         serviceTypeCountTableView.getItems().setAll(config.getServiceTypes());
         if (!discreteMassListView.getItems().isEmpty())
             discreteMassListView.getSelectionModel().selectFirst();

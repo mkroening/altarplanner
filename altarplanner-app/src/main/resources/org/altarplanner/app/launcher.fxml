@@ -27,5 +27,5 @@
             <Font size="16"/>
         </font>
     </Label>
-    <Button mnemonicParsing="false" text="%discreteMassGenerator" onAction="#loadDiscreteMassGenerator"/>
+    <Button mnemonicParsing="false" text="%discreteMassEditor" onAction="#loadDiscreteMassEditor"/>
 </VBox>

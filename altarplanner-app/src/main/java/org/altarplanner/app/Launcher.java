@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import org.altarplanner.app.config.RegularMassEditor;
 import org.altarplanner.app.config.ServerEditor;
 import org.altarplanner.app.config.ServiceTypeEditor;
-import org.altarplanner.app.planning.DiscreteMassGenerator;
+import org.altarplanner.app.planning.DiscreteMassEditor;
 import org.altarplanner.core.domain.Config;
 
 import java.io.IOException;
@@ -77,8 +77,8 @@ public class Launcher extends Application {
         loadParent("config/serverEditor.fxml", serverEditor -> ((ServerEditor)serverEditor).initData(config));
     }
 
-    public void loadDiscreteMassGenerator() throws IOException {
-        loadParent("planning/discreteMassGenerator.fxml", discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator).initData(config));
+    public void loadDiscreteMassEditor() throws IOException {
+        loadParent("planning/discreteMassEditor.fxml", discreteMassEditor -> ((DiscreteMassEditor)discreteMassEditor).initData(config));
     }
 
 }

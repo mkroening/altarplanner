@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.security.AnyTypePermission;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.*;
+import java.util.List;
 import java.util.Optional;
 
 public class XML {
@@ -34,6 +35,19 @@ public class XML {
             T cast = (T) unknownObject;
             return cast;
         } else throw new ClassCastException(unknownObject.getClass() + " cannot be cast to " + instanceOf);
+    }
+
+    public static <T> void writeList(List<T> list, Class<T> elementClass, File outputFile) throws FileNotFoundException {
+        write(list, outputFile, elementClass);
+    }
+
+    public static <T> List<T> readList(File inputFile, Class<T> elementClass) throws FileNotFoundException {
+        List<?> unknownList = read(inputFile, List.class, elementClass);
+        if (unknownList.parallelStream().allMatch(elementClass::isInstance)) {
+            @SuppressWarnings("unchecked")
+            List<T> castList = (List<T>) read(inputFile, elementClass);
+            return castList;
+        } else throw new ClassCastException("elements of the list cannot be cast to " + elementClass);
     }
 
 }

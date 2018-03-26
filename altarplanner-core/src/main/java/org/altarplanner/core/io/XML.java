@@ -45,7 +45,7 @@ public class XML {
         List<?> unknownList = read(inputFile, List.class, elementClass);
         if (unknownList.parallelStream().allMatch(elementClass::isInstance)) {
             @SuppressWarnings("unchecked")
-            List<T> castList = (List<T>) read(inputFile, elementClass);
+            List<T> castList = (List<T>) unknownList;
             return castList;
         } else throw new ClassCastException("elements of the list cannot be cast to " + elementClass);
     }

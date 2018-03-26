@@ -18,8 +18,8 @@ public class XML {
         return xStream;
     }
 
-    public static void write(Object obj, File outputFile) throws FileNotFoundException {
-        XStream xStream = makeXStream(obj.getClass());
+    public static void write(Object obj, File outputFile, Class... otherXStreamAnnotatedClasses) throws FileNotFoundException {
+        XStream xStream = makeXStream(ArrayUtils.add(otherXStreamAnnotatedClasses, obj.getClass()));
         Optional.ofNullable(outputFile.getParentFile()).ifPresent(File::mkdirs);
         Writer writer = new OutputStreamWriter(new FileOutputStream(outputFile));
         xStream.toXML(obj, writer);

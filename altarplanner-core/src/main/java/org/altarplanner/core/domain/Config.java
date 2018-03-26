@@ -47,7 +47,7 @@ public class Config implements Serializable {
     public static Config load() {
         final File defaultFile = new File(pathname);
         try {
-            Config config = (Config) XML.read(defaultFile, Config.class);
+            Config config = XML.read(defaultFile, Config.class);
             config.servers = config.servers.parallelStream().map(Server::new).collect(Collectors.toList());
             return config;
         } catch (FileNotFoundException e) {

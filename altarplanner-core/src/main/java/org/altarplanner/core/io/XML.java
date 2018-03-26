@@ -2,6 +2,7 @@ package org.altarplanner.core.io;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.*;
 import java.util.Optional;
@@ -24,10 +25,15 @@ public class XML {
         xStream.toXML(obj, writer);
     }
 
-    public static Object read(File inputFile, Class... xStreamAnnotatedClasses) throws FileNotFoundException {
-        XStream xStream = makeXStream(xStreamAnnotatedClasses);
+    public static <T> T read(File inputFile, Class<T> instanceOf, Class... otherXStreamAnnotatedClasses) throws FileNotFoundException {
+        XStream xStream = makeXStream(ArrayUtils.add(otherXStreamAnnotatedClasses, instanceOf));
         Reader reader = new InputStreamReader(new FileInputStream(inputFile));
-        return xStream.fromXML(reader);
+        Object unknownObject = xStream.fromXML(reader);
+        if (instanceOf.isInstance(unknownObject)) {
+            @SuppressWarnings("unchecked")
+            T cast = (T) unknownObject;
+            return cast;
+        } else throw new ClassCastException(unknownObject.getClass() + " cannot be cast to " + instanceOf);
     }
 
 }

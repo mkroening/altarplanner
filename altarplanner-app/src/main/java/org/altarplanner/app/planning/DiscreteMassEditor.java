@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DiscreteMassEditor {
 
@@ -163,7 +162,7 @@ public class DiscreteMassEditor {
     }
 
     @FXML private void planMasses() throws IOException {
-        List<DiscreteMass> masses = discreteMassListView.getItems().parallelStream().collect(Collectors.toList());
+        List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
         Schedule schedule = new Schedule(null, masses, config);
         Launcher.loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(schedule));
     }

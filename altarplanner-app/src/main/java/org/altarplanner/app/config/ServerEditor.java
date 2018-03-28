@@ -21,9 +21,9 @@ import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ServerEditor {
 
@@ -147,7 +147,7 @@ public class ServerEditor {
 
         weeklyAbsencesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super DayOfWeek>)c -> {
             if (applyMainChanges)
-                selectedServer.setWeeklyAbsences(c.getList().parallelStream().collect(Collectors.toList()));
+                selectedServer.setWeeklyAbsences(List.copyOf(c.getList()));
         });
 
         pairedWithCheckComboBox.setConverter(new StringConverter<>() {
@@ -166,9 +166,9 @@ public class ServerEditor {
             if (applyMainChanges) {
                 while (c.next()) {
                     if (c.wasAdded()) {
-                        selectedServer.addAllPairedWith(c.getAddedSubList().parallelStream().collect(Collectors.toList()));
+                        selectedServer.addAllPairedWith(List.copyOf(c.getAddedSubList()));
                     } else if (c.wasRemoved()) {
-                        selectedServer.removeAllPairedWith(c.getRemoved().parallelStream().collect(Collectors.toList()));
+                        selectedServer.removeAllPairedWith(List.copyOf(c.getRemoved()));
                     }
                 }
             }
@@ -188,7 +188,7 @@ public class ServerEditor {
 
         inabilitiesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super ServiceType>) c -> {
             if (applyMainChanges) {
-                selectedServer.setInabilities(c.getList().parallelStream().collect(Collectors.toList()));
+                selectedServer.setInabilities(List.copyOf(c.getList()));
             }
         });
 
@@ -343,8 +343,8 @@ public class ServerEditor {
 
     private void applyListViews() {
         if (selectedServer != null) {
-            selectedServer.setAbsences(absencesListView.getItems().parallelStream().collect(Collectors.toList()));
-            selectedServer.setDateTimeOnWishes(assignmentWishesListView.getItems().parallelStream().collect(Collectors.toList()));
+            selectedServer.setAbsences(List.copyOf(absencesListView.getItems()));
+            selectedServer.setDateTimeOnWishes(List.copyOf(assignmentWishesListView.getItems()));
         }
     }
 
@@ -365,7 +365,7 @@ public class ServerEditor {
 
     @FXML private void loadLauncher() throws IOException {
         applyListViews();
-        config.setServers(serverListView.getItems().parallelStream().collect(Collectors.toList()));
+        config.setServers(List.copyOf(serverListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
     }

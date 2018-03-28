@@ -28,17 +28,6 @@ public class Server implements Serializable {
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
     }
 
-    public Server(Server server) {
-        this.surname = server.surname;
-        this.forename = server.forename;
-        this.year = server.year;
-        Optional.ofNullable(server.absences).ifPresent(absences -> this.absences.addAll(absences));
-        Optional.ofNullable(server.weeklyAbsences).ifPresent(weeklyAbsences -> this.weeklyAbsences.addAll(weeklyAbsences));
-        Optional.ofNullable(server.inabilities).ifPresent(inabilities -> this.inabilities.addAll(inabilities));
-        Optional.ofNullable(server.dateTimeOnWishes).ifPresent(dateTimeOnWishes -> this.dateTimeOnWishes.addAll(dateTimeOnWishes));
-        Optional.ofNullable(server.pairedWith).ifPresent(pairedWith -> this.pairedWith.addAll(pairedWith));
-    }
-
     public String getDesc() {
         return surname + ", " + forename;
     }

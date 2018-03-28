@@ -145,9 +145,9 @@ public class ServerEditor {
 
         weeklyAbsencesCheckComboBox.getItems().setAll(DayOfWeek.values());
 
-        weeklyAbsencesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super DayOfWeek>)c -> {
+        weeklyAbsencesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super DayOfWeek>) change -> {
             if (applyMainChanges)
-                selectedServer.setWeeklyAbsences(List.copyOf(c.getList()));
+                selectedServer.setWeeklyAbsences(List.copyOf(change.getList()));
         });
 
         pairedWithCheckComboBox.setConverter(new StringConverter<>() {
@@ -162,13 +162,13 @@ public class ServerEditor {
             }
         });
 
-        pairedWithCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super Server>) c -> {
+        pairedWithCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super Server>) change -> {
             if (applyMainChanges) {
-                while (c.next()) {
-                    if (c.wasAdded()) {
-                        selectedServer.addAllPairedWith(List.copyOf(c.getAddedSubList()));
-                    } else if (c.wasRemoved()) {
-                        selectedServer.removeAllPairedWith(List.copyOf(c.getRemoved()));
+                while (change.next()) {
+                    if (change.wasAdded()) {
+                        selectedServer.addAllPairedWith(List.copyOf(change.getAddedSubList()));
+                    } else if (change.wasRemoved()) {
+                        selectedServer.removeAllPairedWith(List.copyOf(change.getRemoved()));
                     }
                 }
             }
@@ -186,9 +186,9 @@ public class ServerEditor {
             }
         });
 
-        inabilitiesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super ServiceType>) c -> {
+        inabilitiesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super ServiceType>) change -> {
             if (applyMainChanges) {
-                selectedServer.setInabilities(List.copyOf(c.getList()));
+                selectedServer.setInabilities(List.copyOf(change.getList()));
             }
         });
 

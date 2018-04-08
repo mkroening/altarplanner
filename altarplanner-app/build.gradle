@@ -5,9 +5,11 @@ apply plugin: 'application'
 mainClassName = "org.altarplanner.app.Launcher"
 
 dependencies {
-    // AltarPlanner core (domain, solver, IO)
-    compile project(':altarplanner-core')
+    compile (project(':altarplanner-core')) {
+        because 'we need the domain, solver and IO implementation of the core project'
+    }
 
-    // ControlsFX (complementary UI controls)
-    compile 'org.controlsfx:controlsfx:9.0.0'
+    compile('org.controlsfx:controlsfx:9.0.0') {
+        because 'we use the CheckComboBox'
+    }
 }

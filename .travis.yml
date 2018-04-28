@@ -7,7 +7,7 @@ env:
   - JDK='Oracle JDK 10'
 
 install:
-  - ./install-jdk.sh -F 10 -L BCL
+  - . ./install-jdk.sh -F 10 -L BCL
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock

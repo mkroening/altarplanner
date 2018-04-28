@@ -44,7 +44,7 @@ public class Launcher extends Application {
         }
 
         stage.hide();
-        stage.setTitle("AltarPlanner - " + title);
+        stage.setTitle(title);
         stage.setMinHeight(root.minHeight(-1));
         stage.setMinWidth(root.minWidth(-1));
         stage.setHeight(root.prefHeight(-1));

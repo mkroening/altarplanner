@@ -4,13 +4,18 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
-import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.io.XML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +38,8 @@ public class DiscreteMassEditor {
     private Config config;
     private DiscreteMass selectedDiscreteMass;
     private boolean applyChanges;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiscreteMassEditor.class);
 
     @FXML private void initialize() {
         discreteMassListView.setCellFactory(param -> new ListCell<>() {
@@ -161,12 +168,6 @@ public class DiscreteMassEditor {
             setDisable(true);
     }
 
-    @FXML private void planMasses() throws IOException {
-        List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
-        Schedule schedule = new Schedule(null, masses, config);
-        Launcher.loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(schedule));
-    }
-
     @FXML private void generateFromRegularMasses() throws IOException {
         Launcher.loadParent("planning/discreteMassGenerator.fxml", false,
                 discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator)
@@ -177,6 +178,47 @@ public class DiscreteMassEditor {
                                 discreteMassListView.getSelectionModel().selectFirst();
                             discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
                         }));
+    }
+
+    @FXML private void loadMasses() throws FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+
+        File directory = new File("masses/");
+        directory.mkdirs();
+        fileChooser.setInitialDirectory(directory);
+
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+
+        File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
+
+        List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
+        discreteMassListView.getItems().setAll(masses);
+        LOGGER.info("Masses have been loaded from {}", selectedFile);
+
+        setDisable(false);
+        discreteMassListView.getSelectionModel().selectFirst();
+        discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
+    }
+
+    @FXML private void saveMasses() throws FileNotFoundException {
+        if (!discreteMassListView.getItems().isEmpty()) {
+            List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
+            FileChooser fileChooser = new FileChooser();
+
+            File directory = new File("masses/");
+            directory.mkdirs();
+            fileChooser.setInitialDirectory(directory);
+
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+
+            String fileName = masses.get(0).getDate() + "_" + masses.get(masses.size() - 1).getDate() + ".xml";
+            fileChooser.setInitialFileName(fileName);
+
+            File selectedFile = fileChooser.showSaveDialog(removeButton.getScene().getWindow());
+
+            XML.writeList(masses, DiscreteMass.class, selectedFile);
+            LOGGER.info("Masses have been saved as {}", selectedFile);
+        } else LOGGER.info("No Masses available to save");
     }
 
 }

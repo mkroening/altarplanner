@@ -9,7 +9,10 @@
     </scoreDirectorFactory>
 
     <termination>
+        <!--
         <scoreCalculationCountLimit>100000</scoreCalculationCountLimit>
+        -->
+        <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
     </termination>
 
 </solver>

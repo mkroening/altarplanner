@@ -189,6 +189,8 @@ public class DiscreteMassEditor {
 
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
 
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
+
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
 
         List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
@@ -210,6 +212,8 @@ public class DiscreteMassEditor {
             fileChooser.setInitialDirectory(directory);
 
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+
+            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveDiscreteMasses"));
 
             String fileName = masses.get(0).getDate() + "_" + masses.get(masses.size() - 1).getDate() + ".xml";
             fileChooser.setInitialFileName(fileName);

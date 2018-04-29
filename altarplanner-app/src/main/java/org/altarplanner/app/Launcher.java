@@ -10,6 +10,7 @@ import org.altarplanner.app.config.RegularMassEditor;
 import org.altarplanner.app.config.ServerEditor;
 import org.altarplanner.app.config.ServiceTypeEditor;
 import org.altarplanner.app.planning.DiscreteMassEditor;
+import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
 
 import java.io.IOException;
@@ -89,6 +90,10 @@ public class Launcher extends Application {
 
     public void loadDiscreteMassEditor() throws IOException {
         loadParent("planning/discreteMassEditor.fxml", true, discreteMassEditor -> ((DiscreteMassEditor)discreteMassEditor).initData(config));
+    }
+
+    public void loadSolverView() throws IOException {
+        loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(config, primaryStage));
     }
 
 }

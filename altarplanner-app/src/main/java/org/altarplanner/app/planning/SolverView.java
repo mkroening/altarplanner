@@ -3,25 +3,75 @@ package org.altarplanner.app.planning;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+import org.altarplanner.app.Launcher;
+import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.io.XML;
 import org.altarplanner.core.solver.ScheduleSolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 public class SolverView {
 
     @FXML private Label scoreLabel;
 
-    private Schedule schedule;
+    private ScheduleSolver solver = new ScheduleSolver();
 
-    public void initData(Schedule schedule) {
-        this.schedule = schedule;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SolverView.class);
 
-        new Thread(this::plan).start();
+    @FXML private void initialize() {
+        solver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));
     }
 
-    private void plan() {
-        ScheduleSolver scheduleSolver = new ScheduleSolver();
-        scheduleSolver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));
-        schedule = scheduleSolver.solve(schedule);
+    public void initData(Config config, Window window) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        File directory = new File("masses/");
+        directory.mkdirs();
+        fileChooser.setInitialDirectory(directory);
+
+        File selectedFile = fileChooser.showOpenDialog(window);
+        try {
+            List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
+            LOGGER.info("Masses have been loaded from {}", selectedFile);
+
+            new Thread(() -> {
+                Schedule solved = solver.solve(new Schedule(null, masses, config));
+                Platform.runLater(() -> saveSchedule(solved));
+            }).start();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveSchedule(Schedule schedule) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveSchedule"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        File directory = new File("schedules/");
+        directory.mkdirs();
+        fileChooser.setInitialDirectory(directory);
+        fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".xml");
+
+        File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
+        try {
+            XML.write(schedule, selectedFile);
+            LOGGER.info("Schedule has been saved as {}", selectedFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopPlanning() {
+        solver.terminateEarly();
     }
 
 }

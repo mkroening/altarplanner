@@ -4,10 +4,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="200.0"
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="250.0"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.planning.SolverView">
     <ToolBar>
+        <Button mnemonicParsing="false" text="%stopPlanning" onAction="#stopPlanning"/>
         <Pane HBox.hgrow="SOMETIMES"/>
         <Label text="%score"/>
         <Label fx:id="scoreLabel"/>

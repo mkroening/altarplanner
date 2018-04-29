@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 
 public class Launcher extends Application {
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
+    public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
     private static Stage primaryStage;
 
     @SafeVarargs

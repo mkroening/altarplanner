@@ -11,8 +11,8 @@
         <Button fx:id="removeButton" mnemonicParsing="false" text="%remove" onAction="#removeDiscreteMass"/>
         <Button mnemonicParsing="false" text="%generateFromRegularMasses" onAction="#generateFromRegularMasses"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" text="%loadMasses" onAction="#loadMasses"/>
-        <Button mnemonicParsing="false" text="%saveMasses" onAction="#saveMasses"/>
+        <Button mnemonicParsing="false" text="%loadFile" onAction="#loadFile"/>
+        <Button mnemonicParsing="false" text="%saveAsAndExit" onAction="#saveAsAndExit"/>
     </ToolBar>
     <SplitPane dividerPositions="0.4" VBox.vgrow="SOMETIMES">
         <ListView fx:id="discreteMassListView"/>

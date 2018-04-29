@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.altarplanner.app.config.RegularMassEditor;
@@ -12,7 +13,13 @@ import org.altarplanner.app.config.ServiceTypeEditor;
 import org.altarplanner.app.planning.DiscreteMassEditor;
 import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
+import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.io.ODS;
+import org.altarplanner.core.io.XML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,6 +28,7 @@ import java.util.function.Consumer;
 public class Launcher extends Application {
 
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiscreteMassEditor.class);
     private static Stage primaryStage;
 
     @SafeVarargs
@@ -96,4 +104,27 @@ public class Launcher extends Application {
         loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(config, primaryStage));
     }
 
+    public void exportSchedule() throws Exception {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openSchedule"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        File directory = new File("schedules/");
+        directory.mkdirs();
+        fileChooser.setInitialDirectory(directory);
+
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        Schedule schedule = XML.read(selectedFile, Schedule.class);
+        LOGGER.info("Schedule has been loaded from {}", selectedFile);
+
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveSchedule"));
+        fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.ods"));
+        directory = new File("exported/");
+        directory.mkdirs();
+        fileChooser.setInitialDirectory(directory);
+        fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".ods");
+
+        selectedFile = fileChooser.showSaveDialog(primaryStage);
+        ODS.exportSchedule(schedule, selectedFile, 3);
+        LOGGER.info("Schedule has been exported as {}", selectedFile);
+    }
 }

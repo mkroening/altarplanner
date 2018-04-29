@@ -182,14 +182,11 @@ public class DiscreteMassEditor {
 
     @FXML private void loadMasses() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
-
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("masses/");
         directory.mkdirs();
         fileChooser.setInitialDirectory(directory);
-
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
 
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
 
@@ -205,21 +202,16 @@ public class DiscreteMassEditor {
     @FXML private void saveMasses() throws FileNotFoundException {
         if (!discreteMassListView.getItems().isEmpty()) {
             List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
-            FileChooser fileChooser = new FileChooser();
 
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveDiscreteMasses"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
             File directory = new File("masses/");
             directory.mkdirs();
             fileChooser.setInitialDirectory(directory);
-
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-
-            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveDiscreteMasses"));
-
-            String fileName = masses.get(0).getDate() + "_" + masses.get(masses.size() - 1).getDate() + ".xml";
-            fileChooser.setInitialFileName(fileName);
+            fileChooser.setInitialFileName(masses.get(0).getDate() + "_" + masses.get(masses.size() - 1).getDate() + ".xml");
 
             File selectedFile = fileChooser.showSaveDialog(removeButton.getScene().getWindow());
-
             XML.writeList(masses, DiscreteMass.class, selectedFile);
             LOGGER.info("Masses have been saved as {}", selectedFile);
         } else LOGGER.info("No Masses available to save");

@@ -3,7 +3,7 @@ description = "This project contains the domain specific implementation of the p
 apply plugin: 'java-library'
 
 dependencies {
-    implementation('org.optaplanner:optaplanner-bom:7.6.0.Final') {
+    implementation('org.optaplanner:optaplanner-bom:7.7.0.Final') {
         because 'we depend on optaplanner projects'
     }
 

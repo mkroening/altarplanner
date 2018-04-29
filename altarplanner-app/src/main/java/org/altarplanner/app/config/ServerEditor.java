@@ -21,9 +21,9 @@ import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ServerEditor {
 
@@ -145,9 +145,9 @@ public class ServerEditor {
 
         weeklyAbsencesCheckComboBox.getItems().setAll(DayOfWeek.values());
 
-        weeklyAbsencesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super DayOfWeek>)c -> {
+        weeklyAbsencesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super DayOfWeek>) change -> {
             if (applyMainChanges)
-                selectedServer.setWeeklyAbsences(c.getList().parallelStream().collect(Collectors.toList()));
+                selectedServer.setWeeklyAbsences(List.copyOf(change.getList()));
         });
 
         pairedWithCheckComboBox.setConverter(new StringConverter<>() {
@@ -162,13 +162,13 @@ public class ServerEditor {
             }
         });
 
-        pairedWithCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super Server>) c -> {
+        pairedWithCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super Server>) change -> {
             if (applyMainChanges) {
-                while (c.next()) {
-                    if (c.wasAdded()) {
-                        selectedServer.addAllPairedWith(c.getAddedSubList().parallelStream().collect(Collectors.toList()));
-                    } else if (c.wasRemoved()) {
-                        selectedServer.removeAllPairedWith(c.getRemoved().parallelStream().collect(Collectors.toList()));
+                while (change.next()) {
+                    if (change.wasAdded()) {
+                        selectedServer.addAllPairedWith(List.copyOf(change.getAddedSubList()));
+                    } else if (change.wasRemoved()) {
+                        selectedServer.removeAllPairedWith(List.copyOf(change.getRemoved()));
                     }
                 }
             }
@@ -186,9 +186,9 @@ public class ServerEditor {
             }
         });
 
-        inabilitiesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super ServiceType>) c -> {
+        inabilitiesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super ServiceType>) change -> {
             if (applyMainChanges) {
-                selectedServer.setInabilities(c.getList().parallelStream().collect(Collectors.toList()));
+                selectedServer.setInabilities(List.copyOf(change.getList()));
             }
         });
 
@@ -343,8 +343,8 @@ public class ServerEditor {
 
     private void applyListViews() {
         if (selectedServer != null) {
-            selectedServer.setAbsences(absencesListView.getItems().parallelStream().collect(Collectors.toList()));
-            selectedServer.setDateTimeOnWishes(assignmentWishesListView.getItems().parallelStream().collect(Collectors.toList()));
+            selectedServer.setAbsences(List.copyOf(absencesListView.getItems()));
+            selectedServer.setDateTimeOnWishes(List.copyOf(assignmentWishesListView.getItems()));
         }
     }
 
@@ -365,9 +365,9 @@ public class ServerEditor {
 
     @FXML private void loadLauncher() throws IOException {
         applyListViews();
-        config.setServers(serverListView.getItems().parallelStream().collect(Collectors.toList()));
+        config.setServers(List.copyOf(serverListView.getItems()));
         config.save();
-        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(config));
+        Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
     }
 
     @FXML private void addAbsence() {

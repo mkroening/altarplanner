@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="200.0" maxHeight="-Infinity" maxWidth="-Infinity"
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="200.0" maxHeight="-Infinity" maxWidth="-Infinity"
       alignment="CENTER" spacing="10.0"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.Launcher">
@@ -27,5 +27,6 @@
             <Font size="16"/>
         </font>
     </Label>
-    <Button mnemonicParsing="false" text="%discreteMassGenerator" onAction="#loadDiscreteMassGenerator"/>
+    <Button mnemonicParsing="false" text="%discreteMassEditor" onAction="#loadDiscreteMassEditor"/>
+    <Button mnemonicParsing="false" text="%solverView" onAction="#loadSolverView"/>
 </VBox>

@@ -58,4 +58,8 @@ public class ScheduleSolver {
         return bestSolution;
     }
 
+    public boolean terminateEarly() {
+        return solver.terminateEarly();
+    }
+
 }

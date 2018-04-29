@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public class Server implements Serializable {
@@ -26,17 +25,6 @@ public class Server implements Serializable {
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
-    }
-
-    public Server(Server server) {
-        this.surname = server.surname;
-        this.forename = server.forename;
-        this.year = server.year;
-        Optional.ofNullable(server.absences).ifPresent(absences -> this.absences.addAll(absences));
-        Optional.ofNullable(server.weeklyAbsences).ifPresent(weeklyAbsences -> this.weeklyAbsences.addAll(weeklyAbsences));
-        Optional.ofNullable(server.inabilities).ifPresent(inabilities -> this.inabilities.addAll(inabilities));
-        Optional.ofNullable(server.dateTimeOnWishes).ifPresent(dateTimeOnWishes -> this.dateTimeOnWishes.addAll(dateTimeOnWishes));
-        Optional.ofNullable(server.pairedWith).ifPresent(pairedWith -> this.pairedWith.addAll(pairedWith));
     }
 
     public String getDesc() {
@@ -65,7 +53,7 @@ public class Server implements Serializable {
         pairedWith.clear();
     }
 
-    public boolean isAvailableFor(Service service) {
+    boolean isAvailableFor(Service service) {
         LocalDate date = service.getMass().getDate();
         return !inabilities.contains(service.getType())
                 && year <= service.getType().getMaxYear()
@@ -73,28 +61,28 @@ public class Server implements Serializable {
                 && absences.parallelStream().noneMatch(absence -> absence.contains(date));
     }
 
-    public Stream<DateOffRequest> getDateOffRequestParallelStream() {
+    Stream<DateOffRequest> getDateOffRequestParallelStream() {
         return absences.parallelStream()
                 .flatMap(DateSpan::getDateParallelStream)
                 .map(date -> new DateOffRequest(this, date));
     }
 
-    public Stream<DayOffRequest> getDayOffRequestParallelStream() {
+    Stream<DayOffRequest> getDayOffRequestParallelStream() {
         return weeklyAbsences.parallelStream()
                 .map(day -> new DayOffRequest(this, day));
     }
 
-    public Stream<ServiceTypeOffRequest> getServiceTypeOffRequestParallelStream() {
+    Stream<ServiceTypeOffRequest> getServiceTypeOffRequestParallelStream() {
         return inabilities.parallelStream()
                 .map(serviceType -> new ServiceTypeOffRequest(this, serviceType));
     }
 
-    public Stream<DateTimeOnRequest> getDateTimeOnRequestParallelStream() {
+    Stream<DateTimeOnRequest> getDateTimeOnRequestParallelStream() {
         return dateTimeOnWishes.parallelStream()
                 .map(dateTime -> new DateTimeOnRequest(this, dateTime));
     }
 
-    public Stream<PairRequest> getPairRequestParallelStream() {
+    Stream<PairRequest> getPairRequestParallelStream() {
         return pairedWith.parallelStream()
                 .map(pairedWith -> new PairRequest(this, pairedWith));
     }

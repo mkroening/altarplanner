@@ -6,7 +6,9 @@
         </encoder>
     </appender>
 
-    <logger name="org.altarplanner" level="debug"/>
+    <logger name="org.altarplanner.app" level="debug"/>
+
+    <logger name="org.altarplanner.core" level="debug"/>
 
     <logger name="org.optaplanner" level="info"/>
 

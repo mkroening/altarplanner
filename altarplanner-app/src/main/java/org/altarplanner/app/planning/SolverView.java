@@ -1,82 +1,77 @@
 package org.altarplanner.app.planning;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+import org.altarplanner.app.Launcher;
+import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
-import org.altarplanner.core.domain.Server;
-import org.altarplanner.core.domain.mass.GenericMass;
+import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.io.XML;
 import org.altarplanner.core.solver.ScheduleSolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Comparator;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SolverView {
 
-    @FXML private TableColumn<Server, String> serverColumn;
-    @FXML private TableView<Server> tableView;
     @FXML private Label scoreLabel;
 
-    private Schedule schedule;
+    private ScheduleSolver solver = new ScheduleSolver();
 
-    @FXML
-    private void initialize() {
-        serverColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDesc()));
+    private static final Logger LOGGER = LoggerFactory.getLogger(SolverView.class);
+
+    @FXML private void initialize() {
+        solver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));
     }
 
-    public void initData(Schedule schedule) {
-        this.schedule = schedule;
+    public void initData(Config config, Window window) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        File directory = new File("masses/");
+        directory.mkdirs();
+        fileChooser.setInitialDirectory(directory);
 
-        tableView.getItems().addAll(schedule.getServers());
+        File selectedFile = fileChooser.showOpenDialog(window);
+        try {
+            List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
+            LOGGER.info("Masses have been loaded from {}", selectedFile);
 
-        refreshColumns();
-
-        new Thread(this::plan).start();
+            new Thread(() -> {
+                Schedule solved = solver.solve(new Schedule(null, masses, config));
+                Platform.runLater(() -> saveSchedule(solved));
+            }).start();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void refreshColumns() {
-        List<TableColumn<Server, ?>> newColumns = schedule.getDateMassesMap().entrySet().parallelStream()
-                .sorted(Comparator.comparing(Map.Entry::getKey))
-                .map(localDateListEntry -> {
-                    TableColumn<Server, String> dateColumn = new TableColumn<>(localDateListEntry.getKey().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
-                    boolean disable = !schedule.getPlanningWindow().contains(localDateListEntry.getKey());
+    private void saveSchedule(Schedule schedule) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveSchedule"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        File directory = new File("schedules/");
+        directory.mkdirs();
+        fileChooser.setInitialDirectory(directory);
+        fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".xml");
 
-                    if (disable)
-                        dateColumn.getStyleClass().add("table-column-disable");
-
-                    dateColumn.getColumns().addAll(
-                            localDateListEntry.getValue().parallelStream().sorted(GenericMass.getGenericDescComparator())
-                                    .map(planningMass -> {
-                                        TableColumn<Server, String> massColumn = new TableColumn<>(planningMass.getGenericDesc());
-                                        massColumn.setCellValueFactory(param -> new SimpleStringProperty(planningMass.serviceDescOf(param.getValue())));
-                                        if (disable)
-                                            massColumn.getStyleClass().addAll("table-column-disable", "table-column-child-disable");
-                                        return massColumn;
-                                    }).collect(Collectors.toList()));
-
-                    return dateColumn;
-                }).collect(Collectors.toList());
-
-        newColumns.add(0, tableView.getColumns().get(0));
-        tableView.getColumns().setAll(newColumns);
+        File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
+        try {
+            XML.write(schedule, selectedFile);
+            LOGGER.info("Schedule has been saved as {}", selectedFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void plan() {
-        ScheduleSolver scheduleSolver = new ScheduleSolver();
-        scheduleSolver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));
-        scheduleSolver.addNewBestScheduleConsumer(schedule -> {
-            this.schedule = schedule;
-            Platform.runLater(this::refreshColumns);
-        });
-        schedule = scheduleSolver.solve(schedule);
-        Platform.runLater(this::refreshColumns);
+    public void stopPlanning() {
+        solver.terminateEarly();
     }
 
 }

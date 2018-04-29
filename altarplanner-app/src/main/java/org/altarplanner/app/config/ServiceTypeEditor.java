@@ -10,7 +10,7 @@ import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class ServiceTypeEditor {
 
@@ -109,9 +109,9 @@ public class ServiceTypeEditor {
     }
 
     @FXML private void loadLauncher() throws IOException {
-        config.setServiceTypes(serviceTypeListView.getItems().parallelStream().collect(Collectors.toList()));
+        config.setServiceTypes(List.copyOf(serviceTypeListView.getItems()));
         config.save();
-        Launcher.loadParent("launcher.fxml", launcher -> ((Launcher)launcher).initData(config));
+        Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
     }
 
     @FXML private void addServiceType() {

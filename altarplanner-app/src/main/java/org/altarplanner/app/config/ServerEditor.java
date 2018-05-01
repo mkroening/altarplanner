@@ -9,6 +9,7 @@ import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.DateSpan;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.domain.request.PairRequest;
 import org.controlsfx.control.CheckComboBox;
 
 import java.io.IOException;
@@ -81,8 +82,7 @@ public class ServerEditor {
                         .ifPresent(days -> days.forEach(day -> weeklyAbsencesCheckComboBox.getCheckModel().check(day)));
                 pairedWithCheckComboBox.getCheckModel().clearChecks();
                 pairedWithCheckComboBox.getItems().setAll(serverListView.getItems().filtered(server -> server != newValue));
-                Optional.ofNullable(newValue.getPairedWith())
-                        .ifPresent(servers -> servers.forEach(server -> pairedWithCheckComboBox.getCheckModel().check(server)));
+                config.getPairedWith(newValue).forEach(server -> pairedWithCheckComboBox.getCheckModel().check(server));
 
                 absencesListView.getItems().setAll(newValue.getAbsences());
                 if (!absencesListView.getItems().isEmpty()) {
@@ -166,9 +166,9 @@ public class ServerEditor {
             if (applyMainChanges) {
                 while (change.next()) {
                     if (change.wasAdded()) {
-                        selectedServer.addAllPairedWith(List.copyOf(change.getAddedSubList()));
+                        change.getAddedSubList().forEach(pairedWith -> config.addPair(new PairRequest(selectedServer, pairedWith)));
                     } else if (change.wasRemoved()) {
-                        selectedServer.removeAllPairedWith(List.copyOf(change.getRemoved()));
+                        change.getRemoved().forEach(pairedWith -> config.removePair(new PairRequest(selectedServer, pairedWith)));
                     }
                 }
             }
@@ -365,7 +365,7 @@ public class ServerEditor {
     }
 
     @FXML private void removeServer() {
-        selectedServer.removeFromAllPairs();
+        config.removeAllPairsWith(selectedServer);
         serverListView.getItems().remove(selectedServer);
         if (serverListView.getItems().isEmpty())
             setDisable(true);

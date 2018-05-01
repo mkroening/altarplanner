@@ -2,6 +2,7 @@ package org.altarplanner.core.domain;
 
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
+import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.io.XML;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,7 @@ public class Config implements Serializable {
     private List<ServiceType> serviceTypes = new ArrayList<>();
     private List<RegularMass> regularMasses = new ArrayList<>();
     private List<Server> servers = new ArrayList<>();
+    private List<PairRequest> pairs = new ArrayList<>();
 
     public Config() {
     }
@@ -38,6 +40,27 @@ public class Config implements Serializable {
 
     public void removeFromRegularMasses(ServiceType serviceType) {
         regularMasses.parallelStream().forEach(regularMass -> regularMass.getServiceTypeCount().remove(serviceType));
+    }
+
+    public List<Server> getPairedWith(Server server) {
+        return pairs.parallelStream()
+                .filter(pairRequest -> pairRequest.getServer() == server)
+                .map(PairRequest::getPairedWith)
+                .collect(Collectors.toList());
+    }
+
+    public void addPair(PairRequest pair) {
+        pairs.add(pair);
+        pairs.add(new PairRequest(pair.getPairedWith(), pair.getServer()));
+    }
+
+    public void removePair(PairRequest pair) {
+        pairs.remove(pair);
+        pairs.remove(new PairRequest(pair.getPairedWith(), pair.getServer()));
+    }
+
+    public void removeAllPairsWith(Server server) {
+        pairs.removeIf(pairRequest -> pairRequest.getServer() == server || pairRequest.getPairedWith() == server);
     }
 
     public void save() throws FileNotFoundException {
@@ -76,6 +99,14 @@ public class Config implements Serializable {
 
     public void setServers(List<Server> servers) {
         this.servers = servers;
+    }
+
+    public List<PairRequest> getPairs() {
+        return pairs;
+    }
+
+    public void setPairs(List<PairRequest> pairs) {
+        this.pairs = pairs;
     }
 
 }

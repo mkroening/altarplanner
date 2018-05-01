@@ -20,7 +20,6 @@ public class Server implements Serializable {
     private List<DayOfWeek> weeklyAbsences = new ArrayList<>();
     private List<ServiceType> inabilities = new ArrayList<>();
     private List<LocalDateTime> dateTimeOnWishes = new ArrayList<>();
-    private List<Server> pairedWith = new ArrayList<>();
 
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");
@@ -36,21 +35,6 @@ public class Server implements Serializable {
                 .comparing(Server::getSurname)
                 .thenComparing(Server::getForename)
                 .thenComparing(Server::getYear);
-    }
-
-    public void addAllPairedWith(List<Server> servers) {
-        servers.parallelStream().forEach(server -> server.pairedWith.add(this));
-        this.pairedWith.addAll(servers);
-    }
-
-    public void removeAllPairedWith(List<Server> servers) {
-        servers.parallelStream().forEach(server -> server.pairedWith.remove(this));
-        this.pairedWith.removeAll(servers);
-    }
-
-    public void removeFromAllPairs() {
-        pairedWith.parallelStream().forEach(server -> server.pairedWith.remove(this));
-        pairedWith.clear();
     }
 
     boolean isAvailableFor(Service service) {
@@ -80,11 +64,6 @@ public class Server implements Serializable {
     Stream<DateTimeOnRequest> getDateTimeOnRequestParallelStream() {
         return dateTimeOnWishes.parallelStream()
                 .map(dateTime -> new DateTimeOnRequest(this, dateTime));
-    }
-
-    Stream<PairRequest> getPairRequestParallelStream() {
-        return pairedWith.parallelStream()
-                .map(pairedWith -> new PairRequest(this, pairedWith));
     }
 
     public String getSurname() {
@@ -141,14 +120,6 @@ public class Server implements Serializable {
 
     public void setDateTimeOnWishes(List<LocalDateTime> dateTimeOnWishes) {
         this.dateTimeOnWishes = dateTimeOnWishes;
-    }
-
-    public List<Server> getPairedWith() {
-        return pairedWith;
-    }
-
-    public void setPairedWith(List<Server> pairedWith) {
-        this.pairedWith = pairedWith;
     }
 
 }

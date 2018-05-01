@@ -2,6 +2,7 @@ package org.altarplanner.core.solver;
 
 import org.altarplanner.core.domain.*;
 import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.request.PairRequest;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.test.impl.score.buildin.hardsoft.HardSoftScoreVerifier;
@@ -207,7 +208,7 @@ class ScoreConstraintTests {
         Config config = new Config();
         config.getServers().add(new Server());
         config.getServers().add(new Server());
-        config.getServers().get(0).getPairedWith().add(config.getServers().get(1));
+        config.getPairs().add(new PairRequest(config.getServers().get(0), config.getServers().get(1)));
         config.getServiceTypes().add(new ServiceType());
 
         DiscreteMass discreteMass = new DiscreteMass();

@@ -20,10 +20,8 @@ import java.util.stream.Stream;
 @PlanningSolution
 public class Schedule implements Serializable {
 
+    private Config config;
     private DateSpan planningWindow;
-    @ProblemFactCollectionProperty
-    @ValueRangeProvider(id = "serverRange")
-    private List<Server> servers;
     private List<PlanningMass> masses;
     @PlanningScore
     private HardSoftScore score;
@@ -32,6 +30,8 @@ public class Schedule implements Serializable {
     }
 
     public Schedule(Schedule lastSchedule, Collection<DiscreteMass> discreteMassesToPlan, Config config) {
+        this.config = config;
+
         List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
                 .map(PlanningMass::new)
                 .sorted(Comparator.comparing(PlanningMass::getDate))
@@ -64,8 +64,6 @@ public class Schedule implements Serializable {
         List<Service> services = getServices();
         IntStream.range(0, services.size()).parallel()
                 .forEach(value -> services.get(value).setId(value));
-
-        this.servers = config.getServers();
     }
 
     public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
@@ -73,10 +71,16 @@ public class Schedule implements Serializable {
     }
 
     public int getAvailableServerCountFor(Service service) {
-        long count = servers.parallelStream()
+        long count = config.getServers().parallelStream()
                 .filter(server -> server.isAvailableFor(service))
                 .count();
         return Math.toIntExact(count);
+    }
+
+    @ProblemFactCollectionProperty
+    @ValueRangeProvider(id = "serverRange")
+    public List<Server> getServers() {
+        return config.getServers();
     }
 
     @PlanningEntityCollectionProperty
@@ -88,37 +92,35 @@ public class Schedule implements Serializable {
 
     @ProblemFactCollectionProperty
     public List<DateOffRequest> getDateOffRequests() {
-        return servers.parallelStream()
+        return config.getServers().parallelStream()
                 .flatMap(Server::getDateOffRequestParallelStream)
                 .collect(Collectors.toList());
     }
 
     @ProblemFactCollectionProperty
     public List<DayOffRequest> getDayOffRequests() {
-        return servers.parallelStream()
+        return config.getServers().parallelStream()
                 .flatMap(Server::getDayOffRequestParallelStream)
                 .collect(Collectors.toList());
     }
 
     @ProblemFactCollectionProperty
     public List<ServiceTypeOffRequest> getServiceTypeOffRequests() {
-        return servers.parallelStream()
+        return config.getServers().parallelStream()
                 .flatMap(Server::getServiceTypeOffRequestParallelStream)
                 .collect(Collectors.toList());
     }
 
     @ProblemFactCollectionProperty
     public List<DateTimeOnRequest> getDateTimeOnRequests() {
-        return servers.parallelStream()
+        return config.getServers().parallelStream()
                 .flatMap(Server::getDateTimeOnRequestParallelStream)
                 .collect(Collectors.toList());
     }
 
     @ProblemFactCollectionProperty
     public List<PairRequest> getPairRequests() {
-        return servers.parallelStream()
-                .flatMap(Server::getPairRequestParallelStream)
-                .collect(Collectors.toList());
+        return config.getPairs();
     }
 
     public DateSpan getPlanningWindow() {
@@ -127,14 +129,6 @@ public class Schedule implements Serializable {
 
     public void setPlanningWindow(DateSpan planningWindow) {
         this.planningWindow = planningWindow;
-    }
-
-    public List<Server> getServers() {
-        return servers;
-    }
-
-    public void setServers(List<Server> servers) {
-        this.servers = servers;
     }
 
     public List<PlanningMass> getMasses() {

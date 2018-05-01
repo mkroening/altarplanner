@@ -7,16 +7,16 @@ import java.time.format.FormatStyle;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-public class DateSpan implements Serializable {
+public final class DateSpan implements Serializable {
 
-    private LocalDate start;
-    private LocalDate end;
+    private final LocalDate start;
+    private final LocalDate end;
 
-    public DateSpan() {
-        this.end = this.start = LocalDate.now().plusMonths(1);
+    public static DateSpan of(LocalDate start, LocalDate end) {
+        return new DateSpan(start, end);
     }
 
-    public DateSpan(LocalDate start, LocalDate end) {
+    private DateSpan(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;
     }
@@ -45,16 +45,8 @@ public class DateSpan implements Serializable {
         return start;
     }
 
-    public void setStart(LocalDate start) {
-        this.start = start;
-    }
-
     public LocalDate getEnd() {
         return end;
-    }
-
-    public void setEnd(LocalDate end) {
-        this.end = end;
     }
 
 }

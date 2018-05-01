@@ -32,7 +32,7 @@ public class DiscreteMassGenerator {
     }
 
     @FXML private void generateMasses() {
-        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(new DateSpan(startDatePicker.getValue(), endDatePicker.getValue())).collect(Collectors.toList());
+        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(DateSpan.of(startDatePicker.getValue(), endDatePicker.getValue())).collect(Collectors.toList());
         massesConsumers.forEach(listConsumer -> listConsumer.accept(masses));
         ((Stage)startDatePicker.getScene().getWindow()).close();
     }

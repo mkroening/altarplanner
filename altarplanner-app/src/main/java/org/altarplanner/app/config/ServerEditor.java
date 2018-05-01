@@ -218,15 +218,23 @@ public class ServerEditor {
 
         absenceStartDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                selectedAbsence.setStart(newValue);
+                DateSpan replaceAbsence = selectedAbsence;
+                absencesListView.getItems().remove(replaceAbsence);
+                replaceAbsence = DateSpan.of(newValue, replaceAbsence.getEnd());
+                absencesListView.getItems().add(replaceAbsence);
                 absencesListView.getItems().sort(DateSpan.getDescComparator());
+                absencesListView.getSelectionModel().select(replaceAbsence);
             }
         });
 
         absenceEndDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                selectedAbsence.setEnd(newValue);
+                DateSpan replaceAbsence = selectedAbsence;
+                absencesListView.getItems().remove(replaceAbsence);
+                replaceAbsence = DateSpan.of(replaceAbsence.getStart(), newValue);
+                absencesListView.getItems().add(replaceAbsence);
                 absencesListView.getItems().sort(DateSpan.getDescComparator());
+                absencesListView.getSelectionModel().select(replaceAbsence);
             }
         });
 
@@ -371,7 +379,7 @@ public class ServerEditor {
     }
 
     @FXML private void addAbsence() {
-        DateSpan absence = new DateSpan();
+        DateSpan absence = DateSpan.of(LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1));
         absencesListView.getItems().add(absence);
         setAbsenceDisable(false);
         absencesListView.getSelectionModel().select(absence);

@@ -37,17 +37,17 @@ public class Schedule implements Serializable {
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toList());
 
-        this.planningWindow = new DateSpan(planningMassesToPlan.get(0).getDate(),
+        this.planningWindow = DateSpan.of(planningMassesToPlan.get(0).getDate(),
                 planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
 
-        DateSpan pastWindow = new DateSpan(planningWindow.getStart().minusWeeks(1), planningWindow.getStart().minusDays(1));
+        DateSpan pastWindow = DateSpan.of(planningWindow.getStart().minusWeeks(1), planningWindow.getStart().minusDays(1));
         List<PlanningMass> pastPlanningMassesToConsider = Optional.ofNullable(lastSchedule)
                 .map(schedule -> schedule.getMasses().parallelStream()
                         .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
                         .collect(Collectors.toList()))
                 .orElse(Collections.emptyList());
 
-        DateSpan futureWindow = new DateSpan(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
+        DateSpan futureWindow = DateSpan.of(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
         List<PlanningMass> futurePlanningMassesToConsider = config
                 .getDiscreteMassParallelStreamWithin(futureWindow)
                 .map(PlanningMass::new)

@@ -16,7 +16,7 @@ dependencies {
     }
 
     implementation('org.apache.commons:commons-lang3:3.7') {
-        because 'we use the CompareToBuilder'
+        because 'we use several of those helper utilites'
     }
 
     implementation('com.thoughtworks.xstream:xstream:1.4.10') {

@@ -29,9 +29,6 @@ public class Schedule implements Serializable {
     private HardSoftScore score;
 
     public Schedule() {
-        this.planningWindow = new DateSpan();
-        this.servers = Collections.emptyList();
-        this.masses = Collections.emptyList();
     }
 
     public Schedule(Schedule lastSchedule, Collection<DiscreteMass> discreteMassesToPlan, Config config) {

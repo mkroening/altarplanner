@@ -24,7 +24,21 @@ public class Config implements Serializable {
     private List<Server> servers = new ArrayList<>();
     private List<PairRequest> pairs = new ArrayList<>();
 
+    public static Config load() {
+        final File defaultFile = new File(pathname);
+        try {
+            return XML.read(defaultFile, Config.class);
+        } catch (FileNotFoundException e) {
+            LoggerFactory.getLogger(Config.class).info("File not found: \"{}\". Creating new config.", defaultFile);
+            return new Config();
+        }
+    }
+
     public Config() {
+    }
+
+    public void save() throws FileNotFoundException {
+        XML.write(this, new File(pathname));
     }
 
     public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(DateSpan dateSpan) {
@@ -61,20 +75,6 @@ public class Config implements Serializable {
 
     public void removeAllPairsWith(Server server) {
         pairs.removeIf(pairRequest -> pairRequest.getServer() == server || pairRequest.getPairedWith() == server);
-    }
-
-    public void save() throws FileNotFoundException {
-        XML.write(this, new File(pathname));
-    }
-
-    public static Config load() {
-        final File defaultFile = new File(pathname);
-        try {
-            return XML.read(defaultFile, Config.class);
-        } catch (FileNotFoundException e) {
-            LoggerFactory.getLogger(Config.class).info("File not found: \"{}\". Creating new config.", defaultFile);
-            return new Config();
-        }
     }
 
     public List<ServiceType> getServiceTypes() {

@@ -3,18 +3,10 @@ package org.altarplanner.core.domain.request;
 import org.altarplanner.core.domain.Server;
 
 import java.time.LocalDate;
+import java.util.AbstractMap;
 
-public class DateOffRequest extends GenericRequest {
-
-    private final LocalDate date;
-
-    public DateOffRequest(Server server, LocalDate date) {
-        super(server);
-        this.date = date;
+public class DateOffRequest extends AbstractMap.SimpleImmutableEntry<Server, LocalDate> {
+    public DateOffRequest(Server key, LocalDate value) {
+        super(key, value);
     }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
 }

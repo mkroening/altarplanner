@@ -58,23 +58,23 @@ public class Config implements Serializable {
 
     public List<Server> getPairedWith(Server server) {
         return pairs.parallelStream()
-                .filter(pairRequest -> pairRequest.getServer() == server)
-                .map(PairRequest::getPairedWith)
+                .filter(pairRequest -> pairRequest.getKey() == server)
+                .map(PairRequest::getValue)
                 .collect(Collectors.toList());
     }
 
     public void addPair(PairRequest pair) {
         pairs.add(pair);
-        pairs.add(new PairRequest(pair.getPairedWith(), pair.getServer()));
+        pairs.add(new PairRequest(pair.getValue(), pair.getKey()));
     }
 
     public void removePair(PairRequest pair) {
         pairs.remove(pair);
-        pairs.remove(new PairRequest(pair.getPairedWith(), pair.getServer()));
+        pairs.remove(new PairRequest(pair.getValue(), pair.getKey()));
     }
 
     public void removeAllPairsWith(Server server) {
-        pairs.removeIf(pairRequest -> pairRequest.getServer() == server || pairRequest.getPairedWith() == server);
+        pairs.removeIf(pairRequest -> pairRequest.getKey() == server || pairRequest.getValue() == server);
     }
 
     public List<ServiceType> getServiceTypes() {

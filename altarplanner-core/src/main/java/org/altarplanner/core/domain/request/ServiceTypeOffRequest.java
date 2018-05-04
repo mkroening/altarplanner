@@ -3,17 +3,10 @@ package org.altarplanner.core.domain.request;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.ServiceType;
 
-public class ServiceTypeOffRequest extends GenericRequest {
+import java.util.AbstractMap;
 
-    private final ServiceType serviceType;
-
-    public ServiceTypeOffRequest(Server server, ServiceType serviceType) {
-        super(server);
-        this.serviceType = serviceType;
+public class ServiceTypeOffRequest extends AbstractMap.SimpleImmutableEntry<Server, ServiceType> {
+    public ServiceTypeOffRequest(Server key, ServiceType value) {
+        super(key, value);
     }
-
-    public ServiceType getServiceType() {
-        return serviceType;
-    }
-
 }

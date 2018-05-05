@@ -32,13 +32,12 @@ public class Launcher extends Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(DiscreteMassEditor.class);
     private static Stage primaryStage;
 
-    @SafeVarargs
-    public static void loadParent(String location, boolean inPrimaryStage, Consumer<Object>... controllerConsumers) throws IOException {
+    public static void loadParent(String location, boolean inPrimaryStage, Consumer<Object> controllerConsumer) throws IOException {
         FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(location), RESOURCE_BUNDLE);
         Parent root = loader.load();
         Object controller = loader.getController();
 
-        List.of(controllerConsumers).forEach(controllerConsumer -> controllerConsumer.accept(controller));
+        controllerConsumer.accept(controller);
 
         String name = controller.getClass().getSimpleName();
         String key = name.substring(0, 1).toLowerCase() + name.substring(1);
@@ -71,6 +70,10 @@ public class Launcher extends Application {
             stage.setScene(scene);
         }
         stage.show();
+    }
+
+    public static void loadParent(String location, boolean inPrimaryStage) throws IOException {
+        loadParent(location, inPrimaryStage, controller -> {});
     }
 
     private Config config;

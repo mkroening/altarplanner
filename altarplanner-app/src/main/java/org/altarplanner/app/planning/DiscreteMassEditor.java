@@ -217,7 +217,7 @@ public class DiscreteMassEditor {
                 XML.writeList(masses, DiscreteMass.class, selectedFile);
                 LOGGER.info("Masses have been saved as {}", selectedFile);
 
-                Launcher.loadParent("launcher.fxml", true);
+                Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
             } else LOGGER.info("Masses have not been saved, because no file has been selected");
         } else LOGGER.info("No Masses available to save");
     }

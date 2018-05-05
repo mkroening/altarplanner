@@ -29,7 +29,7 @@ import java.util.function.Consumer;
 public class Launcher extends Application {
 
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
-    private static final Logger LOGGER = LoggerFactory.getLogger(DiscreteMassEditor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
     private static Stage primaryStage;
 
     public static void loadParent(String location, boolean inPrimaryStage, Consumer<Object> controllerConsumer) throws IOException {
@@ -106,7 +106,7 @@ public class Launcher extends Application {
 
     public void loadSolverView() throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
+        fileChooser.setTitle(RESOURCE_BUNDLE.getString("openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("masses/");
         directory.mkdirs();
@@ -123,7 +123,7 @@ public class Launcher extends Application {
 
     public void exportSchedule() throws Exception {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openSchedule"));
+        fileChooser.setTitle(RESOURCE_BUNDLE.getString("openSchedule"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("schedules/");
         directory.mkdirs();
@@ -134,7 +134,7 @@ public class Launcher extends Application {
             Schedule schedule = XML.read(selectedFile, Schedule.class);
             LOGGER.info("Schedule has been loaded from {}", selectedFile);
 
-            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveSchedule"));
+            fileChooser.setTitle(RESOURCE_BUNDLE.getString("saveSchedule"));
             fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.ods"));
             directory = new File("exported/");
             directory.mkdirs();

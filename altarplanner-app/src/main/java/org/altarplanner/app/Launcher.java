@@ -14,6 +14,7 @@ import org.altarplanner.app.planning.DiscreteMassEditor;
 import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.io.ODS;
 import org.altarplanner.core.io.XML;
 import org.slf4j.Logger;
@@ -101,7 +102,20 @@ public class Launcher extends Application {
     }
 
     public void loadSolverView() throws IOException {
-        loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(config, primaryStage));
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        File directory = new File("masses/");
+        directory.mkdirs();
+        fileChooser.setInitialDirectory(directory);
+
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile != null) {
+            List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
+            LOGGER.info("Masses have been loaded from {}", selectedFile);
+            loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(config, masses));
+        }
+        else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
     public void exportSchedule() throws Exception {

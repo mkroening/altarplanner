@@ -30,28 +30,11 @@ public class SolverView {
         solver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));
     }
 
-    public void initData(Config config, Window window) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-        File directory = new File("masses/");
-        directory.mkdirs();
-        fileChooser.setInitialDirectory(directory);
-
-        File selectedFile = fileChooser.showOpenDialog(window);
-        if (selectedFile != null) {
-            try {
-                List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
-                LOGGER.info("Masses have been loaded from {}", selectedFile);
-
-                new Thread(() -> {
-                    Schedule solved = solver.solve(new Schedule(null, masses, config));
-                    Platform.runLater(() -> saveSchedule(solved));
-                }).start();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else LOGGER.info("No masses have been loaded, because no file has been selected");
+    public void initData(Config config, List<DiscreteMass> masses) {
+        new Thread(() -> {
+            Schedule solved = solver.solve(new Schedule(null, masses, config));
+            Platform.runLater(() -> saveSchedule(solved));
+        }).start();
     }
 
     private void saveSchedule(Schedule schedule) {

@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class SolverView {
@@ -23,6 +23,7 @@ public class SolverView {
 
     @FXML private Label scoreLabel;
 
+    private Config config;
     private ScheduleSolver solver = new ScheduleSolver();
 
     @FXML private void initialize() {
@@ -30,6 +31,7 @@ public class SolverView {
     }
 
     public void initData(Config config, List<DiscreteMass> masses) {
+        this.config = config;
         new Thread(() -> {
             Schedule solved = solver.solve(new Schedule(null, masses, config));
             Platform.runLater(() -> saveSchedule(solved));
@@ -50,7 +52,8 @@ public class SolverView {
             try {
                 XML.write(schedule, selectedFile);
                 LOGGER.info("Schedule has been saved as {}", selectedFile);
-            } catch (FileNotFoundException e) {
+                Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } else LOGGER.info("Schedule has not been saved, because no file has been selected");

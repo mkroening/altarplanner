@@ -72,10 +72,6 @@ public class Launcher extends Application {
         stage.show();
     }
 
-    public static void loadParent(String location, boolean inPrimaryStage) throws IOException {
-        loadParent(location, inPrimaryStage, controller -> {});
-    }
-
     private Config config;
 
     @Override

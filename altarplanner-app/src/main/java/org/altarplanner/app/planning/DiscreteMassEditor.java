@@ -189,14 +189,15 @@ public class DiscreteMassEditor {
         fileChooser.setInitialDirectory(directory);
 
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
+        if (selectedFile != null) {
+            List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
+            discreteMassListView.getItems().setAll(masses);
+            LOGGER.info("Masses have been loaded from {}", selectedFile);
 
-        List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
-        discreteMassListView.getItems().setAll(masses);
-        LOGGER.info("Masses have been loaded from {}", selectedFile);
-
-        setDisable(false);
-        discreteMassListView.getSelectionModel().selectFirst();
-        discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
+            setDisable(false);
+            discreteMassListView.getSelectionModel().selectFirst();
+            discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
+        } else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
     @FXML private void saveAsAndExit() throws IOException {
@@ -212,10 +213,12 @@ public class DiscreteMassEditor {
             fileChooser.setInitialFileName(masses.get(0).getDate() + "_" + masses.get(masses.size() - 1).getDate() + ".xml");
 
             File selectedFile = fileChooser.showSaveDialog(removeButton.getScene().getWindow());
-            XML.writeList(masses, DiscreteMass.class, selectedFile);
-            LOGGER.info("Masses have been saved as {}", selectedFile);
+            if (selectedFile != null) {
+                XML.writeList(masses, DiscreteMass.class, selectedFile);
+                LOGGER.info("Masses have been saved as {}", selectedFile);
 
-            Launcher.loadParent("launcher.fxml", true);
+                Launcher.loadParent("launcher.fxml", true);
+            } else LOGGER.info("Masses have not been saved, because no file has been selected");
         } else LOGGER.info("No Masses available to save");
     }
 

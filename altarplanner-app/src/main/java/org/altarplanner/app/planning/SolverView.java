@@ -39,17 +39,19 @@ public class SolverView {
         fileChooser.setInitialDirectory(directory);
 
         File selectedFile = fileChooser.showOpenDialog(window);
-        try {
-            List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
-            LOGGER.info("Masses have been loaded from {}", selectedFile);
+        if (selectedFile != null) {
+            try {
+                List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
+                LOGGER.info("Masses have been loaded from {}", selectedFile);
 
-            new Thread(() -> {
-                Schedule solved = solver.solve(new Schedule(null, masses, config));
-                Platform.runLater(() -> saveSchedule(solved));
-            }).start();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+                new Thread(() -> {
+                    Schedule solved = solver.solve(new Schedule(null, masses, config));
+                    Platform.runLater(() -> saveSchedule(solved));
+                }).start();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
     private void saveSchedule(Schedule schedule) {
@@ -62,12 +64,14 @@ public class SolverView {
         fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".xml");
 
         File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
-        try {
-            XML.write(schedule, selectedFile);
-            LOGGER.info("Schedule has been saved as {}", selectedFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        if (selectedFile != null) {
+            try {
+                XML.write(schedule, selectedFile);
+                LOGGER.info("Schedule has been saved as {}", selectedFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else LOGGER.info("Schedule has not been saved, because no file has been selected");
     }
 
     public void stopPlanning() {

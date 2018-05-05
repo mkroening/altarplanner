@@ -113,18 +113,22 @@ public class Launcher extends Application {
         fileChooser.setInitialDirectory(directory);
 
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
-        Schedule schedule = XML.read(selectedFile, Schedule.class);
-        LOGGER.info("Schedule has been loaded from {}", selectedFile);
+        if (selectedFile != null) {
+            Schedule schedule = XML.read(selectedFile, Schedule.class);
+            LOGGER.info("Schedule has been loaded from {}", selectedFile);
 
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveSchedule"));
-        fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.ods"));
-        directory = new File("exported/");
-        directory.mkdirs();
-        fileChooser.setInitialDirectory(directory);
-        fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".ods");
+            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveSchedule"));
+            fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.ods"));
+            directory = new File("exported/");
+            directory.mkdirs();
+            fileChooser.setInitialDirectory(directory);
+            fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".ods");
 
-        selectedFile = fileChooser.showSaveDialog(primaryStage);
-        ODS.exportSchedule(schedule, selectedFile, 3);
-        LOGGER.info("Schedule has been exported as {}", selectedFile);
+            selectedFile = fileChooser.showSaveDialog(primaryStage);
+            if (selectedFile != null) {
+                ODS.exportSchedule(schedule, selectedFile, 3);
+                LOGGER.info("Schedule has been exported as {}", selectedFile);
+            } else LOGGER.info("Schedule has not been exported, because no file to save to has been selected");
+        } else LOGGER.info("Schedule has not been exported, because no file to load from has been selected");
     }
 }

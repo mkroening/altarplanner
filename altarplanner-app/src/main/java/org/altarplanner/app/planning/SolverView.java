@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
-import javafx.stage.Window;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
@@ -39,7 +38,7 @@ public class SolverView {
 
     private void saveSchedule(Schedule schedule) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveSchedule"));
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("schedules/");
         directory.mkdirs();

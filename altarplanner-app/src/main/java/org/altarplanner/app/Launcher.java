@@ -40,7 +40,7 @@ public class Launcher extends Application {
         controllerConsumer.accept(controller);
 
         String name = controller.getClass().getSimpleName();
-        String key = name.substring(0, 1).toLowerCase() + name.substring(1);
+        String key = name.substring(0, 1).toLowerCase() + name.substring(1) + ".windowTitle";
         String title = RESOURCE_BUNDLE.getString(key);
 
         Stage stage;
@@ -102,7 +102,7 @@ public class Launcher extends Application {
 
     public void loadSolverView() throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(RESOURCE_BUNDLE.getString("openDiscreteMasses"));
+        fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("masses/");
         directory.mkdirs();
@@ -119,7 +119,7 @@ public class Launcher extends Application {
 
     public void exportSchedule() throws Exception {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(RESOURCE_BUNDLE.getString("openSchedule"));
+        fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openSchedule"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("schedules/");
         directory.mkdirs();
@@ -130,7 +130,7 @@ public class Launcher extends Application {
             Schedule schedule = XML.read(selectedFile, Schedule.class);
             LOGGER.info("Schedule has been loaded from {}", selectedFile);
 
-            fileChooser.setTitle(RESOURCE_BUNDLE.getString("saveSchedule"));
+            fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
             fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.ods"));
             directory = new File("exported/");
             directory.mkdirs();

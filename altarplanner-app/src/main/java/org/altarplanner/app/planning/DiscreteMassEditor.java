@@ -182,7 +182,7 @@ public class DiscreteMassEditor {
 
     @FXML private void loadFile() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("openDiscreteMasses"));
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("masses/");
         directory.mkdirs();
@@ -205,7 +205,7 @@ public class DiscreteMassEditor {
             List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
 
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("saveDiscreteMasses"));
+            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveDiscreteMasses"));
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
             File directory = new File("masses/");
             directory.mkdirs();

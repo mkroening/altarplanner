@@ -11,8 +11,8 @@
             <ColumnConstraints minWidth="-Infinity"/>
             <ColumnConstraints hgrow="SOMETIMES"/>
         </columnConstraints>
-        <Label text="%start"/>
-        <Label text="%end" GridPane.rowIndex="1"/>
+        <Label text="%general.label.start"/>
+        <Label text="%general.label.end" GridPane.rowIndex="1"/>
         <DatePicker fx:id="startDatePicker" GridPane.columnIndex="1"/>
         <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <VBox.margin>
@@ -24,7 +24,7 @@
     </GridPane>
     <HBox>
         <Pane HBox.hgrow="SOMETIMES"/>
-        <Button mnemonicParsing="false" text="%generateMasses" onAction="#generateMasses"/>
+        <Button mnemonicParsing="false" text="%discreteMassEditor.button.generateMasses" onAction="#generateMasses"/>
         <padding>
             <Insets right="10.0"/>
         </padding>

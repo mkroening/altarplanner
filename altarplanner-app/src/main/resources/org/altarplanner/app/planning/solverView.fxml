@@ -8,9 +8,9 @@
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.planning.SolverView">
     <ToolBar>
-        <Button mnemonicParsing="false" text="%stopPlanning" onAction="#stopPlanning"/>
+        <Button mnemonicParsing="false" text="%solverView.button.stopPlanning" onAction="#stopPlanning"/>
         <Pane HBox.hgrow="SOMETIMES"/>
-        <Label text="%score"/>
+        <Label text="%solverView.label.score"/>
         <Label fx:id="scoreLabel"/>
     </ToolBar>
 </VBox>

@@ -7,10 +7,10 @@
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.config.ServiceTypeEditor">
     <ToolBar>
-        <Button mnemonicParsing="false" text="%add" onAction="#addServiceType"/>
-        <Button fx:id="removeButton" mnemonicParsing="false" text="%remove" onAction="#removeServiceType"/>
+        <Button mnemonicParsing="false" text="%general.button.add" onAction="#addServiceType"/>
+        <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeServiceType"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" text="%saveAndExit" onAction="#loadLauncher"/>
+        <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#loadLauncher"/>
     </ToolBar>
     <GridPane hgap="10.0" vgap="10.0" minHeight="-Infinity" minWidth="-Infinity">
         <columnConstraints>
@@ -20,11 +20,11 @@
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
-        <Label text="%name"/>
+        <Label text="%serviceTypeEditor.label.name"/>
         <TextField fx:id="nameTextField" GridPane.columnIndex="1"/>
-        <Label text="%maxYear" GridPane.rowIndex="1"/>
+        <Label text="%serviceTypeEditor.label.maximumYear" GridPane.rowIndex="1"/>
         <TextField fx:id="maxYearTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <Label text="%minYear" GridPane.rowIndex="2"/>
+        <Label text="%serviceTypeEditor.label.minimumYear" GridPane.rowIndex="2"/>
         <TextField fx:id="minYearTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     </GridPane>
     <ListView fx:id="serviceTypeListView" VBox.vgrow="SOMETIMES"/>

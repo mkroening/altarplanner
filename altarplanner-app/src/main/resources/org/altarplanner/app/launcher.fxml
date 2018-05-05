@@ -7,27 +7,27 @@
       alignment="CENTER" spacing="10.0"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.Launcher">
-    <Label text="%altarplanner">
+    <Label text="%launcher.label.altarplanner">
         <font>
             <Font size="24.0"/>
         </font>
     </Label>
     <Separator/>
-    <Label text="%config" underline="true">
+    <Label text="%launcher.label.generalConfiguration" underline="true">
         <font>
             <Font size="16"/>
         </font>
     </Label>
-    <Button mnemonicParsing="false" text="%serviceTypeEditor" onAction="#loadServiceTypeEditor"/>
-    <Button mnemonicParsing="false" text="%regularMassEditor" onAction="#loadRegularMassEditor"/>
-    <Button mnemonicParsing="false" text="%serverEditor" onAction="#loadServerEditor"/>
+    <Button mnemonicParsing="false" text="%launcher.button.editServiceTypes" onAction="#loadServiceTypeEditor"/>
+    <Button mnemonicParsing="false" text="%launcher.button.editRegularMasses" onAction="#loadRegularMassEditor"/>
+    <Button mnemonicParsing="false" text="%launcher.button.editServers" onAction="#loadServerEditor"/>
     <Separator/>
-    <Label text="%scheduleCreation" underline="true">
+    <Label text="%launcher.label.scheduleCreation" underline="true">
         <font>
             <Font size="16"/>
         </font>
     </Label>
-    <Button mnemonicParsing="false" text="%discreteMassEditor" onAction="#loadDiscreteMassEditor"/>
-    <Button mnemonicParsing="false" text="%solverView" onAction="#loadSolverView"/>
-    <Button mnemonicParsing="false" text="%exportSchedule" onAction="#exportSchedule"/>
+    <Button mnemonicParsing="false" text="%launcher.button.editDiscreteMasses" onAction="#loadDiscreteMassEditor"/>
+    <Button mnemonicParsing="false" text="%launcher.button.planServices" onAction="#loadSolverView"/>
+    <Button mnemonicParsing="false" text="%launcher.button.exportSchedule" onAction="#exportSchedule"/>
 </VBox>

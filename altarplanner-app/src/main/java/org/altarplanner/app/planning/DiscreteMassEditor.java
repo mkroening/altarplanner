@@ -180,7 +180,7 @@ public class DiscreteMassEditor {
                         }));
     }
 
-    @FXML private void loadFile() throws FileNotFoundException {
+    @FXML private void openFile() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -200,7 +200,7 @@ public class DiscreteMassEditor {
         } else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
-    @FXML private void saveAsAndExit() throws IOException {
+    @FXML private void saveAsAndBack() throws IOException {
         if (!discreteMassListView.getItems().isEmpty()) {
             List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
 

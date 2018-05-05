@@ -180,7 +180,7 @@ public class RegularMassEditor {
             setDisable(true);
     }
 
-    @FXML private void loadLauncher() throws IOException {
+    @FXML private void saveAndBack() throws IOException {
         config.setRegularMasses(List.copyOf(regularMassListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));

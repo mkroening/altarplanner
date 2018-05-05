@@ -108,7 +108,7 @@ public class ServiceTypeEditor {
         }
     }
 
-    @FXML private void loadLauncher() throws IOException {
+    @FXML private void saveAndBack() throws IOException {
         config.setServiceTypes(List.copyOf(serviceTypeListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));

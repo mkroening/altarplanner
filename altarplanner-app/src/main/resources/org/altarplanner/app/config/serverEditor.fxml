@@ -11,7 +11,7 @@
         <Button mnemonicParsing="false" text="%general.button.add" onAction="#addServer"/>
         <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeServer"/>
         <Pane HBox.hgrow="SOMETIMES"/>
-        <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#loadLauncher"/>
+        <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#saveAndBack"/>
     </ToolBar>
     <SplitPane dividerPositions="0.3" VBox.vgrow="SOMETIMES">
         <ListView fx:id="serverListView"/>

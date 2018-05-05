@@ -10,7 +10,7 @@
         <Button mnemonicParsing="false" text="%general.button.add" onAction="#addRegularMass"/>
         <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeRegularMass"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#loadLauncher"/>
+        <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#saveAndBack"/>
     </ToolBar>
     <SplitPane dividerPositions="0.4" VBox.vgrow="SOMETIMES">
         <ListView fx:id="regularMassListView"/>

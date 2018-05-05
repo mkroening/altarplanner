@@ -18,16 +18,16 @@
             <Font size="16"/>
         </font>
     </Label>
-    <Button mnemonicParsing="false" text="%launcher.button.editServiceTypes" onAction="#loadServiceTypeEditor"/>
-    <Button mnemonicParsing="false" text="%launcher.button.editRegularMasses" onAction="#loadRegularMassEditor"/>
-    <Button mnemonicParsing="false" text="%launcher.button.editServers" onAction="#loadServerEditor"/>
+    <Button mnemonicParsing="false" text="%launcher.button.editServiceTypes" onAction="#editServiceTypes"/>
+    <Button mnemonicParsing="false" text="%launcher.button.editRegularMasses" onAction="#editRegularMasses"/>
+    <Button mnemonicParsing="false" text="%launcher.button.editServers" onAction="#editServers"/>
     <Separator/>
     <Label text="%launcher.label.scheduleCreation" underline="true">
         <font>
             <Font size="16"/>
         </font>
     </Label>
-    <Button mnemonicParsing="false" text="%launcher.button.createDiscreteMasses" onAction="#loadDiscreteMassEditor"/>
-    <Button mnemonicParsing="false" text="%launcher.button.planServices" onAction="#loadSolverView"/>
+    <Button mnemonicParsing="false" text="%launcher.button.createDiscreteMasses" onAction="#createDiscreteMasses"/>
+    <Button mnemonicParsing="false" text="%launcher.button.planServices" onAction="#planServices"/>
     <Button mnemonicParsing="false" text="%launcher.button.exportSchedule" onAction="#exportSchedule"/>
 </VBox>

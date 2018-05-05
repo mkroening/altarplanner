@@ -371,7 +371,7 @@ public class ServerEditor {
             setDisable(true);
     }
 
-    @FXML private void loadLauncher() throws IOException {
+    @FXML private void saveAndBack() throws IOException {
         applyListViews();
         config.setServers(List.copyOf(serverListView.getItems()));
         config.save();

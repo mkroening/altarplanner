@@ -84,23 +84,23 @@ public class Launcher extends Application {
         this.config = config;
     }
 
-    public void loadServiceTypeEditor() throws IOException {
+    public void editServiceTypes() throws IOException {
         loadParent("config/serviceTypeEditor.fxml", true, serviceTypeEditor -> ((ServiceTypeEditor)serviceTypeEditor).initData(config));
     }
 
-    public void loadRegularMassEditor() throws IOException {
+    public void editRegularMasses() throws IOException {
         loadParent("config/regularMassEditor.fxml", true, regularMassEditor -> ((RegularMassEditor)regularMassEditor).initData(config));
     }
 
-    public void loadServerEditor() throws IOException {
+    public void editServers() throws IOException {
         loadParent("config/serverEditor.fxml", true, serverEditor -> ((ServerEditor)serverEditor).initData(config));
     }
 
-    public void loadDiscreteMassEditor() throws IOException {
+    public void createDiscreteMasses() throws IOException {
         loadParent("planning/discreteMassEditor.fxml", true, discreteMassEditor -> ((DiscreteMassEditor)discreteMassEditor).initData(config));
     }
 
-    public void loadSolverView() throws IOException {
+    public void planServices() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));

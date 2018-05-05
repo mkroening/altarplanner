@@ -10,7 +10,7 @@
         <Button mnemonicParsing="false" text="%general.button.add" onAction="#addServiceType"/>
         <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeServiceType"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#loadLauncher"/>
+        <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#saveAndBack"/>
     </ToolBar>
     <GridPane hgap="10.0" vgap="10.0" minHeight="-Infinity" minWidth="-Infinity">
         <columnConstraints>

@@ -19,11 +19,11 @@ import java.util.List;
 
 public class SolverView {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SolverView.class);
+
     @FXML private Label scoreLabel;
 
     private ScheduleSolver solver = new ScheduleSolver();
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SolverView.class);
 
     @FXML private void initialize() {
         solver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));

@@ -27,7 +27,7 @@
             <Font size="16"/>
         </font>
     </Label>
-    <Button mnemonicParsing="false" text="%launcher.button.editDiscreteMasses" onAction="#loadDiscreteMassEditor"/>
+    <Button mnemonicParsing="false" text="%launcher.button.createDiscreteMasses" onAction="#loadDiscreteMassEditor"/>
     <Button mnemonicParsing="false" text="%launcher.button.planServices" onAction="#loadSolverView"/>
     <Button mnemonicParsing="false" text="%launcher.button.exportSchedule" onAction="#exportSchedule"/>
 </VBox>

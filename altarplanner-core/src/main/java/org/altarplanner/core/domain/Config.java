@@ -6,6 +6,8 @@ import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.io.XML;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
@@ -14,6 +16,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@XmlRootElement
+@XmlType(propOrder = {"serviceTypes", "regularMasses", "servers", "pairs"})
 public class Config implements Serializable {
 
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.core.locale.locale");

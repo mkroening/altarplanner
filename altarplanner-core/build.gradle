@@ -7,6 +7,10 @@ dependencies {
         because 'we depend on optaplanner projects'
     }
 
+    implementation('org.glassfish.jaxb:jaxb-bom:2.3.0') {
+        because 'we use JAXB for XML Binding'
+    }
+
     implementation('org.optaplanner:optaplanner-core') {
         because 'we require a constraint solver'
     }
@@ -17,6 +21,10 @@ dependencies {
 
     implementation('org.apache.commons:commons-lang3:3.7') {
         because 'we use several of those helper utilites'
+    }
+
+    implementation('org.glassfish.jaxb:jaxb-runtime') {
+        because 'we use the JAXB-RI'
     }
 
     implementation('com.thoughtworks.xstream:xstream:1.4.10') {

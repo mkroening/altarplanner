@@ -1,5 +1,7 @@
 package org.altarplanner.core.domain;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.Comparator;
@@ -12,6 +14,12 @@ public class ServiceType implements Serializable {
 
     public ServiceType() {
         this.name = Config.RESOURCE_BUNDLE.getString("serviceType.name");
+    }
+
+    @XmlAttribute
+    @XmlID
+    public String getXmlID() {
+        return name + "{" + maxYear + "-" + minYear + "}";
     }
 
     public String getDesc() {

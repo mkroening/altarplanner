@@ -1,7 +1,9 @@
 package org.altarplanner.core.domain.mass;
 
 import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.xml.ServiceTypeCountAdapter;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ public abstract class EditableMass extends GenericMass {
         this.serviceTypeCount = editableMass.serviceTypeCount;
     }
 
+    @XmlJavaTypeAdapter(ServiceTypeCountAdapter.class)
     public Map<ServiceType, Integer> getServiceTypeCount() {
         return serviceTypeCount;
     }

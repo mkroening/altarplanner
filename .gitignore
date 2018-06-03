@@ -1,3 +1,9 @@
+# AltarPlanner files
+config.xml
+masses/
+schedules/
+exported/
+
 # Gradle files
 .gradle
 /build/

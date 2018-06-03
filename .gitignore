@@ -1,4 +1,9 @@
-# Gradle files
+# AltarPlanner files
+config.xml
+masses/
+schedules/
+exported/
+
 .gradle
 /build/
 
@@ -13,12 +18,3 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
-
-# Eclipse, Netbeans and IntelliJ files
-/.*
-!.gitignore
-!.gitattributes
-/nbproject
-/*.ipr
-/*.iws
-/*.iml

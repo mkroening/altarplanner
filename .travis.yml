@@ -14,6 +14,8 @@ jdk:
 
 matrix:
   allow_failures:
+  - os: osx
+    jdk: oraclejdk10
   - jdk: openjdk11
   - jdk: openjdk-ea
 

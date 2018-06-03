@@ -1,4 +1,4 @@
-# AltarPlanner [![Build Status](https://travis-ci.org/mwkroening/altarplanner.svg?branch=master)](https://travis-ci.org/mwkroening/altarplanner)
+# AltarPlanner [![Build Status](https://travis-ci.com/altarplanner/altarplanner.svg?branch=master)](https://travis-ci.com/altarplanner/altarplanner)
 
 Application to create altar server schedules.
 

@@ -14,17 +14,17 @@ import java.util.List;
 
 public class ServiceTypeEditor {
 
-    @FXML private Button removeButton;
-    @FXML private TextField nameTextField;
-    @FXML private TextField maxYearTextField;
-    @FXML private TextField minYearTextField;
-    @FXML private ListView<ServiceType> serviceTypeListView;
+    public Button removeButton;
+    public TextField nameTextField;
+    public TextField maxYearTextField;
+    public TextField minYearTextField;
+    public ListView<ServiceType> serviceTypeListView;
 
     private Config config;
     private ServiceType selectedServiceType;
     private boolean applyChanges;
 
-    @FXML private void initialize() {
+    public void initialize() {
         serviceTypeListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(ServiceType item, boolean empty) {
@@ -108,13 +108,13 @@ public class ServiceTypeEditor {
         }
     }
 
-    @FXML private void saveAndBack() throws IOException {
+    public void saveAndBack() throws IOException {
         config.setServiceTypes(List.copyOf(serviceTypeListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
     }
 
-    @FXML private void addServiceType() {
+    public void addServiceType() {
         ServiceType serviceType = new ServiceType();
         serviceTypeListView.getItems().add(serviceType);
         setDisable(false);
@@ -122,7 +122,7 @@ public class ServiceTypeEditor {
         serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
     }
 
-    @FXML private void removeServiceType() {
+    public void removeServiceType() {
         config.removeFromRegularMasses(selectedServiceType);
         serviceTypeListView.getItems().remove(selectedServiceType);
         if (serviceTypeListView.getItems().isEmpty())

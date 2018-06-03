@@ -21,12 +21,12 @@ public class SolverView {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SolverView.class);
 
-    @FXML private Label scoreLabel;
+    public Label scoreLabel;
 
     private Config config;
     private ScheduleSolver solver = new ScheduleSolver();
 
-    @FXML private void initialize() {
+    public void initialize() {
         solver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));
     }
 

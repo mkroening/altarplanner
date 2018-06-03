@@ -25,15 +25,15 @@ import java.util.List;
 
 public class DiscreteMassEditor {
 
-    @FXML private Button removeButton;
-    @FXML private ListView<DiscreteMass> discreteMassListView;
-    @FXML private DatePicker datePicker;
-    @FXML private TextField timeTextField;
-    @FXML private TextField churchTextField;
-    @FXML private TextField formTextField;
-    @FXML private TableView<ServiceType> serviceTypeCountTableView;
-    @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
-    @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
+    public Button removeButton;
+    public ListView<DiscreteMass> discreteMassListView;
+    public DatePicker datePicker;
+    public TextField timeTextField;
+    public TextField churchTextField;
+    public TextField formTextField;
+    public TableView<ServiceType> serviceTypeCountTableView;
+    public TableColumn<ServiceType, String> serviceTypeNameColumn;
+    public TableColumn<ServiceType, String> serviceTypeCountColumn;
 
     private Config config;
     private DiscreteMass selectedDiscreteMass;
@@ -41,7 +41,7 @@ public class DiscreteMassEditor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DiscreteMassEditor.class);
 
-    @FXML private void initialize() {
+    public void initialize() {
         discreteMassListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(DiscreteMass item, boolean empty) {
@@ -154,7 +154,7 @@ public class DiscreteMassEditor {
         }
     }
 
-    @FXML private void addDiscreteMass() {
+    public void addDiscreteMass() {
         DiscreteMass discreteMass = new DiscreteMass();
         discreteMassListView.getItems().add(discreteMass);
         setDisable(false);
@@ -162,13 +162,13 @@ public class DiscreteMassEditor {
         discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
     }
 
-    @FXML private void removeDiscreteMass() {
+    public void removeDiscreteMass() {
         discreteMassListView.getItems().remove(selectedDiscreteMass);
         if (discreteMassListView.getItems().isEmpty())
             setDisable(true);
     }
 
-    @FXML private void generateFromRegularMasses() throws IOException {
+    public void generateFromRegularMasses() throws IOException {
         Launcher.loadParent("planning/discreteMassGenerator.fxml", false,
                 discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator)
                         .initData(config, discreteMasses -> {
@@ -180,7 +180,7 @@ public class DiscreteMassEditor {
                         }));
     }
 
-    @FXML private void openFile() throws FileNotFoundException {
+    public void openFile() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -200,7 +200,7 @@ public class DiscreteMassEditor {
         } else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
-    @FXML private void saveAsAndBack() throws IOException {
+    public void saveAsAndBack() throws IOException {
         if (!discreteMassListView.getItems().isEmpty()) {
             List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
 

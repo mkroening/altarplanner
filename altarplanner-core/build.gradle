@@ -11,8 +11,8 @@ dependencies {
         because 'we require a constraint solver'
     }
 
-    implementation('ch.qos.logback:logback-classic:1.2.3') {
-        because 'we need a SLF4J binding for logging'
+    implementation('org.slf4j:slf4j-api:1.7.25') {
+        because 'we do logging via these interfaces'
     }
 
     implementation('org.apache.commons:commons-lang3:3.7') {
@@ -33,12 +33,16 @@ dependencies {
         because 'we require a testing API for writing tests'
     }
 
+    testImplementation('org.optaplanner:optaplanner-test') {
+        because 'we use this JUnit integration to test score rules in DRL'
+    }
+
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0') {
         because 'a test engine implementation is required for running the tests'
     }
 
-    testImplementation('org.optaplanner:optaplanner-test') {
-        because 'we use this JUnit integration to test score rules in DRL'
+    testRuntimeOnly('ch.qos.logback:logback-classic:1.2.3') {
+        because 'we use this SLF4J API implementation for logging while testing'
     }
 }
 

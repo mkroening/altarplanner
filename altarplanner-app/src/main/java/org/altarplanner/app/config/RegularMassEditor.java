@@ -23,21 +23,21 @@ import java.util.Locale;
 
 public class RegularMassEditor {
 
-    public Button removeButton;
-    public ListView<RegularMass> regularMassListView;
-    public ChoiceBox<DayOfWeek> dayOfWeekChoiceBox;
-    public TextField timeTextField;
-    public TextField churchTextField;
-    public TextField formTextField;
-    public TableView<ServiceType> serviceTypeCountTableView;
-    public TableColumn<ServiceType, String> serviceTypeNameColumn;
-    public TableColumn<ServiceType, String> serviceTypeCountColumn;
+    @FXML private Button removeButton;
+    @FXML private ListView<RegularMass> regularMassListView;
+    @FXML private ChoiceBox<DayOfWeek> dayOfWeekChoiceBox;
+    @FXML private TextField timeTextField;
+    @FXML private TextField churchTextField;
+    @FXML private TextField formTextField;
+    @FXML private TableView<ServiceType> serviceTypeCountTableView;
+    @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
+    @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
     private Config config;
     private RegularMass selectedRegularMass;
     private boolean applyChanges;
 
-    public void initialize() {
+    @FXML private void initialize() {
         regularMassListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(RegularMass item, boolean empty) {
@@ -166,7 +166,7 @@ public class RegularMassEditor {
         }
     }
 
-    public void addRegularMass() {
+    @FXML private void addRegularMass() {
         RegularMass regularMass = new RegularMass();
         regularMassListView.getItems().add(regularMass);
         setDisable(false);
@@ -174,13 +174,13 @@ public class RegularMassEditor {
         regularMassListView.getItems().sort(RegularMass.getDescComparator());
     }
 
-    public void removeRegularMass() {
+    @FXML private void removeRegularMass() {
         regularMassListView.getItems().remove(selectedRegularMass);
         if (regularMassListView.getItems().isEmpty())
             setDisable(true);
     }
 
-    public void saveAndBack() throws IOException {
+    @FXML private void saveAndBack() throws IOException {
         config.setRegularMasses(List.copyOf(regularMassListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));

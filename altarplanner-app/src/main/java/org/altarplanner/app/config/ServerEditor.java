@@ -28,24 +28,24 @@ import java.util.Optional;
 
 public class ServerEditor {
 
-    public Button removeButton;
-    public ListView<Server> serverListView;
-    public TextField surnameTextField;
-    public TextField forenameTextField;
-    public TextField yearTextField;
-    public CheckComboBox<DayOfWeek> weeklyAbsencesCheckComboBox;
-    public CheckComboBox<Server> pairedWithCheckComboBox;
-    public CheckComboBox<ServiceType> inabilitiesCheckComboBox;
-    public Tab absencesTab;
-    public Button removeAbsenceButton;
-    public DatePicker absenceStartDatePicker;
-    public DatePicker absenceEndDatePicker;
-    public ListView<DateSpan> absencesListView;
-    public Tab assignmentWishesTab;
-    public Button removeAssignmentWishButton;
-    public DatePicker assignmentWishDatePicker;
-    public TextField assignmentWishTimeTextField;
-    public ListView<LocalDateTime> assignmentWishesListView;
+    @FXML private Button removeButton;
+    @FXML private ListView<Server> serverListView;
+    @FXML private TextField surnameTextField;
+    @FXML private TextField forenameTextField;
+    @FXML private TextField yearTextField;
+    @FXML private CheckComboBox<DayOfWeek> weeklyAbsencesCheckComboBox;
+    @FXML private CheckComboBox<Server> pairedWithCheckComboBox;
+    @FXML private CheckComboBox<ServiceType> inabilitiesCheckComboBox;
+    @FXML private Tab absencesTab;
+    @FXML private Button removeAbsenceButton;
+    @FXML private DatePicker absenceStartDatePicker;
+    @FXML private DatePicker absenceEndDatePicker;
+    @FXML private ListView<DateSpan> absencesListView;
+    @FXML private Tab assignmentWishesTab;
+    @FXML private Button removeAssignmentWishButton;
+    @FXML private DatePicker assignmentWishDatePicker;
+    @FXML private TextField assignmentWishTimeTextField;
+    @FXML private ListView<LocalDateTime> assignmentWishesListView;
 
     private Config config;
     private Server selectedServer;
@@ -55,7 +55,7 @@ public class ServerEditor {
     private LocalDateTime selectedAssignmentWish;
     private boolean applyAssignmentWishChanges;
 
-    public void initialize() {
+    @FXML private void initialize() {
         serverListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Server item, boolean empty) {
@@ -356,7 +356,7 @@ public class ServerEditor {
         }
     }
 
-    public void addServer() {
+    @FXML private void addServer() {
         Server server = new Server();
         serverListView.getItems().add(server);
         setDisable(false);
@@ -364,21 +364,21 @@ public class ServerEditor {
         serverListView.getItems().sort(Server.getDescComparator());
     }
 
-    public void removeServer() {
+    @FXML private void removeServer() {
         config.removeAllPairsWith(selectedServer);
         serverListView.getItems().remove(selectedServer);
         if (serverListView.getItems().isEmpty())
             setDisable(true);
     }
 
-    public void saveAndBack() throws IOException {
+    @FXML private void saveAndBack() throws IOException {
         applyListViews();
         config.setServers(List.copyOf(serverListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
     }
 
-    public void addAbsence() {
+    @FXML private void addAbsence() {
         DateSpan absence = DateSpan.of(LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1));
         absencesListView.getItems().add(absence);
         setAbsenceDisable(false);
@@ -386,13 +386,13 @@ public class ServerEditor {
         absencesListView.getItems().sort(DateSpan.getDescComparator());
     }
 
-    public void removeAbsence() {
+    @FXML private void removeAbsence() {
         absencesListView.getItems().remove(selectedAbsence);
         if (absencesListView.getItems().isEmpty())
             setAbsenceDisable(true);
     }
 
-    public void addAssignmentWish() {
+    @FXML private void addAssignmentWish() {
         LocalDateTime assignmentWish = LocalDateTime.of(LocalDate.now().plusMonths(1), LocalTime.of(11, 0));
         assignmentWishesListView.getItems().add(assignmentWish);
         setAssignmentWishDisable(false);
@@ -400,7 +400,7 @@ public class ServerEditor {
         assignmentWishesListView.getItems().sort(Comparator.reverseOrder());
     }
 
-    public void removeAssignmentWish() {
+    @FXML private void removeAssignmentWish() {
         assignmentWishesListView.getItems().remove(selectedAssignmentWish);
         if (assignmentWishesListView.getItems().isEmpty())
             setAssignmentWishDisable(true);

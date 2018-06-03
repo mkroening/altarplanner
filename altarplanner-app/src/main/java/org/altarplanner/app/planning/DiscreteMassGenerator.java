@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 
 public class DiscreteMassGenerator {
 
-    public DatePicker startDatePicker;
-    public DatePicker endDatePicker;
+    @FXML private DatePicker startDatePicker;
+    @FXML private DatePicker endDatePicker;
 
     private Config config;
     private List<Consumer<List<DiscreteMass>>> massesConsumers;
 
-    public void initialize() {
+    @FXML private void initialize() {
         startDatePicker.setValue(LocalDate.now().plusMonths(1));
         endDatePicker.setValue(LocalDate.now().plusMonths(1));
     }
@@ -31,7 +31,7 @@ public class DiscreteMassGenerator {
         this.massesConsumers = List.of(consumers);
     }
 
-    public void generateMasses() {
+    @FXML private void generateMasses() {
         List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(DateSpan.of(startDatePicker.getValue(), endDatePicker.getValue())).collect(Collectors.toList());
         massesConsumers.forEach(listConsumer -> listConsumer.accept(masses));
         ((Stage)startDatePicker.getScene().getWindow()).close();

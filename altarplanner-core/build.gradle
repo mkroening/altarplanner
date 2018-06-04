@@ -3,11 +3,11 @@ description = "This project contains the domain specific implementation of the p
 apply plugin: 'java-library'
 
 dependencies {
-    implementation('org.optaplanner:optaplanner-bom:7.7.0.Final') {
+    implementation('org.optaplanner:optaplanner-bom:+') {
         because 'we depend on optaplanner projects'
     }
 
-    implementation('org.junit:junit-bom:5.1.0') {
+    implementation('org.junit:junit-bom:+') {
         because 'we use JUnit modules'
     }
 
@@ -15,19 +15,19 @@ dependencies {
         because 'we require a constraint solver'
     }
 
-    implementation('org.slf4j:slf4j-api:1.7.25') {
+    implementation('org.slf4j:slf4j-api:+') {
         because 'we do logging via these interfaces'
     }
 
-    implementation('org.apache.commons:commons-lang3:3.7') {
+    implementation('org.apache.commons:commons-lang3:+') {
         because 'we use several of those helper utilites'
     }
 
-    implementation('com.thoughtworks.xstream:xstream:1.4.10') {
+    implementation('com.thoughtworks.xstream:xstream:+') {
         because 'we have to serialize objects to disk and back again'
     }
 
-    implementation('org.apache.odftoolkit:simple-odf:0.8.2-incubating') {
+    implementation('org.apache.odftoolkit:simple-odf:+') {
         because 'we export the final schedule to a spreadsheet'
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'
         exclude group: 'log4j', module: 'log4j'
@@ -45,7 +45,7 @@ dependencies {
         because 'a test engine implementation is required for running the tests'
     }
 
-    testRuntimeOnly('ch.qos.logback:logback-classic:1.2.3') {
+    testRuntimeOnly('ch.qos.logback:logback-classic:+') {
         because 'we use this SLF4J API implementation for logging while testing'
     }
 }

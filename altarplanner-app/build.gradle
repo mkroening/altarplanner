@@ -9,11 +9,11 @@ dependencies {
         because 'we need the domain, solver and IO implementation of the core project'
     }
 
-    compile('ch.qos.logback:logback-classic:1.2.3') {
+    compile('ch.qos.logback:logback-classic:+') {
         because 'we require a SLF4J binding for logging'
     }
 
-    compile('org.controlsfx:controlsfx:9.0.0') {
+    compile('org.controlsfx:controlsfx:+') {
         because 'we use the CheckComboBox'
     }
 }

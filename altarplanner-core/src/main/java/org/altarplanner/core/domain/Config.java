@@ -6,6 +6,8 @@ import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.io.XML;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.File;
@@ -81,6 +83,8 @@ public class Config implements Serializable {
         pairs.removeIf(pairRequest -> pairRequest.getKey() == server || pairRequest.getValue() == server);
     }
 
+    @XmlElementWrapper(name = "serviceTypes")
+    @XmlElement(name = "serviceType")
     public List<ServiceType> getServiceTypes() {
         return serviceTypes;
     }
@@ -89,6 +93,8 @@ public class Config implements Serializable {
         this.serviceTypes = serviceTypes;
     }
 
+    @XmlElementWrapper(name = "regularMasses")
+    @XmlElement(name = "regularMass")
     public List<RegularMass> getRegularMasses() {
         return regularMasses;
     }
@@ -97,6 +103,8 @@ public class Config implements Serializable {
         this.regularMasses = regularMasses;
     }
 
+    @XmlElementWrapper(name = "servers")
+    @XmlElement(name = "server")
     public List<Server> getServers() {
         return servers;
     }
@@ -105,6 +113,8 @@ public class Config implements Serializable {
         this.servers = servers;
     }
 
+    @XmlElementWrapper(name = "pairs")
+    @XmlElement(name = "pair")
     public List<PairRequest> getPairs() {
         return pairs;
     }

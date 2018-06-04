@@ -2,6 +2,7 @@ package org.altarplanner.core.xml;
 
 import org.altarplanner.core.domain.ServiceType;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.ArrayList;
@@ -15,8 +16,10 @@ public class ServiceTypeCountAdapter extends XmlAdapter<ServiceTypeCountAdapter.
     }
 
     public static class Entry {
+        @XmlAttribute
         @XmlIDREF
         public ServiceType serviceType;
+        @XmlAttribute
         public int count;
     }
 

@@ -3,6 +3,7 @@ package org.altarplanner.core.domain;
 import com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter;
 import org.altarplanner.core.domain.request.*;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -71,6 +72,7 @@ public class Server implements Serializable {
                 .map(dateTime -> new DateTimeOnRequest(this, dateTime));
     }
 
+    @XmlAttribute
     public String getSurname() {
         return surname;
     }
@@ -79,6 +81,7 @@ public class Server implements Serializable {
         this.surname = surname;
     }
 
+    @XmlAttribute
     public String getForename() {
         return forename;
     }
@@ -87,6 +90,7 @@ public class Server implements Serializable {
         this.forename = forename;
     }
 
+    @XmlAttribute
     public int getYear() {
         return year;
     }

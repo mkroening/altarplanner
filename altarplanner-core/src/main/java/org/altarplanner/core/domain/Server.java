@@ -1,8 +1,10 @@
 package org.altarplanner.core.domain;
 
+import com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter;
 import org.altarplanner.core.domain.request.*;
 
 import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -116,6 +118,7 @@ public class Server implements Serializable {
         this.inabilities = inabilities;
     }
 
+    @XmlJavaTypeAdapter(LocalDateTimeXmlAdapter.class)
     public List<LocalDateTime> getDateTimeOnWishes() {
         return dateTimeOnWishes;
     }

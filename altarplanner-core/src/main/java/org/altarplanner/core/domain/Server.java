@@ -4,6 +4,7 @@ import com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter;
 import org.altarplanner.core.domain.request.*;
 
 import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.DayOfWeek;
@@ -14,6 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+@XmlType(propOrder = {"surname", "forename", "year", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
 public class Server implements Serializable {
 
     private String surname;

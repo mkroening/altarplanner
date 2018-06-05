@@ -4,9 +4,7 @@ import com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter;
 import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlIDREF;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.DayOfWeek;
@@ -100,6 +98,8 @@ public class Server implements Serializable {
         this.year = year;
     }
 
+    @XmlElementWrapper(name = "absences")
+    @XmlElement(name = "absence")
     @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
     public List<DateSpan> getAbsences() {
         return absences;

@@ -31,6 +31,10 @@ dependencies {
         because 'we use the JAXB-RI'
     }
 
+    implementation('com.migesok:jaxb-java-time-adapters:+') {
+        because 'these JAXB adapters for JSR-310 save us some boilerplate code'
+    }
+
     implementation('com.thoughtworks.xstream:xstream:+') {
         because 'we have to serialize objects to disk and back again'
     }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ServiceTypeCountAdapter extends XmlAdapter<ServiceTypeCountAdapter.AdaptedMap, Map<ServiceType, Integer>> {
+public class ServiceTypeCountXmlAdapter extends XmlAdapter<ServiceTypeCountXmlAdapter.AdaptedMap, Map<ServiceType, Integer>> {
     public static class AdaptedMap {
         public List<Entry> entry = new ArrayList<>();
     }

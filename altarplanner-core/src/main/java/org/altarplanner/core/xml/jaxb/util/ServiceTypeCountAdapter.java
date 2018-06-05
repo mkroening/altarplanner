@@ -1,4 +1,4 @@
-package org.altarplanner.core.xml;
+package org.altarplanner.core.xml.jaxb.util;
 
 import org.altarplanner.core.domain.ServiceType;
 

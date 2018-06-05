@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain.mass;
 
 import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.xml.ServiceTypeCountAdapter;
+import org.altarplanner.core.xml.jaxb.util.ServiceTypeCountAdapter;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.HashMap;

@@ -2,6 +2,7 @@ package org.altarplanner.core.domain;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter;
 import org.altarplanner.core.domain.request.*;
+import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
@@ -99,6 +100,7 @@ public class Server implements Serializable {
         this.year = year;
     }
 
+    @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
     public List<DateSpan> getAbsences() {
         return absences;
     }

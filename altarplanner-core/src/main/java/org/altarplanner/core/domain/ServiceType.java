@@ -18,7 +18,7 @@ public class ServiceType implements Serializable {
 
     @XmlAttribute
     @XmlID
-    public String getXmlID() {
+    public String getId() {
         return name + "{" + maxYear + "-" + minYear + "}";
     }
 

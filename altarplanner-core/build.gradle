@@ -32,7 +32,7 @@ dependencies {
         because 'we use the JAXB-RI'
     }
 
-    implementation('com.sun.activation:javax.activation:1.2.0') {
+    implementation('javax.activation:javax.activation-api:+') {
         because 'the version otherwise provided by JAXB or logback is outdated'
     }
 

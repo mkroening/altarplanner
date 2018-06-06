@@ -34,7 +34,7 @@ public class Server implements Serializable {
     @XmlID
     @XmlAttribute
     public String getId() {
-        return surname + "." + forename + "-" + year;
+        return surname + "_" + forename + "-" + year;
     }
 
     public String getDesc() {

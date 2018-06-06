@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-@XmlType(propOrder = {"surname", "forename", "year", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
+@XmlType(propOrder = {"surname", "forename", "year", "xmlID", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
 public class Server implements Serializable {
 
     private String surname;
@@ -29,6 +29,12 @@ public class Server implements Serializable {
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
+    }
+
+    @XmlID
+    @XmlAttribute
+    public String getXmlID() {
+        return surname + "." + forename + "-" + year;
     }
 
     public String getDesc() {

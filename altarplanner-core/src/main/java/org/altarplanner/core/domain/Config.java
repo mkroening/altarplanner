@@ -4,12 +4,14 @@ import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.io.XML;
+import org.altarplanner.core.xml.jaxb.util.PairRequestXmlAdapter;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
@@ -115,6 +117,7 @@ public class Config implements Serializable {
 
     @XmlElementWrapper(name = "pairs")
     @XmlElement(name = "pair")
+    @XmlJavaTypeAdapter(PairRequestXmlAdapter.class)
     public List<PairRequest> getPairs() {
         return pairs;
     }

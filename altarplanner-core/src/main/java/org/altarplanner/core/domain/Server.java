@@ -115,6 +115,7 @@ public class Server implements Serializable {
         this.absences = absences;
     }
 
+    @XmlList
     public List<DayOfWeek> getWeeklyAbsences() {
         return weeklyAbsences;
     }
@@ -124,6 +125,7 @@ public class Server implements Serializable {
     }
 
     @XmlIDREF
+    @XmlList
     public List<ServiceType> getInabilities() {
         return inabilities;
     }

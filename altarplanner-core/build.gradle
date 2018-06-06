@@ -9,6 +9,7 @@ dependencies {
 
     implementation('org.glassfish.jaxb:jaxb-bom:+') {
         because 'we use JAXB for XML Binding'
+        exclude group: 'javax.activation', module: 'activation'
     }
 
     implementation('org.junit:junit-bom:+') {
@@ -29,6 +30,10 @@ dependencies {
 
     implementation('org.glassfish.jaxb:jaxb-runtime') {
         because 'we use the JAXB-RI'
+    }
+
+    implementation('com.sun.activation:javax.activation:1.2.0') {
+        because 'the version otherwise provided by JAXB or logback is outdated'
     }
 
     implementation('com.migesok:jaxb-java-time-adapters:+') {
@@ -59,6 +64,7 @@ dependencies {
 
     testRuntimeOnly('ch.qos.logback:logback-classic:+') {
         because 'we use this SLF4J API implementation for logging while testing'
+        exclude group: 'javax.activation', module: 'activation'
     }
 }
 

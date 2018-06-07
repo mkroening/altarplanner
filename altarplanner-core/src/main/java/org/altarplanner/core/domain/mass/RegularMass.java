@@ -1,5 +1,6 @@
 package org.altarplanner.core.domain.mass;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +28,7 @@ public class RegularMass extends EditableMass {
                 .thenComparing(GenericMass::getForm);
     }
 
+    @XmlAttribute
     public DayOfWeek getDay() {
         return day;
     }

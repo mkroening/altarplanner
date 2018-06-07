@@ -3,6 +3,7 @@ package org.altarplanner.core.domain.mass;
 import com.migesok.jaxb.adapter.javatime.LocalTimeXmlAdapter;
 import org.altarplanner.core.domain.Config;
 
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalTime;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Comparator;
 
+@XmlTransient
 public abstract class GenericMass implements Serializable {
 
     private LocalTime time;

@@ -3,6 +3,7 @@ package org.altarplanner.core.domain.mass;
 import com.migesok.jaxb.adapter.javatime.LocalTimeXmlAdapter;
 import org.altarplanner.core.domain.Config;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
@@ -43,6 +44,7 @@ public abstract class GenericMass implements Serializable {
     }
 
     @XmlJavaTypeAdapter(LocalTimeXmlAdapter.class)
+    @XmlAttribute
     public LocalTime getTime() {
         return time;
     }
@@ -51,6 +53,7 @@ public abstract class GenericMass implements Serializable {
         this.time = time;
     }
 
+    @XmlAttribute
     public String getChurch() {
         return church;
     }
@@ -59,6 +62,7 @@ public abstract class GenericMass implements Serializable {
         this.church = church;
     }
 
+    @XmlAttribute
     public String getForm() {
         return form;
     }

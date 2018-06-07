@@ -1,5 +1,6 @@
 package org.altarplanner.core.domain.mass;
 
+import javax.xml.bind.annotation.XmlType;
 import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -7,6 +8,7 @@ import java.time.format.TextStyle;
 import java.util.Comparator;
 import java.util.Locale;
 
+@XmlType(propOrder = {"day", "time", "church", "form", "serviceTypeCount"})
 public class RegularMass extends EditableMass {
 
     private DayOfWeek day = DayOfWeek.SUNDAY;

@@ -1,9 +1,11 @@
 package org.altarplanner.core.domain.mass;
 
+import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.Service;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -56,6 +58,7 @@ public class PlanningMass extends GenericMass {
         this.services = services;
     }
 
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
     public LocalDate getDate() {
         return date;
     }

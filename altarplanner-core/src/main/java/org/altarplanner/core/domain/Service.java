@@ -9,11 +9,13 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.Comparator;
 
 @PlanningEntity(movableEntitySelectionFilter = MovableServiceSelectionFilter.class,
         difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
+@XmlType(propOrder = {"server", "type", "id"})
 public class Service implements Serializable {
 
     private int id;

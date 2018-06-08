@@ -5,10 +5,7 @@ import org.altarplanner.core.domain.ServiceType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ServiceTypeCountXmlAdapter extends XmlAdapter<ServiceTypeCountXmlAdapter.AdaptedMap, Map<ServiceType, Integer>> {
     public static class AdaptedMap {
@@ -41,6 +38,7 @@ public class ServiceTypeCountXmlAdapter extends XmlAdapter<ServiceTypeCountXmlAd
             entry.count = mapEntry.getValue();
             adaptedMap.entry.add(entry);
         }
+        adaptedMap.entry.sort(Comparator.comparing(entry -> entry.serviceType, ServiceType.getDescComparator()));
         return adaptedMap;
     }
 }

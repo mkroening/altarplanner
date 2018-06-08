@@ -10,6 +10,7 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -18,6 +19,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @PlanningSolution
+@XmlRootElement
 public class Schedule implements Serializable {
 
     private Config config;

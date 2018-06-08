@@ -6,6 +6,7 @@ import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Comparator;
@@ -55,6 +56,7 @@ public class Service implements Serializable {
         this.mass = mass;
     }
 
+    @XmlIDREF
     public ServiceType getType() {
         return type;
     }
@@ -63,6 +65,7 @@ public class Service implements Serializable {
         this.type = type;
     }
 
+    @XmlIDREF
     public Server getServer() {
         return server;
     }

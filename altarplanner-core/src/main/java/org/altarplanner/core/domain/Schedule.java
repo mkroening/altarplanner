@@ -15,6 +15,7 @@ import org.optaplanner.persistence.jaxb.api.score.buildin.hardsoft.HardSoftScore
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ import java.util.stream.Stream;
 
 @PlanningSolution
 @XmlRootElement
+@XmlType(propOrder = {"planningWindow", "config", "masses", "score"})
 public class Schedule implements Serializable {
 
     private Config config;

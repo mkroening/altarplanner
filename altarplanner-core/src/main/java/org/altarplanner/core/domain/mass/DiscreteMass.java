@@ -2,6 +2,7 @@ package org.altarplanner.core.domain.mass;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
@@ -39,6 +40,7 @@ public class DiscreteMass extends EditableMass {
     }
 
     @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
+    @XmlAttribute
     public LocalDate getDate() {
         return date;
     }

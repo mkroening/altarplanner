@@ -40,6 +40,10 @@ dependencies {
         because 'these JAXB adapters for JSR-310 save us some boilerplate code'
     }
 
+    implementation('org.optaplanner:optaplanner-persistence-jaxb') {
+        because 'this helps us serialize optaplanner scores'
+    }
+
     implementation('com.thoughtworks.xstream:xstream:+') {
         because 'we have to serialize objects to disk and back again'
     }
@@ -71,3 +75,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+

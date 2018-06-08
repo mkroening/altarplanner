@@ -6,6 +6,7 @@ import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -45,6 +46,7 @@ public class Service implements Serializable {
         this.id = id;
     }
 
+    @XmlTransient
     public PlanningMass getMass() {
         return mass;
     }

@@ -123,6 +123,14 @@ public class Schedule implements Serializable {
         return config.getPairs();
     }
 
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+
     public DateSpan getPlanningWindow() {
         return planningWindow;
     }

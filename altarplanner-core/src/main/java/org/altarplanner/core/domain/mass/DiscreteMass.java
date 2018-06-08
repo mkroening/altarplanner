@@ -1,5 +1,8 @@
 package org.altarplanner.core.domain.mass;
 
+import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -33,6 +36,7 @@ public class DiscreteMass extends EditableMass {
                 .thenComparing(GenericMass::getForm);
     }
 
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
     public LocalDate getDate() {
         return date;
     }

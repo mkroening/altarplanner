@@ -33,20 +33,20 @@ dependencies {
         exclude group: 'log4j', module: 'log4j'
     }
 
-    testImplementation('org.junit.jupiter:junit-jupiter-api') {
-        because 'we require a testing API for writing tests'
+    testImplementation('ch.qos.logback:logback-classic:+') {
+        because 'we use this SLF4J API implementation for logging while testing'
     }
 
     testImplementation('org.optaplanner:optaplanner-test') {
         because 'we use this JUnit integration to test score rules in DRL'
     }
 
-    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine') {
-        because 'a test engine implementation is required for running the tests'
+    testImplementation('org.junit.jupiter:junit-jupiter-api') {
+        because 'we require a testing API for writing tests'
     }
 
-    testRuntimeOnly('ch.qos.logback:logback-classic:+') {
-        because 'we use this SLF4J API implementation for logging while testing'
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine') {
+        because 'a test engine implementation is required for running the tests'
     }
 }
 

@@ -6,6 +6,7 @@ import org.altarplanner.core.domain.Service;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @DeepPlanningClone
+@XmlType(propOrder = {"date", "time", "church", "form", "services"})
 public class PlanningMass extends GenericMass {
 
     private List<Service> services;

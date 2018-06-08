@@ -12,6 +12,8 @@ import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.persistence.jaxb.api.score.buildin.hardsoft.HardSoftScoreJaxbXmlAdapter;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
@@ -145,6 +147,8 @@ public class Schedule implements Serializable {
         this.planningWindow = planningWindow;
     }
 
+    @XmlElementWrapper(name = "masses")
+    @XmlElement(name = "mass")
     public List<PlanningMass> getMasses() {
         return masses;
     }

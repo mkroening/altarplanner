@@ -3,14 +3,17 @@ package org.altarplanner.core.domain;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
+import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import org.optaplanner.persistence.jaxb.api.score.buildin.hardsoft.HardSoftScoreJaxbXmlAdapter;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -133,6 +136,7 @@ public class Schedule implements Serializable {
         this.config = config;
     }
 
+    @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
     public DateSpan getPlanningWindow() {
         return planningWindow;
     }
@@ -149,6 +153,7 @@ public class Schedule implements Serializable {
         this.masses = masses;
     }
 
+    @XmlJavaTypeAdapter(HardSoftScoreJaxbXmlAdapter.class)
     public HardSoftScore getScore() {
         return score;
     }

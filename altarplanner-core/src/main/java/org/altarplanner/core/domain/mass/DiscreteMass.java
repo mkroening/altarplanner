@@ -1,10 +1,16 @@
 package org.altarplanner.core.domain.mass;
 
+import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Comparator;
 
+@XmlType(propOrder = {"date", "time", "church", "form", "serviceTypeCount"})
 public class DiscreteMass extends EditableMass {
 
     private LocalDate date;
@@ -33,6 +39,8 @@ public class DiscreteMass extends EditableMass {
                 .thenComparing(GenericMass::getForm);
     }
 
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
+    @XmlAttribute
     public LocalDate getDate() {
         return date;
     }

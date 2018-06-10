@@ -10,6 +10,7 @@ import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.RegularMass;
+import org.altarplanner.core.xml.UnknownJAXBException;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
@@ -180,7 +181,7 @@ public class RegularMassEditor {
             setDisable(true);
     }
 
-    @FXML private void saveAndBack() throws IOException {
+    @FXML private void saveAndBack() throws IOException, UnknownJAXBException {
         config.setRegularMasses(List.copyOf(regularMassListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));

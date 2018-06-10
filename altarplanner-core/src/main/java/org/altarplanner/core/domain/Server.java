@@ -1,7 +1,11 @@
 package org.altarplanner.core.domain;
 
+import com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter;
 import org.altarplanner.core.domain.request.*;
+import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -11,6 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+@XmlType(propOrder = {"surname", "forename", "year", "id", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
 public class Server implements Serializable {
 
     private String surname;
@@ -24,6 +29,12 @@ public class Server implements Serializable {
     public Server() {
         this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");
         this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
+    }
+
+    @XmlID
+    @XmlAttribute
+    public String getId() {
+        return surname + "_" + forename + "-" + year;
     }
 
     public String getDesc() {
@@ -66,6 +77,7 @@ public class Server implements Serializable {
                 .map(dateTime -> new DateTimeOnRequest(this, dateTime));
     }
 
+    @XmlAttribute
     public String getSurname() {
         return surname;
     }
@@ -74,6 +86,7 @@ public class Server implements Serializable {
         this.surname = surname;
     }
 
+    @XmlAttribute
     public String getForename() {
         return forename;
     }
@@ -82,6 +95,7 @@ public class Server implements Serializable {
         this.forename = forename;
     }
 
+    @XmlAttribute
     public int getYear() {
         return year;
     }
@@ -90,6 +104,9 @@ public class Server implements Serializable {
         this.year = year;
     }
 
+    @XmlElementWrapper(name = "absences")
+    @XmlElement(name = "absence")
+    @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
     public List<DateSpan> getAbsences() {
         return absences;
     }
@@ -98,6 +115,7 @@ public class Server implements Serializable {
         this.absences = absences;
     }
 
+    @XmlList
     public List<DayOfWeek> getWeeklyAbsences() {
         return weeklyAbsences;
     }
@@ -106,6 +124,8 @@ public class Server implements Serializable {
         this.weeklyAbsences = weeklyAbsences;
     }
 
+    @XmlIDREF
+    @XmlList
     public List<ServiceType> getInabilities() {
         return inabilities;
     }
@@ -114,6 +134,9 @@ public class Server implements Serializable {
         this.inabilities = inabilities;
     }
 
+    @XmlElementWrapper(name = "dateTimeOnWishes")
+    @XmlElement(name = "dateTime")
+    @XmlJavaTypeAdapter(LocalDateTimeXmlAdapter.class)
     public List<LocalDateTime> getDateTimeOnWishes() {
         return dateTimeOnWishes;
     }

@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.xml.UnknownJAXBException;
 
 import java.io.IOException;
 import java.util.List;
@@ -108,7 +109,7 @@ public class ServiceTypeEditor {
         }
     }
 
-    @FXML private void saveAndBack() throws IOException {
+    @FXML private void saveAndBack() throws IOException, UnknownJAXBException {
         config.setServiceTypes(List.copyOf(serviceTypeListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));

@@ -10,6 +10,7 @@ import org.altarplanner.core.domain.DateSpan;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.PairRequest;
+import org.altarplanner.core.xml.UnknownJAXBException;
 import org.controlsfx.control.CheckComboBox;
 
 import java.io.IOException;
@@ -373,7 +374,7 @@ public class ServerEditor {
             setDisable(true);
     }
 
-    @FXML private void saveAndBack() throws IOException {
+    @FXML private void saveAndBack() throws IOException, UnknownJAXBException {
         applyListViews();
         config.setServers(List.copyOf(serverListView.getItems()));
         config.save();

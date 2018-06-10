@@ -15,7 +15,7 @@ import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.mass.DiscreteMass;
-import org.altarplanner.core.io.ODS;
+import org.altarplanner.core.xlsx.PoiIO;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
@@ -140,15 +140,15 @@ public class Launcher extends Application {
                 LOGGER.info("Schedule has been loaded from {}", selectedFile);
 
                 fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
-                fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.ods"));
+                fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.xlsx"));
                 directory = new File("exported/");
                 directory.mkdirs();
                 fileChooser.setInitialDirectory(directory);
-                fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".ods");
+                fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".xlsx");
 
                 selectedFile = fileChooser.showSaveDialog(primaryStage);
                 if (selectedFile != null) {
-                    ODS.exportSchedule(schedule, selectedFile, 3);
+                    PoiIO.exportSchedule(schedule, selectedFile, 3);
                     LOGGER.info("Schedule has been exported as {}", selectedFile);
                 } else LOGGER.info("Schedule has not been exported, because no file to save to has been selected");
             } catch (UnexpectedElementException e) {

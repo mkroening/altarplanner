@@ -44,10 +44,8 @@ dependencies {
         because 'this helps us serialize optaplanner scores'
     }
 
-    implementation('org.apache.odftoolkit:simple-odf:+') {
-        because 'we export the final schedule to a spreadsheet'
-        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
-        exclude group: 'log4j', module: 'log4j'
+    implementation('org.apache.poi:poi-ooxml:+') {
+        because 'we use POI-XSSF to write Excel files'
     }
 
     testImplementation('ch.qos.logback:logback-classic:+') {

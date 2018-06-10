@@ -204,7 +204,7 @@ public class ServerEditor {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(item.getDesc());
+                    setText(item.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 }
             }
         });

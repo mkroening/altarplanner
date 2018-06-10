@@ -3,8 +3,11 @@ package org.altarplanner.core.domain;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
-import org.altarplanner.core.io.XML;
+import org.altarplanner.core.xml.JaxbIO;
+import org.altarplanner.core.xml.UnexpectedElementException;
+import org.altarplanner.core.xml.UnknownJAXBException;
 import org.altarplanner.core.xml.jaxb.util.PairRequestXmlAdapter;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -16,6 +19,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,6 +30,7 @@ import java.util.stream.Stream;
 @XmlType(propOrder = {"serviceTypes", "regularMasses", "servers", "pairs"})
 public class Config implements Serializable {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Config.class);
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.core.locale.locale");
     private static final String pathname = "config.xml";
 
@@ -32,12 +39,19 @@ public class Config implements Serializable {
     private List<Server> servers = new ArrayList<>();
     private List<PairRequest> pairs = new ArrayList<>();
 
-    public static Config load() {
-        final File defaultFile = new File(pathname);
+    public static Config load() throws UnknownJAXBException {
+        File defaultFile = new File(pathname);
         try {
-            return XML.read(defaultFile, Config.class);
+            return JaxbIO.unmarshal(defaultFile, Config.class);
         } catch (FileNotFoundException e) {
-            LoggerFactory.getLogger(Config.class).info("File not found: \"{}\". Creating new config.", defaultFile);
+            LOGGER.info(e.toString());
+            LOGGER.info("Creating new config.");
+            return new Config();
+        } catch (UnexpectedElementException e) {
+            File corruptFile = new File("config_corrupt_" + LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + ".xml");
+            LOGGER.error("Moving \"{}\" to \"{}\"", defaultFile, corruptFile);
+            defaultFile.renameTo(corruptFile);
+            LOGGER.info("Creating new config.");
             return new Config();
         }
     }
@@ -45,8 +59,8 @@ public class Config implements Serializable {
     public Config() {
     }
 
-    public void save() throws FileNotFoundException {
-        XML.write(this, new File(pathname));
+    public void save() throws UnknownJAXBException {
+        JaxbIO.marshal(this, new File(pathname));
     }
 
     public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(DateSpan dateSpan) {

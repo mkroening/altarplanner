@@ -17,6 +17,7 @@ import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.io.ODS;
 import org.altarplanner.core.io.XML;
+import org.altarplanner.core.xml.UnknownJAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,9 +76,10 @@ public class Launcher extends Application {
     private Config config;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException, UnknownJAXBException {
         Launcher.primaryStage = primaryStage;
-        loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(Config.load()));
+        Config config = Config.load();
+        loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
     }
 
     public void initData(Config config) {

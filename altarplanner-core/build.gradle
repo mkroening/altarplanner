@@ -48,12 +48,6 @@ dependencies {
         because 'we use POI-XSSF to write Excel files'
     }
 
-    implementation('org.apache.odftoolkit:simple-odf:+') {
-        because 'we export the final schedule to a spreadsheet'
-        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
-        exclude group: 'log4j', module: 'log4j'
-    }
-
     testImplementation('ch.qos.logback:logback-classic:+') {
         because 'we use this SLF4J API implementation for logging while testing'
         exclude group: 'javax.activation', module: 'activation'

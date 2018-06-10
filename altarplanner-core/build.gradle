@@ -44,10 +44,6 @@ dependencies {
         because 'this helps us serialize optaplanner scores'
     }
 
-    implementation('com.thoughtworks.xstream:xstream:+') {
-        because 'we have to serialize objects to disk and back again'
-    }
-
     implementation('org.apache.odftoolkit:simple-odf:+') {
         because 'we export the final schedule to a spreadsheet'
         exclude group: 'org.slf4j', module: 'slf4j-log4j12'

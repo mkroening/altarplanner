@@ -83,6 +83,8 @@ public class ServerEditor {
                 pairedWithCheckComboBox.getCheckModel().clearChecks();
                 pairedWithCheckComboBox.getItems().setAll(serverListView.getItems().filtered(server -> server != newValue));
                 config.getPairedWith(newValue).forEach(server -> pairedWithCheckComboBox.getCheckModel().check(server));
+                inabilitiesCheckComboBox.getCheckModel().clearChecks();
+                newValue.getInabilities().forEach(serviceType -> inabilitiesCheckComboBox.getCheckModel().check(serviceType));
 
                 absencesListView.getItems().setAll(newValue.getAbsences());
                 if (!absencesListView.getItems().isEmpty()) {

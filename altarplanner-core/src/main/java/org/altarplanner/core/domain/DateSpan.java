@@ -21,9 +21,8 @@ public final class DateSpan implements Serializable {
         this.end = end;
     }
 
-    public String getDesc() {
-        return start.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " - " +
-                end.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+    public String format(DateTimeFormatter formatter) {
+        return start.format(formatter) + " - " + end.format(formatter);
     }
 
     public static Comparator<DateSpan> getDescComparator() {

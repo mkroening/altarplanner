@@ -10,7 +10,10 @@ import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.DiscreteMass;
-import org.altarplanner.core.io.XML;
+import org.altarplanner.core.xml.JaxbIO;
+import org.altarplanner.core.xml.UnexpectedElementException;
+import org.altarplanner.core.xml.UnknownJAXBException;
+import org.altarplanner.core.xml.jaxb.util.DiscreteMassCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -180,7 +183,7 @@ public class DiscreteMassEditor {
                         }));
     }
 
-    @FXML private void openFile() throws FileNotFoundException {
+    @FXML private void openFile() throws FileNotFoundException, UnknownJAXBException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -190,17 +193,22 @@ public class DiscreteMassEditor {
 
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
         if (selectedFile != null) {
-            List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
-            discreteMassListView.getItems().setAll(masses);
-            LOGGER.info("Masses have been loaded from {}", selectedFile);
+            try {
+                DiscreteMassCollection massCollection = JaxbIO.unmarshal(selectedFile, DiscreteMassCollection.class);
+                serviceTypeCountTableView.getItems().setAll(massCollection.getServiceTypes());
+                discreteMassListView.getItems().setAll(massCollection.getDiscreteMasses());
+                LOGGER.info("Masses have been loaded from {}", selectedFile);
 
-            setDisable(false);
-            discreteMassListView.getSelectionModel().selectFirst();
-            discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
+                setDisable(false);
+                discreteMassListView.getSelectionModel().selectFirst();
+                discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
+            } catch (UnexpectedElementException e) {
+                LOGGER.error("No masses could have been loaded");
+            }
         } else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
-    @FXML private void saveAsAndBack() throws IOException {
+    @FXML private void saveAsAndBack() throws IOException, UnknownJAXBException {
         if (!discreteMassListView.getItems().isEmpty()) {
             List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
 
@@ -214,7 +222,7 @@ public class DiscreteMassEditor {
 
             File selectedFile = fileChooser.showSaveDialog(removeButton.getScene().getWindow());
             if (selectedFile != null) {
-                XML.writeList(masses, DiscreteMass.class, selectedFile);
+                JaxbIO.marshal(new DiscreteMassCollection(masses), selectedFile);
                 LOGGER.info("Masses have been saved as {}", selectedFile);
 
                 Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));

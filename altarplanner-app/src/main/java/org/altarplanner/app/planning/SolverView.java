@@ -8,8 +8,9 @@ import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.mass.DiscreteMass;
-import org.altarplanner.core.io.XML;
 import org.altarplanner.core.solver.ScheduleSolver;
+import org.altarplanner.core.xml.JaxbIO;
+import org.altarplanner.core.xml.UnknownJAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,10 +51,10 @@ public class SolverView {
         File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
         if (selectedFile != null) {
             try {
-                XML.write(schedule, selectedFile);
+                JaxbIO.marshal(schedule, selectedFile);
                 LOGGER.info("Schedule has been saved as {}", selectedFile);
                 Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
-            } catch (IOException e) {
+            } catch (IOException | UnknownJAXBException e) {
                 e.printStackTrace();
             }
         } else LOGGER.info("Schedule has not been saved, because no file has been selected");

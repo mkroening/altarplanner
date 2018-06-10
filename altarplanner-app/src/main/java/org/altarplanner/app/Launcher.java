@@ -16,8 +16,10 @@ import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.io.ODS;
-import org.altarplanner.core.io.XML;
+import org.altarplanner.core.xml.JaxbIO;
+import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
+import org.altarplanner.core.xml.jaxb.util.DiscreteMassCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,7 +104,7 @@ public class Launcher extends Application {
         loadParent("planning/discreteMassEditor.fxml", true, discreteMassEditor -> ((DiscreteMassEditor)discreteMassEditor).initData(config));
     }
 
-    public void planServices() throws IOException {
+    public void planServices() throws IOException, UnknownJAXBException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -112,9 +114,13 @@ public class Launcher extends Application {
 
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null) {
-            List<DiscreteMass> masses = XML.readList(selectedFile, DiscreteMass.class);
-            LOGGER.info("Masses have been loaded from {}", selectedFile);
-            loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(config, masses));
+            try {
+                List<DiscreteMass> masses = JaxbIO.unmarshal(selectedFile, DiscreteMassCollection.class).getDiscreteMasses();
+                LOGGER.info("Masses have been loaded from {}", selectedFile);
+                loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(config, masses));
+            } catch (UnexpectedElementException e) {
+                LOGGER.error("No masses could have been loaded. Please try a different file!");
+            }
         }
         else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
@@ -129,21 +135,25 @@ public class Launcher extends Application {
 
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null) {
-            Schedule schedule = XML.read(selectedFile, Schedule.class);
-            LOGGER.info("Schedule has been loaded from {}", selectedFile);
+            try {
+                Schedule schedule = JaxbIO.unmarshal(selectedFile, Schedule.class);
+                LOGGER.info("Schedule has been loaded from {}", selectedFile);
 
-            fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
-            fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.ods"));
-            directory = new File("exported/");
-            directory.mkdirs();
-            fileChooser.setInitialDirectory(directory);
-            fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".ods");
+                fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
+                fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.ods"));
+                directory = new File("exported/");
+                directory.mkdirs();
+                fileChooser.setInitialDirectory(directory);
+                fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".ods");
 
-            selectedFile = fileChooser.showSaveDialog(primaryStage);
-            if (selectedFile != null) {
-                ODS.exportSchedule(schedule, selectedFile, 3);
-                LOGGER.info("Schedule has been exported as {}", selectedFile);
-            } else LOGGER.info("Schedule has not been exported, because no file to save to has been selected");
+                selectedFile = fileChooser.showSaveDialog(primaryStage);
+                if (selectedFile != null) {
+                    ODS.exportSchedule(schedule, selectedFile, 3);
+                    LOGGER.info("Schedule has been exported as {}", selectedFile);
+                } else LOGGER.info("Schedule has not been exported, because no file to save to has been selected");
+            } catch (UnexpectedElementException e) {
+                LOGGER.error("Schedule could not have been loaded. Please try a different file!");
+            }
         } else LOGGER.info("Schedule has not been exported, because no file to load from has been selected");
     }
 }

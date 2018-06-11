@@ -12,6 +12,13 @@ public final class DateSpan implements Serializable {
     private final LocalDate start;
     private final LocalDate end;
 
+    public static Comparator<DateSpan> getDescComparator() {
+        return Comparator
+                .comparing(DateSpan::getEnd)
+                .reversed()
+                .thenComparing(DateSpan::getStart);
+    }
+
     public static DateSpan of(LocalDate start, LocalDate end) {
         Objects.requireNonNull(start, "start");
         Objects.requireNonNull(end, "end");
@@ -23,19 +30,12 @@ public final class DateSpan implements Serializable {
         this.end = end;
     }
 
-    public String format(DateTimeFormatter formatter) {
-        return start.format(formatter) + " - " + end.format(formatter);
-    }
-
-    public static Comparator<DateSpan> getDescComparator() {
-        return Comparator
-                .comparing(DateSpan::getEnd)
-                .reversed()
-                .thenComparing(DateSpan::getStart);
-    }
-
     public boolean contains(LocalDate date) {
         return (date.compareTo(start) >= 0) == (date.compareTo(end) <= 0);
+    }
+
+    public String format(DateTimeFormatter formatter) {
+        return start.format(formatter) + " - " + end.format(formatter);
     }
 
     public Stream<LocalDate> stream() {

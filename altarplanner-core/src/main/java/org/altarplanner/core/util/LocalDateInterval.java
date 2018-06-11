@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.util;
 
 import java.io.Serializable;
 import java.time.LocalDate;

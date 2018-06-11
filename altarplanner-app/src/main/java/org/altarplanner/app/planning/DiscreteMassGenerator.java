@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import org.altarplanner.core.domain.Config;
-import org.altarplanner.core.domain.LocalDateInterval;
+import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 
 import java.time.LocalDate;

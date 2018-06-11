@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
-import org.altarplanner.core.domain.LocalDateInterval;
+import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.PairRequest;

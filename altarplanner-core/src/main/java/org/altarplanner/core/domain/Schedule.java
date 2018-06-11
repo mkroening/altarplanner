@@ -3,6 +3,7 @@ package org.altarplanner.core.domain;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
+import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;

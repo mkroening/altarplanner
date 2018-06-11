@@ -1,7 +1,7 @@
 package org.altarplanner.core.xml.jaxb.util;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
-import org.altarplanner.core.domain.LocalDateInterval;
+import org.altarplanner.core.util.LocalDateInterval;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlAdapter;

@@ -1,14 +1,14 @@
 package org.altarplanner.core.xml.jaxb.util;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
-import org.altarplanner.core.domain.DateSpan;
+import org.altarplanner.core.domain.LocalDateInterval;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
-public class DateSpanXmlAdapter extends XmlAdapter<DateSpanXmlAdapter.AdaptedDateSpan, DateSpan> {
+public class DateSpanXmlAdapter extends XmlAdapter<DateSpanXmlAdapter.AdaptedDateSpan, LocalDateInterval> {
     static class AdaptedDateSpan {
         @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
         @XmlAttribute
@@ -19,12 +19,12 @@ public class DateSpanXmlAdapter extends XmlAdapter<DateSpanXmlAdapter.AdaptedDat
     }
 
     @Override
-    public DateSpan unmarshal(AdaptedDateSpan v) {
-        return DateSpan.of(v.start, v.end);
+    public LocalDateInterval unmarshal(AdaptedDateSpan v) {
+        return LocalDateInterval.of(v.start, v.end);
     }
 
     @Override
-    public AdaptedDateSpan marshal(DateSpan v) {
+    public AdaptedDateSpan marshal(LocalDateInterval v) {
         AdaptedDateSpan adaptedDateSpan = new AdaptedDateSpan();
         adaptedDateSpan.start = v.getStart();
         adaptedDateSpan.end = v.getEnd();

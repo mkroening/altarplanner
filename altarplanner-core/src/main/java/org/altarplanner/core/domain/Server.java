@@ -21,7 +21,7 @@ public class Server implements Serializable {
     private String surname;
     private String forename;
     private int year = LocalDate.now().getYear();
-    private List<DateSpan> absences = new ArrayList<>();
+    private List<LocalDateInterval> absences = new ArrayList<>();
     private List<DayOfWeek> weeklyAbsences = new ArrayList<>();
     private List<ServiceType> inabilities = new ArrayList<>();
     private List<LocalDateTime> dateTimeOnWishes = new ArrayList<>();
@@ -58,7 +58,7 @@ public class Server implements Serializable {
 
     Stream<DateOffRequest> getDateOffRequestParallelStream() {
         return absences.parallelStream()
-                .flatMap(DateSpan::stream)
+                .flatMap(LocalDateInterval::stream)
                 .map(date -> new DateOffRequest(this, date));
     }
 
@@ -107,11 +107,11 @@ public class Server implements Serializable {
     @XmlElementWrapper(name = "absences")
     @XmlElement(name = "absence")
     @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
-    public List<DateSpan> getAbsences() {
+    public List<LocalDateInterval> getAbsences() {
         return absences;
     }
 
-    public void setAbsences(List<DateSpan> absences) {
+    public void setAbsences(List<LocalDateInterval> absences) {
         this.absences = absences;
     }
 

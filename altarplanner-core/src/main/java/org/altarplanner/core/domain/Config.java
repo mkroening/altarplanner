@@ -63,11 +63,11 @@ public class Config implements Serializable {
         JaxbIO.marshal(this, new File(pathname));
     }
 
-    public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(DateSpan dateSpan) {
+    public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(LocalDateInterval dateInterval) {
         Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.parallelStream()
                 .collect(Collectors.groupingBy(RegularMass::getDay));
 
-        return dateSpan.stream()
+        return dateInterval.stream()
                 .flatMap(date -> Optional.ofNullable(dayMassMap.get(date.getDayOfWeek()))
                         .map(masses -> masses.parallelStream()
                                 .map(regularMass -> new DiscreteMass(regularMass, date)))

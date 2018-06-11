@@ -7,25 +7,25 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public final class DateSpan implements Serializable {
+public final class LocalDateInterval implements Serializable {
 
     private final LocalDate start;
     private final LocalDate end;
 
-    public static Comparator<DateSpan> getRecencyComparator() {
+    public static Comparator<LocalDateInterval> getRecencyComparator() {
         return Comparator
-                .comparing(DateSpan::getEnd)
+                .comparing(LocalDateInterval::getEnd)
                 .reversed()
-                .thenComparing(DateSpan::getStart);
+                .thenComparing(LocalDateInterval::getStart);
     }
 
-    public static DateSpan of(LocalDate start, LocalDate end) {
+    public static LocalDateInterval of(LocalDate start, LocalDate end) {
         Objects.requireNonNull(start, "start");
         Objects.requireNonNull(end, "end");
-        return new DateSpan(start, end);
+        return new LocalDateInterval(start, end);
     }
 
-    private DateSpan(LocalDate start, LocalDate end) {
+    private LocalDateInterval(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;
     }

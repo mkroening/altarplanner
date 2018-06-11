@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import org.altarplanner.core.domain.Config;
-import org.altarplanner.core.domain.DateSpan;
+import org.altarplanner.core.domain.LocalDateInterval;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 
 import java.time.LocalDate;
@@ -32,7 +32,7 @@ public class DiscreteMassGenerator {
     }
 
     @FXML private void generateMasses() {
-        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(DateSpan.of(startDatePicker.getValue(), endDatePicker.getValue())).collect(Collectors.toList());
+        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(startDatePicker.getValue(), endDatePicker.getValue())).collect(Collectors.toList());
         massesConsumers.forEach(listConsumer -> listConsumer.accept(masses));
         ((Stage)startDatePicker.getScene().getWindow()).close();
     }

@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 public class Schedule implements Serializable {
 
     private Config config;
-    private DateSpan planningWindow;
+    private LocalDateInterval planningWindow;
     private List<PlanningMass> masses;
     @PlanningScore
     private HardSoftScore score;
@@ -46,17 +46,17 @@ public class Schedule implements Serializable {
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toList());
 
-        this.planningWindow = DateSpan.of(planningMassesToPlan.get(0).getDate(),
+        this.planningWindow = LocalDateInterval.of(planningMassesToPlan.get(0).getDate(),
                 planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
 
-        DateSpan pastWindow = DateSpan.of(planningWindow.getStart().minusWeeks(1), planningWindow.getStart().minusDays(1));
+        LocalDateInterval pastWindow = LocalDateInterval.of(planningWindow.getStart().minusWeeks(1), planningWindow.getStart().minusDays(1));
         List<PlanningMass> pastPlanningMassesToConsider = Optional.ofNullable(lastSchedule)
                 .map(schedule -> schedule.getMasses().parallelStream()
                         .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
                         .collect(Collectors.toList()))
                 .orElse(Collections.emptyList());
 
-        DateSpan futureWindow = DateSpan.of(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
+        LocalDateInterval futureWindow = LocalDateInterval.of(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
         List<PlanningMass> futurePlanningMassesToConsider = config
                 .getDiscreteMassParallelStreamWithin(futureWindow)
                 .map(PlanningMass::new)
@@ -141,11 +141,11 @@ public class Schedule implements Serializable {
     }
 
     @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
-    public DateSpan getPlanningWindow() {
+    public LocalDateInterval getPlanningWindow() {
         return planningWindow;
     }
 
-    public void setPlanningWindow(DateSpan planningWindow) {
+    public void setPlanningWindow(LocalDateInterval planningWindow) {
         this.planningWindow = planningWindow;
     }
 

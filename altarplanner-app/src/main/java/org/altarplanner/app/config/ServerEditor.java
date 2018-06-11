@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Config;
-import org.altarplanner.core.domain.DateSpan;
+import org.altarplanner.core.domain.LocalDateInterval;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.PairRequest;
@@ -41,7 +41,7 @@ public class ServerEditor {
     @FXML private Button removeAbsenceButton;
     @FXML private DatePicker absenceStartDatePicker;
     @FXML private DatePicker absenceEndDatePicker;
-    @FXML private ListView<DateSpan> absencesListView;
+    @FXML private ListView<LocalDateInterval> absencesListView;
     @FXML private Tab assignmentWishesTab;
     @FXML private Button removeAssignmentWishButton;
     @FXML private DatePicker assignmentWishDatePicker;
@@ -51,7 +51,7 @@ public class ServerEditor {
     private Config config;
     private Server selectedServer;
     private boolean applyMainChanges;
-    private DateSpan selectedAbsence;
+    private LocalDateInterval selectedAbsence;
     private boolean applyAbsenceChanges;
     private LocalDateTime selectedAssignmentWish;
     private boolean applyAssignmentWishChanges;
@@ -197,7 +197,7 @@ public class ServerEditor {
 
         absencesListView.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(DateSpan item, boolean empty) {
+            protected void updateItem(LocalDateInterval item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null) {
@@ -221,22 +221,22 @@ public class ServerEditor {
 
         absenceStartDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                DateSpan replaceAbsence = selectedAbsence;
+                LocalDateInterval replaceAbsence = selectedAbsence;
                 absencesListView.getItems().remove(replaceAbsence);
-                replaceAbsence = DateSpan.of(newValue, replaceAbsence.getEnd());
+                replaceAbsence = LocalDateInterval.of(newValue, replaceAbsence.getEnd());
                 absencesListView.getItems().add(replaceAbsence);
-                absencesListView.getItems().sort(DateSpan.getRecencyComparator());
+                absencesListView.getItems().sort(LocalDateInterval.getRecencyComparator());
                 absencesListView.getSelectionModel().select(replaceAbsence);
             }
         });
 
         absenceEndDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                DateSpan replaceAbsence = selectedAbsence;
+                LocalDateInterval replaceAbsence = selectedAbsence;
                 absencesListView.getItems().remove(replaceAbsence);
-                replaceAbsence = DateSpan.of(replaceAbsence.getStart(), newValue);
+                replaceAbsence = LocalDateInterval.of(replaceAbsence.getStart(), newValue);
                 absencesListView.getItems().add(replaceAbsence);
-                absencesListView.getItems().sort(DateSpan.getRecencyComparator());
+                absencesListView.getItems().sort(LocalDateInterval.getRecencyComparator());
                 absencesListView.getSelectionModel().select(replaceAbsence);
             }
         });
@@ -382,11 +382,11 @@ public class ServerEditor {
     }
 
     @FXML private void addAbsence() {
-        DateSpan absence = DateSpan.of(LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1));
+        LocalDateInterval absence = LocalDateInterval.of(LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1));
         absencesListView.getItems().add(absence);
         setAbsenceDisable(false);
         absencesListView.getSelectionModel().select(absence);
-        absencesListView.getItems().sort(DateSpan.getRecencyComparator());
+        absencesListView.getItems().sort(LocalDateInterval.getRecencyComparator());
     }
 
     @FXML private void removeAbsence() {

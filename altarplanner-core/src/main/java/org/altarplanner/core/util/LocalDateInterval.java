@@ -1,6 +1,7 @@
 package org.altarplanner.core.util;
 
 import java.io.Serializable;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -22,6 +23,8 @@ public final class LocalDateInterval implements Serializable {
     public static LocalDateInterval of(LocalDate start, LocalDate end) {
         Objects.requireNonNull(start, "start");
         Objects.requireNonNull(end, "end");
+        if (end.isBefore(start))
+            throw new DateTimeException("End date can not be before start date.");
         return new LocalDateInterval(start, end);
     }
 

@@ -3,7 +3,6 @@ package org.altarplanner.core.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Comparator;
 import java.util.stream.Stream;
 

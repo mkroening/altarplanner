@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public final class DateSpan implements Serializable {
@@ -12,6 +13,8 @@ public final class DateSpan implements Serializable {
     private final LocalDate end;
 
     public static DateSpan of(LocalDate start, LocalDate end) {
+        Objects.requireNonNull(start, "start");
+        Objects.requireNonNull(end, "end");
         return new DateSpan(start, end);
     }
 

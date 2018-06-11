@@ -2,8 +2,10 @@ package org.altarplanner.core.solver;
 
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.Service;
-import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
+
+import java.util.Comparator;
+import java.util.Objects;
 
 public class ServiceDifficultyWeightFactory implements SelectionSorterWeightFactory<Schedule, Service> {
 
@@ -25,10 +27,9 @@ public class ServiceDifficultyWeightFactory implements SelectionSorterWeightFact
 
         @Override
         public int compareTo(ServiceDifficultyWeight other) {
-            return new CompareToBuilder()
-                    .append(other.availableServers, availableServers)
-                    .append(other.service.getId(), service.getId())
-                    .toComparison();
+            return Objects.compare(other, this, Comparator
+                    .comparingInt((ServiceDifficultyWeight weight) -> weight.availableServers)
+                    .thenComparingInt(serviceDifficultyWeight -> serviceDifficultyWeight.service.getId()));
         }
 
     }

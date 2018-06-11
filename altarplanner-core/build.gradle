@@ -24,10 +24,6 @@ dependencies {
         because 'we do logging via these interfaces'
     }
 
-    implementation('org.apache.commons:commons-lang3:+') {
-        because 'we use several of those helper utilites'
-    }
-
     implementation('org.glassfish.jaxb:jaxb-runtime') {
         because 'we use the JAXB-RI'
     }

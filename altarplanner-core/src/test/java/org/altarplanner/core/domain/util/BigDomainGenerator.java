@@ -53,8 +53,8 @@ public class BigDomainGenerator {
         if (RANDOM.nextFloat() < 0.05)
             server.getDateTimeOnWishes().add(LocalDateTime.of(getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY), LocalTime.of(11,0)));
 
-        server.setSurname(Integer.toHexString(server.hashCode()));
-        server.setForename(Integer.toHexString(server.hashCode()));
+        server.setSurname(Integer.toHexString(RANDOM.nextInt()));
+        server.setForename(Integer.toHexString(RANDOM.nextInt()));
 
         return server;
     }

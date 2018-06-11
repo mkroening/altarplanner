@@ -12,7 +12,7 @@ public final class DateSpan implements Serializable {
     private final LocalDate start;
     private final LocalDate end;
 
-    public static Comparator<DateSpan> getDescComparator() {
+    public static Comparator<DateSpan> getRecencyComparator() {
         return Comparator
                 .comparing(DateSpan::getEnd)
                 .reversed()

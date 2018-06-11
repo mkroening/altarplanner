@@ -225,7 +225,7 @@ public class ServerEditor {
                 absencesListView.getItems().remove(replaceAbsence);
                 replaceAbsence = DateSpan.of(newValue, replaceAbsence.getEnd());
                 absencesListView.getItems().add(replaceAbsence);
-                absencesListView.getItems().sort(DateSpan.getDescComparator());
+                absencesListView.getItems().sort(DateSpan.getRecencyComparator());
                 absencesListView.getSelectionModel().select(replaceAbsence);
             }
         });
@@ -236,7 +236,7 @@ public class ServerEditor {
                 absencesListView.getItems().remove(replaceAbsence);
                 replaceAbsence = DateSpan.of(replaceAbsence.getStart(), newValue);
                 absencesListView.getItems().add(replaceAbsence);
-                absencesListView.getItems().sort(DateSpan.getDescComparator());
+                absencesListView.getItems().sort(DateSpan.getRecencyComparator());
                 absencesListView.getSelectionModel().select(replaceAbsence);
             }
         });
@@ -386,7 +386,7 @@ public class ServerEditor {
         absencesListView.getItems().add(absence);
         setAbsenceDisable(false);
         absencesListView.getSelectionModel().select(absence);
-        absencesListView.getItems().sort(DateSpan.getDescComparator());
+        absencesListView.getItems().sort(DateSpan.getRecencyComparator());
     }
 
     @FXML private void removeAbsence() {

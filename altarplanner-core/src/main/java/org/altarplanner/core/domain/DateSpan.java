@@ -36,8 +36,8 @@ public final class DateSpan implements Serializable {
         return (date.compareTo(start) >= 0) == (date.compareTo(end) <= 0);
     }
 
-    public Stream<LocalDate> getDateParallelStream() {
-        return start.datesUntil(end.plusDays(1)).parallel();
+    public Stream<LocalDate> stream() {
+        return start.datesUntil(end.plusDays(1));
     }
 
     public LocalDate getStart() {

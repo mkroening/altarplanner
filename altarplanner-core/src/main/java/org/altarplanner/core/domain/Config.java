@@ -67,7 +67,7 @@ public class Config implements Serializable {
         Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.parallelStream()
                 .collect(Collectors.groupingBy(RegularMass::getDay));
 
-        return dateSpan.getDateParallelStream()
+        return dateSpan.stream()
                 .flatMap(date -> Optional.ofNullable(dayMassMap.get(date.getDayOfWeek()))
                         .map(masses -> masses.parallelStream()
                                 .map(regularMass -> new DiscreteMass(regularMass, date)))

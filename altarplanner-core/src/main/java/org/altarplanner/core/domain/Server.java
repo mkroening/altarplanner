@@ -58,7 +58,7 @@ public class Server implements Serializable {
 
     Stream<DateOffRequest> getDateOffRequestParallelStream() {
         return absences.parallelStream()
-                .flatMap(DateSpan::getDateParallelStream)
+                .flatMap(DateSpan::stream)
                 .map(date -> new DateOffRequest(this, date));
     }
 

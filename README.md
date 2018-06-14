@@ -1,4 +1,6 @@
-# AltarPlanner [![Build Status](https://travis-ci.com/altarplanner/altarplanner.svg?branch=master)](https://travis-ci.com/altarplanner/altarplanner)
+# AltarPlanner 
+
+[![pipeline status](https://gitlab.com/altarplanner/altarplanner/badges/master/pipeline.svg)](https://gitlab.com/altarplanner/altarplanner/commits/master)
 
 Application to create altar server schedules.
 

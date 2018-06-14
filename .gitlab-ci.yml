@@ -1,0 +1,14 @@
+before_script:
+  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
+  - chmod +x install-jdk.sh
+  - JAVA_HOME=~/jdk && ./install-jdk.sh -F 10 -L BCL --target $JAVA_HOME && PATH=$JAVA_HOME/bin:$PATH
+   
+build:
+  stage: build
+  script:
+    - ./gradlew assemble
+   
+test:
+  stage: test
+  script: 
+    - ./gradlew check

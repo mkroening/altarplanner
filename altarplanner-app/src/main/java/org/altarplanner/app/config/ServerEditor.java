@@ -51,7 +51,6 @@ public class ServerEditor {
     private Config config;
     private boolean applyMainChanges;
     private boolean applyAbsenceChanges;
-    private LocalDateTime selectedAssignmentWish;
     private boolean applyAssignmentWishChanges;
 
     @FXML private void initialize() {
@@ -257,16 +256,15 @@ public class ServerEditor {
                 applyAssignmentWishChanges = false;
                 assignmentWishDatePicker.setValue(newValue.toLocalDate());
                 assignmentWishTimeTextField.setText(newValue.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
-                selectedAssignmentWish = newValue;
                 applyAssignmentWishChanges = true;
             }
         });
 
         assignmentWishDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAssignmentWishChanges) {
-                LocalDateTime newAssignmentWish = LocalDateTime.of(newValue, selectedAssignmentWish.toLocalTime());
+                LocalDateTime newAssignmentWish = LocalDateTime.of(newValue, assignmentWishesListView.getSelectionModel().getSelectedItem().toLocalTime());
                 assignmentWishesListView.getItems().add(newAssignmentWish);
-                assignmentWishesListView.getItems().remove(selectedAssignmentWish);
+                assignmentWishesListView.getItems().remove(assignmentWishesListView.getSelectionModel().getSelectedItem());
                 assignmentWishesListView.getSelectionModel().select(newAssignmentWish);
                 assignmentWishesListView.getItems().sort(Comparator.reverseOrder());
             }
@@ -275,10 +273,10 @@ public class ServerEditor {
         assignmentWishTimeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAssignmentWishChanges) {
                 try {
-                    LocalDateTime newAssignmentWish = LocalDateTime.of(selectedAssignmentWish.toLocalDate(), LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
+                    LocalDateTime newAssignmentWish = LocalDateTime.of(assignmentWishesListView.getSelectionModel().getSelectedItem().toLocalDate(), LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                     assignmentWishTimeTextField.getStyleClass().remove("text-input-error");
                     assignmentWishesListView.getItems().add(newAssignmentWish);
-                    assignmentWishesListView.getItems().remove(selectedAssignmentWish);
+                    assignmentWishesListView.getItems().remove(assignmentWishesListView.getSelectionModel().getSelectedItem());
                     assignmentWishesListView.getSelectionModel().select(newAssignmentWish);
                     assignmentWishesListView.getItems().sort(Comparator.reverseOrder());
                 } catch (DateTimeParseException e) {
@@ -401,7 +399,7 @@ public class ServerEditor {
     }
 
     @FXML private void removeAssignmentWish() {
-        assignmentWishesListView.getItems().remove(selectedAssignmentWish);
+        assignmentWishesListView.getItems().remove(assignmentWishesListView.getSelectionModel().getSelectedItem());
         if (assignmentWishesListView.getItems().isEmpty())
             setAssignmentWishDisable(true);
     }

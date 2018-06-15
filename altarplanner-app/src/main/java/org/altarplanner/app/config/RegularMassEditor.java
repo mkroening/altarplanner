@@ -7,7 +7,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.xml.UnknownJAXBException;
@@ -34,7 +33,6 @@ public class RegularMassEditor {
     @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
-    private Config config;
     private boolean applyChanges;
 
     @FXML private void initialize() {
@@ -135,12 +133,8 @@ public class RegularMassEditor {
             }
         });
 
-    }
-
-    public void initData(Config config) {
-        this.config = config;
-        regularMassListView.getItems().setAll(config.getRegularMasses());
-        serviceTypeCountTableView.getItems().setAll(config.getServiceTypes());
+        regularMassListView.getItems().setAll(Launcher.CONFIG.getRegularMasses());
+        serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
         if (!regularMassListView.getItems().isEmpty())
             regularMassListView.getSelectionModel().selectFirst();
         else
@@ -180,9 +174,9 @@ public class RegularMassEditor {
     }
 
     @FXML private void saveAndBack() throws IOException, UnknownJAXBException {
-        config.setRegularMasses(List.copyOf(regularMassListView.getItems()));
-        config.save();
-        Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+        Launcher.CONFIG.setRegularMasses(List.copyOf(regularMassListView.getItems()));
+        Launcher.CONFIG.save();
+        Launcher.loadParent("launcher.fxml", true);
     }
 
 }

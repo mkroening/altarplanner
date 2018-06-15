@@ -7,10 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.altarplanner.app.config.RegularMassEditor;
-import org.altarplanner.app.config.ServerEditor;
-import org.altarplanner.app.config.ServiceTypeEditor;
-import org.altarplanner.app.planning.DiscreteMassEditor;
 import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
@@ -31,9 +27,20 @@ import java.util.function.Consumer;
 
 public class Launcher extends Application {
 
+    public static final Config CONFIG;
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
     private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
     private static Stage primaryStage;
+
+    static {
+        Config config = new Config();
+        try {
+            config = Config.load();
+        } catch (UnknownJAXBException e) {
+            e.printStackTrace();
+        }
+        CONFIG = config;
+    }
 
     public static void loadParent(String location, boolean inPrimaryStage, Consumer<Object> controllerConsumer) throws IOException {
         FXMLLoader loader = new FXMLLoader(Launcher.class.getResource(location), RESOURCE_BUNDLE);
@@ -75,33 +82,30 @@ public class Launcher extends Application {
         stage.show();
     }
 
-    private Config config;
-
-    @Override
-    public void start(Stage primaryStage) throws IOException, UnknownJAXBException {
-        Launcher.primaryStage = primaryStage;
-        Config config = Config.load();
-        loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+    public static void loadParent(String location, boolean inPrimaryStage) throws IOException {
+        loadParent(location, inPrimaryStage, controller -> {});
     }
 
-    public void initData(Config config) {
-        this.config = config;
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Launcher.primaryStage = primaryStage;
+        loadParent("launcher.fxml", true);
     }
 
     public void editServiceTypes() throws IOException {
-        loadParent("config/serviceTypeEditor.fxml", true, serviceTypeEditor -> ((ServiceTypeEditor)serviceTypeEditor).initData(config));
+        loadParent("config/serviceTypeEditor.fxml", true);
     }
 
     public void editRegularMasses() throws IOException {
-        loadParent("config/regularMassEditor.fxml", true, regularMassEditor -> ((RegularMassEditor)regularMassEditor).initData(config));
+        loadParent("config/regularMassEditor.fxml", true);
     }
 
     public void editServers() throws IOException {
-        loadParent("config/serverEditor.fxml", true, serverEditor -> ((ServerEditor)serverEditor).initData(config));
+        loadParent("config/serverEditor.fxml", true);
     }
 
     public void createDiscreteMasses() throws IOException {
-        loadParent("planning/discreteMassEditor.fxml", true, discreteMassEditor -> ((DiscreteMassEditor)discreteMassEditor).initData(config));
+        loadParent("planning/discreteMassEditor.fxml", true);
     }
 
     public void planServices() throws IOException, UnknownJAXBException {
@@ -117,7 +121,7 @@ public class Launcher extends Application {
             try {
                 List<DiscreteMass> masses = JaxbIO.unmarshal(selectedFile, DiscreteMassCollection.class).getDiscreteMasses();
                 LOGGER.info("Masses have been loaded from {}", selectedFile);
-                loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(config, masses));
+                loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(masses));
             } catch (UnexpectedElementException e) {
                 LOGGER.error("No masses could have been loaded. Please try a different file!");
             }

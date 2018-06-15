@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.solver.ScheduleSolver;
@@ -24,17 +23,15 @@ public class SolverView {
 
     @FXML private Label scoreLabel;
 
-    private Config config;
     private ScheduleSolver solver = new ScheduleSolver();
 
     @FXML private void initialize() {
         solver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));
     }
 
-    public void initData(Config config, List<DiscreteMass> masses) {
-        this.config = config;
+    public void initData(List<DiscreteMass> masses) {
         new Thread(() -> {
-            Schedule solved = solver.solve(new Schedule(null, masses, config));
+            Schedule solved = solver.solve(new Schedule(null, masses, Launcher.CONFIG));
             Platform.runLater(() -> saveSchedule(solved));
         }).start();
     }
@@ -53,7 +50,7 @@ public class SolverView {
             try {
                 JaxbIO.marshal(schedule, selectedFile);
                 LOGGER.info("Schedule has been saved as {}", selectedFile);
-                Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+                Launcher.loadParent("launcher.fxml", true);
             } catch (IOException | UnknownJAXBException e) {
                 e.printStackTrace();
             }

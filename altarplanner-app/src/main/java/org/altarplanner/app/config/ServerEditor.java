@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.ServiceType;
@@ -48,7 +47,6 @@ public class ServerEditor {
     @FXML private TextField assignmentWishTimeTextField;
     @FXML private ListView<LocalDateTime> assignmentWishesListView;
 
-    private Config config;
     private boolean applyMainChanges;
     private boolean applyAbsenceChanges;
     private boolean applyAssignmentWishChanges;
@@ -81,7 +79,7 @@ public class ServerEditor {
                         .ifPresent(days -> days.forEach(day -> weeklyAbsencesCheckComboBox.getCheckModel().check(day)));
                 pairedWithCheckComboBox.getCheckModel().clearChecks();
                 pairedWithCheckComboBox.getItems().setAll(serverListView.getItems().filtered(server -> server != newValue));
-                config.getPairedWith(newValue).forEach(server -> pairedWithCheckComboBox.getCheckModel().check(server));
+                Launcher.CONFIG.getPairedWith(newValue).forEach(server -> pairedWithCheckComboBox.getCheckModel().check(server));
                 inabilitiesCheckComboBox.getCheckModel().clearChecks();
                 newValue.getInabilities().forEach(serviceType -> inabilitiesCheckComboBox.getCheckModel().check(serviceType));
 
@@ -166,9 +164,9 @@ public class ServerEditor {
             if (applyMainChanges) {
                 while (change.next()) {
                     if (change.wasAdded()) {
-                        change.getAddedSubList().forEach(pairedWith -> config.addPair(new PairRequest(serverListView.getSelectionModel().getSelectedItem(), pairedWith)));
+                        change.getAddedSubList().forEach(pairedWith -> Launcher.CONFIG.addPair(new PairRequest(serverListView.getSelectionModel().getSelectedItem(), pairedWith)));
                     } else if (change.wasRemoved()) {
-                        change.getRemoved().forEach(pairedWith -> config.removePair(new PairRequest(serverListView.getSelectionModel().getSelectedItem(), pairedWith)));
+                        change.getRemoved().forEach(pairedWith -> Launcher.CONFIG.removePair(new PairRequest(serverListView.getSelectionModel().getSelectedItem(), pairedWith)));
                     }
                 }
             }
@@ -286,12 +284,8 @@ public class ServerEditor {
             }
         });
 
-    }
-
-    public void initData(Config config) {
-        this.config = config;
-        inabilitiesCheckComboBox.getItems().setAll(config.getServiceTypes());
-        serverListView.getItems().setAll(config.getServers());
+        inabilitiesCheckComboBox.getItems().setAll(Launcher.CONFIG.getServiceTypes());
+        serverListView.getItems().setAll(Launcher.CONFIG.getServers());
         if (!serverListView.getItems().isEmpty())
             serverListView.getSelectionModel().selectFirst();
         else
@@ -363,7 +357,7 @@ public class ServerEditor {
     }
 
     @FXML private void removeServer() {
-        config.removeAllPairsWith(serverListView.getSelectionModel().getSelectedItem());
+        Launcher.CONFIG.removeAllPairsWith(serverListView.getSelectionModel().getSelectedItem());
         serverListView.getItems().remove(serverListView.getSelectionModel().getSelectedItem());
         if (serverListView.getItems().isEmpty())
             setDisable(true);
@@ -371,9 +365,9 @@ public class ServerEditor {
 
     @FXML private void saveAndBack() throws IOException, UnknownJAXBException {
         applyListViews(serverListView.getSelectionModel().getSelectedItem());
-        config.setServers(List.copyOf(serverListView.getItems()));
-        config.save();
-        Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+        Launcher.CONFIG.setServers(List.copyOf(serverListView.getItems()));
+        Launcher.CONFIG.save();
+        Launcher.loadParent("launcher.fxml", true);
     }
 
     @FXML private void addAbsence() {

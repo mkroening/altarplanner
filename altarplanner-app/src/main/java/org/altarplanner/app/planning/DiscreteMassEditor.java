@@ -7,7 +7,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.xml.JaxbIO;
@@ -38,7 +37,6 @@ public class DiscreteMassEditor {
     @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
-    private Config config;
     private boolean applyChanges;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DiscreteMassEditor.class);
@@ -126,11 +124,8 @@ public class DiscreteMassEditor {
                 }
             }
         });
-    }
 
-    public void initData(Config config) {
-        this.config = config;
-        serviceTypeCountTableView.getItems().setAll(config.getServiceTypes());
+        serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
         if (!discreteMassListView.getItems().isEmpty())
             discreteMassListView.getSelectionModel().selectFirst();
         else
@@ -172,7 +167,7 @@ public class DiscreteMassEditor {
     @FXML private void generateFromRegularMasses() throws IOException {
         Launcher.loadParent("planning/discreteMassGenerator.fxml", false,
                 discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator)
-                        .initData(config, discreteMasses -> {
+                        .initData(Launcher.CONFIG, discreteMasses -> {
                             discreteMassListView.getItems().addAll(discreteMasses);
                             setDisable(false);
                             if (discreteMassListView.getSelectionModel().getSelectedItem() == null)
@@ -223,11 +218,11 @@ public class DiscreteMassEditor {
                 JaxbIO.marshal(new DiscreteMassCollection(masses), selectedFile);
                 LOGGER.info("Masses have been saved as {}", selectedFile);
 
-                Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+                Launcher.loadParent("launcher.fxml", true);
             } else LOGGER.info("Masses have not been saved, because no file has been selected");
         } else {
             LOGGER.info("No Masses available to save");
-            Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+            Launcher.loadParent("launcher.fxml", true);
         }
     }
 

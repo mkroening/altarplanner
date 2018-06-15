@@ -18,22 +18,20 @@ public class DiscreteMassGenerator {
     @FXML private DatePicker endDatePicker;
 
     private Config config;
-    private List<Consumer<List<DiscreteMass>>> massesConsumers;
+    private Consumer<List<DiscreteMass>> listConsumer;
 
     @FXML private void initialize() {
         startDatePicker.setValue(LocalDate.now().plusMonths(1));
         endDatePicker.setValue(LocalDate.now().plusMonths(1));
     }
 
-    @SafeVarargs
-    public final void initData(Config config, Consumer<List<DiscreteMass>>... consumers) {
+    public void initData(Config config, Consumer<List<DiscreteMass>> listConsumer) {
         this.config = config;
-        this.massesConsumers = List.of(consumers);
+        this.listConsumer = listConsumer;
     }
 
     @FXML private void generateMasses() {
-        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(startDatePicker.getValue(), endDatePicker.getValue())).collect(Collectors.toList());
-        massesConsumers.forEach(listConsumer -> listConsumer.accept(masses));
+        listConsumer.accept(config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(startDatePicker.getValue(), endDatePicker.getValue())).collect(Collectors.toList()));
         ((Stage)startDatePicker.getScene().getWindow()).close();
     }
 

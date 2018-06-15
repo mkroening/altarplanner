@@ -6,7 +6,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.xml.UnknownJAXBException;
 
@@ -21,8 +20,6 @@ public class ServiceTypeEditor {
     @FXML private TextField minYearTextField;
     @FXML private ListView<ServiceType> serviceTypeListView;
 
-    private Config config;
-    private ServiceType selectedServiceType;
     private boolean applyChanges;
 
     @FXML private void initialize() {
@@ -46,14 +43,13 @@ public class ServiceTypeEditor {
                 nameTextField.setText(newValue.getName());
                 maxYearTextField.setText(String.valueOf(newValue.getMaxYear()));
                 minYearTextField.setText(String.valueOf(newValue.getMinYear()));
-                selectedServiceType = newValue;
                 applyChanges = true;
             }
         });
 
         nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedServiceType.setName(newValue);
+                serviceTypeListView.getSelectionModel().getSelectedItem().setName(newValue);
                 serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
             }
         });
@@ -61,7 +57,7 @@ public class ServiceTypeEditor {
         maxYearTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 try {
-                    selectedServiceType.setMaxYear(Integer.parseInt(newValue));
+                    serviceTypeListView.getSelectionModel().getSelectedItem().setMaxYear(Integer.parseInt(newValue));
                     maxYearTextField.getStyleClass().remove("text-input-error");
                     serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
                 } catch (NumberFormatException e) {
@@ -74,7 +70,7 @@ public class ServiceTypeEditor {
         minYearTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 try {
-                    selectedServiceType.setMinYear(Integer.parseInt(newValue));
+                    serviceTypeListView.getSelectionModel().getSelectedItem().setMinYear(Integer.parseInt(newValue));
                     minYearTextField.getStyleClass().remove("text-input-error");
                     serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
                 } catch (NumberFormatException e) {
@@ -84,11 +80,7 @@ public class ServiceTypeEditor {
             }
         });
 
-    }
-
-    public void initData(Config config) {
-        this.config = config;
-        serviceTypeListView.getItems().setAll(config.getServiceTypes());
+        serviceTypeListView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
         if (!serviceTypeListView.getItems().isEmpty())
             serviceTypeListView.getSelectionModel().selectFirst();
         else
@@ -110,9 +102,9 @@ public class ServiceTypeEditor {
     }
 
     @FXML private void saveAndBack() throws IOException, UnknownJAXBException {
-        config.setServiceTypes(List.copyOf(serviceTypeListView.getItems()));
-        config.save();
-        Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+        Launcher.CONFIG.setServiceTypes(List.copyOf(serviceTypeListView.getItems()));
+        Launcher.CONFIG.save();
+        Launcher.loadParent("launcher.fxml", true);
     }
 
     @FXML private void addServiceType() {
@@ -124,8 +116,8 @@ public class ServiceTypeEditor {
     }
 
     @FXML private void removeServiceType() {
-        config.removeFromRegularMasses(selectedServiceType);
-        serviceTypeListView.getItems().remove(selectedServiceType);
+        Launcher.CONFIG.removeFromRegularMasses(serviceTypeListView.getSelectionModel().getSelectedItem());
+        serviceTypeListView.getItems().remove(serviceTypeListView.getSelectionModel().getSelectedItem());
         if (serviceTypeListView.getItems().isEmpty())
             setDisable(true);
     }

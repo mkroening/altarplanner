@@ -7,7 +7,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.xml.JaxbIO;
@@ -38,8 +37,6 @@ public class DiscreteMassEditor {
     @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
-    private Config config;
-    private DiscreteMass selectedDiscreteMass;
     private boolean applyChanges;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DiscreteMassEditor.class);
@@ -66,7 +63,6 @@ public class DiscreteMassEditor {
                 timeTextField.setText(newValue.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                 churchTextField.setText(newValue.getChurch());
                 formTextField.setText(newValue.getForm());
-                selectedDiscreteMass = newValue;
                 serviceTypeCountTableView.refresh();
                 applyChanges = true;
             }
@@ -74,7 +70,7 @@ public class DiscreteMassEditor {
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedDiscreteMass.setDate(newValue);
+                discreteMassListView.getSelectionModel().getSelectedItem().setDate(newValue);
                 discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
             }
         });
@@ -82,7 +78,7 @@ public class DiscreteMassEditor {
         timeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 try {
-                    selectedDiscreteMass.setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
+                    discreteMassListView.getSelectionModel().getSelectedItem().setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                     timeTextField.getStyleClass().remove("text-input-error");
                     discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
                 } catch (DateTimeParseException e) {
@@ -94,14 +90,14 @@ public class DiscreteMassEditor {
 
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedDiscreteMass.setChurch(newValue);
+                discreteMassListView.getSelectionModel().getSelectedItem().setChurch(newValue);
                 discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
             }
         });
 
         formTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedDiscreteMass.setForm(newValue);
+                discreteMassListView.getSelectionModel().getSelectedItem().setForm(newValue);
             }
         });
 
@@ -111,7 +107,7 @@ public class DiscreteMassEditor {
 
         serviceTypeCountColumn.setCellValueFactory(param -> {
             if (applyChanges)
-                return new SimpleStringProperty(String.valueOf(selectedDiscreteMass.getServiceTypeCount().getOrDefault(param.getValue(), 0)));
+                return new SimpleStringProperty(String.valueOf(discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().getOrDefault(param.getValue(), 0)));
             else
                 return null;
         });
@@ -120,19 +116,16 @@ public class DiscreteMassEditor {
             if (applyChanges) {
                 String newValue = event.getNewValue();
                 if ("".equals(newValue) || "0".equals(newValue)) {
-                    selectedDiscreteMass.getServiceTypeCount().remove(event.getRowValue());
+                    discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().remove(event.getRowValue());
                 } else try {
-                    selectedDiscreteMass.getServiceTypeCount().put(event.getRowValue(), Integer.parseInt(newValue));
+                    discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().put(event.getRowValue(), Integer.parseInt(newValue));
                 } catch (NumberFormatException e) {
                     serviceTypeCountTableView.refresh();
                 }
             }
         });
-    }
 
-    public void initData(Config config) {
-        this.config = config;
-        serviceTypeCountTableView.getItems().setAll(config.getServiceTypes());
+        serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
         if (!discreteMassListView.getItems().isEmpty())
             discreteMassListView.getSelectionModel().selectFirst();
         else
@@ -166,7 +159,7 @@ public class DiscreteMassEditor {
     }
 
     @FXML private void removeDiscreteMass() {
-        discreteMassListView.getItems().remove(selectedDiscreteMass);
+        discreteMassListView.getItems().remove(discreteMassListView.getSelectionModel().getSelectedItem());
         if (discreteMassListView.getItems().isEmpty())
             setDisable(true);
     }
@@ -174,10 +167,10 @@ public class DiscreteMassEditor {
     @FXML private void generateFromRegularMasses() throws IOException {
         Launcher.loadParent("planning/discreteMassGenerator.fxml", false,
                 discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator)
-                        .initData(config, discreteMasses -> {
+                        .initData(Launcher.CONFIG, discreteMasses -> {
                             discreteMassListView.getItems().addAll(discreteMasses);
                             setDisable(false);
-                            if (selectedDiscreteMass == null)
+                            if (discreteMassListView.getSelectionModel().getSelectedItem() == null)
                                 discreteMassListView.getSelectionModel().selectFirst();
                             discreteMassListView.getItems().sort(DiscreteMass.getDescComparator());
                         }));
@@ -225,11 +218,11 @@ public class DiscreteMassEditor {
                 JaxbIO.marshal(new DiscreteMassCollection(masses), selectedFile);
                 LOGGER.info("Masses have been saved as {}", selectedFile);
 
-                Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+                Launcher.loadParent("launcher.fxml", true);
             } else LOGGER.info("Masses have not been saved, because no file has been selected");
         } else {
             LOGGER.info("No Masses available to save");
-            Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
+            Launcher.loadParent("launcher.fxml", true);
         }
     }
 

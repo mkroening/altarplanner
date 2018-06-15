@@ -35,7 +35,6 @@ public class RegularMassEditor {
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
     private Config config;
-    private RegularMass selectedRegularMass;
     private boolean applyChanges;
 
     @FXML private void initialize() {
@@ -60,7 +59,6 @@ public class RegularMassEditor {
                 timeTextField.setText(newValue.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                 churchTextField.setText(newValue.getChurch());
                 formTextField.setText(newValue.getForm());
-                selectedRegularMass = newValue;
                 serviceTypeCountTableView.refresh();
                 applyChanges = true;
             }
@@ -82,7 +80,7 @@ public class RegularMassEditor {
 
         dayOfWeekChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                 selectedRegularMass.setDay(newValue);
+                 regularMassListView.getSelectionModel().getSelectedItem().setDay(newValue);
                  regularMassListView.getItems().sort(RegularMass.getDescComparator());
             }
         });
@@ -90,7 +88,7 @@ public class RegularMassEditor {
         timeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 try {
-                    selectedRegularMass.setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
+                    regularMassListView.getSelectionModel().getSelectedItem().setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                     timeTextField.getStyleClass().remove("text-input-error");
                     regularMassListView.getItems().sort(RegularMass.getDescComparator());
                 } catch (DateTimeParseException e) {
@@ -102,14 +100,14 @@ public class RegularMassEditor {
 
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedRegularMass.setChurch(newValue);
+                regularMassListView.getSelectionModel().getSelectedItem().setChurch(newValue);
                 regularMassListView.getItems().sort(RegularMass.getDescComparator());
             }
         });
 
         formTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                selectedRegularMass.setForm(newValue);
+                regularMassListView.getSelectionModel().getSelectedItem().setForm(newValue);
             }
         });
 
@@ -119,7 +117,7 @@ public class RegularMassEditor {
 
         serviceTypeCountColumn.setCellValueFactory(param -> {
             if (applyChanges)
-                return new SimpleStringProperty(String.valueOf(selectedRegularMass.getServiceTypeCount().getOrDefault(param.getValue(), 0)));
+                return new SimpleStringProperty(String.valueOf(regularMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().getOrDefault(param.getValue(), 0)));
             else
                 return null;
         });
@@ -128,9 +126,9 @@ public class RegularMassEditor {
             if (applyChanges) {
                 String newValue = event.getNewValue();
                 if ("".equals(newValue) || "0".equals(newValue)) {
-                    selectedRegularMass.getServiceTypeCount().remove(event.getRowValue());
+                    regularMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().remove(event.getRowValue());
                 } else try {
-                    selectedRegularMass.getServiceTypeCount().put(event.getRowValue(), Integer.parseInt(newValue));
+                    regularMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().put(event.getRowValue(), Integer.parseInt(newValue));
                 } catch (NumberFormatException e) {
                     serviceTypeCountTableView.refresh();
                 }
@@ -176,7 +174,7 @@ public class RegularMassEditor {
     }
 
     @FXML private void removeRegularMass() {
-        regularMassListView.getItems().remove(selectedRegularMass);
+        regularMassListView.getItems().remove(regularMassListView.getSelectionModel().getSelectedItem());
         if (regularMassListView.getItems().isEmpty())
             setDisable(true);
     }

@@ -1,6 +1,7 @@
 package org.altarplanner.app;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -92,23 +93,23 @@ public class Launcher extends Application {
         loadParent("launcher.fxml", true);
     }
 
-    public void editServiceTypes() throws IOException {
+    @FXML private void editServiceTypes() throws IOException {
         loadParent("config/serviceTypeEditor.fxml", true);
     }
 
-    public void editRegularMasses() throws IOException {
+    @FXML private void editRegularMasses() throws IOException {
         loadParent("config/regularMassEditor.fxml", true);
     }
 
-    public void editServers() throws IOException {
+    @FXML private void editServers() throws IOException {
         loadParent("config/serverEditor.fxml", true);
     }
 
-    public void createDiscreteMasses() throws IOException {
+    @FXML private void createDiscreteMasses() throws IOException {
         loadParent("planning/discreteMassEditor.fxml", true);
     }
 
-    public void planServices() throws IOException, UnknownJAXBException {
+    @FXML private void planServices() throws IOException, UnknownJAXBException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -129,7 +130,7 @@ public class Launcher extends Application {
         else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
-    public void exportSchedule() throws Exception {
+    @FXML private void exportSchedule() throws Exception {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openSchedule"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -160,4 +161,5 @@ public class Launcher extends Application {
             }
         } else LOGGER.info("Schedule has not been exported, because no file to load from has been selected");
     }
+
 }

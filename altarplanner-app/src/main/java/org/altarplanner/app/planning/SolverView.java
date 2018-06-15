@@ -55,7 +55,7 @@ public class SolverView {
         } else LOGGER.info("Schedule has not been saved, because no file has been selected");
     }
 
-    public void stopPlanning() {
+    @FXML private void stopPlanning() {
         solver.terminateEarly();
     }
 

@@ -50,7 +50,6 @@ public class ServerEditor {
 
     private Config config;
     private boolean applyMainChanges;
-    private LocalDateInterval selectedAbsence;
     private boolean applyAbsenceChanges;
     private LocalDateTime selectedAssignmentWish;
     private boolean applyAssignmentWishChanges;
@@ -71,9 +70,10 @@ public class ServerEditor {
         });
 
         serverListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            applyListViews(oldValue);
+
             if (newValue != null) {
                 applyMainChanges = false;
-                applyListViews();
                 surnameTextField.setText(newValue.getSurname());
                 forenameTextField.setText(newValue.getForename());
                 yearTextField.setText(String.valueOf(newValue.getYear()));
@@ -212,14 +212,13 @@ public class ServerEditor {
                 applyAbsenceChanges = false;
                 absenceStartDatePicker.setValue(newValue.getStart());
                 absenceEndDatePicker.setValue(newValue.getEnd());
-                selectedAbsence = newValue;
                 applyAbsenceChanges = true;
             }
         });
 
         absenceStartDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                LocalDateInterval replaceAbsence = selectedAbsence;
+                LocalDateInterval replaceAbsence = absencesListView.getSelectionModel().getSelectedItem();
                 absencesListView.getItems().remove(replaceAbsence);
                 replaceAbsence = LocalDateInterval.of(newValue, replaceAbsence.getEnd());
                 absencesListView.getItems().add(replaceAbsence);
@@ -230,7 +229,7 @@ public class ServerEditor {
 
         absenceEndDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                LocalDateInterval replaceAbsence = selectedAbsence;
+                LocalDateInterval replaceAbsence = absencesListView.getSelectionModel().getSelectedItem();
                 absencesListView.getItems().remove(replaceAbsence);
                 replaceAbsence = LocalDateInterval.of(replaceAbsence.getStart(), newValue);
                 absencesListView.getItems().add(replaceAbsence);
@@ -350,10 +349,10 @@ public class ServerEditor {
         }
     }
 
-    private void applyListViews() {
-        if (serverListView.getSelectionModel().getSelectedItem() != null) {
-            serverListView.getSelectionModel().getSelectedItem().setAbsences(List.copyOf(absencesListView.getItems()));
-            serverListView.getSelectionModel().getSelectedItem().setDateTimeOnWishes(List.copyOf(assignmentWishesListView.getItems()));
+    private void applyListViews(Server server) {
+        if (server != null) {
+            server.setAbsences(List.copyOf(absencesListView.getItems()));
+            server.setDateTimeOnWishes(List.copyOf(assignmentWishesListView.getItems()));
         }
     }
 
@@ -373,7 +372,7 @@ public class ServerEditor {
     }
 
     @FXML private void saveAndBack() throws IOException, UnknownJAXBException {
-        applyListViews();
+        applyListViews(serverListView.getSelectionModel().getSelectedItem());
         config.setServers(List.copyOf(serverListView.getItems()));
         config.save();
         Launcher.loadParent("launcher.fxml", true, launcher -> ((Launcher)launcher).initData(config));
@@ -388,7 +387,7 @@ public class ServerEditor {
     }
 
     @FXML private void removeAbsence() {
-        absencesListView.getItems().remove(selectedAbsence);
+        absencesListView.getItems().remove(absencesListView.getSelectionModel().getSelectedItem());
         if (absencesListView.getItems().isEmpty())
             setAbsenceDisable(true);
     }

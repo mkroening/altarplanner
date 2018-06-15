@@ -121,7 +121,7 @@ public class Launcher extends Application {
             try {
                 List<DiscreteMass> masses = JaxbIO.unmarshal(selectedFile, DiscreteMassCollection.class).getDiscreteMasses();
                 LOGGER.info("Masses have been loaded from {}", selectedFile);
-                loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).initData(masses));
+                loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).solve(new Schedule(null, masses, CONFIG)));
             } catch (UnexpectedElementException e) {
                 LOGGER.error("No masses could have been loaded. Please try a different file!");
             }

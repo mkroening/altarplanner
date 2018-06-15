@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Schedule;
-import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.solver.ScheduleSolver;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnknownJAXBException;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class SolverView {
 
@@ -29,9 +27,9 @@ public class SolverView {
         solver.addNewBestUiScoreStringConsumer(s -> Platform.runLater(() -> scoreLabel.setText(s)));
     }
 
-    public void initData(List<DiscreteMass> masses) {
+    public void solve(Schedule schedule) {
         new Thread(() -> {
-            Schedule solved = solver.solve(new Schedule(null, masses, Launcher.CONFIG));
+            Schedule solved = solver.solve(schedule);
             Platform.runLater(() -> saveSchedule(solved));
         }).start();
     }

@@ -49,7 +49,6 @@ public class ServerEditor {
     @FXML private ListView<LocalDateTime> assignmentWishesListView;
 
     private Config config;
-    private Server selectedServer;
     private boolean applyMainChanges;
     private LocalDateInterval selectedAbsence;
     private boolean applyAbsenceChanges;
@@ -103,21 +102,20 @@ public class ServerEditor {
                     setAssignmentWishDisable(true);
                 }
 
-                selectedServer = newValue;
                 applyMainChanges = true;
             }
         });
 
         surnameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyMainChanges) {
-                selectedServer.setSurname(newValue);
+                serverListView.getSelectionModel().getSelectedItem().setSurname(newValue);
                 serverListView.getItems().sort(Server.getDescComparator());
             }
         });
 
         forenameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyMainChanges) {
-                selectedServer.setForename(newValue);
+                serverListView.getSelectionModel().getSelectedItem().setForename(newValue);
                 serverListView.getItems().sort(Server.getDescComparator());
             }
         });
@@ -125,7 +123,7 @@ public class ServerEditor {
         yearTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyMainChanges) {
                 try {
-                    selectedServer.setYear(Integer.parseInt(newValue));
+                    serverListView.getSelectionModel().getSelectedItem().setYear(Integer.parseInt(newValue));
                     yearTextField.getStyleClass().remove("text-input-error");
                 } catch (NumberFormatException e) {
                     if (!yearTextField.getStyleClass().contains("text-input-error"))
@@ -150,7 +148,7 @@ public class ServerEditor {
 
         weeklyAbsencesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super DayOfWeek>) change -> {
             if (applyMainChanges)
-                selectedServer.setWeeklyAbsences(List.copyOf(change.getList()));
+                serverListView.getSelectionModel().getSelectedItem().setWeeklyAbsences(List.copyOf(change.getList()));
         });
 
         pairedWithCheckComboBox.setConverter(new StringConverter<>() {
@@ -169,9 +167,9 @@ public class ServerEditor {
             if (applyMainChanges) {
                 while (change.next()) {
                     if (change.wasAdded()) {
-                        change.getAddedSubList().forEach(pairedWith -> config.addPair(new PairRequest(selectedServer, pairedWith)));
+                        change.getAddedSubList().forEach(pairedWith -> config.addPair(new PairRequest(serverListView.getSelectionModel().getSelectedItem(), pairedWith)));
                     } else if (change.wasRemoved()) {
-                        change.getRemoved().forEach(pairedWith -> config.removePair(new PairRequest(selectedServer, pairedWith)));
+                        change.getRemoved().forEach(pairedWith -> config.removePair(new PairRequest(serverListView.getSelectionModel().getSelectedItem(), pairedWith)));
                     }
                 }
             }
@@ -191,7 +189,7 @@ public class ServerEditor {
 
         inabilitiesCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<? super ServiceType>) change -> {
             if (applyMainChanges) {
-                selectedServer.setInabilities(List.copyOf(change.getList()));
+                serverListView.getSelectionModel().getSelectedItem().setInabilities(List.copyOf(change.getList()));
             }
         });
 
@@ -353,9 +351,9 @@ public class ServerEditor {
     }
 
     private void applyListViews() {
-        if (selectedServer != null) {
-            selectedServer.setAbsences(List.copyOf(absencesListView.getItems()));
-            selectedServer.setDateTimeOnWishes(List.copyOf(assignmentWishesListView.getItems()));
+        if (serverListView.getSelectionModel().getSelectedItem() != null) {
+            serverListView.getSelectionModel().getSelectedItem().setAbsences(List.copyOf(absencesListView.getItems()));
+            serverListView.getSelectionModel().getSelectedItem().setDateTimeOnWishes(List.copyOf(assignmentWishesListView.getItems()));
         }
     }
 
@@ -368,8 +366,8 @@ public class ServerEditor {
     }
 
     @FXML private void removeServer() {
-        config.removeAllPairsWith(selectedServer);
-        serverListView.getItems().remove(selectedServer);
+        config.removeAllPairsWith(serverListView.getSelectionModel().getSelectedItem());
+        serverListView.getItems().remove(serverListView.getSelectionModel().getSelectedItem());
         if (serverListView.getItems().isEmpty())
             setDisable(true);
     }

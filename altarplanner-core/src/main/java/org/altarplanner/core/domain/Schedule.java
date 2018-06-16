@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -131,8 +132,11 @@ public class Schedule implements Serializable {
 
     @ProblemFactCollectionProperty
     public List<DateTimeOnRequest> getDateTimeOnRequests() {
+        final Set<LocalDateTime> relevantDateTimes = masses.parallelStream()
+                .map(planningMass -> LocalDateTime.of(planningMass.getDate(), planningMass.getTime()))
+                .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
-                .flatMap(Server::getDateTimeOnRequestParallelStream)
+                .flatMap(server -> server.getDateTimeOnRequests(relevantDateTimes))
                 .collect(Collectors.toList());
     }
 

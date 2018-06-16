@@ -80,8 +80,9 @@ public class Server implements Serializable {
                 .map(serviceType -> new ServiceTypeOffRequest(this, serviceType));
     }
 
-    Stream<DateTimeOnRequest> getDateTimeOnRequestParallelStream() {
+    Stream<DateTimeOnRequest> getDateTimeOnRequests(Set<LocalDateTime> relevantDateTimes) {
         return dateTimeOnWishes.parallelStream()
+                .filter(relevantDateTimes::contains)
                 .map(dateTime -> new DateTimeOnRequest(this, dateTime));
     }
 

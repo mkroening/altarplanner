@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @XmlType(propOrder = {"surname", "forename", "year", "id", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
@@ -57,9 +58,13 @@ public class Server implements Serializable {
                 && absences.parallelStream().noneMatch(absence -> absence.contains(date));
     }
 
-    Stream<DateOffRequest> getDateOffRequestParallelStream() {
+    Stream<DateOffRequest> getDateOffRequests(Set<LocalDate> relevantDates) {
+        final Set<DayOfWeek> weeklyAbsenceSet = Set.copyOf(weeklyAbsences);
         return absences.parallelStream()
                 .flatMap(LocalDateInterval::stream)
+                .distinct()
+                .filter(date -> !weeklyAbsenceSet.contains(date.getDayOfWeek()))
+                .filter(relevantDates::contains)
                 .map(date -> new DateOffRequest(this, date));
     }
 

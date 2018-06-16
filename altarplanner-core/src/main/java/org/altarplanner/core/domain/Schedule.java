@@ -102,8 +102,12 @@ public class Schedule implements Serializable {
 
     @ProblemFactCollectionProperty
     public List<DateOffRequest> getDateOffRequests() {
+        final Set<LocalDate> relevantDates = masses.parallelStream()
+                .map(PlanningMass::getDate)
+                .distinct()
+                .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
-                .flatMap(Server::getDateOffRequestParallelStream)
+                .flatMap(server -> server.getDateOffRequests(relevantDates))
                 .collect(Collectors.toList());
     }
 

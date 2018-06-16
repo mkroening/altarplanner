@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -113,8 +114,12 @@ public class Schedule implements Serializable {
 
     @ProblemFactCollectionProperty
     public List<DayOffRequest> getDayOffRequests() {
+        final Set<DayOfWeek> relevantDays = masses.parallelStream()
+                .map(PlanningMass::getDate)
+                .map(LocalDate::getDayOfWeek)
+                .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
-                .flatMap(Server::getDayOffRequestParallelStream)
+                .flatMap(server -> server.getDayOffRequests(relevantDays))
                 .collect(Collectors.toList());
     }
 

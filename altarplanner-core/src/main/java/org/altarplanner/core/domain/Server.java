@@ -68,8 +68,10 @@ public class Server implements Serializable {
                 .map(date -> new DateOffRequest(this, date));
     }
 
-    Stream<DayOffRequest> getDayOffRequestParallelStream() {
+    Stream<DayOffRequest> getDayOffRequests(Set<DayOfWeek> relevantDays) {
         return weeklyAbsences.parallelStream()
+                .distinct()
+                .filter(relevantDays::contains)
                 .map(day -> new DayOffRequest(this, day));
     }
 

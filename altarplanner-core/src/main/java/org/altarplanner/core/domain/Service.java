@@ -21,7 +21,6 @@ public class Service implements Serializable {
     private int id;
     private PlanningMass mass;
     private ServiceType type;
-    @PlanningVariable(valueRangeProviderRefs = {"serverRange"})
     private Server server;
 
     public Service() {
@@ -72,6 +71,7 @@ public class Service implements Serializable {
 
     @XmlIDREF
     @XmlAttribute
+    @PlanningVariable(valueRangeProviderRefs = {"serverRange"})
     public Server getServer() {
         return server;
     }

@@ -126,7 +126,7 @@ public class Schedule implements Serializable {
     @ProblemFactCollectionProperty
     public List<ServiceTypeOffRequest> getServiceTypeOffRequests() {
         return config.getServers().parallelStream()
-                .flatMap(Server::getServiceTypeOffRequestParallelStream)
+                .flatMap(Server::getServiceTypeOffRequests)
                 .collect(Collectors.toList());
     }
 

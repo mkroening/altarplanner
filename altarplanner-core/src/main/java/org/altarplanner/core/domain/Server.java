@@ -75,8 +75,9 @@ public class Server implements Serializable {
                 .map(day -> new DayOffRequest(this, day));
     }
 
-    Stream<ServiceTypeOffRequest> getServiceTypeOffRequestParallelStream() {
+    Stream<ServiceTypeOffRequest> getServiceTypeOffRequests() {
         return inabilities.parallelStream()
+                .filter(serviceType -> serviceType.getMaxYear() >= year)
                 .map(serviceType -> new ServiceTypeOffRequest(this, serviceType));
     }
 

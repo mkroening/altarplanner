@@ -89,6 +89,14 @@ public class Schedule implements Serializable {
         return Math.toIntExact(count);
     }
 
+    public int getAvailableServiceCountFor(Server server) {
+        long count = masses.parallelStream()
+                .flatMap(planningMass -> planningMass.getServices().parallelStream())
+                .filter(server::isAvailableFor)
+                .count();
+        return Math.toIntExact(count);
+    }
+
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "serverRange")
     public List<Server> getServers() {

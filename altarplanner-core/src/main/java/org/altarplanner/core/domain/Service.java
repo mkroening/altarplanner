@@ -2,6 +2,7 @@ package org.altarplanner.core.domain;
 
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.solver.MovableServiceSelectionFilter;
+import org.altarplanner.core.solver.ServerStrengthWeightFactory;
 import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
@@ -71,7 +72,7 @@ public class Service implements Serializable {
 
     @XmlIDREF
     @XmlAttribute
-    @PlanningVariable(valueRangeProviderRefs = {"serverRange"})
+    @PlanningVariable(valueRangeProviderRefs = {"serverRange"}, strengthWeightFactoryClass = ServerStrengthWeightFactory.class)
     public Server getServer() {
         return server;
     }

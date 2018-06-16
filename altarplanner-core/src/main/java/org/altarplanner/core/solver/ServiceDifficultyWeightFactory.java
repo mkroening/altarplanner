@@ -10,7 +10,7 @@ import java.util.Objects;
 public class ServiceDifficultyWeightFactory implements SelectionSorterWeightFactory<Schedule, Service> {
 
     @Override
-    public Comparable createSorterWeight(Schedule schedule, Service selection) {
+    public ServiceDifficultyWeight createSorterWeight(Schedule schedule, Service selection) {
         int availableServers = schedule.getAvailableServerCountFor(selection);
         return new ServiceDifficultyWeight(selection, availableServers);
     }

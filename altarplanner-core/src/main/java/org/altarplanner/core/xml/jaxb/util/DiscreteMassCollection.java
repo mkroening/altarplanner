@@ -24,7 +24,11 @@ public class DiscreteMassCollection {
 
     public DiscreteMassCollection(List<DiscreteMass> discreteMasses) {
         this.discreteMasses = discreteMasses;
-        serviceTypes = discreteMasses.parallelStream().flatMap(discreteMass -> discreteMass.getServiceTypeCount().keySet().parallelStream()).distinct().collect(Collectors.toList());
+        serviceTypes = discreteMasses.parallelStream()
+                .flatMap(discreteMass -> discreteMass.getServiceTypeCount().keySet().parallelStream())
+                .distinct()
+                .sorted(ServiceType.getDescComparator())
+                .collect(Collectors.toList());
     }
 
     @XmlElementWrapper(name = "serviceTypes")

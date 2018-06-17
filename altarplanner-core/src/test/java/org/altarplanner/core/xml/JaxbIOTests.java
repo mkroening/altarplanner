@@ -31,6 +31,7 @@ public class JaxbIOTests {
         final Path marshalledPath = Files.createTempFile(null, null);
         JaxbIO.marshal(BigDomainGenerator.genConfig(), marshalledPath.toFile());
         final List<String> marshalledLines = Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());
+        Files.delete(marshalledPath);
         assertEquals(expectedLines, marshalledLines);
     }
 

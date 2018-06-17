@@ -19,7 +19,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -87,6 +89,14 @@ public class Schedule implements Serializable {
         return Math.toIntExact(count);
     }
 
+    public int getAvailableServiceCountFor(Server server) {
+        long count = masses.parallelStream()
+                .flatMap(planningMass -> planningMass.getServices().parallelStream())
+                .filter(server::isAvailableFor)
+                .count();
+        return Math.toIntExact(count);
+    }
+
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "serverRange")
     public List<Server> getServers() {
@@ -102,29 +112,39 @@ public class Schedule implements Serializable {
 
     @ProblemFactCollectionProperty
     public List<DateOffRequest> getDateOffRequests() {
+        final Set<LocalDate> relevantDates = masses.parallelStream()
+                .map(PlanningMass::getDate)
+                .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
-                .flatMap(Server::getDateOffRequestParallelStream)
+                .flatMap(server -> server.getDateOffRequests(relevantDates))
                 .collect(Collectors.toList());
     }
 
     @ProblemFactCollectionProperty
     public List<DayOffRequest> getDayOffRequests() {
+        final Set<DayOfWeek> relevantDays = masses.parallelStream()
+                .map(PlanningMass::getDate)
+                .map(LocalDate::getDayOfWeek)
+                .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
-                .flatMap(Server::getDayOffRequestParallelStream)
+                .flatMap(server -> server.getDayOffRequests(relevantDays))
                 .collect(Collectors.toList());
     }
 
     @ProblemFactCollectionProperty
     public List<ServiceTypeOffRequest> getServiceTypeOffRequests() {
         return config.getServers().parallelStream()
-                .flatMap(Server::getServiceTypeOffRequestParallelStream)
+                .flatMap(Server::getServiceTypeOffRequests)
                 .collect(Collectors.toList());
     }
 
     @ProblemFactCollectionProperty
     public List<DateTimeOnRequest> getDateTimeOnRequests() {
+        final Set<LocalDateTime> relevantDateTimes = masses.parallelStream()
+                .map(planningMass -> LocalDateTime.of(planningMass.getDate(), planningMass.getTime()))
+                .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
-                .flatMap(Server::getDateTimeOnRequestParallelStream)
+                .flatMap(server -> server.getDateTimeOnRequests(relevantDateTimes))
                 .collect(Collectors.toList());
     }
 

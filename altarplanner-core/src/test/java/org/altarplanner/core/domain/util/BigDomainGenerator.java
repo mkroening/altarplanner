@@ -52,7 +52,7 @@ public class BigDomainGenerator {
             server.getAbsences().add(LocalDateInterval.of(LocalDate.now(), LocalDate.now().plusWeeks(2)));
 
         if (RANDOM.nextFloat() < 0.05)
-            server.getDateTimeOnWishes().add(LocalDateTime.of(getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY), LocalTime.of(11,0)));
+            server.getDateTimeOnWishes().add(LocalDateTime.of(getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY).plusWeeks(RANDOM.nextInt(4)), LocalTime.of(11,0)));
 
         server.setSurname(Integer.toHexString(server.hashCode()));
         server.setForename(Integer.toHexString(server.hashCode()));

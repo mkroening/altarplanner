@@ -1,8 +1,10 @@
 # AltarPlanner files
-config.xml
-masses/
-schedules/
-exported/
+/config.xml
+/masses
+/schedules
+/exported
+/benchmarks
+
 
 # Gradle files
 .gradle
@@ -19,6 +21,7 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
 
 # Eclipse, Netbeans and IntelliJ files
 /.*

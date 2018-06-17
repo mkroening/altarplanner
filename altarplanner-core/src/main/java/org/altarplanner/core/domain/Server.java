@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @XmlType(propOrder = {"surname", "forename", "year", "id", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
@@ -57,24 +58,32 @@ public class Server implements Serializable {
                 && absences.parallelStream().noneMatch(absence -> absence.contains(date));
     }
 
-    Stream<DateOffRequest> getDateOffRequestParallelStream() {
+    Stream<DateOffRequest> getDateOffRequests(Set<LocalDate> relevantDates) {
+        final Set<DayOfWeek> weeklyAbsenceSet = Set.copyOf(weeklyAbsences);
         return absences.parallelStream()
                 .flatMap(LocalDateInterval::stream)
+                .distinct()
+                .filter(date -> !weeklyAbsenceSet.contains(date.getDayOfWeek()))
+                .filter(relevantDates::contains)
                 .map(date -> new DateOffRequest(this, date));
     }
 
-    Stream<DayOffRequest> getDayOffRequestParallelStream() {
+    Stream<DayOffRequest> getDayOffRequests(Set<DayOfWeek> relevantDays) {
         return weeklyAbsences.parallelStream()
+                .distinct()
+                .filter(relevantDays::contains)
                 .map(day -> new DayOffRequest(this, day));
     }
 
-    Stream<ServiceTypeOffRequest> getServiceTypeOffRequestParallelStream() {
+    Stream<ServiceTypeOffRequest> getServiceTypeOffRequests() {
         return inabilities.parallelStream()
+                .filter(serviceType -> serviceType.getMaxYear() >= year)
                 .map(serviceType -> new ServiceTypeOffRequest(this, serviceType));
     }
 
-    Stream<DateTimeOnRequest> getDateTimeOnRequestParallelStream() {
+    Stream<DateTimeOnRequest> getDateTimeOnRequests(Set<LocalDateTime> relevantDateTimes) {
         return dateTimeOnWishes.parallelStream()
+                .filter(relevantDateTimes::contains)
                 .map(dateTime -> new DateTimeOnRequest(this, dateTime));
     }
 

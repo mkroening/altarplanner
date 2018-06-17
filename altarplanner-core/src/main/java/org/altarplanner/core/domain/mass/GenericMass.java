@@ -11,6 +11,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Comparator;
+import java.util.Objects;
 
 @XmlTransient
 public abstract class GenericMass implements Serializable {
@@ -69,6 +70,21 @@ public abstract class GenericMass implements Serializable {
 
     public void setForm(String form) {
         this.form = form;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GenericMass that = (GenericMass) o;
+        return Objects.equals(time, that.time) &&
+                Objects.equals(church, that.church) &&
+                Objects.equals(form, that.form);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time, church, form);
     }
 
 }

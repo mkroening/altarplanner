@@ -16,10 +16,10 @@ import java.util.stream.IntStream;
 public class BigDomainGenerator {
 
     private static final Random RANDOM = new Random(0);
-    private static final LocalDate TODAY = LocalDate.now();
+    private static final LocalDate TODAY = LocalDate.of(2018, 1, 1);
     private static final LocalDateInterval PLANNING_WINDOW;
     static {
-        LocalDate nextMonday = LocalDate.now().plusDays(DayOfWeek.MONDAY.getValue() - LocalDate.now().getDayOfWeek().getValue());
+        LocalDate nextMonday = TODAY.plusDays(DayOfWeek.MONDAY.getValue() - TODAY.getDayOfWeek().getValue());
         PLANNING_WINDOW = LocalDateInterval.of(nextMonday, nextMonday.plusWeeks(4).minusDays(1));
     }
 
@@ -49,7 +49,7 @@ public class BigDomainGenerator {
             server.getWeeklyAbsences().add(DayOfWeek.SUNDAY);
 
         if (RANDOM.nextFloat() < 0.2)
-            server.getAbsences().add(LocalDateInterval.of(LocalDate.now(), LocalDate.now().plusWeeks(2)));
+            server.getAbsences().add(LocalDateInterval.of(TODAY, TODAY.plusWeeks(2)));
 
         if (RANDOM.nextFloat() < 0.05)
             server.getDateTimeOnWishes().add(LocalDateTime.of(getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY).plusWeeks(RANDOM.nextInt(4)), LocalTime.of(11,0)));
@@ -103,7 +103,7 @@ public class BigDomainGenerator {
 
     public static Schedule genSchedule() {
         Config config = genConfig();
-        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(LocalDate.now(), LocalDate.now().plusMonths(1))).collect(Collectors.toList());
+        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toList());
         return new Schedule(null, masses, config);
     }
 

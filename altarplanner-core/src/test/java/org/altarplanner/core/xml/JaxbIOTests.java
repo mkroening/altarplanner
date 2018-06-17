@@ -22,7 +22,7 @@ public class JaxbIOTests {
     public void configUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
         final Config expected = BigDomainGenerator.genConfig();
         final Config unmarshalled = JaxbIO.unmarshal(EXPECTED_CONFIG, Config.class);
-        assertEquals(unmarshalled, expected);
+        assertEquals(expected, unmarshalled);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class JaxbIOTests {
         final Path marshalledPath = Files.createTempFile(null, null);
         JaxbIO.marshal(BigDomainGenerator.genConfig(), marshalledPath.toFile());
         final List<String> marshalledLines = Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());
-        assertEquals(marshalledLines, expectedLines);
+        assertEquals(expectedLines, marshalledLines);
     }
 
 }

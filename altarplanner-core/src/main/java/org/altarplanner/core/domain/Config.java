@@ -61,6 +61,7 @@ public class Config implements Serializable {
     }
 
     public void save() throws UnknownJAXBException {
+        this.pairs.sort(Comparator.comparing(PairRequest::getKey, Server.getDescComparator()));
         JaxbIO.marshal(this, new File(pathname));
     }
 
@@ -134,7 +135,6 @@ public class Config implements Serializable {
     @XmlElement(name = "pair")
     @XmlJavaTypeAdapter(PairRequestXmlAdapter.class)
     public List<PairRequest> getPairs() {
-        this.pairs.sort(Comparator.comparing(PairRequest::getKey, Server.getDescComparator()));
         return pairs;
     }
 

@@ -49,6 +49,14 @@ dependencies {
         exclude group: 'javax.activation', module: 'activation'
     }
 
+    testImplementation('org.optaplanner:optaplanner-benchmark') {
+        because 'this is used for finding the best algorithm for our domain'
+    }
+
+    testImplementation('org.freemarker:freemarker:2.3.28') {
+        because 'currently the version provided by optaplanner-benchmark can\'t be resolved, required for benchmark templates'
+    }
+
     testImplementation('org.optaplanner:optaplanner-test') {
         because 'we use this JUnit integration to test score rules in DRL'
     }

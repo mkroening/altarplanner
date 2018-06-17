@@ -39,7 +39,7 @@ public class JaxbIOTests {
     }
 
     @Test
-    public void discreteMassCollectionUnmarschalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
+    public void discreteMassCollectionUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
         final DiscreteMassCollection expected = BigDomainGenerator.genMasses();
         final DiscreteMassCollection unmarshalled = JaxbIO.unmarshal(EXPECTED_DISCRETE_MASS_COLLECTION, DiscreteMassCollection.class);
         assertEquals(expected, unmarshalled);

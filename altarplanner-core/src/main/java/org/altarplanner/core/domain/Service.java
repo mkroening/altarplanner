@@ -88,13 +88,13 @@ public class Service implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Service service = (Service) o;
         return id == service.id &&
-                Objects.equals(type, service.type) &&
-                Objects.equals(server, service.server);
+                Objects.equals(mass, service.mass) &&
+                Objects.equals(type, service.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, server);
+        return Objects.hash(id, mass, type);
     }
 
 }

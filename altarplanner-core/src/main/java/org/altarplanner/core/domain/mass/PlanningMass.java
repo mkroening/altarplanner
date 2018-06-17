@@ -81,13 +81,12 @@ public class PlanningMass extends GenericMass {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         PlanningMass that = (PlanningMass) o;
-        return Objects.equals(services, that.services) &&
-                Objects.equals(date, that.date);
+        return Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), services, date);
+        return Objects.hash(super.hashCode(), date);
     }
 
 }

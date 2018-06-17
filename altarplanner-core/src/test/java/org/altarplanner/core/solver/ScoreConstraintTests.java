@@ -209,6 +209,8 @@ class ScoreConstraintTests {
         Config config = new Config();
         config.getServers().add(new Server());
         config.getServers().add(new Server());
+        config.getServers().get(0).setSurname("First");
+        config.getServers().get(1).setSurname("Second");
         config.getPairs().add(new PairRequest(config.getServers().get(0), config.getServers().get(1)));
         config.getServiceTypes().add(new ServiceType());
 
@@ -279,6 +281,8 @@ class ScoreConstraintTests {
         Config config = new Config();
         config.getServers().add(new Server());
         config.getServers().add(new Server());
+        config.getServers().get(0).setSurname("First");
+        config.getServers().get(1).setSurname("Second");
         config.getServiceTypes().add(new ServiceType());
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);

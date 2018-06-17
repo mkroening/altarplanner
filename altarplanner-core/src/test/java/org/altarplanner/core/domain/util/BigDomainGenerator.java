@@ -5,6 +5,7 @@ import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.util.LocalDateInterval;
+import org.altarplanner.core.xml.jaxb.util.DiscreteMassCollection;
 
 import java.time.*;
 import java.util.List;
@@ -99,6 +100,11 @@ public class BigDomainGenerator {
         config.setServers(servers);
 
         return config;
+    }
+
+    public static DiscreteMassCollection genMasses() {
+        List<DiscreteMass> masses = genConfig().getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toList());
+        return new DiscreteMassCollection(masses);
     }
 
     public static Schedule genSchedule() {

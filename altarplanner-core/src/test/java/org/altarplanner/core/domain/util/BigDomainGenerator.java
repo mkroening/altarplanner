@@ -6,6 +6,7 @@ import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.xml.jaxb.util.DiscreteMassCollection;
+import org.optaplanner.core.api.solver.SolverFactory;
 
 import java.time.*;
 import java.util.List;
@@ -111,6 +112,12 @@ public class BigDomainGenerator {
         Config config = genConfig();
         List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toList());
         return new Schedule(null, masses, config);
+    }
+
+    public static Schedule genInitializedSchedule() {
+        Schedule uninitialized = genSchedule();
+        SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("org/altarplanner/core/solver/reproducibleConstructionSolverConfig.xml");
+        return solverFactory.buildSolver().solve(uninitialized);
     }
 
 }

@@ -15,7 +15,6 @@ import java.util.stream.IntStream;
 
 public class BigDomainGenerator {
 
-    private static final Random RANDOM = new Random(0);
     private static final LocalDate TODAY = LocalDate.of(2018, 1, 1);
     private static final LocalDateInterval PLANNING_WINDOW;
     static {
@@ -27,40 +26,41 @@ public class BigDomainGenerator {
         return starting.plusDays(dayOfWeek.getValue() - starting.getDayOfWeek().getValue());
     }
 
-    private static Server genServer(Integer value) {
+    private static Server genServer(Random random) {
         Server server = new Server();
         server.setSurname("");
         server.setForename("");
-        server.setYear(TODAY.getYear() - RANDOM.nextInt(10));
+        server.setYear(TODAY.getYear() - random.nextInt(10));
 
-        if (RANDOM.nextFloat() < 0.4)
+        if (random.nextFloat() < 0.4)
             server.getWeeklyAbsences().add(DayOfWeek.MONDAY);
-        if (RANDOM.nextFloat() < 0.3)
+        if (random.nextFloat() < 0.3)
             server.getWeeklyAbsences().add(DayOfWeek.TUESDAY);
-        if (RANDOM.nextFloat() < 0.4)
+        if (random.nextFloat() < 0.4)
             server.getWeeklyAbsences().add(DayOfWeek.WEDNESDAY);
-        if (RANDOM.nextFloat() < 0.45)
+        if (random.nextFloat() < 0.45)
             server.getWeeklyAbsences().add(DayOfWeek.THURSDAY);
-        if (RANDOM.nextFloat() < 0.35)
+        if (random.nextFloat() < 0.35)
             server.getWeeklyAbsences().add(DayOfWeek.FRIDAY);
-        if (RANDOM.nextFloat() < 0.3)
+        if (random.nextFloat() < 0.3)
             server.getWeeklyAbsences().add(DayOfWeek.SATURDAY);
-        if (RANDOM.nextFloat() < 0.1)
+        if (random.nextFloat() < 0.1)
             server.getWeeklyAbsences().add(DayOfWeek.SUNDAY);
 
-        if (RANDOM.nextFloat() < 0.2)
+        if (random.nextFloat() < 0.2)
             server.getAbsences().add(LocalDateInterval.of(TODAY, TODAY.plusWeeks(2)));
 
-        if (RANDOM.nextFloat() < 0.05)
-            server.getDateTimeOnWishes().add(LocalDateTime.of(getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY).plusWeeks(RANDOM.nextInt(4)), LocalTime.of(11,0)));
+        if (random.nextFloat() < 0.05)
+            server.getDateTimeOnWishes().add(LocalDateTime.of(getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY).plusWeeks(random.nextInt(4)), LocalTime.of(11,0)));
 
-        server.setSurname(Integer.toHexString(RANDOM.nextInt()));
-        server.setForename(Integer.toHexString(RANDOM.nextInt()));
+        server.setSurname(Integer.toHexString(random.nextInt()));
+        server.setForename(Integer.toHexString(random.nextInt()));
 
         return server;
     }
 
     public static Config genConfig() {
+        final Random random = new Random(0);
         Config config = new Config();
 
         ServiceType altar1 = Builder.buildServiceType("Altar", TODAY.getYear() - 2, TODAY.getYear() - 4);
@@ -86,14 +86,14 @@ public class BigDomainGenerator {
                 Map.of(altar2, 2, altar3, 2, flambeau, 10, lector, 1, incense, 2, cross, 1));
         config.setRegularMasses(List.of(mon19, thu18, sat17, sun08, sun09, sun11));
 
-        List<Server> servers = IntStream.range(0, 100).mapToObj(BigDomainGenerator::genServer).collect(Collectors.toList());
+        List<Server> servers = IntStream.range(0, 100).mapToObj(value -> genServer(random)).collect(Collectors.toList());
 
         servers.forEach(server -> {
-            if (RANDOM.nextFloat() < .4)
-                server.getInabilities().add(config.getServiceTypes().get(RANDOM.nextInt(7)));
+            if (random.nextFloat() < .4)
+                server.getInabilities().add(config.getServiceTypes().get(random.nextInt(7)));
 
-            if (RANDOM.nextFloat() < .2)
-                config.addPair(new PairRequest(server, servers.get(RANDOM.nextInt(servers.size()))));
+            if (random.nextFloat() < .2)
+                config.addPair(new PairRequest(server, servers.get(random.nextInt(servers.size()))));
         });
 
         config.setServers(servers);

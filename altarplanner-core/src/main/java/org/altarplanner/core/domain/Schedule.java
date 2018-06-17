@@ -189,4 +189,20 @@ public class Schedule implements Serializable {
         this.score = score;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Schedule schedule = (Schedule) o;
+        return Objects.equals(config, schedule.config) &&
+                Objects.equals(planningWindow, schedule.planningWindow) &&
+                Objects.equals(masses, schedule.masses) &&
+                Objects.equals(score, schedule.score);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(config, planningWindow, masses, score);
+    }
+
 }

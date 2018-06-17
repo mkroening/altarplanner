@@ -4,7 +4,7 @@ import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.util.BigDomainGenerator;
 import org.altarplanner.core.xml.jaxb.util.DiscreteMassCollection;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -132,17 +132,6 @@ public class Schedule implements Serializable {
     }
 
     @ProblemFactCollectionProperty
-    public List<DayOffRequest> getDayOffRequests() {
-        final Set<DayOfWeek> relevantDays = masses.parallelStream()
-                .map(PlanningMass::getDate)
-                .map(LocalDate::getDayOfWeek)
-                .collect(Collectors.toUnmodifiableSet());
-        return config.getServers().parallelStream()
-                .flatMap(server -> server.getDayOffRequests(relevantDays))
-                .collect(Collectors.toList());
-    }
-
-    @ProblemFactCollectionProperty
     public List<ServiceTypeOffRequest> getServiceTypeOffRequests() {
         return config.getServers().parallelStream()
                 .flatMap(Server::getServiceTypeOffRequests)

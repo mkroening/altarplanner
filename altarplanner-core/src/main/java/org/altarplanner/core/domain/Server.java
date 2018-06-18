@@ -57,19 +57,10 @@ public class Server implements Serializable {
 
     Stream<DateOffRequest> getDateOffRequests(Set<LocalDate> relevantDates) {
         final Set<DayOfWeek> weeklyAbsenceSet = Set.copyOf(weeklyAbsences);
-        return absences.parallelStream()
-                .flatMap(LocalDateInterval::stream)
-                .distinct()
-                .filter(date -> !weeklyAbsenceSet.contains(date.getDayOfWeek()))
-                .filter(relevantDates::contains)
+        return relevantDates.parallelStream()
+                .filter(date -> weeklyAbsenceSet.contains(date.getDayOfWeek()) || absences.parallelStream().anyMatch(interval -> interval.contains(date)))
+                .filter(date -> dateTimeOnWishes.parallelStream().noneMatch(dateTime -> date.equals(dateTime.toLocalDate())))
                 .map(date -> new DateOffRequest(this, date));
-    }
-
-    Stream<DayOffRequest> getDayOffRequests(Set<DayOfWeek> relevantDays) {
-        return weeklyAbsences.parallelStream()
-                .distinct()
-                .filter(relevantDays::contains)
-                .map(day -> new DayOffRequest(this, day));
     }
 
     Stream<ServiceTypeOffRequest> getServiceTypeOffRequests() {

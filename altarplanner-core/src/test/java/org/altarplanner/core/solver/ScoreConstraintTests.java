@@ -120,7 +120,7 @@ class ScoreConstraintTests {
 
     @Test
     void dayOffRequest() {
-        final String constraintName = "dayOffRequest";
+        final String constraintName = "dateOffRequest";
 
         Config config = new Config();
         config.getServers().add(new Server());

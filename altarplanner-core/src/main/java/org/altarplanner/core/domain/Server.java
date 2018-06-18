@@ -59,6 +59,7 @@ public class Server implements Serializable {
         final Set<DayOfWeek> weeklyAbsenceSet = Set.copyOf(weeklyAbsences);
         return relevantDates.parallelStream()
                 .filter(date -> weeklyAbsenceSet.contains(date.getDayOfWeek()) || absences.parallelStream().anyMatch(interval -> interval.contains(date)))
+                .filter(date -> dateTimeOnWishes.parallelStream().noneMatch(dateTime -> date.equals(dateTime.toLocalDate())))
                 .map(date -> new DateOffRequest(this, date));
     }
 

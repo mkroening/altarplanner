@@ -197,12 +197,13 @@ public class Schedule implements Serializable {
         return Objects.equals(config, schedule.config) &&
                 Objects.equals(planningWindow, schedule.planningWindow) &&
                 Objects.equals(masses, schedule.masses) &&
+                Objects.equals(getServices(), schedule.getServices()) &&
                 Objects.equals(score, schedule.score);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(config, planningWindow, masses, score);
+        return Objects.hash(config, planningWindow, masses, getServices(), score);
     }
 
 }

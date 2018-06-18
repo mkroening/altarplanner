@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.Objects;
 
 @PlanningEntity(movableEntitySelectionFilter = MovableServiceSelectionFilter.class,
         difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
@@ -79,6 +80,21 @@ public class Service implements Serializable {
 
     public void setServer(Server server) {
         this.server = server;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Service service = (Service) o;
+        return id == service.id &&
+                Objects.equals(mass, service.mass) &&
+                Objects.equals(type, service.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, mass, type);
     }
 
 }

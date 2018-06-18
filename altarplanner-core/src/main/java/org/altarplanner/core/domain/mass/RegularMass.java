@@ -8,6 +8,7 @@ import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.Objects;
 
 @XmlType(propOrder = {"day", "time", "church", "form", "serviceTypeCount"})
 public class RegularMass extends EditableMass {
@@ -35,6 +36,20 @@ public class RegularMass extends EditableMass {
 
     public void setDay(DayOfWeek day) {
         this.day = day;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        RegularMass that = (RegularMass) o;
+        return day == that.day;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), day);
     }
 
 }

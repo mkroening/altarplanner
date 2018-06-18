@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlID;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class ServiceType implements Serializable {
 
@@ -57,6 +58,21 @@ public class ServiceType implements Serializable {
 
     public void setMinYear(int minYear) {
         this.minYear = minYear;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ServiceType that = (ServiceType) o;
+        return maxYear == that.maxYear &&
+                minYear == that.minYear &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, maxYear, minYear);
     }
 
 }

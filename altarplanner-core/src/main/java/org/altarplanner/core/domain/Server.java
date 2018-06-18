@@ -11,10 +11,7 @@ import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 @XmlType(propOrder = {"surname", "forename", "year", "id", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
@@ -153,6 +150,25 @@ public class Server implements Serializable {
 
     public void setDateTimeOnWishes(List<LocalDateTime> dateTimeOnWishes) {
         this.dateTimeOnWishes = dateTimeOnWishes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Server server = (Server) o;
+        return year == server.year &&
+                Objects.equals(surname, server.surname) &&
+                Objects.equals(forename, server.forename) &&
+                Objects.equals(absences, server.absences) &&
+                Objects.equals(weeklyAbsences, server.weeklyAbsences) &&
+                Objects.equals(inabilities, server.inabilities) &&
+                Objects.equals(dateTimeOnWishes, server.dateTimeOnWishes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(surname, forename, year, absences, weeklyAbsences, inabilities, dateTimeOnWishes);
     }
 
 }

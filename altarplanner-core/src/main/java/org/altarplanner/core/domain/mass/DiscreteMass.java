@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Comparator;
+import java.util.Objects;
 
 @XmlType(propOrder = {"date", "time", "church", "form", "serviceTypeCount"})
 public class DiscreteMass extends EditableMass {
@@ -47,6 +48,20 @@ public class DiscreteMass extends EditableMass {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        DiscreteMass that = (DiscreteMass) o;
+        return Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), date);
     }
 
 }

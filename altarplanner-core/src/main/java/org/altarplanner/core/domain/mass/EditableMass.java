@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @XmlTransient
 public abstract class EditableMass extends GenericMass {
@@ -30,6 +31,20 @@ public abstract class EditableMass extends GenericMass {
 
     public void setServiceTypeCount(Map<ServiceType, Integer> serviceTypeCount) {
         this.serviceTypeCount = serviceTypeCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        EditableMass that = (EditableMass) o;
+        return Objects.equals(serviceTypeCount, that.serviceTypeCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), serviceTypeCount);
     }
 
 }

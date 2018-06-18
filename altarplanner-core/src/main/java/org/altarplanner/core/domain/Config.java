@@ -142,4 +142,20 @@ public class Config implements Serializable {
         this.pairs = pairs;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Config config = (Config) o;
+        return Objects.equals(serviceTypes, config.serviceTypes) &&
+                Objects.equals(regularMasses, config.regularMasses) &&
+                Objects.equals(servers, config.servers) &&
+                Objects.equals(pairs, config.pairs);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(serviceTypes, regularMasses, servers, pairs);
+    }
+
 }

@@ -3,6 +3,7 @@ package org.altarplanner.core.domain.mass;
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.Service;
+import org.altarplanner.core.domain.ServiceType;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -11,7 +12,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -33,6 +36,7 @@ public class PlanningMass extends GenericMass {
                 .flatMap(serviceTypeCountEntry ->
                         IntStream.range(0, serviceTypeCountEntry.getValue())
                                 .mapToObj(value -> new Service(this, serviceTypeCountEntry.getKey())))
+                .sorted(Comparator.comparing(Service::getType, ServiceType.getDescComparator()))
                 .collect(Collectors.toList());
 
         this.date = discreteMass.getDate();
@@ -69,6 +73,20 @@ public class PlanningMass extends GenericMass {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        PlanningMass that = (PlanningMass) o;
+        return Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), date);
     }
 
 }

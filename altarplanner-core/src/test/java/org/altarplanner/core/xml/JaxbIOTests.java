@@ -60,7 +60,7 @@ class JaxbIOTests {
     @Test
     void scheduleUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
         final Schedule expected = BigDomainGenerator.genInitializedSchedule();
-        final Schedule unmarshalled = JaxbIO.unmarshal(EXPECTED_INITIALIZED_SCHEDULE, Schedule.class);
+        final Schedule unmarshalled = Schedule.load(EXPECTED_INITIALIZED_SCHEDULE);
         assertEquals(expected, unmarshalled);
     }
 

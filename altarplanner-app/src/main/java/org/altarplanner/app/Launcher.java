@@ -141,7 +141,7 @@ public class Launcher extends Application {
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null) {
             try {
-                Schedule schedule = JaxbIO.unmarshal(selectedFile, Schedule.class);
+                Schedule schedule = Schedule.load(selectedFile);
                 LOGGER.info("Schedule has been loaded from {}", selectedFile);
 
                 fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));

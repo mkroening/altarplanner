@@ -4,6 +4,9 @@ import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.util.LocalDateInterval;
+import org.altarplanner.core.xml.JaxbIO;
+import org.altarplanner.core.xml.UnexpectedElementException;
+import org.altarplanner.core.xml.UnknownJAXBException;
 import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
@@ -18,6 +21,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -37,6 +42,12 @@ public class Schedule implements Serializable {
     private List<PlanningMass> masses;
     @PlanningScore
     private HardSoftScore score;
+
+    public static Schedule load(File input) throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
+        Schedule unmarshalled = JaxbIO.unmarshal(input, Schedule.class);
+        unmarshalled.masses.forEach(mass -> mass.getServices().forEach(service -> service.setMass(mass)));
+        return unmarshalled;
+    }
 
     public Schedule() {
     }

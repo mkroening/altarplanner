@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class SolverView {
 
@@ -39,20 +40,24 @@ public class SolverView {
         fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("schedules/");
-        directory.mkdirs();
-        fileChooser.setInitialDirectory(directory);
-        fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".xml");
+        try {
+            Files.createDirectories(directory.toPath());
+            fileChooser.setInitialDirectory(directory);
+            fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".xml");
 
-        File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
-        if (selectedFile != null) {
-            try {
-                JaxbIO.marshal(schedule, selectedFile);
-                LOGGER.info("Schedule has been saved as {}", selectedFile);
-                Launcher.loadParent("launcher.fxml", true);
-            } catch (IOException | UnknownJAXBException e) {
-                e.printStackTrace();
-            }
-        } else LOGGER.info("Schedule has not been saved, because no file has been selected");
+            File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
+            if (selectedFile != null) {
+                try {
+                    JaxbIO.marshal(schedule, selectedFile);
+                    LOGGER.info("Schedule has been saved as {}", selectedFile);
+                    Launcher.loadParent("launcher.fxml", true);
+                } catch (IOException | UnknownJAXBException e) {
+                    e.printStackTrace();
+                }
+            } else LOGGER.info("Schedule has not been saved, because no file has been selected");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML private void stopPlanning() {

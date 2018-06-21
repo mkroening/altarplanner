@@ -58,14 +58,13 @@ end
 // Soft constraints
 // ############################################################################
 
-// TODO: HardConstraint breaks Construction (implement dual move?)
 rule "pairRequest"
     when
         PairRequest($server : key, $pairedWith : value)
         Service(server == $server, $mass : mass)
         not Service(server == $pairedWith, mass == $mass)
     then
-        scoreHolder.addSoftConstraintMatch(kcontext, -1);
+        scoreHolder.addSoftConstraintMatch(kcontext, -10);
 end
 
 rule "maximizeIntervals"

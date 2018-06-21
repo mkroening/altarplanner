@@ -222,7 +222,7 @@ class ScoreConstraintTests {
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 
         schedule.getServices().get(0).setServer(schedule.getServers().get(0));
-        scoreVerifier.assertSoftWeight(constraintName, -1, schedule);
+        scoreVerifier.assertSoftWeight(constraintName, -10, schedule);
 
         schedule.getServices().get(1).setServer(schedule.getServers().get(1));
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);

@@ -86,7 +86,7 @@ public class Config implements Serializable {
         return pairs.parallelStream()
                 .filter(pairRequest -> pairRequest.getKey() == server)
                 .map(PairRequest::getValue)
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public void addPair(PairRequest pair) {

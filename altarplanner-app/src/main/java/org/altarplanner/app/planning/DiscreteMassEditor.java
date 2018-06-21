@@ -167,7 +167,7 @@ public class DiscreteMassEditor {
     @FXML private void generateFromRegularMasses() throws IOException {
         Launcher.loadParent("planning/discreteMassGenerator.fxml", false,
                 discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator)
-                        .initData(Launcher.CONFIG, discreteMasses -> {
+                        .initData(discreteMasses -> {
                             discreteMassListView.getItems().addAll(discreteMasses);
                             setDisable(false);
                             if (discreteMassListView.getSelectionModel().getSelectedItem() == null)

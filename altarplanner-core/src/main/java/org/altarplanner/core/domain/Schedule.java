@@ -57,7 +57,7 @@ public class Schedule implements Serializable {
         List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
                 .map(PlanningMass::new)
                 .sorted(Comparator.comparing(PlanningMass::getDate))
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
 
         this.planningWindow = LocalDateInterval.of(planningMassesToPlan.get(0).getDate(),
                 planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
@@ -66,14 +66,14 @@ public class Schedule implements Serializable {
         List<PlanningMass> pastPlanningMassesToConsider = Optional.ofNullable(lastSchedule)
                 .map(schedule -> schedule.getMasses().parallelStream()
                         .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toUnmodifiableList()))
                 .orElse(Collections.emptyList());
 
         LocalDateInterval futureWindow = LocalDateInterval.of(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
         List<PlanningMass> futurePlanningMassesToConsider = config
                 .getDiscreteMassParallelStreamWithin(futureWindow)
                 .map(PlanningMass::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
 
         this.masses = Stream
                 .of(pastPlanningMassesToConsider,
@@ -81,7 +81,7 @@ public class Schedule implements Serializable {
                         futurePlanningMassesToConsider)
                 .flatMap(Collection::stream)
                 .sorted(Comparator.comparing(PlanningMass::getDate))
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
 
         List<Service> services = getServices();
         IntStream.range(0, services.size()).parallel()
@@ -117,7 +117,7 @@ public class Schedule implements Serializable {
     public List<Service> getServices() {
         return masses.parallelStream()
                 .flatMap(mass -> mass.getServices().parallelStream())
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @ProblemFactCollectionProperty
@@ -127,14 +127,14 @@ public class Schedule implements Serializable {
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
                 .flatMap(server -> server.getDateOffRequests(relevantDates))
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @ProblemFactCollectionProperty
     public List<ServiceTypeOffRequest> getServiceTypeOffRequests() {
         return config.getServers().parallelStream()
                 .flatMap(Server::getServiceTypeOffRequests)
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @ProblemFactCollectionProperty
@@ -144,7 +144,7 @@ public class Schedule implements Serializable {
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
                 .flatMap(server -> server.getDateTimeOnRequests(relevantDateTimes))
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @ProblemFactCollectionProperty

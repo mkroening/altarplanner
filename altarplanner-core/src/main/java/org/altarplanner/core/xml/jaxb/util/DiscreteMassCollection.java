@@ -28,7 +28,7 @@ public class DiscreteMassCollection {
                 .flatMap(discreteMass -> discreteMass.getServiceTypeCount().keySet().parallelStream())
                 .distinct()
                 .sorted(ServiceType.getDescComparator())
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @XmlElementWrapper(name = "serviceTypes")

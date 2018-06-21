@@ -88,7 +88,7 @@ public class BigDomainGenerator {
                 Map.of(altar2, 2, altar3, 2, flambeau, 10, lector, 1, incense, 2, cross, 1));
         config.setRegularMasses(List.of(mon19, thu18, sat17, sun08, sun09, sun11));
 
-        List<Server> servers = IntStream.range(0, 100).mapToObj(value -> genServer(random)).collect(Collectors.toList());
+        List<Server> servers = IntStream.range(0, 100).mapToObj(value -> genServer(random)).collect(Collectors.toUnmodifiableList());
 
         servers.forEach(server -> {
             if (random.nextFloat() < .4)
@@ -104,13 +104,13 @@ public class BigDomainGenerator {
     }
 
     public static DiscreteMassCollection genMasses() {
-        List<DiscreteMass> masses = genConfig().getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toList());
+        List<DiscreteMass> masses = genConfig().getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toUnmodifiableList());
         return new DiscreteMassCollection(masses);
     }
 
     public static Schedule genSchedule() {
         Config config = genConfig();
-        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toList());
+        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toUnmodifiableList());
         return new Schedule(null, masses, config);
     }
 

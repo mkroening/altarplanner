@@ -37,7 +37,7 @@ public class PlanningMass extends GenericMass {
                         IntStream.range(0, serviceTypeCountEntry.getValue())
                                 .mapToObj(value -> new Service(this, serviceTypeCountEntry.getKey())))
                 .sorted(Comparator.comparing(Service::getType, ServiceType.getDescComparator()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
 
         this.date = discreteMass.getDate();
     }

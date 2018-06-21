@@ -31,7 +31,7 @@ class ScoreConstraintTests {
                     discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(subsequentServiceTypes ? value : 0), 1);
                     return discreteMass;
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Test
@@ -68,7 +68,7 @@ class ScoreConstraintTests {
                             server.setYear(Year.now().getValue() - value);
                             return server;
                         })
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toUnmodifiableList())
         );
 
         config.setServiceTypes(
@@ -78,7 +78,7 @@ class ScoreConstraintTests {
                             serviceType.setMaxYear(Year.now().getValue() - value);
                             return serviceType;
                         })
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toUnmodifiableList())
         );
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, true);
@@ -127,7 +127,7 @@ class ScoreConstraintTests {
         config.getServers().get(0).getWeeklyAbsences()
                 .addAll(IntStream.range(0, 4)
                         .mapToObj(value -> LocalDate.now().plusDays(2 * value).getDayOfWeek())
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toUnmodifiableList()));
         config.getServiceTypes().add(new ServiceType());
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
@@ -156,11 +156,11 @@ class ScoreConstraintTests {
                             serviceType.setName(String.valueOf(value));
                             return serviceType;
                         })
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toUnmodifiableList()));
         config.getServers().get(0).getInabilities()
                 .addAll(IntStream.range(0, massCount / 2)
                         .mapToObj(value -> config.getServiceTypes().get(2 * value))
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toUnmodifiableList()));
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, true);
 
@@ -184,7 +184,7 @@ class ScoreConstraintTests {
         config.getServers().get(0).getDateTimeOnWishes()
                 .addAll(IntStream.range(0, massCount / 2)
                         .mapToObj(value -> LocalDateTime.of(LocalDate.now().plusDays(2 * value), LocalTime.of(11, 0)))
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toUnmodifiableList()));
         config.getServiceTypes().add(new ServiceType());
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);

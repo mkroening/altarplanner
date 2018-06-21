@@ -18,7 +18,9 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,7 +42,7 @@ public class Config implements Serializable {
     private List<Server> servers = new ArrayList<>();
     private List<PairRequest> pairs = new ArrayList<>();
 
-    public static Config load() throws UnknownJAXBException {
+    public static Config load() throws UnknownJAXBException, IOException {
         File defaultFile = new File(pathname);
         try {
             return JaxbIO.unmarshal(defaultFile, Config.class);
@@ -51,7 +53,7 @@ public class Config implements Serializable {
         } catch (UnexpectedElementException e) {
             File corruptFile = new File("config_corrupt_" + LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + ".xml");
             LOGGER.error("Moving \"{}\" to \"{}\"", defaultFile, corruptFile);
-            defaultFile.renameTo(corruptFile);
+            Files.move(defaultFile.toPath(), corruptFile.toPath());
             LOGGER.info("Creating new config.");
             return new Config();
         }

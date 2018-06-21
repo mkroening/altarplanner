@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -37,7 +38,7 @@ public class Launcher extends Application {
         Config config = new Config();
         try {
             config = Config.load();
-        } catch (UnknownJAXBException e) {
+        } catch (UnknownJAXBException | IOException e) {
             e.printStackTrace();
         }
         CONFIG = config;
@@ -114,7 +115,7 @@ public class Launcher extends Application {
         fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("masses/");
-        directory.mkdirs();
+        Files.createDirectories(directory.toPath());
         fileChooser.setInitialDirectory(directory);
 
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
@@ -135,7 +136,7 @@ public class Launcher extends Application {
         fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openSchedule"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("schedules/");
-        directory.mkdirs();
+        Files.createDirectories(directory.toPath());
         fileChooser.setInitialDirectory(directory);
 
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
@@ -147,7 +148,7 @@ public class Launcher extends Application {
                 fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
                 fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.xlsx"));
                 directory = new File("exported/");
-                directory.mkdirs();
+                Files.createDirectories(directory.toPath());
                 fileChooser.setInitialDirectory(directory);
                 fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".xlsx");
 

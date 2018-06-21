@@ -17,8 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -176,12 +176,12 @@ public class DiscreteMassEditor {
                         }));
     }
 
-    @FXML private void openFile() throws FileNotFoundException, UnknownJAXBException {
+    @FXML private void openFile() throws IOException, UnknownJAXBException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("masses/");
-        directory.mkdirs();
+        Files.createDirectories(directory.toPath());
         fileChooser.setInitialDirectory(directory);
 
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
@@ -209,7 +209,7 @@ public class DiscreteMassEditor {
             fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveDiscreteMasses"));
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
             File directory = new File("masses/");
-            directory.mkdirs();
+            Files.createDirectories(directory.toPath());
             fileChooser.setInitialDirectory(directory);
             fileChooser.setInitialFileName(masses.get(0).getDate() + "_" + masses.get(masses.size() - 1).getDate() + ".xml");
 

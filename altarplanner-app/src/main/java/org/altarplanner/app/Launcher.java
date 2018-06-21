@@ -38,7 +38,7 @@ public class Launcher extends Application {
         Config config = new Config();
         try {
             config = Config.load();
-        } catch (UnknownJAXBException e) {
+        } catch (UnknownJAXBException | IOException e) {
             e.printStackTrace();
         }
         CONFIG = config;

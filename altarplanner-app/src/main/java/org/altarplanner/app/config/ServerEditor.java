@@ -215,23 +215,13 @@ public class ServerEditor {
 
         absenceStartDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                LocalDateInterval replaceAbsence = absencesListView.getSelectionModel().getSelectedItem();
-                absencesListView.getItems().remove(replaceAbsence);
-                replaceAbsence = LocalDateInterval.of(newValue, replaceAbsence.getEnd());
-                absencesListView.getItems().add(replaceAbsence);
-                absencesListView.getItems().sort(LocalDateInterval.getRecencyComparator());
-                absencesListView.getSelectionModel().select(replaceAbsence);
+                replaceSelectedAbsence(LocalDateInterval.of(newValue, newValue.isAfter(absenceEndDatePicker.getValue()) ? newValue : absenceEndDatePicker.getValue()));
             }
         });
 
         absenceEndDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                LocalDateInterval replaceAbsence = absencesListView.getSelectionModel().getSelectedItem();
-                absencesListView.getItems().remove(replaceAbsence);
-                replaceAbsence = LocalDateInterval.of(replaceAbsence.getStart(), newValue);
-                absencesListView.getItems().add(replaceAbsence);
-                absencesListView.getItems().sort(LocalDateInterval.getRecencyComparator());
-                absencesListView.getSelectionModel().select(replaceAbsence);
+                replaceSelectedAbsence(LocalDateInterval.of(newValue.isBefore(absenceStartDatePicker.getValue()) ? newValue : absenceStartDatePicker.getValue(), newValue));
             }
         });
 
@@ -290,6 +280,13 @@ public class ServerEditor {
             serverListView.getSelectionModel().selectFirst();
         else
             setDisable(true);
+    }
+
+    private void replaceSelectedAbsence(LocalDateInterval replacingAbsence) {
+        absencesListView.getItems().remove(absencesListView.getSelectionModel().getSelectedItem());
+        absencesListView.getItems().add(replacingAbsence);
+        absencesListView.getItems().sort(LocalDateInterval.getRecencyComparator());
+        absencesListView.getSelectionModel().select(replacingAbsence);
     }
 
     private void setDisable(boolean disable) {

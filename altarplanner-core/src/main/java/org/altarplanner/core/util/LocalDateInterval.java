@@ -34,7 +34,7 @@ public final class LocalDateInterval implements Serializable {
     }
 
     public boolean contains(LocalDate date) {
-        return (start.compareTo(date) <= 0) && (date.compareTo(end) <= 0);
+        return !date.isBefore(start) && !date.isAfter(end);
     }
 
     public String format(DateTimeFormatter formatter) {

@@ -11,7 +11,6 @@ dependencies {
 
     implementation("org.glassfish.jaxb:jaxb-bom:+") {
         because("we use JAXB for XML Binding")
-        exclude(group = "javax.activation", module = "activation")
     }
 
     implementation("org.junit:junit-bom:+") {
@@ -30,10 +29,6 @@ dependencies {
         because("we use the JAXB-RI")
     }
 
-    implementation("javax.activation:javax.activation-api:+") {
-        because("the version otherwise provided by JAXB or logback is outdated")
-    }
-
     implementation("com.migesok:jaxb-java-time-adapters:+") {
         because("these JAXB adapters for JSR-310 save us some boilerplate code")
     }
@@ -48,7 +43,6 @@ dependencies {
 
     testImplementation("ch.qos.logback:logback-classic:+") {
         because("we use this SLF4J API implementation for logging while testing")
-        exclude(group = "javax.activation", module = "activation")
     }
 
     testImplementation("org.optaplanner:optaplanner-benchmark") {

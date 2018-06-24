@@ -1,3 +1,0 @@
-rootProject.name = 'altarplanner'
-include 'core', 'app'
-enableFeaturePreview('IMPROVED_POM_SUPPORT')

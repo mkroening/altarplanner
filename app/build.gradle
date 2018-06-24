@@ -5,7 +5,7 @@ apply plugin: 'application'
 mainClassName = "org.altarplanner.app.Launcher"
 
 dependencies {
-    compile(project(':altarplanner-core')) {
+    compile(project(':core')) {
         because 'we need the domain, solver and IO implementation of the core project'
     }
 

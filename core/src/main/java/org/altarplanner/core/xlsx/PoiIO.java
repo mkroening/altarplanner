@@ -1,7 +1,10 @@
 package org.altarplanner.core.xlsx;
 
 import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.Service;
+import org.altarplanner.core.domain.mass.PlanningMass;
+import org.altarplanner.core.util.DateTimeFormatterUtil;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -11,6 +14,7 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Collections;
@@ -81,6 +85,60 @@ public class PoiIO {
 
         workbook.write(new FileOutputStream(file));
 
+        workbook.close();
+    }
+
+    public static void exportScheduleOverview(Schedule schedule, File file) throws IOException {
+        final XSSFWorkbook workbook = new XSSFWorkbook();
+        final XSSFSheet sheet = workbook.createSheet();
+
+        final int rowOffset = 3;
+        final int columnOffset = 2;
+        final char firstColumnChar = 'A' + columnOffset;
+
+        final XSSFRow dateRow = sheet.createRow(0);
+        schedule.getDateMassesMap().forEach((date, masses) -> {
+            final int firstMassColumn = columnOffset + schedule.getMasses().indexOf(masses.get(0));
+            dateRow.createCell(firstMassColumn).setCellValue(date.format(DateTimeFormatterUtil.ISO_W_DAY));
+            if (masses.size() > 1)
+                sheet.addMergedRegion(new CellRangeAddress(0, 0, firstMassColumn, firstMassColumn + masses.size() - 1));
+        });
+
+        final XSSFRow timeChurchRow = sheet.createRow(1);
+        IntStream.range(0, schedule.getMasses().size())
+                .forEach(value -> {
+                    PlanningMass mass = schedule.getMasses().get(value);
+                    timeChurchRow.createCell(columnOffset + value)
+                            .setCellValue(mass.getTime().format(DateTimeFormatterUtil.ISO_WO_SECONDS) + " - " + mass.getChurch());
+                });
+
+        final XSSFRow formRow = sheet.createRow(2);
+        IntStream.range(0, schedule.getMasses().size())
+                .forEach(value -> {
+                    PlanningMass mass = schedule.getMasses().get(value);
+                    formRow.createCell(columnOffset + value)
+                            .setCellValue(mass.getForm());
+                });
+
+        IntStream.range(0, schedule.getServers().size())
+                .forEach(serverIndex -> {
+                    final int rowIndex = rowOffset + serverIndex;
+                    final Server server = schedule.getServers().get(serverIndex);
+                    final XSSFRow serverRow = sheet.createRow(rowIndex);
+                    serverRow.createCell(0).setCellValue(server.getDesc());
+                    serverRow.createCell(1).setCellFormula("COUNTA(" + firstColumnChar + (rowIndex + 1) + ":AMJ" + (rowIndex + 1) + ")");
+                    IntStream.range(0, schedule.getMasses().size())
+                            .forEach(massIndex -> schedule.getMasses().get(massIndex).getServices().parallelStream()
+                                    .filter(service -> server.equals(service.getServer()))
+                                    .findAny()
+                                    .ifPresent(service -> serverRow.createCell(columnOffset + massIndex).setCellValue(service.getType().getId())));
+                });
+
+        sheet.createFreezePane(columnOffset,rowOffset);
+
+        IntStream.range(0, columnOffset + schedule.getServers().size() - 1).forEach(sheet::autoSizeColumn);
+
+        workbook.write(Files.newOutputStream(file.toPath()));
         workbook.close();
     }
 

@@ -89,7 +89,7 @@ public class Schedule implements Serializable {
     }
 
     public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
-        return masses.parallelStream().collect(Collectors.groupingByConcurrent(PlanningMass::getDate));
+        return masses.stream().collect(Collectors.groupingBy(PlanningMass::getDate));
     }
 
     public int getAvailableServerCountFor(Service service) {

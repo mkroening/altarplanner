@@ -125,7 +125,7 @@ public class PoiIO {
                     final Server server = schedule.getServers().get(serverIndex);
                     final XSSFRow serverRow = sheet.createRow(rowIndex);
                     serverRow.createCell(0).setCellValue(server.getDesc());
-                    serverRow.createCell(1).setCellFormula("SUMPRODUCT(NOT(ISBLANK(C" + (rowIndex + 1) + ":AMJ" + (rowIndex + 1) + ")))");
+                    serverRow.createCell(1).setCellFormula("COUNTA(C" + (rowIndex + 1) + ":AMJ" + (rowIndex + 1) + ")");
                     IntStream.range(0, schedule.getMasses().size())
                             .forEach(massIndex -> schedule.getMasses().get(massIndex).getServices().parallelStream()
                                     .filter(service -> server.equals(service.getServer()))

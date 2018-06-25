@@ -94,6 +94,7 @@ public class PoiIO {
 
         final int rowOffset = 3;
         final int columnOffset = 2;
+        final char firstColumnChar = 'A' + columnOffset;
 
         final XSSFRow dateRow = sheet.createRow(0);
         schedule.getDateMassesMap().forEach((date, masses) -> {
@@ -125,7 +126,7 @@ public class PoiIO {
                     final Server server = schedule.getServers().get(serverIndex);
                     final XSSFRow serverRow = sheet.createRow(rowIndex);
                     serverRow.createCell(0).setCellValue(server.getDesc());
-                    serverRow.createCell(1).setCellFormula("COUNTA(C" + (rowIndex + 1) + ":AMJ" + (rowIndex + 1) + ")");
+                    serverRow.createCell(1).setCellFormula("COUNTA(" + firstColumnChar + (rowIndex + 1) + ":AMJ" + (rowIndex + 1) + ")");
                     IntStream.range(0, schedule.getMasses().size())
                             .forEach(massIndex -> schedule.getMasses().get(massIndex).getServices().parallelStream()
                                     .filter(service -> server.equals(service.getServer()))

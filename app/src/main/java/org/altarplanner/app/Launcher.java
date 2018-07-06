@@ -110,6 +110,54 @@ public class Launcher extends Application {
         loadParent("planning/discreteMassEditor.fxml", true);
     }
 
+    @FXML private void createSchedule() throws IOException, UnknownJAXBException {
+        final FileChooser massFileChooser = new FileChooser();
+        massFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
+        massFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        final File massDirectory = new File("masses/");
+        Files.createDirectories(massDirectory.toPath());
+        massFileChooser.setInitialDirectory(massDirectory);
+        final File massFile = massFileChooser.showOpenDialog(primaryStage);
+
+        if (massFile != null) {
+            try {
+                final List<DiscreteMass> masses = JaxbIO.unmarshal(massFile, DiscreteMassCollection.class).getDiscreteMasses();
+                LOGGER.info("Masses have been loaded from {}", massFile);
+
+                final FileChooser lastScheduleFileChooser = new FileChooser();
+                lastScheduleFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openLastSchedule"));
+                lastScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+                final File scheduleDirectory = new File("schedules/");
+                Files.createDirectories(scheduleDirectory.toPath());
+                lastScheduleFileChooser.setInitialDirectory(scheduleDirectory);
+                final File lastScheduleFile = lastScheduleFileChooser.showOpenDialog(primaryStage);
+
+                final Schedule lastSchedule = lastScheduleFile != null ? Schedule.load(lastScheduleFile) : null;
+                if (lastScheduleFile != null)
+                    LOGGER.info("Last Schedule has been loaded from {}", lastScheduleFile);
+                else
+                    LOGGER.info("Last Schedule has not been selected");
+                final Schedule createdSchedule = new Schedule(lastSchedule, masses, CONFIG);
+
+                final FileChooser createdScheduleFileChooser = new FileChooser();
+                createdScheduleFileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
+                createdScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+                final File directory = new File("schedules/");
+                Files.createDirectories(directory.toPath());
+                createdScheduleFileChooser.setInitialDirectory(directory);
+                createdScheduleFileChooser.setInitialFileName(createdSchedule.getPlanningWindow().getStart() + "_" + createdSchedule.getPlanningWindow().getEnd() + ".xml");
+                final File createdScheduleFile = createdScheduleFileChooser.showSaveDialog(primaryStage);
+
+                if (createdScheduleFile != null) {
+                    JaxbIO.marshal(createdSchedule, createdScheduleFile);
+                    LOGGER.info("Schedule has been saved as {}", createdScheduleFile);
+                } else LOGGER.info("Schedule has not been saved, because no file has been selected");
+            } catch (UnexpectedElementException e) {
+                LOGGER.error("No masses could have been loaded. Please try a different file!");
+            }
+        } else LOGGER.info("No masses have been loaded, because no file has been selected");
+    }
+
     @FXML private void planServices() throws IOException, UnknownJAXBException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));

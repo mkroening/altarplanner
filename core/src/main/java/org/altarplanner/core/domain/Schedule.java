@@ -128,10 +128,6 @@ public class Schedule implements Serializable {
                 .forEach(value -> services.get(value).setId(value));
     }
 
-    public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
-        return masses.stream().collect(Collectors.groupingBy(PlanningMass::getDate));
-    }
-
     public int getAvailableServerCountFor(Service service) {
         long count = config.getServers().parallelStream()
                 .filter(server -> server.isAvailableFor(service))
@@ -145,6 +141,18 @@ public class Schedule implements Serializable {
                 .filter(server::isAvailableFor)
                 .count();
         return Math.toIntExact(count);
+    }
+
+    private Stream<PlanningMass> getUnpinnedMasses() {
+        return planningMasses.stream().filter(planningMass -> !planningMass.isPinned());
+    }
+
+    public List<PlanningMass> getMasses() {
+        return getUnpinnedMasses().collect(Collectors.toUnmodifiableList());
+    }
+
+    public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
+        return getUnpinnedMasses().collect(Collectors.groupingBy(PlanningMass::getDate));
     }
 
     @ProblemFactCollectionProperty

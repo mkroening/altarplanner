@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" maxHeight="-Infinity" maxWidth="-Infinity"
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="200.0" maxHeight="-Infinity" maxWidth="-Infinity"
       alignment="CENTER" spacing="10.0"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.Launcher">
@@ -28,6 +28,7 @@
         </font>
     </Label>
     <Button mnemonicParsing="false" text="%launcher.button.createDiscreteMasses" onAction="#createDiscreteMasses"/>
-    <Button mnemonicParsing="false" text="%launcher.button.planServices" onAction="#planServices"/>
+    <Button mnemonicParsing="false" text="%launcher.button.createSchedule" onAction="#createSchedule"/>
+    <Button mnemonicParsing="false" text="%launcher.button.planSchedule" onAction="#planSchedule"/>
     <Button mnemonicParsing="false" text="%launcher.button.exportSchedule" onAction="#exportSchedule"/>
 </VBox>

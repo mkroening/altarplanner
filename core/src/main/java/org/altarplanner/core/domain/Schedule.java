@@ -33,28 +33,28 @@ import java.util.stream.Stream;
 
 @PlanningSolution
 @XmlRootElement
-@XmlType(propOrder = {"planningWindow", "config", "masses", "score"})
+@XmlType(propOrder = {"planningWindow", "config", "planningMasses", "score"})
 public class Schedule implements Serializable {
 
     private Config config;
     private LocalDateInterval planningWindow;
-    private List<PlanningMass> masses;
+    private List<PlanningMass> planningMasses;
     @PlanningScore
     private HardSoftScore score;
 
     public static Schedule load(File input) throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
         Schedule unmarshalled = JaxbIO.unmarshal(input, Schedule.class);
-        unmarshalled.masses.forEach(mass -> mass.getServices().forEach(service -> service.setMass(mass)));
+        unmarshalled.planningMasses.forEach(mass -> mass.getServices().forEach(service -> service.setMass(mass)));
         return unmarshalled;
     }
 
     public Schedule() {
     }
 
-    public Schedule(Schedule lastSchedule, Collection<DiscreteMass> discreteMassesToPlan, Config config) {
+    public Schedule(Collection<DiscreteMass> discreteMassesToPlan, Config config) {
         this.config = config;
 
-        List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
+        final List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
                 .map(PlanningMass::new)
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
@@ -62,20 +62,60 @@ public class Schedule implements Serializable {
         this.planningWindow = LocalDateInterval.of(planningMassesToPlan.get(0).getDate(),
                 planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
 
-        LocalDateInterval pastWindow = LocalDateInterval.of(planningWindow.getStart().minusWeeks(1), planningWindow.getStart().minusDays(1));
-        List<PlanningMass> pastPlanningMassesToConsider = Optional.ofNullable(lastSchedule)
-                .map(schedule -> schedule.getMasses().parallelStream()
-                        .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
-                        .collect(Collectors.toUnmodifiableList()))
-                .orElse(Collections.emptyList());
+        final LocalDate futureStart = planningWindow.getEnd().plusDays(1);
+        final LocalDate futureEnd = planningWindow.getEnd().plusWeeks(2);
+        final List<PlanningMass> futurePlanningMassesToConsider;
+        if (!futureStart.isAfter(futureEnd)) {
+            futurePlanningMassesToConsider = config
+                    .getDiscreteMassParallelStreamWithin(LocalDateInterval.of(futureStart, futureEnd))
+                    .map(PlanningMass::new)
+                    .collect(Collectors.toUnmodifiableList());
+        } else {
+            futurePlanningMassesToConsider = Collections.emptyList();
+        }
 
-        LocalDateInterval futureWindow = LocalDateInterval.of(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
-        List<PlanningMass> futurePlanningMassesToConsider = config
-                .getDiscreteMassParallelStreamWithin(futureWindow)
-                .map(PlanningMass::new)
+        this.planningMasses = Stream.of(planningMassesToPlan, futurePlanningMassesToConsider)
+                .flatMap(Collection::stream)
+                .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
 
-        this.masses = Stream
+        final List<Service> services = getServices();
+        IntStream.range(0, services.size()).parallel()
+                .forEach(value -> services.get(value).setId(value));
+    }
+
+    public Schedule(Schedule lastSchedule, Collection<DiscreteMass> discreteMassesToPlan, Config config) {
+        this.config = config;
+
+        final List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
+                .map(PlanningMass::new)
+                .sorted(Comparator.comparing(PlanningMass::getDate))
+                .collect(Collectors.toUnmodifiableList());
+
+        this.planningWindow = LocalDateInterval.of(planningMassesToPlan.get(0).getDate(),
+                planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
+
+        final LocalDateInterval pastWindow = LocalDateInterval
+                .of(planningWindow.getStart().minusWeeks(2), lastSchedule.planningWindow.getEnd());
+        final List<PlanningMass> pastPlanningMassesToConsider = lastSchedule.planningMasses.parallelStream()
+                        .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
+                        .collect(Collectors.toUnmodifiableList());
+        pastPlanningMassesToConsider.forEach(planningMass -> planningMass.setPinned(true));
+
+        final LocalDate futureStart = planningWindow.getEnd().isAfter(lastSchedule.planningWindow.getEnd())
+                ? planningWindow.getEnd().plusDays(1) : lastSchedule.planningWindow.getEnd().plusDays(1);
+        final LocalDate futureEnd = planningWindow.getEnd().plusWeeks(2);
+        final List<PlanningMass> futurePlanningMassesToConsider;
+        if (!futureStart.isAfter(futureEnd)) {
+            futurePlanningMassesToConsider = config
+                    .getDiscreteMassParallelStreamWithin(LocalDateInterval.of(futureStart, futureEnd))
+                    .map(PlanningMass::new)
+                    .collect(Collectors.toUnmodifiableList());
+        } else {
+            futurePlanningMassesToConsider = Collections.emptyList();
+        }
+
+        this.planningMasses = Stream
                 .of(pastPlanningMassesToConsider,
                         planningMassesToPlan,
                         futurePlanningMassesToConsider)
@@ -83,13 +123,9 @@ public class Schedule implements Serializable {
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
 
-        List<Service> services = getServices();
+        final List<Service> services = getServices();
         IntStream.range(0, services.size()).parallel()
                 .forEach(value -> services.get(value).setId(value));
-    }
-
-    public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
-        return masses.stream().collect(Collectors.groupingBy(PlanningMass::getDate));
     }
 
     public int getAvailableServerCountFor(Service service) {
@@ -100,11 +136,23 @@ public class Schedule implements Serializable {
     }
 
     public int getAvailableServiceCountFor(Server server) {
-        long count = masses.parallelStream()
+        long count = planningMasses.parallelStream()
                 .flatMap(planningMass -> planningMass.getServices().parallelStream())
                 .filter(server::isAvailableFor)
                 .count();
         return Math.toIntExact(count);
+    }
+
+    private Stream<PlanningMass> getUnpinnedMasses() {
+        return planningMasses.stream().filter(planningMass -> !planningMass.isPinned());
+    }
+
+    public List<PlanningMass> getMasses() {
+        return getUnpinnedMasses().collect(Collectors.toUnmodifiableList());
+    }
+
+    public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
+        return getUnpinnedMasses().collect(Collectors.groupingBy(PlanningMass::getDate));
     }
 
     @ProblemFactCollectionProperty
@@ -115,14 +163,14 @@ public class Schedule implements Serializable {
 
     @PlanningEntityCollectionProperty
     public List<Service> getServices() {
-        return masses.parallelStream()
+        return planningMasses.parallelStream()
                 .flatMap(mass -> mass.getServices().parallelStream())
                 .collect(Collectors.toUnmodifiableList());
     }
 
     @ProblemFactCollectionProperty
     public List<DateOffRequest> getDateOffRequests() {
-        final Set<LocalDate> relevantDates = masses.parallelStream()
+        final Set<LocalDate> relevantDates = planningMasses.parallelStream()
                 .map(PlanningMass::getDate)
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
@@ -139,7 +187,7 @@ public class Schedule implements Serializable {
 
     @ProblemFactCollectionProperty
     public List<DateTimeOnRequest> getDateTimeOnRequests() {
-        final Set<LocalDateTime> relevantDateTimes = masses.parallelStream()
+        final Set<LocalDateTime> relevantDateTimes = planningMasses.parallelStream()
                 .map(planningMass -> LocalDateTime.of(planningMass.getDate(), planningMass.getTime()))
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().parallelStream()
@@ -169,14 +217,14 @@ public class Schedule implements Serializable {
         this.planningWindow = planningWindow;
     }
 
-    @XmlElementWrapper(name = "masses")
-    @XmlElement(name = "mass")
-    public List<PlanningMass> getMasses() {
-        return masses;
+    @XmlElementWrapper(name = "planningMasses")
+    @XmlElement(name = "planningMass")
+    public List<PlanningMass> getPlanningMasses() {
+        return planningMasses;
     }
 
-    public void setMasses(List<PlanningMass> masses) {
-        this.masses = masses;
+    public void setPlanningMasses(List<PlanningMass> masses) {
+        this.planningMasses = masses;
     }
 
     @XmlJavaTypeAdapter(HardSoftScoreJaxbXmlAdapter.class)
@@ -195,14 +243,14 @@ public class Schedule implements Serializable {
         Schedule schedule = (Schedule) o;
         return Objects.equals(config, schedule.config) &&
                 Objects.equals(planningWindow, schedule.planningWindow) &&
-                Objects.equals(masses, schedule.masses) &&
+                Objects.equals(planningMasses, schedule.planningMasses) &&
                 Objects.equals(getServices(), schedule.getServices()) &&
                 Objects.equals(score, schedule.score);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(config, planningWindow, masses, getServices(), score);
+        return Objects.hash(config, planningWindow, planningMasses, getServices(), score);
     }
 
 }

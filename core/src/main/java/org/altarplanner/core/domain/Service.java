@@ -1,10 +1,10 @@
 package org.altarplanner.core.domain;
 
 import org.altarplanner.core.domain.mass.PlanningMass;
-import org.altarplanner.core.solver.MovableServiceSelectionFilter;
 import org.altarplanner.core.solver.ServerStrengthWeightFactory;
 import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.entity.PlanningPin;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -15,8 +15,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
-@PlanningEntity(movableEntitySelectionFilter = MovableServiceSelectionFilter.class,
-        difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
+@PlanningEntity(difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
 @XmlType(propOrder = {"server", "type", "id"})
 public class Service implements Serializable {
 
@@ -31,6 +30,11 @@ public class Service implements Serializable {
     public Service(PlanningMass mass, ServiceType type) {
         this.mass = mass;
         this.type = type;
+    }
+
+    @PlanningPin
+    public boolean isPinned() {
+        return mass.isPinned();
     }
 
     public String getDesc() {

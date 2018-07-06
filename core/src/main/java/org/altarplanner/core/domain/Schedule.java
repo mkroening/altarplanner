@@ -63,7 +63,7 @@ public class Schedule implements Serializable {
                 planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
 
         final LocalDate futureStart = planningWindow.getEnd().plusDays(1);
-        final LocalDate futureEnd = planningWindow.getEnd().plusWeeks(1);
+        final LocalDate futureEnd = planningWindow.getEnd().plusWeeks(2);
         final List<PlanningMass> futurePlanningMassesToConsider;
         if (!futureStart.isAfter(futureEnd)) {
             futurePlanningMassesToConsider = config
@@ -104,7 +104,7 @@ public class Schedule implements Serializable {
 
         final LocalDate futureStart = planningWindow.getEnd().isAfter(lastSchedule.planningWindow.getEnd())
                 ? planningWindow.getEnd().plusDays(1) : lastSchedule.planningWindow.getEnd().plusDays(1);
-        final LocalDate futureEnd = planningWindow.getEnd().plusWeeks(1);
+        final LocalDate futureEnd = planningWindow.getEnd().plusWeeks(2);
         final List<PlanningMass> futurePlanningMassesToConsider;
         if (!futureStart.isAfter(futureEnd)) {
             futurePlanningMassesToConsider = config

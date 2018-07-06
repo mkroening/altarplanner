@@ -132,12 +132,15 @@ public class Launcher extends Application {
                 lastScheduleFileChooser.setInitialDirectory(scheduleDirectory);
                 final File lastScheduleFile = lastScheduleFileChooser.showOpenDialog(primaryStage);
 
-                final Schedule lastSchedule = lastScheduleFile != null ? Schedule.load(lastScheduleFile) : null;
-                if (lastScheduleFile != null)
+                final Schedule createdSchedule;
+                if (lastScheduleFile != null) {
+                    final Schedule lastSchedule = Schedule.load(lastScheduleFile);
+                    createdSchedule = new Schedule(lastSchedule, masses, CONFIG);
                     LOGGER.info("Last Schedule has been loaded from {}", lastScheduleFile);
-                else
+                } else {
+                    createdSchedule = new Schedule(masses, CONFIG);
                     LOGGER.info("Last Schedule has not been selected");
-                final Schedule createdSchedule = new Schedule(lastSchedule, masses, CONFIG);
+                }
 
                 final FileChooser createdScheduleFileChooser = new FileChooser();
                 createdScheduleFileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));

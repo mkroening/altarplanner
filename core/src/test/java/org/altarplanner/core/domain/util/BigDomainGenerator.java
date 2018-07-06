@@ -111,7 +111,7 @@ public class BigDomainGenerator {
     public static Schedule genSchedule() {
         Config config = genConfig();
         List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toUnmodifiableList());
-        return new Schedule(null, masses, config);
+        return new Schedule(masses, config);
     }
 
     public static Schedule genInitializedSchedule() {

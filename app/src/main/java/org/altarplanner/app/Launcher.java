@@ -142,9 +142,9 @@ public class Launcher extends Application {
                 final FileChooser createdScheduleFileChooser = new FileChooser();
                 createdScheduleFileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
                 createdScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-                final File directory = new File("schedules/");
-                Files.createDirectories(directory.toPath());
-                createdScheduleFileChooser.setInitialDirectory(directory);
+                final File schedulesDirectory = new File("schedules/");
+                Files.createDirectories(schedulesDirectory.toPath());
+                createdScheduleFileChooser.setInitialDirectory(schedulesDirectory);
                 createdScheduleFileChooser.setInitialFileName(createdSchedule.getPlanningWindow().getStart() + "_" + createdSchedule.getPlanningWindow().getEnd() + ".xml");
                 final File createdScheduleFile = createdScheduleFileChooser.showSaveDialog(primaryStage);
 

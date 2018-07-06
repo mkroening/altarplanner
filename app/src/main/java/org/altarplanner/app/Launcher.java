@@ -158,25 +158,25 @@ public class Launcher extends Application {
         } else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
-    @FXML private void planServices() throws IOException, UnknownJAXBException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-        File directory = new File("masses/");
-        Files.createDirectories(directory.toPath());
-        fileChooser.setInitialDirectory(directory);
+    @FXML private void planSchedule() throws IOException, UnknownJAXBException {
+        final FileChooser lastScheduleFileChooser = new FileChooser();
+        lastScheduleFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openSchedule"));
+        lastScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        final File scheduleDirectory = new File("schedules/");
+        Files.createDirectories(scheduleDirectory.toPath());
+        lastScheduleFileChooser.setInitialDirectory(scheduleDirectory);
+        final File scheduleFile = lastScheduleFileChooser.showOpenDialog(primaryStage);
 
-        File selectedFile = fileChooser.showOpenDialog(primaryStage);
-        if (selectedFile != null) {
+        if (scheduleFile != null) {
             try {
-                List<DiscreteMass> masses = JaxbIO.unmarshal(selectedFile, DiscreteMassCollection.class).getDiscreteMasses();
-                LOGGER.info("Masses have been loaded from {}", selectedFile);
-                loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).solve(new Schedule(null, masses, CONFIG)));
+                final Schedule schedule = Schedule.load(scheduleFile);
+                LOGGER.info("Schedule has been loaded from {}", scheduleFile);
+                loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).solve(schedule));
             } catch (UnexpectedElementException e) {
-                LOGGER.error("No masses could have been loaded. Please try a different file!");
+                LOGGER.error("Schedule could not have been loaded. Please try a different file!");
             }
         }
-        else LOGGER.info("No masses have been loaded, because no file has been selected");
+        else LOGGER.info("Schedule has not been loaded, because no file has been selected");
     }
 
     @FXML private void exportSchedule() throws Exception {

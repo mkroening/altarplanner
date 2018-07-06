@@ -29,6 +29,6 @@
     </Label>
     <Button mnemonicParsing="false" text="%launcher.button.createDiscreteMasses" onAction="#createDiscreteMasses"/>
     <Button mnemonicParsing="false" text="%launcher.button.createSchedule" onAction="#createSchedule"/>
-    <Button mnemonicParsing="false" text="%launcher.button.planServices" onAction="#planServices"/>
+    <Button mnemonicParsing="false" text="%launcher.button.planSchedule" onAction="#planSchedule"/>
     <Button mnemonicParsing="false" text="%launcher.button.exportSchedule" onAction="#exportSchedule"/>
 </VBox>

@@ -68,6 +68,7 @@ public class Schedule implements Serializable {
                         .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
                         .collect(Collectors.toUnmodifiableList()))
                 .orElse(Collections.emptyList());
+        pastPlanningMassesToConsider.forEach(planningMass -> planningMass.setPinned(true));
 
         LocalDateInterval futureWindow = LocalDateInterval.of(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
         List<PlanningMass> futurePlanningMassesToConsider = config

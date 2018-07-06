@@ -25,6 +25,7 @@ public class PlanningMass extends GenericMass {
 
     private List<Service> services;
     private LocalDate date;
+    private boolean pinned;
 
     public PlanningMass() {
     }
@@ -40,6 +41,7 @@ public class PlanningMass extends GenericMass {
                 .collect(Collectors.toUnmodifiableList());
 
         this.date = discreteMass.getDate();
+        this.pinned = false;
     }
 
     public String getDateTimeString() {
@@ -73,6 +75,15 @@ public class PlanningMass extends GenericMass {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @XmlAttribute
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
     }
 
     @Override

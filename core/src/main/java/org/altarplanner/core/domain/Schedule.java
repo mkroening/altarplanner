@@ -54,7 +54,7 @@ public class Schedule implements Serializable {
     public Schedule(Schedule lastSchedule, Collection<DiscreteMass> discreteMassesToPlan, Config config) {
         this.config = config;
 
-        List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
+        final List<PlanningMass> planningMassesToPlan = discreteMassesToPlan.parallelStream()
                 .map(PlanningMass::new)
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
@@ -62,19 +62,27 @@ public class Schedule implements Serializable {
         this.planningWindow = LocalDateInterval.of(planningMassesToPlan.get(0).getDate(),
                 planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
 
-        LocalDateInterval pastWindow = LocalDateInterval.of(planningWindow.getStart().minusWeeks(2), planningWindow.getStart().minusDays(1));
-        List<PlanningMass> pastPlanningMassesToConsider = Optional.ofNullable(lastSchedule)
+        final LocalDateInterval pastWindow = LocalDateInterval
+                .of(planningWindow.getStart().minusWeeks(2), lastSchedule.planningWindow.getEnd());
+        final List<PlanningMass> pastPlanningMassesToConsider = Optional.ofNullable(lastSchedule)
                 .map(schedule -> schedule.getMasses().parallelStream()
                         .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
                         .collect(Collectors.toUnmodifiableList()))
                 .orElse(Collections.emptyList());
         pastPlanningMassesToConsider.forEach(planningMass -> planningMass.setPinned(true));
 
-        LocalDateInterval futureWindow = LocalDateInterval.of(planningWindow.getEnd().plusDays(1), planningWindow.getEnd().plusWeeks(1));
-        List<PlanningMass> futurePlanningMassesToConsider = config
-                .getDiscreteMassParallelStreamWithin(futureWindow)
-                .map(PlanningMass::new)
-                .collect(Collectors.toUnmodifiableList());
+        final LocalDate futureStart = planningWindow.getEnd().isAfter(lastSchedule.planningWindow.getEnd())
+                ? planningWindow.getEnd().plusDays(1) : lastSchedule.planningWindow.getEnd().plusDays(1);
+        final LocalDate futureEnd = planningWindow.getEnd().plusWeeks(1);
+        final List<PlanningMass> futurePlanningMassesToConsider;
+        if (!futureStart.isAfter(futureEnd)) {
+            futurePlanningMassesToConsider = config
+                    .getDiscreteMassParallelStreamWithin(LocalDateInterval.of(futureStart, futureEnd))
+                    .map(PlanningMass::new)
+                    .collect(Collectors.toUnmodifiableList());
+        } else {
+            futurePlanningMassesToConsider = Collections.emptyList();
+        }
 
         this.masses = Stream
                 .of(pastPlanningMassesToConsider,
@@ -84,7 +92,7 @@ public class Schedule implements Serializable {
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
 
-        List<Service> services = getServices();
+        final List<Service> services = getServices();
         IntStream.range(0, services.size()).parallel()
                 .forEach(value -> services.get(value).setId(value));
     }

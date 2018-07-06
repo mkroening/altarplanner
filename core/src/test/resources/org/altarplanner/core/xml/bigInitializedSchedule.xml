@@ -781,40 +781,40 @@
             <pair server="2ba569ab_f86b692d-2017" pairedWith="9da4fb9d_e0657e75-2012"/>
         </pairs>
     </config>
-    <masses>
-        <mass date="2018-01-01" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
+    <planningMasses>
+        <planningMass date="2018-01-01" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="edcf388f_7102167-2014" type="Altar{2014-2012}" id="0"/>
             <services server="ab41045f_e62e6c9c-2013" type="Altar{2014-2012}" id="1"/>
             <services server="20ff6758_5e33a8f6-2015" type="Altar{2016-2014}" id="2"/>
             <services server="143d9fdf_d8ed2e7a-2016" type="Altar{2016-2014}" id="3"/>
-        </mass>
-        <mass date="2018-01-04" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-04" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="9e7cd3cd_37a2d1c5-2012" type="Altar{2014-2012}" id="4"/>
             <services server="bb0ed97f_44f70e70-2013" type="Altar{2014-2012}" id="5"/>
             <services server="e0084422_7c17e782-2016" type="Altar{2016-2014}" id="6"/>
             <services server="b8bbdde2_8c31e83f-2014" type="Altar{2016-2014}" id="7"/>
-        </mass>
-        <mass date="2018-01-06" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-06" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
             <services server="c199d9e_c9a855de-2009" type="Altar{2012-2000}" id="8"/>
             <services server="715cf7b0_d24fdff0-2011" type="Altar{2012-2000}" id="9"/>
             <services server="9cadd08a_77d1d129-2013" type="Altar{2014-2012}" id="10"/>
             <services server="d4acd0a1_d15be2f6-2012" type="Altar{2014-2012}" id="11"/>
             <services server="f2493813_49b24b0a-2015" type="Altar{2016-2014}" id="12"/>
             <services server="930dae10_d458a58-2016" type="Altar{2016-2014}" id="13"/>
-        </mass>
-        <mass date="2018-01-07" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-07" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
             <services server="5adda056_e3491767-2014" type="Altar{2014-2012}" id="14"/>
             <services server="42d38ee9_90168d58-2014" type="Altar{2014-2012}" id="15"/>
             <services server="7a4669ba_8d6f0478-2015" type="Altar{2016-2014}" id="16"/>
             <services server="dfdd9f7e_59b5f73e-2014" type="Altar{2016-2014}" id="17"/>
-        </mass>
-        <mass date="2018-01-07" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-07" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="5a61a61a_2b84ccb0-2014" type="Altar{2014-2012}" id="18"/>
             <services server="432d8240_2f77b9da-2012" type="Altar{2014-2012}" id="19"/>
             <services server="edcf388f_7102167-2014" type="Altar{2016-2014}" id="20"/>
             <services server="20ff6758_5e33a8f6-2015" type="Altar{2016-2014}" id="21"/>
-        </mass>
-        <mass date="2018-01-07" time="11:00:00" church="Church" form="High Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-07" time="11:00:00" church="Church" form="High Mass" pinned="false">
             <services server="b63bcb1_fa357227-2011" type="Altar{2012-2000}" id="22"/>
             <services server="8b15aac2_4dca0870-2010" type="Altar{2012-2000}" id="23"/>
             <services server="ab41045f_e62e6c9c-2013" type="Altar{2014-2012}" id="24"/>
@@ -833,40 +833,40 @@
             <services server="3a4fe56_9e568642-2011" type="Incense{2012-2000}" id="37"/>
             <services server="afd13a07_cbfcbba3-2009" type="Incense{2012-2000}" id="38"/>
             <services server="6159a5d8_d8adc6c-2011" type="Lector{2012-2000}" id="39"/>
-        </mass>
-        <mass date="2018-01-08" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-08" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="87fb2370_bd373adf-2013" type="Altar{2014-2012}" id="40"/>
             <services server="5c4a7ea6_5ffac149-2014" type="Altar{2014-2012}" id="41"/>
             <services server="b169aee0_5d7854fa-2016" type="Altar{2016-2014}" id="42"/>
             <services server="a8b5ae97_96671919-2015" type="Altar{2016-2014}" id="43"/>
-        </mass>
-        <mass date="2018-01-11" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-11" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="b1f5c32c_22493afc-2014" type="Altar{2014-2012}" id="44"/>
             <services server="bbafda94_91edc490-2013" type="Altar{2014-2012}" id="45"/>
             <services server="7a4669ba_8d6f0478-2015" type="Altar{2016-2014}" id="46"/>
             <services server="dfdd9f7e_59b5f73e-2014" type="Altar{2016-2014}" id="47"/>
-        </mass>
-        <mass date="2018-01-13" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-13" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
             <services server="432d8240_2f77b9da-2012" type="Altar{2012-2000}" id="48"/>
             <services server="2b9839e4_24cc79ce-2010" type="Altar{2012-2000}" id="49"/>
             <services server="9cadd08a_77d1d129-2013" type="Altar{2014-2012}" id="50"/>
             <services server="6c57d3f2_c98fdd7b-2012" type="Altar{2014-2012}" id="51"/>
             <services server="7271c408_304c901f-2016" type="Altar{2016-2014}" id="52"/>
             <services server="f2493813_49b24b0a-2015" type="Altar{2016-2014}" id="53"/>
-        </mass>
-        <mass date="2018-01-14" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-14" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
             <services server="5adda056_e3491767-2014" type="Altar{2014-2012}" id="54"/>
             <services server="9e7cd3cd_37a2d1c5-2012" type="Altar{2014-2012}" id="55"/>
             <services server="b8bbdde2_8c31e83f-2014" type="Altar{2016-2014}" id="56"/>
             <services server="e0084422_7c17e782-2016" type="Altar{2016-2014}" id="57"/>
-        </mass>
-        <mass date="2018-01-14" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-14" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="bb0ed97f_44f70e70-2013" type="Altar{2014-2012}" id="58"/>
             <services server="d4acd0a1_d15be2f6-2012" type="Altar{2014-2012}" id="59"/>
             <services server="143d9fdf_d8ed2e7a-2016" type="Altar{2016-2014}" id="60"/>
             <services server="b169aee0_5d7854fa-2016" type="Altar{2016-2014}" id="61"/>
-        </mass>
-        <mass date="2018-01-14" time="11:00:00" church="Church" form="High Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-14" time="11:00:00" church="Church" form="High Mass" pinned="false">
             <services server="a5e3b1d0_8a4c7945-2012" type="Altar{2012-2000}" id="62"/>
             <services server="f72b499c_c9e1869c-2018" type="Altar{2012-2000}" id="63"/>
             <services server="87fb2370_bd373adf-2013" type="Altar{2014-2012}" id="64"/>
@@ -885,40 +885,40 @@
             <services server="742bc837_d666d1ee-2010" type="Incense{2012-2000}" id="77"/>
             <services server="9b773e2b_7b4947ac-2010" type="Incense{2012-2000}" id="78"/>
             <services server="ba922814_83f19a1f-2010" type="Lector{2012-2000}" id="79"/>
-        </mass>
-        <mass date="2018-01-15" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-15" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="5a61a61a_2b84ccb0-2014" type="Altar{2014-2012}" id="80"/>
             <services server="42d38ee9_90168d58-2014" type="Altar{2014-2012}" id="81"/>
             <services server="edcf388f_7102167-2014" type="Altar{2016-2014}" id="82"/>
             <services server="20ff6758_5e33a8f6-2015" type="Altar{2016-2014}" id="83"/>
-        </mass>
-        <mass date="2018-01-18" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-18" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="2d4f48e8_28c469cb-2013" type="Altar{2014-2012}" id="84"/>
             <services server="6c57d3f2_c98fdd7b-2012" type="Altar{2014-2012}" id="85"/>
             <services server="4b235e88_7cc5fdce-2015" type="Altar{2016-2014}" id="86"/>
             <services server="45aca69e_2c751bb8-2015" type="Altar{2016-2014}" id="87"/>
-        </mass>
-        <mass date="2018-01-20" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-20" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
             <services server="87500b6e_e0089b3c-2009" type="Altar{2012-2000}" id="88"/>
             <services server="10037dc6_82c0aa85-2010" type="Altar{2012-2000}" id="89"/>
             <services server="b13a1d59_40730ba6-2013" type="Altar{2014-2012}" id="90"/>
             <services server="3d7dd5a2_a6aa4c0c-2012" type="Altar{2014-2012}" id="91"/>
             <services server="930dae10_d458a58-2016" type="Altar{2016-2014}" id="92"/>
             <services server="7271c408_304c901f-2016" type="Altar{2016-2014}" id="93"/>
-        </mass>
-        <mass date="2018-01-21" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-21" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
             <services server="e9999e3f_6c6a2c06-2013" type="Altar{2014-2012}" id="94"/>
             <services server="bbafda94_91edc490-2013" type="Altar{2014-2012}" id="95"/>
             <services server="dfdd9f7e_59b5f73e-2014" type="Altar{2016-2014}" id="96"/>
             <services server="b1f5c32c_22493afc-2014" type="Altar{2016-2014}" id="97"/>
-        </mass>
-        <mass date="2018-01-21" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-21" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="5adda056_e3491767-2014" type="Altar{2014-2012}" id="98"/>
             <services server="432d8240_2f77b9da-2012" type="Altar{2014-2012}" id="99"/>
             <services server="7a4669ba_8d6f0478-2015" type="Altar{2016-2014}" id="100"/>
             <services server="f2493813_49b24b0a-2015" type="Altar{2016-2014}" id="101"/>
-        </mass>
-        <mass date="2018-01-21" time="11:00:00" church="Church" form="High Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-21" time="11:00:00" church="Church" form="High Mass" pinned="false">
             <services server="b0839f8e_f9e7fc15-2013" type="Altar{2012-2000}" id="102"/>
             <services server="35b87bf7_60e8c36b-2017" type="Altar{2012-2000}" id="103"/>
             <services server="730b1359_eaae2bd8-2014" type="Altar{2014-2012}" id="104"/>
@@ -937,40 +937,40 @@
             <services server="b63bcb1_fa357227-2011" type="Incense{2012-2000}" id="117"/>
             <services server="8b15aac2_4dca0870-2010" type="Incense{2012-2000}" id="118"/>
             <services server="b2f0de4_36d576bf-2010" type="Lector{2012-2000}" id="119"/>
-        </mass>
-        <mass date="2018-01-22" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-22" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="c988057c_8c355bb8-2013" type="Altar{2014-2012}" id="120"/>
             <services server="eaf9f261_6f23ed23-2012" type="Altar{2014-2012}" id="121"/>
             <services server="b169aee0_5d7854fa-2016" type="Altar{2016-2014}" id="122"/>
             <services server="a8b5ae97_96671919-2015" type="Altar{2016-2014}" id="123"/>
-        </mass>
-        <mass date="2018-01-25" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-25" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="9e7cd3cd_37a2d1c5-2012" type="Altar{2014-2012}" id="124"/>
             <services server="bb0ed97f_44f70e70-2013" type="Altar{2014-2012}" id="125"/>
             <services server="143d9fdf_d8ed2e7a-2016" type="Altar{2016-2014}" id="126"/>
             <services server="e0084422_7c17e782-2016" type="Altar{2016-2014}" id="127"/>
-        </mass>
-        <mass date="2018-01-27" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-27" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
             <services server="d4acd0a1_d15be2f6-2012" type="Altar{2012-2000}" id="128"/>
             <services server="e0527db4_e51f0dc8-2011" type="Altar{2012-2000}" id="129"/>
             <services server="a5e3b1d0_8a4c7945-2012" type="Altar{2014-2012}" id="130"/>
             <services server="b13a1d59_40730ba6-2013" type="Altar{2014-2012}" id="131"/>
             <services server="45aca69e_2c751bb8-2015" type="Altar{2016-2014}" id="132"/>
             <services server="f2493813_49b24b0a-2015" type="Altar{2016-2014}" id="133"/>
-        </mass>
-        <mass date="2018-01-28" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-28" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
             <services server="c988057c_8c355bb8-2013" type="Altar{2014-2012}" id="134"/>
             <services server="e9999e3f_6c6a2c06-2013" type="Altar{2014-2012}" id="135"/>
             <services server="4b235e88_7cc5fdce-2015" type="Altar{2016-2014}" id="136"/>
             <services server="b0839f8e_f9e7fc15-2013" type="Altar{2016-2014}" id="137"/>
-        </mass>
-        <mass date="2018-01-28" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-28" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="3d7dd5a2_a6aa4c0c-2012" type="Altar{2014-2012}" id="138"/>
             <services server="2d4f48e8_28c469cb-2013" type="Altar{2014-2012}" id="139"/>
             <services server="3eb5d772_5f2da7e7-2014" type="Altar{2016-2014}" id="140"/>
             <services server="31aa60a1_2456cdb3-2013" type="Altar{2016-2014}" id="141"/>
-        </mass>
-        <mass date="2018-01-28" time="11:00:00" church="Church" form="High Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-28" time="11:00:00" church="Church" form="High Mass" pinned="false">
             <services server="e014266b_baab10c-2009" type="Altar{2012-2000}" id="142"/>
             <services server="df8c88e8_e6052cc8-2012" type="Altar{2012-2000}" id="143"/>
             <services server="5c4a7ea6_5ffac149-2014" type="Altar{2014-2012}" id="144"/>
@@ -989,40 +989,40 @@
             <services server="6159a5d8_d8adc6c-2011" type="Incense{2012-2000}" id="157"/>
             <services server="4d0173ab_d15dcc47-2010" type="Incense{2012-2000}" id="158"/>
             <services server="eaae3556_23609c32-2010" type="Lector{2012-2000}" id="159"/>
-        </mass>
-        <mass date="2018-01-29" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-01-29" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="ab41045f_e62e6c9c-2013" type="Altar{2014-2012}" id="160"/>
             <services server="87fb2370_bd373adf-2013" type="Altar{2014-2012}" id="161"/>
             <services server="edcf388f_7102167-2014" type="Altar{2016-2014}" id="162"/>
             <services server="20ff6758_5e33a8f6-2015" type="Altar{2016-2014}" id="163"/>
-        </mass>
-        <mass date="2018-02-01" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-02-01" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="432d8240_2f77b9da-2012" type="Altar{2014-2012}" id="164"/>
             <services server="b1f5c32c_22493afc-2014" type="Altar{2014-2012}" id="165"/>
             <services server="b8bbdde2_8c31e83f-2014" type="Altar{2016-2014}" id="166"/>
             <services server="7a4669ba_8d6f0478-2015" type="Altar{2016-2014}" id="167"/>
-        </mass>
-        <mass date="2018-02-03" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-02-03" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
             <services server="356a4cb8_30b2f3d4-2010" type="Altar{2012-2000}" id="168"/>
             <services server="3d7dd5a2_a6aa4c0c-2012" type="Altar{2012-2000}" id="169"/>
             <services server="9cadd08a_77d1d129-2013" type="Altar{2014-2012}" id="170"/>
             <services server="42d38ee9_90168d58-2014" type="Altar{2014-2012}" id="171"/>
             <services server="930dae10_d458a58-2016" type="Altar{2016-2014}" id="172"/>
             <services server="7271c408_304c901f-2016" type="Altar{2016-2014}" id="173"/>
-        </mass>
-        <mass date="2018-02-04" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-02-04" time="08:00:00" church="Church" form="Holy Mass" pinned="false">
             <services server="c988057c_8c355bb8-2013" type="Altar{2014-2012}" id="174"/>
             <services server="e9999e3f_6c6a2c06-2013" type="Altar{2014-2012}" id="175"/>
             <services server="45aca69e_2c751bb8-2015" type="Altar{2016-2014}" id="176"/>
             <services server="e0084422_7c17e782-2016" type="Altar{2016-2014}" id="177"/>
-        </mass>
-        <mass date="2018-02-04" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-02-04" time="09:45:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="9e7cd3cd_37a2d1c5-2012" type="Altar{2014-2012}" id="178"/>
             <services server="bb0ed97f_44f70e70-2013" type="Altar{2014-2012}" id="179"/>
             <services server="f2493813_49b24b0a-2015" type="Altar{2016-2014}" id="180"/>
             <services server="edcf388f_7102167-2014" type="Altar{2016-2014}" id="181"/>
-        </mass>
-        <mass date="2018-02-04" time="11:00:00" church="Church" form="High Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-02-04" time="11:00:00" church="Church" form="High Mass" pinned="false">
             <services server="43d0369d_f0559b7-2009" type="Altar{2012-2000}" id="182"/>
             <services server="c199d9e_c9a855de-2009" type="Altar{2012-2000}" id="183"/>
             <services server="d4acd0a1_d15be2f6-2012" type="Altar{2014-2012}" id="184"/>
@@ -1041,19 +1041,19 @@
             <services server="3a4fe56_9e568642-2011" type="Incense{2012-2000}" id="197"/>
             <services server="afd13a07_cbfcbba3-2009" type="Incense{2012-2000}" id="198"/>
             <services server="2b9839e4_24cc79ce-2010" type="Lector{2012-2000}" id="199"/>
-        </mass>
-        <mass date="2018-02-05" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-02-05" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="5c4a7ea6_5ffac149-2014" type="Altar{2014-2012}" id="200"/>
             <services server="5a61a61a_2b84ccb0-2014" type="Altar{2014-2012}" id="201"/>
             <services server="143d9fdf_d8ed2e7a-2016" type="Altar{2016-2014}" id="202"/>
             <services server="b169aee0_5d7854fa-2016" type="Altar{2016-2014}" id="203"/>
-        </mass>
-        <mass date="2018-02-08" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
+        </planningMass>
+        <planningMass date="2018-02-08" time="18:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="bbafda94_91edc490-2013" type="Altar{2014-2012}" id="204"/>
             <services server="2d4f48e8_28c469cb-2013" type="Altar{2014-2012}" id="205"/>
             <services server="dfdd9f7e_59b5f73e-2014" type="Altar{2016-2014}" id="206"/>
             <services server="4b235e88_7cc5fdce-2015" type="Altar{2016-2014}" id="207"/>
-        </mass>
-    </masses>
+        </planningMass>
+    </planningMasses>
     <score>-4hard/-1005soft</score>
 </schedule>

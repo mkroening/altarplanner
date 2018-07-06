@@ -62,7 +62,7 @@ public class Schedule implements Serializable {
         this.planningWindow = LocalDateInterval.of(planningMassesToPlan.get(0).getDate(),
                 planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
 
-        LocalDateInterval pastWindow = LocalDateInterval.of(planningWindow.getStart().minusWeeks(1), planningWindow.getStart().minusDays(1));
+        LocalDateInterval pastWindow = LocalDateInterval.of(planningWindow.getStart().minusWeeks(2), planningWindow.getStart().minusDays(1));
         List<PlanningMass> pastPlanningMassesToConsider = Optional.ofNullable(lastSchedule)
                 .map(schedule -> schedule.getMasses().parallelStream()
                         .filter(planningMass -> pastWindow.contains(planningMass.getDate()))

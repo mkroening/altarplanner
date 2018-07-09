@@ -1,7 +1,7 @@
 package org.altarplanner.core.xml;
 
-import org.altarplanner.core.domain.Config;
-import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.*;
+import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.util.BigDomainGenerator;
 import org.altarplanner.core.xml.jaxb.util.DiscreteMassCollection;
 import org.junit.jupiter.api.Test;
@@ -11,10 +11,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class JaxbIOTests {
 
@@ -72,6 +76,26 @@ class JaxbIOTests {
         final List<String> marshalledLines = Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());
         Files.delete(marshalledPath);
         assertEquals(expectedLines, marshalledLines);
+    }
+
+    @Test
+    void scheduleConstructionConfigIdentities() throws IOException, UnexpectedElementException, UnknownJAXBException {
+        final Config config = JaxbIO.unmarshal(EXPECTED_CONFIG, Config.class);
+        final Schedule oldSchedule = Schedule.load(EXPECTED_INITIALIZED_SCHEDULE);
+
+        final DiscreteMass newMass = new DiscreteMass();
+        newMass.setDate(LocalDate.of(2018, 2 ,2));
+        newMass.setServiceTypeCount(Map.of(config.getServiceTypes().get(1), 1));
+
+        final Schedule tmpSchedule = new Schedule(oldSchedule, List.of(newMass), config);
+
+        assertNotSame(tmpSchedule.getServers().get(1), tmpSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
+
+        final Path tmpPath = Files.createTempFile(null, null);
+        JaxbIO.marshal(tmpSchedule, tmpPath.toFile());
+        final Schedule newSchedule = Schedule.load(tmpPath.toFile());
+
+        assertSame(newSchedule.getServers().get(1), newSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
     }
 
 }

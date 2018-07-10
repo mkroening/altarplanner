@@ -89,12 +89,15 @@ class JaxbIOTests {
 
         final Schedule tmpSchedule = new Schedule(oldSchedule, List.of(newMass), config);
 
+        assertEquals(tmpSchedule.getServers().get(1), tmpSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
         assertNotSame(tmpSchedule.getServers().get(1), tmpSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
 
         final Path tmpPath = Files.createTempFile(null, null);
         JaxbIO.marshal(tmpSchedule, tmpPath.toFile());
         final Schedule newSchedule = Schedule.load(tmpPath.toFile());
+        Files.delete(tmpPath);
 
+        assertEquals(newSchedule.getServers().get(1), newSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
         assertSame(newSchedule.getServers().get(1), newSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
     }
 

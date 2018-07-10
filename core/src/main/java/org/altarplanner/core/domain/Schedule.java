@@ -100,6 +100,9 @@ public class Schedule implements Serializable {
         final List<PlanningMass> pastPlanningMassesToConsider = lastSchedule.planningMasses.parallelStream()
                         .filter(planningMass -> pastWindow.contains(planningMass.getDate()))
                         .collect(Collectors.toUnmodifiableList());
+        pastPlanningMassesToConsider.stream()
+                .map(PlanningMass::getServices)
+                .forEach(services -> services.removeIf(service -> !config.getServers().contains(service.getServer())));
         pastPlanningMassesToConsider.forEach(planningMass -> planningMass.setPinned(true));
 
         final LocalDate futureStart = planningWindow.getEnd().isAfter(lastSchedule.planningWindow.getEnd())

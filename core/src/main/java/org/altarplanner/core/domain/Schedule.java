@@ -94,7 +94,8 @@ public class Schedule implements Serializable {
 
         this.planningWindow = LocalDateInterval.of(planningMassesToPlan.get(0).getDate(),
                 planningMassesToPlan.get(planningMassesToPlan.size() - 1).getDate());
-
+        if (planningWindow.getStart().minusWeeks(2).isAfter(lastSchedule.planningWindow.getEnd()))
+            throw new IllegalArgumentException("Given last schedule is too old to be relevant");
         final LocalDateInterval pastWindow = LocalDateInterval
                 .of(planningWindow.getStart().minusWeeks(2), lastSchedule.planningWindow.getEnd());
         final List<PlanningMass> pastPlanningMassesToConsider = lastSchedule.planningMasses.parallelStream()

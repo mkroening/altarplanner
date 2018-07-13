@@ -10,6 +10,7 @@
     <ToolBar>
         <Button mnemonicParsing="false" text="%general.button.add" onAction="#addServer"/>
         <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeServer"/>
+        <Button mnemonicParsing="false" text="%general.button.import" onAction="#importServers"/>
         <Pane HBox.hgrow="SOMETIMES"/>
         <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#saveAndBack"/>
     </ToolBar>

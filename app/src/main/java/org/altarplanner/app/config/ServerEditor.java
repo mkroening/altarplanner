@@ -3,6 +3,7 @@ package org.altarplanner.app.config;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.util.LocalDateInterval;
@@ -11,7 +12,10 @@ import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.xml.UnknownJAXBException;
 import org.controlsfx.control.CheckComboBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -27,6 +31,8 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class ServerEditor {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerEditor.class);
 
     @FXML private Button removeButton;
     @FXML private ListView<Server> serverListView;
@@ -358,6 +364,20 @@ public class ServerEditor {
         serverListView.getItems().remove(serverListView.getSelectionModel().getSelectedItem());
         if (serverListView.getItems().isEmpty())
             setDisable(true);
+    }
+
+    @FXML private void importServers() throws IOException {
+        final FileChooser serverWorkbookFileChooser = new FileChooser();
+        serverWorkbookFileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openServerWorkbook"));
+        serverWorkbookFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Microsoft Excel 2007-2013 XML (.xlsx)", "*.xlsx"));
+        final File serverWorkbookFile = serverWorkbookFileChooser.showOpenDialog(removeButton.getScene().getWindow());
+
+        if (serverWorkbookFile != null) {
+            Launcher.loadParent("config/serverImporter.fxml", false, serverImporter -> {
+                ((ServerImporter)serverImporter).setInputFile(serverWorkbookFile);
+                ((ServerImporter)serverImporter).setServersConsumer(servers -> serverListView.getItems().addAll(servers));
+            });
+        } else LOGGER.info("No server workbook has been selected");
     }
 
     @FXML private void saveAndBack() throws IOException, UnknownJAXBException {

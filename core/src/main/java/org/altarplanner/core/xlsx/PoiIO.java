@@ -5,20 +5,24 @@ import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.Service;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.util.DateTimeFormatterUtil;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -140,6 +144,38 @@ public class PoiIO {
 
         workbook.write(Files.newOutputStream(file.toPath()));
         workbook.close();
+    }
+
+    public static List<String> readHeader(final File inputFile) {
+        try (final XSSFWorkbook workbook = new XSSFWorkbook(OPCPackage.open(inputFile, PackageAccess.READ))) {
+            final XSSFRow headerRow = workbook.getSheetAt(0).getRow(0);
+            Objects.requireNonNull(headerRow, "Header row at sheet index 0 must not be null.");
+            final List<Cell> cells = new ArrayList<>(headerRow.getLastCellNum());
+            headerRow.forEach(cells::add);
+            return cells.stream()
+                    .map(Cell::getStringCellValue)
+                    .collect(Collectors.toUnmodifiableList());
+        } catch (final IOException | InvalidFormatException e) {
+            throw new IllegalArgumentException("Could not read the file (" + inputFile.getName() + ").", e);
+        }
+    }
+
+    public static List<Server> readServers(final File inputFile, final int surnameColumnIndex, final int forenameColumnIndex, final int yearColumnIndex) {
+        try (final XSSFWorkbook workbook = new XSSFWorkbook(OPCPackage.open(inputFile, PackageAccess.READ))) {
+            final XSSFSheet sheet = workbook.getSheetAt(0);
+            return IntStream.range(1, sheet.getLastRowNum())
+                    .mapToObj(sheet::getRow)
+                    .map(row -> {
+                        final Server server = new Server();
+                        server.setSurname(row.getCell(surnameColumnIndex).getStringCellValue());
+                        server.setForename(row.getCell(forenameColumnIndex).getStringCellValue());
+                        server.setYear((int)row.getCell(yearColumnIndex).getNumericCellValue());
+                        return server;
+                    })
+                    .collect(Collectors.toUnmodifiableList());
+        } catch (final IOException | InvalidFormatException e) {
+            throw new IllegalArgumentException("Could not read the file (" + inputFile.getName() + ").", e);
+        }
     }
 
 }

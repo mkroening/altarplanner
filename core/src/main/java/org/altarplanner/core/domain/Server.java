@@ -33,7 +33,9 @@ public class Server implements Serializable {
     @XmlID
     @XmlAttribute
     public String getId() {
-        return surname + "_" + forename + "-" + year;
+        return surname +
+                "_" + forename +
+                "-" + year;
     }
 
     public String getDesc() {
@@ -160,6 +162,13 @@ public class Server implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(surname, forename, year, absences, weeklyAbsences, inabilities, dateTimeOnWishes);
+    }
+
+    @Override
+    public String toString() {
+        return "Server{" +
+                getId() +
+                "}";
     }
 
 }

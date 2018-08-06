@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -99,6 +100,15 @@ public class Service implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, mass, type);
+    }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                LocalDateTime.of(mass.getDate(), mass.getTime()) +
+                ", " + type +
+                ": " + server +
+                "}";
     }
 
 }

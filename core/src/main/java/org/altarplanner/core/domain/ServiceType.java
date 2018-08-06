@@ -20,7 +20,9 @@ public class ServiceType implements Serializable {
     @XmlAttribute
     @XmlID
     public String getId() {
-        return name + "{" + maxYear + "-" + minYear + "}";
+        return name +
+                "_" + maxYear
+                + "-" + minYear;
     }
 
     public String getDesc() {
@@ -73,6 +75,13 @@ public class ServiceType implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(name, maxYear, minYear);
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceType{" +
+                getId() +
+                "}";
     }
 
 }

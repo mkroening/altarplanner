@@ -3,7 +3,6 @@ package org.altarplanner.core.solver;
 import org.altarplanner.core.domain.Schedule;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.core.impl.score.director.ScoreDirector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,27 +33,7 @@ public class ScheduleSolver {
 
     public Schedule solve(Schedule schedule) {
         Schedule bestSolution = solver.solve(schedule);
-
-        // Log constraint break down
-        try (ScoreDirector<Schedule> guiScoreDirector = solver.getScoreDirectorFactory().buildScoreDirector()) {
-            guiScoreDirector.setWorkingSolution(bestSolution);
-            LOGGER.debug("Constraint break down: score ({})", guiScoreDirector.calculateScore());
-
-            guiScoreDirector.getConstraintMatchTotals().forEach(constraintMatchTotal -> {
-                LOGGER.debug(
-                        "Constraint: {} ({})",
-                        constraintMatchTotal.getConstraintName(),
-                        constraintMatchTotal.getScoreTotal());
-
-                constraintMatchTotal.getConstraintMatchSet().forEach(constraintMatch ->
-                        LOGGER.debug(
-                                "Match ({}): {}",
-                                constraintMatch.getConstraintName(),
-                                constraintMatch.getJustificationList())
-                );
-            });
-        }
-
+        LOGGER.debug(solver.explainBestScore());
         return bestSolution;
     }
 

@@ -9,10 +9,6 @@ dependencies {
         because("we depend on optaplanner projects")
     }
 
-    implementation("org.glassfish.jaxb:jaxb-bom:+") {
-        because("we use JAXB for XML Binding")
-    }
-
     implementation("org.junit:junit-bom:+") {
         because("we use JUnit modules")
     }
@@ -25,8 +21,8 @@ dependencies {
         because("we do logging via these interfaces")
     }
 
-    implementation("org.glassfish.jaxb:jaxb-runtime") {
-        because("we use the JAXB-RI")
+    implementation("org.glassfish.jaxb:jaxb-runtime:2.3.0.1") {
+        because("we use JAXB-RI for XML Binding")
     }
 
     implementation("com.migesok:jaxb-java-time-adapters:+") {

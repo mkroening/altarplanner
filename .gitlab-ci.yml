@@ -1,14 +1,37 @@
+# This is the image which openjdk relies on.
+image: buildpack-deps:sid-scm
+
+# Disable the Gradle daemon for Continuous Integration servers as correctness
+# is usually a priority over speed in CI environments. Using a fresh
+# runtime for each build is more reliable since the runtime is completely
+# isolated from any previous builds.
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
 before_script:
   - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
   - chmod +x install-jdk.sh
-  - JAVA_HOME=~/jdk && ./install-jdk.sh -F 10 -L BCL --target $JAVA_HOME && PATH=$JAVA_HOME/bin:$PATH
-   
+  - JAVA_HOME=`pwd`/jdk && ./install-jdk.sh -F 10 -L BCL --target $JAVA_HOME && PATH=$JAVA_HOME/bin:$PATH
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
 build:
   stage: build
-  script:
-    - ./gradlew assemble
-   
+  script: ./gradlew --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - core/build
+      - app/build
+      - .gradle
+
 test:
   stage: test
-  script: 
-    - ./gradlew check
+  script: ./gradlew check
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - core/build
+      - app/build
+      - .gradle

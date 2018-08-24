@@ -46,6 +46,7 @@ public class Schedule implements Serializable {
     public static Schedule load(File input) throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
         Schedule unmarshalled = JaxbIO.unmarshal(input, Schedule.class);
         unmarshalled.getAllMasses().forEach(mass -> mass.getServices().forEach(service -> service.setMass(mass)));
+        unmarshalled.setPinned();
         return unmarshalled;
     }
 
@@ -68,6 +69,7 @@ public class Schedule implements Serializable {
                 .map(PlanningMass::new)
                 .collect(Collectors.toUnmodifiableList());
         setPlanningIds();
+        setPinned();
     }
 
     public Schedule(Config config, Collection<DiscreteMass> masses, Schedule lastSchedule) {
@@ -104,12 +106,19 @@ public class Schedule implements Serializable {
             }
         }
         setPlanningIds();
+        setPinned();
     }
 
     private void setPlanningIds() {
         final List<Service> services = getServices();
         IntStream.range(0, services.size())
                 .forEach(value -> services.get(value).setId(value));
+    }
+
+    private void setPinned() {
+        publishedMasses.forEach(mass -> mass.setPinned(true));
+        finalDraftMasses.forEach(mass -> mass.setPinned(false));
+        futureDraftMasses.forEach(mass -> mass.setPinned(false));
     }
 
     private Stream<PlanningMass> getAllMasses() {

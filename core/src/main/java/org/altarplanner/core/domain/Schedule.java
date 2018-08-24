@@ -70,18 +70,21 @@ public class Schedule implements Serializable {
         setPlanningIds();
     }
 
-    public Schedule(Config config, Collection<DiscreteMass> masses, Schedule lastSchedule) { //TODO: introduce test for this constructor
+    public Schedule(Config config, Collection<DiscreteMass> masses, Schedule lastSchedule) {
         this(config, masses);
         if (getPlanningWindow().getStart().minusWeeks(2).isAfter(lastSchedule.getPlanningWindow().getEnd()))
             throw new IllegalArgumentException("The given last schedule is too old to be relevant");
-        final LocalDate historyRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
+        final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
         this.publishedMasses = lastSchedule.getFinalMasses()
-                .filter(mass -> !historyRelevanceDate.isAfter(mass.getDate()))
+                .filter(mass -> !publishedRelevanceDate.isAfter(mass.getDate()))
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
-        publishedMasses.stream()
-                .map(PlanningMass::getServices)
-                .forEach(services -> services.removeIf(service -> !config.getServers().contains(service.getServer())));
+        publishedMasses.forEach(planningMass ->
+            planningMass.setServices(planningMass.getServices().stream()
+                    .filter(service -> config.getServers().contains(service.getServer()))
+                    .collect(Collectors.toUnmodifiableList())
+            )
+        );
         publishedMasses.forEach(mass -> mass.setPinned(true));
         final LocalDate lastPublishedDate = publishedMasses.get(publishedMasses.size() - 1).getDate();
         final LocalDate lastFinalDraftDate = finalDraftMasses.get(finalDraftMasses.size() - 1).getDate();
@@ -89,7 +92,7 @@ public class Schedule implements Serializable {
             final LocalDate futureRelevanceDate = lastFinalDraftDate.plusWeeks(2);
             if (futureRelevanceDate.isAfter(lastPublishedDate)) {
                 final LocalDateInterval futureDraftInterval = LocalDateInterval.of(
-                        lastFinalDraftDate.plusDays(1),
+                        lastPublishedDate.plusDays(1),
                         futureRelevanceDate
                 );
                 this.futureDraftMasses = config

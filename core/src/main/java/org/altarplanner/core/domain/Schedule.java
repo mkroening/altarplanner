@@ -77,8 +77,7 @@ public class Schedule implements Serializable {
         if (getPlanningWindow().getStart().minusWeeks(2).isAfter(lastSchedule.getPlanningWindow().getEnd()))
             throw new IllegalArgumentException("The given last schedule is too old to be relevant");
         final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
-        this.publishedMasses = List.of(lastSchedule.publishedMasses, lastSchedule.finalDraftMasses).stream()
-                .flatMap(Collection::stream)
+        this.publishedMasses = lastSchedule.getPlannedMasses()
                 .filter(mass -> !publishedRelevanceDate.isAfter(mass.getDate()))
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
@@ -127,6 +126,16 @@ public class Schedule implements Serializable {
                 .flatMap(Collection::stream);
     }
 
+    private Stream<PlanningMass> getPlannedMasses() {
+        return List.of(publishedMasses, finalDraftMasses).stream()
+                .flatMap(Collection::stream);
+    }
+
+    private Stream<PlanningMass> getDraftMasses() {
+        return List.of(finalDraftMasses, futureDraftMasses).stream()
+                .flatMap(Collection::stream);
+    }
+
     @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
     public LocalDateInterval getPlanningWindow() {
         return LocalDateInterval.of(finalDraftMasses.get(0).getDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDate());
@@ -140,7 +149,7 @@ public class Schedule implements Serializable {
     }
 
     public int getAvailableServiceCountFor(Server server) {
-        long count = getAllMasses()
+        long count = getDraftMasses()
                 .flatMap(planningMass -> planningMass.getServices().stream())
                 .filter(server::isAvailableFor)
                 .count();
@@ -162,7 +171,7 @@ public class Schedule implements Serializable {
 
     @ProblemFactCollectionProperty
     public List<DateOffRequest> getDateOffRequests() {
-        final Set<LocalDate> relevantDates = getAllMasses()
+        final Set<LocalDate> relevantDates = getDraftMasses()
                 .map(PlanningMass::getDate)
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().stream()
@@ -179,7 +188,7 @@ public class Schedule implements Serializable {
 
     @ProblemFactCollectionProperty
     public List<DateTimeOnRequest> getDateTimeOnRequests() {
-        final Set<LocalDateTime> relevantDateTimes = getAllMasses()
+        final Set<LocalDateTime> relevantDateTimes = getDraftMasses()
                 .map(planningMass -> LocalDateTime.of(planningMass.getDate(), planningMass.getTime()))
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().stream()

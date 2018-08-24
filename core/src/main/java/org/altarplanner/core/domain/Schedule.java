@@ -77,7 +77,8 @@ public class Schedule implements Serializable {
         if (getPlanningWindow().getStart().minusWeeks(2).isAfter(lastSchedule.getPlanningWindow().getEnd()))
             throw new IllegalArgumentException("The given last schedule is too old to be relevant");
         final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
-        this.publishedMasses = lastSchedule.getFinalMasses()
+        this.publishedMasses = List.of(lastSchedule.publishedMasses, lastSchedule.finalDraftMasses).stream()
+                .flatMap(Collection::stream)
                 .filter(mass -> !publishedRelevanceDate.isAfter(mass.getDate()))
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
@@ -123,11 +124,6 @@ public class Schedule implements Serializable {
 
     private Stream<PlanningMass> getAllMasses() {
         return List.of(publishedMasses, finalDraftMasses, futureDraftMasses).stream()
-                .flatMap(Collection::stream);
-    }
-
-    private Stream<PlanningMass> getFinalMasses() {
-        return List.of(publishedMasses, finalDraftMasses).stream()
                 .flatMap(Collection::stream);
     }
 

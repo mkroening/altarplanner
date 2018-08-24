@@ -131,10 +131,6 @@ public class Schedule implements Serializable {
                 .flatMap(Collection::stream);
     }
 
-    public List<PlanningMass> getPlanningMasses() {
-        return getAllMasses().collect(Collectors.toUnmodifiableList());
-    }
-
     @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
     public LocalDateInterval getPlanningWindow() {
         return LocalDateInterval.of(finalDraftMasses.get(0).getDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDate());

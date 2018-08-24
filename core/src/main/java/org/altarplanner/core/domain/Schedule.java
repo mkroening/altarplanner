@@ -156,10 +156,6 @@ public class Schedule implements Serializable {
                 .filter(planningMass -> !planningMass.isPinned());
     }
 
-    public List<PlanningMass> getMasses() {
-        return getUnpinnedMasses().collect(Collectors.toUnmodifiableList());
-    }
-
     public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
         return getUnpinnedMasses().collect(Collectors.groupingBy(PlanningMass::getDate));
     }

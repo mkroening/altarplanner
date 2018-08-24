@@ -56,7 +56,7 @@ public class PoiIO {
 
         final List<Integer> columnHeights = IntStream.range(0, columns).map(value -> 1).boxed().collect(Collectors.toList());
 
-        schedule.getMasses().forEach(mass -> {
+        schedule.getFinalDraftMasses().forEach(mass -> {
             int rowIndex = Collections.min(columnHeights);
             final int columnIndex = columnHeights.indexOf(rowIndex);
             final int rowsToCreate = rowIndex - sheet.getLastRowNum() + mass.getServices().size() + 2;
@@ -102,24 +102,24 @@ public class PoiIO {
 
         final XSSFRow dateRow = sheet.createRow(0);
         schedule.getDateMassesMap().forEach((date, masses) -> {
-            final int firstMassColumn = columnOffset + schedule.getMasses().indexOf(masses.get(0));
+            final int firstMassColumn = columnOffset + schedule.getFinalDraftMasses().indexOf(masses.get(0));
             dateRow.createCell(firstMassColumn).setCellValue(date.format(DateTimeFormatterUtil.ISO_W_DAY));
             if (masses.size() > 1)
                 sheet.addMergedRegion(new CellRangeAddress(0, 0, firstMassColumn, firstMassColumn + masses.size() - 1));
         });
 
         final XSSFRow timeChurchRow = sheet.createRow(1);
-        IntStream.range(0, schedule.getMasses().size())
+        IntStream.range(0, schedule.getFinalDraftMasses().size())
                 .forEach(value -> {
-                    PlanningMass mass = schedule.getMasses().get(value);
+                    PlanningMass mass = schedule.getFinalDraftMasses().get(value);
                     timeChurchRow.createCell(columnOffset + value)
                             .setCellValue(mass.getTime().format(DateTimeFormatterUtil.ISO_WO_SECONDS) + " - " + mass.getChurch());
                 });
 
         final XSSFRow formRow = sheet.createRow(2);
-        IntStream.range(0, schedule.getMasses().size())
+        IntStream.range(0, schedule.getFinalDraftMasses().size())
                 .forEach(value -> {
-                    PlanningMass mass = schedule.getMasses().get(value);
+                    PlanningMass mass = schedule.getFinalDraftMasses().get(value);
                     formRow.createCell(columnOffset + value)
                             .setCellValue(mass.getForm());
                 });
@@ -131,8 +131,8 @@ public class PoiIO {
                     final XSSFRow serverRow = sheet.createRow(rowIndex);
                     serverRow.createCell(0).setCellValue(server.getDesc());
                     serverRow.createCell(1).setCellFormula("COUNTA(" + firstColumnChar + (rowIndex + 1) + ":AMJ" + (rowIndex + 1) + ")");
-                    IntStream.range(0, schedule.getMasses().size())
-                            .forEach(massIndex -> schedule.getMasses().get(massIndex).getServices().parallelStream()
+                    IntStream.range(0, schedule.getFinalDraftMasses().size())
+                            .forEach(massIndex -> schedule.getFinalDraftMasses().get(massIndex).getServices().parallelStream()
                                     .filter(service -> server.equals(service.getServer()))
                                     .findAny()
                                     .ifPresent(service -> serverRow.createCell(columnOffset + massIndex).setCellValue(service.getType().getId())));

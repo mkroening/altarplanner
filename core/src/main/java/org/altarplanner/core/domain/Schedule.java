@@ -151,15 +151,6 @@ public class Schedule implements Serializable {
         return Math.toIntExact(count);
     }
 
-    private Stream<PlanningMass> getUnpinnedMasses() {
-        return getAllMasses()
-                .filter(planningMass -> !planningMass.isPinned());
-    }
-
-    public Map<LocalDate, List<PlanningMass>> getDateMassesMap() {
-        return getUnpinnedMasses().collect(Collectors.groupingBy(PlanningMass::getDate));
-    }
-
     @ProblemFactCollectionProperty
     @ValueRangeProvider(id = "serverRange")
     public List<Server> getServers() {

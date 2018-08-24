@@ -17,12 +17,10 @@ import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -101,7 +99,9 @@ public class PoiIO {
         final char firstColumnChar = 'A' + columnOffset;
 
         final XSSFRow dateRow = sheet.createRow(0);
-        schedule.getDateMassesMap().forEach((date, masses) -> {
+        final Map<LocalDate, List<PlanningMass>> dateMassesMap = schedule.getFinalDraftMasses().stream()
+                .collect(Collectors.groupingBy(PlanningMass::getDate));
+        dateMassesMap.forEach((date, masses) -> {
             final int firstMassColumn = columnOffset + schedule.getFinalDraftMasses().indexOf(masses.get(0));
             dateRow.createCell(firstMassColumn).setCellValue(date.format(DateTimeFormatterUtil.ISO_W_DAY));
             if (masses.size() > 1)

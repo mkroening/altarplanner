@@ -781,7 +781,8 @@
             <pair server="2ba569ab_f86b692d-2017" pairedWith="9da4fb9d_e0657e75-2012"/>
         </pairs>
     </config>
-    <planningMasses>
+    <publishedMasses/>
+    <finalDraftMasses>
         <planningMass date="2018-01-01" time="19:00:00" church="Chapel" form="Holy Mass" pinned="false">
             <services server="edcf388f_7102167-2014" type="Altar_2014-2012" id="0"/>
             <services server="ab41045f_e62e6c9c-2013" type="Altar_2014-2012" id="1"/>
@@ -1002,6 +1003,8 @@
             <services server="b8bbdde2_8c31e83f-2014" type="Altar_2016-2014" id="166"/>
             <services server="7a4669ba_8d6f0478-2015" type="Altar_2016-2014" id="167"/>
         </planningMass>
+    </finalDraftMasses>
+    <futureDraftMasses>
         <planningMass date="2018-02-03" time="17:00:00" church="Church" form="Saturday Evening Mass" pinned="false">
             <services server="3d7dd5a2_a6aa4c0c-2012" type="Altar_2012-2000" id="168"/>
             <services server="356a4cb8_30b2f3d4-2010" type="Altar_2012-2000" id="169"/>
@@ -1106,6 +1109,6 @@
             <services server="45aca69e_2c751bb8-2015" type="Altar_2016-2014" id="246"/>
             <services server="a8b5ae97_96671919-2015" type="Altar_2016-2014" id="247"/>
         </planningMass>
-    </planningMasses>
+    </futureDraftMasses>
     <score>-4hard/-1314soft</score>
 </schedule>

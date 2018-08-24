@@ -52,7 +52,7 @@ public class Schedule implements Serializable {
     public Schedule() {
     }
 
-    public Schedule(Collection<DiscreteMass> masses, Config config) { //TODO: reorder arguments
+    public Schedule(Config config, Collection<DiscreteMass> masses) {
         this.config = config;
         this.publishedMasses = List.of();
         this.finalDraftMasses = masses.stream()
@@ -70,8 +70,8 @@ public class Schedule implements Serializable {
         setPlanningIds();
     }
 
-    public Schedule(Schedule lastSchedule, Collection<DiscreteMass> masses, Config config) { //TODO: reorder arguments, introduce test for this constructor
-        this(masses, config);
+    public Schedule(Config config, Collection<DiscreteMass> masses, Schedule lastSchedule) { //TODO: introduce test for this constructor
+        this(config, masses);
         if (getPlanningWindow().getStart().minusWeeks(2).isAfter(lastSchedule.getPlanningWindow().getEnd()))
             throw new IllegalArgumentException("The given last schedule is too old to be relevant");
         final LocalDate historyRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);

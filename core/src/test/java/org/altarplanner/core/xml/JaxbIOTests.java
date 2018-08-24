@@ -87,7 +87,7 @@ class JaxbIOTests {
         newMass.setDate(LocalDate.of(2018, 2 ,2));
         newMass.setServiceTypeCount(Map.of(config.getServiceTypes().get(1), 1));
 
-        final Schedule tmpSchedule = new Schedule(oldSchedule, List.of(newMass), config);
+        final Schedule tmpSchedule = new Schedule(config, List.of(newMass), oldSchedule);
 
         assertEquals(tmpSchedule.getServers().get(1), tmpSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
         assertNotSame(tmpSchedule.getServers().get(1), tmpSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());

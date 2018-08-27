@@ -44,7 +44,7 @@ class ScoreConstraintTests {
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, false, false);
 
-        Schedule schedule = new Schedule(discreteMasses, config);
+        Schedule schedule = new Schedule(config, discreteMasses);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -83,7 +83,7 @@ class ScoreConstraintTests {
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, true);
 
-        Schedule schedule = new Schedule(discreteMasses, config);
+        Schedule schedule = new Schedule(config, discreteMasses);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -107,7 +107,7 @@ class ScoreConstraintTests {
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
 
-        Schedule schedule = new Schedule(discreteMasses, config);
+        Schedule schedule = new Schedule(config, discreteMasses);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -132,7 +132,7 @@ class ScoreConstraintTests {
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
 
-        Schedule schedule = new Schedule(discreteMasses, config);
+        Schedule schedule = new Schedule(config, discreteMasses);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -164,7 +164,7 @@ class ScoreConstraintTests {
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, true);
 
-        Schedule schedule = new Schedule(discreteMasses, config);
+        Schedule schedule = new Schedule(config, discreteMasses);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -189,7 +189,7 @@ class ScoreConstraintTests {
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
 
-        Schedule schedule = new Schedule(discreteMasses, config);
+        Schedule schedule = new Schedule(config, discreteMasses);
 
         schedule.getServices().forEach(service -> service.setServer(schedule.getServers().get(0)));
 
@@ -217,7 +217,7 @@ class ScoreConstraintTests {
         DiscreteMass discreteMass = new DiscreteMass();
         discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(0), 2);
 
-        Schedule schedule = new Schedule(List.of(discreteMass), config);
+        Schedule schedule = new Schedule(config, List.of(discreteMass));
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 
@@ -239,7 +239,7 @@ class ScoreConstraintTests {
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
 
-        Schedule schedule = new Schedule(discreteMasses, config);
+        Schedule schedule = new Schedule(config, discreteMasses);
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 
@@ -267,7 +267,7 @@ class ScoreConstraintTests {
         DiscreteMass discreteMass = new DiscreteMass();
         discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(0), 1);
 
-        Schedule schedule = new Schedule(List.of(discreteMass), config);
+        Schedule schedule = new Schedule(config, List.of(discreteMass));
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
         schedule.getServices().get(0).setServer(schedule.getServers().get(0));
@@ -287,7 +287,7 @@ class ScoreConstraintTests {
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
 
-        Schedule schedule = new Schedule(discreteMasses, config);
+        Schedule schedule = new Schedule(config, discreteMasses);
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 

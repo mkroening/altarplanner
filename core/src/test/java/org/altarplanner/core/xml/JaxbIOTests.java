@@ -87,18 +87,18 @@ class JaxbIOTests {
         newMass.setDate(LocalDate.of(2018, 2 ,2));
         newMass.setServiceTypeCount(Map.of(config.getServiceTypes().get(1), 1));
 
-        final Schedule tmpSchedule = new Schedule(oldSchedule, List.of(newMass), config);
+        final Schedule tmpSchedule = new Schedule(config, List.of(newMass), oldSchedule);
 
-        assertEquals(tmpSchedule.getServers().get(1), tmpSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
-        assertNotSame(tmpSchedule.getServers().get(1), tmpSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
+        assertEquals(tmpSchedule.getServers().get(1), tmpSchedule.getPublishedMasses().get(10).getServices().get(3).getServer());
+        assertNotSame(tmpSchedule.getServers().get(1), tmpSchedule.getPublishedMasses().get(10).getServices().get(3).getServer());
 
         final Path tmpPath = Files.createTempFile(null, null);
         JaxbIO.marshal(tmpSchedule, tmpPath.toFile());
         final Schedule newSchedule = Schedule.load(tmpPath.toFile());
         Files.delete(tmpPath);
 
-        assertEquals(newSchedule.getServers().get(1), newSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
-        assertSame(newSchedule.getServers().get(1), newSchedule.getPlanningMasses().get(10).getServices().get(3).getServer());
+        assertEquals(newSchedule.getServers().get(1), newSchedule.getPublishedMasses().get(10).getServices().get(3).getServer());
+        assertSame(newSchedule.getServers().get(1), newSchedule.getPublishedMasses().get(10).getServices().get(3).getServer());
     }
 
 }

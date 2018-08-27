@@ -135,10 +135,10 @@ public class Launcher extends Application {
                 final Schedule createdSchedule;
                 if (lastScheduleFile != null) {
                     final Schedule lastSchedule = Schedule.load(lastScheduleFile);
-                    createdSchedule = new Schedule(lastSchedule, masses, CONFIG);
+                    createdSchedule = new Schedule(CONFIG, masses, lastSchedule);
                     LOGGER.info("Last Schedule has been loaded from {}", lastScheduleFile);
                 } else {
-                    createdSchedule = new Schedule(masses, CONFIG);
+                    createdSchedule = new Schedule(CONFIG, masses);
                     LOGGER.info("Last Schedule has not been selected");
                 }
 

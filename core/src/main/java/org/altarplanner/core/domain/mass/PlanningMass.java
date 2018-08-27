@@ -7,6 +7,8 @@ import org.altarplanner.core.domain.ServiceType;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
@@ -59,6 +61,7 @@ public class PlanningMass extends GenericMass {
         return optionalService.map(service -> service.getType().getDesc()).orElse(null);
     }
 
+    @XmlElement(name = "service")
     public List<Service> getServices() {
         return services;
     }
@@ -77,7 +80,7 @@ public class PlanningMass extends GenericMass {
         this.date = date;
     }
 
-    @XmlAttribute
+    @XmlTransient
     public boolean isPinned() {
         return pinned;
     }

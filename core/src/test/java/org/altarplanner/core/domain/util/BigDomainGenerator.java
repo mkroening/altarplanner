@@ -65,27 +65,27 @@ public class BigDomainGenerator {
         final Random random = new Random(0);
         Config config = new Config();
 
-        ServiceType altar1 = Builder.buildServiceType("Altar", TODAY.getYear() - 2, TODAY.getYear() - 4);
+        ServiceType altar1 = Builder.buildServiceType("Altar", TODAY.getYear() - 6,  TODAY.getYear() - 18);
         ServiceType altar2 = Builder.buildServiceType("Altar", TODAY.getYear() - 4, TODAY.getYear() - 6);
-        ServiceType altar3 = Builder.buildServiceType("Altar", TODAY.getYear() - 6,  TODAY.getYear() - 18);
-        ServiceType flambeau = Builder.buildServiceType("Flambeau", TODAY.getYear(), TODAY.getYear() - 2);
-        ServiceType lector = Builder.buildServiceType("Lector", TODAY.getYear() - 6, TODAY.getYear() - 18);
-        ServiceType incense = Builder.buildServiceType("Incense", TODAY.getYear() - 6, TODAY.getYear() - 18);
+        ServiceType altar3 = Builder.buildServiceType("Altar", TODAY.getYear() - 2, TODAY.getYear() - 4);
         ServiceType cross = Builder.buildServiceType("Cross", TODAY.getYear() - 6, TODAY.getYear() - 18);
-        config.setServiceTypes(List.of(altar1, altar2, altar3, flambeau, lector, incense, cross));
+        ServiceType flambeau = Builder.buildServiceType("Flambeau", TODAY.getYear(), TODAY.getYear() - 2);
+        ServiceType incense = Builder.buildServiceType("Incense", TODAY.getYear() - 6, TODAY.getYear() - 18);
+        ServiceType lector = Builder.buildServiceType("Lector", TODAY.getYear() - 6, TODAY.getYear() - 18);
+        config.setServiceTypes(List.of(altar3, altar2, altar1, cross, flambeau, incense, lector));
 
         RegularMass mon19 = Builder.buildRegularMass(DayOfWeek.MONDAY, LocalTime.of(19, 0), "Chapel", "Holy Mass",
-                Map.of(altar1, 2, altar2, 2));
+                Map.of(altar3, 2, altar2, 2));
         RegularMass thu18 = Builder.buildRegularMass(DayOfWeek.THURSDAY, LocalTime.of(18, 0), "Chapel", "Holy Mass",
-                Map.of(altar1, 2, altar2, 2));
+                Map.of(altar3, 2, altar2, 2));
         RegularMass sat17 = Builder.buildRegularMass(DayOfWeek.SATURDAY, LocalTime.of(17, 0), "Church", "Saturday Evening Mass",
-                Map.of(altar1, 2, altar2, 2, altar3, 2));
+                Map.of(altar3, 2, altar2, 2, altar1, 2));
         RegularMass sun08 = Builder.buildRegularMass(DayOfWeek.SUNDAY, LocalTime.of(8, 0), "Church", "Holy Mass",
-                Map.of(altar1, 2, altar2, 2));
+                Map.of(altar3, 2, altar2, 2));
         RegularMass sun09 = Builder.buildRegularMass(DayOfWeek.SUNDAY, LocalTime.of(9, 45), "Chapel", "Holy Mass",
-                Map.of(altar1, 2, altar2, 2));
+                Map.of(altar3, 2, altar2, 2));
         RegularMass sun11 = Builder.buildRegularMass(DayOfWeek.SUNDAY, LocalTime.of(11, 0), "Church", "High Mass",
-                Map.of(altar2, 2, altar3, 2, flambeau, 10, lector, 1, incense, 2, cross, 1));
+                Map.of(altar2, 2, altar1, 2, flambeau, 10, lector, 1, incense, 2, cross, 1));
         config.setRegularMasses(List.of(mon19, thu18, sat17, sun08, sun09, sun11));
 
         List<Server> servers = IntStream.range(0, 100).mapToObj(value -> genServer(random)).collect(Collectors.toUnmodifiableList());
@@ -111,7 +111,7 @@ public class BigDomainGenerator {
     public static Schedule genSchedule() {
         Config config = genConfig();
         List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(LocalDateInterval.of(TODAY, TODAY.plusMonths(1))).collect(Collectors.toUnmodifiableList());
-        return new Schedule(masses, config);
+        return new Schedule(config, masses);
     }
 
     public static Schedule genInitializedSchedule() {

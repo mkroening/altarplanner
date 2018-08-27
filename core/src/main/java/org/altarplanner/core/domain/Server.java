@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
-@XmlType(propOrder = {"surname", "forename", "year", "id", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
+@XmlType(propOrder = {"surname", "forename", "year", "xmlID", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
 public class Server implements Serializable {
 
     private String surname;
@@ -32,7 +32,7 @@ public class Server implements Serializable {
 
     @XmlID
     @XmlAttribute
-    public String getId() {
+    public String getXmlID() {
         return surname +
                 "_" + forename +
                 "-" + year;
@@ -135,7 +135,7 @@ public class Server implements Serializable {
     }
 
     @XmlElementWrapper(name = "dateTimeOnWishes")
-    @XmlElement(name = "dateTime")
+    @XmlElement(name = "dateTimeOnWish")
     @XmlJavaTypeAdapter(LocalDateTimeXmlAdapter.class)
     public List<LocalDateTime> getDateTimeOnWishes() {
         return dateTimeOnWishes;
@@ -167,7 +167,7 @@ public class Server implements Serializable {
     @Override
     public String toString() {
         return "Server{" +
-                getId() +
+                getXmlID() +
                 "}";
     }
 

@@ -188,7 +188,7 @@
             <inabilities></inabilities>
             <absences/>
             <dateTimeOnWishes>
-                <dateTime>2018-01-14T11:00:00</dateTime>
+                <dateTimeOnWish>2018-01-14T11:00:00</dateTimeOnWish>
             </dateTimeOnWishes>
         </server>
         <server surname="4d0173ab" forename="d15dcc47" year="2010" xmlID="4d0173ab_d15dcc47-2010">
@@ -294,7 +294,7 @@
             <inabilities>Altar_2014-2012</inabilities>
             <absences/>
             <dateTimeOnWishes>
-                <dateTime>2018-01-21T11:00:00</dateTime>
+                <dateTimeOnWish>2018-01-21T11:00:00</dateTimeOnWish>
             </dateTimeOnWishes>
         </server>
         <server surname="b8bbdde2" forename="8c31e83f" year="2014" xmlID="b8bbdde2_8c31e83f-2014">
@@ -388,7 +388,7 @@
             <inabilities>Altar_2012-2000</inabilities>
             <absences/>
             <dateTimeOnWishes>
-                <dateTime>2018-01-14T11:00:00</dateTime>
+                <dateTimeOnWish>2018-01-14T11:00:00</dateTimeOnWish>
             </dateTimeOnWishes>
         </server>
         <server surname="31aa60a1" forename="2456cdb3" year="2013" xmlID="31aa60a1_2456cdb3-2013">
@@ -414,7 +414,7 @@
             <inabilities>Altar_2016-2014</inabilities>
             <absences/>
             <dateTimeOnWishes>
-                <dateTime>2018-01-21T11:00:00</dateTime>
+                <dateTimeOnWish>2018-01-21T11:00:00</dateTimeOnWish>
             </dateTimeOnWishes>
         </server>
         <server surname="1ff4c187" forename="4e643256" year="2016" xmlID="1ff4c187_4e643256-2016">
@@ -522,7 +522,7 @@
             <inabilities></inabilities>
             <absences/>
             <dateTimeOnWishes>
-                <dateTime>2018-01-21T11:00:00</dateTime>
+                <dateTimeOnWish>2018-01-21T11:00:00</dateTimeOnWish>
             </dateTimeOnWishes>
         </server>
         <server surname="b86aefc8" forename="335aa97e" year="2013" xmlID="b86aefc8_335aa97e-2013">
@@ -550,7 +550,7 @@
             <inabilities></inabilities>
             <absences/>
             <dateTimeOnWishes>
-                <dateTime>2018-01-14T11:00:00</dateTime>
+                <dateTimeOnWish>2018-01-14T11:00:00</dateTimeOnWish>
             </dateTimeOnWishes>
         </server>
         <server surname="10037dc6" forename="82c0aa85" year="2010" xmlID="10037dc6_82c0aa85-2010">

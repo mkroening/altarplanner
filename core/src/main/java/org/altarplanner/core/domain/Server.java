@@ -135,7 +135,7 @@ public class Server implements Serializable {
     }
 
     @XmlElementWrapper(name = "dateTimeOnWishes")
-    @XmlElement(name = "dateTime")
+    @XmlElement(name = "dateTimeOnWish")
     @XmlJavaTypeAdapter(LocalDateTimeXmlAdapter.class)
     public List<LocalDateTime> getDateTimeOnWishes() {
         return dateTimeOnWishes;

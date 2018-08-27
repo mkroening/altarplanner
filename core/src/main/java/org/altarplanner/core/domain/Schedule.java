@@ -7,7 +7,6 @@ import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
-import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
@@ -33,7 +32,7 @@ import java.util.stream.Stream;
 
 @PlanningSolution
 @XmlRootElement
-@XmlType(propOrder = {"planningWindow", "config", "publishedMasses", "finalDraftMasses", "futureDraftMasses", "score"})
+@XmlType(propOrder = {"config", "publishedMasses", "finalDraftMasses", "futureDraftMasses", "score"})
 public class Schedule implements Serializable {
 
     private Config config;
@@ -136,7 +135,6 @@ public class Schedule implements Serializable {
                 .flatMap(Collection::stream);
     }
 
-    @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
     public LocalDateInterval getPlanningWindow() {
         return LocalDateInterval.of(finalDraftMasses.get(0).getDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDate());
     }

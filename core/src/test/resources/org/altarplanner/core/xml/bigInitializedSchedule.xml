@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <schedule>
-    <planningWindow start="2018-01-01" end="2018-02-01"/>
     <config>
         <serviceTypes>
             <serviceType id="Altar_2016-2014">

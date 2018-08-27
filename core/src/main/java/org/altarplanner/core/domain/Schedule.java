@@ -136,10 +136,6 @@ public class Schedule implements Serializable {
                 .flatMap(Collection::stream);
     }
 
-    public LocalDateInterval getPlanningWindow() {
-        return LocalDateInterval.of(finalDraftMasses.get(0).getDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDate());
-    }
-
     public int getAvailableServerCountFor(Service service) {
         long count = config.getServers().stream()
                 .filter(server -> server.isAvailableFor(service))
@@ -153,6 +149,10 @@ public class Schedule implements Serializable {
                 .filter(server::isAvailableFor)
                 .count();
         return Math.toIntExact(count);
+    }
+
+    public LocalDateInterval getPlanningWindow() {
+        return LocalDateInterval.of(finalDraftMasses.get(0).getDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDate());
     }
 
     @ProblemFactCollectionProperty

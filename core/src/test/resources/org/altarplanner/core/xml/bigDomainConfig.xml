@@ -4,10 +4,10 @@
         <serviceType name="Altar" maxYear="2016" minYear="2014" xmlID="Altar_2016-2014"/>
         <serviceType name="Altar" maxYear="2014" minYear="2012" xmlID="Altar_2014-2012"/>
         <serviceType name="Altar" maxYear="2012" minYear="2000" xmlID="Altar_2012-2000"/>
-        <serviceType name="Flambeau" maxYear="2018" minYear="2016" xmlID="Flambeau_2018-2016"/>
-        <serviceType name="Lector" maxYear="2012" minYear="2000" xmlID="Lector_2012-2000"/>
-        <serviceType name="Incense" maxYear="2012" minYear="2000" xmlID="Incense_2012-2000"/>
         <serviceType name="Cross" maxYear="2012" minYear="2000" xmlID="Cross_2012-2000"/>
+        <serviceType name="Flambeau" maxYear="2018" minYear="2016" xmlID="Flambeau_2018-2016"/>
+        <serviceType name="Incense" maxYear="2012" minYear="2000" xmlID="Incense_2012-2000"/>
+        <serviceType name="Lector" maxYear="2012" minYear="2000" xmlID="Lector_2012-2000"/>
     </serviceTypes>
     <regularMasses>
         <regularMass day="MONDAY" time="19:00:00" church="Chapel" form="Holy Mass">
@@ -101,7 +101,7 @@
         </server>
         <server surname="b13a1d59" forename="40730ba6" year="2013" xmlID="b13a1d59_40730ba6-2013">
             <weeklyAbsences>MONDAY TUESDAY WEDNESDAY THURSDAY FRIDAY SUNDAY</weeklyAbsences>
-            <inabilities>Cross_2012-2000</inabilities>
+            <inabilities>Lector_2012-2000</inabilities>
             <absences>
                 <absence start="2018-01-01" end="2018-01-15"/>
             </absences>
@@ -115,7 +115,7 @@
         </server>
         <server surname="2b9839e4" forename="24cc79ce" year="2010" xmlID="2b9839e4_24cc79ce-2010">
             <weeklyAbsences>WEDNESDAY</weeklyAbsences>
-            <inabilities>Cross_2012-2000</inabilities>
+            <inabilities>Lector_2012-2000</inabilities>
             <absences/>
             <dateTimeOnWishes/>
         </server>
@@ -147,7 +147,7 @@
         </server>
         <server surname="88177fbc" forename="4d730f32" year="2017" xmlID="88177fbc_4d730f32-2017">
             <weeklyAbsences>TUESDAY SATURDAY</weeklyAbsences>
-            <inabilities>Lector_2012-2000</inabilities>
+            <inabilities>Flambeau_2018-2016</inabilities>
             <absences/>
             <dateTimeOnWishes/>
         </server>
@@ -257,7 +257,7 @@
         </server>
         <server surname="eaf9f261" forename="6f23ed23" year="2012" xmlID="eaf9f261_6f23ed23-2012">
             <weeklyAbsences>TUESDAY WEDNESDAY THURSDAY SATURDAY SUNDAY</weeklyAbsences>
-            <inabilities>Cross_2012-2000</inabilities>
+            <inabilities>Lector_2012-2000</inabilities>
             <absences>
                 <absence start="2018-01-01" end="2018-01-15"/>
             </absences>
@@ -265,7 +265,7 @@
         </server>
         <server surname="bb0ed97f" forename="44f70e70" year="2013" xmlID="bb0ed97f_44f70e70-2013">
             <weeklyAbsences></weeklyAbsences>
-            <inabilities>Lector_2012-2000</inabilities>
+            <inabilities>Flambeau_2018-2016</inabilities>
             <absences/>
             <dateTimeOnWishes/>
         </server>
@@ -317,7 +317,7 @@
         </server>
         <server surname="4b235e88" forename="7cc5fdce" year="2015" xmlID="4b235e88_7cc5fdce-2015">
             <weeklyAbsences>MONDAY TUESDAY WEDNESDAY</weeklyAbsences>
-            <inabilities>Cross_2012-2000</inabilities>
+            <inabilities>Lector_2012-2000</inabilities>
             <absences>
                 <absence start="2018-01-01" end="2018-01-15"/>
             </absences>
@@ -357,7 +357,7 @@
         </server>
         <server surname="cb9a108" forename="c783f1c2" year="2011" xmlID="cb9a108_c783f1c2-2011">
             <weeklyAbsences>MONDAY THURSDAY</weeklyAbsences>
-            <inabilities>Flambeau_2018-2016</inabilities>
+            <inabilities>Cross_2012-2000</inabilities>
             <absences/>
             <dateTimeOnWishes/>
         </server>
@@ -393,7 +393,7 @@
         </server>
         <server surname="31aa60a1" forename="2456cdb3" year="2013" xmlID="31aa60a1_2456cdb3-2013">
             <weeklyAbsences>MONDAY TUESDAY WEDNESDAY</weeklyAbsences>
-            <inabilities>Lector_2012-2000</inabilities>
+            <inabilities>Flambeau_2018-2016</inabilities>
             <absences/>
             <dateTimeOnWishes/>
         </server>
@@ -451,7 +451,7 @@
         </server>
         <server surname="2d4f48e8" forename="28c469cb" year="2013" xmlID="2d4f48e8_28c469cb-2013">
             <weeklyAbsences>MONDAY FRIDAY</weeklyAbsences>
-            <inabilities>Flambeau_2018-2016</inabilities>
+            <inabilities>Cross_2012-2000</inabilities>
             <absences>
                 <absence start="2018-01-01" end="2018-01-15"/>
             </absences>
@@ -459,7 +459,7 @@
         </server>
         <server surname="9e7cd3cd" forename="37a2d1c5" year="2012" xmlID="9e7cd3cd_37a2d1c5-2012">
             <weeklyAbsences>MONDAY</weeklyAbsences>
-            <inabilities>Lector_2012-2000</inabilities>
+            <inabilities>Flambeau_2018-2016</inabilities>
             <absences/>
             <dateTimeOnWishes/>
         </server>
@@ -483,7 +483,7 @@
         </server>
         <server surname="d4acd0a1" forename="d15be2f6" year="2012" xmlID="d4acd0a1_d15be2f6-2012">
             <weeklyAbsences>MONDAY THURSDAY</weeklyAbsences>
-            <inabilities>Lector_2012-2000</inabilities>
+            <inabilities>Flambeau_2018-2016</inabilities>
             <absences/>
             <dateTimeOnWishes/>
         </server>
@@ -533,7 +533,7 @@
         </server>
         <server surname="2ba569ab" forename="f86b692d" year="2017" xmlID="2ba569ab_f86b692d-2017">
             <weeklyAbsences>MONDAY WEDNESDAY SATURDAY</weeklyAbsences>
-            <inabilities>Lector_2012-2000</inabilities>
+            <inabilities>Flambeau_2018-2016</inabilities>
             <absences>
                 <absence start="2018-01-01" end="2018-01-15"/>
             </absences>
@@ -561,7 +561,7 @@
         </server>
         <server surname="356a4cb8" forename="30b2f3d4" year="2010" xmlID="356a4cb8_30b2f3d4-2010">
             <weeklyAbsences>MONDAY FRIDAY</weeklyAbsences>
-            <inabilities>Cross_2012-2000</inabilities>
+            <inabilities>Lector_2012-2000</inabilities>
             <absences>
                 <absence start="2018-01-01" end="2018-01-15"/>
             </absences>

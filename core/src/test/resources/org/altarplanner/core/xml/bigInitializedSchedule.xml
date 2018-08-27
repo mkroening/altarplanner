@@ -5,10 +5,10 @@
             <serviceType name="Altar" maxYear="2016" minYear="2014" xmlID="Altar_2016-2014"/>
             <serviceType name="Altar" maxYear="2014" minYear="2012" xmlID="Altar_2014-2012"/>
             <serviceType name="Altar" maxYear="2012" minYear="2000" xmlID="Altar_2012-2000"/>
-            <serviceType name="Flambeau" maxYear="2018" minYear="2016" xmlID="Flambeau_2018-2016"/>
-            <serviceType name="Lector" maxYear="2012" minYear="2000" xmlID="Lector_2012-2000"/>
-            <serviceType name="Incense" maxYear="2012" minYear="2000" xmlID="Incense_2012-2000"/>
             <serviceType name="Cross" maxYear="2012" minYear="2000" xmlID="Cross_2012-2000"/>
+            <serviceType name="Flambeau" maxYear="2018" minYear="2016" xmlID="Flambeau_2018-2016"/>
+            <serviceType name="Incense" maxYear="2012" minYear="2000" xmlID="Incense_2012-2000"/>
+            <serviceType name="Lector" maxYear="2012" minYear="2000" xmlID="Lector_2012-2000"/>
         </serviceTypes>
         <regularMasses>
             <regularMass day="MONDAY" time="19:00:00" church="Chapel" form="Holy Mass">
@@ -102,7 +102,7 @@
             </server>
             <server surname="b13a1d59" forename="40730ba6" year="2013" xmlID="b13a1d59_40730ba6-2013">
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY THURSDAY FRIDAY SUNDAY</weeklyAbsences>
-                <inabilities>Cross_2012-2000</inabilities>
+                <inabilities>Lector_2012-2000</inabilities>
                 <absences>
                     <absence start="2018-01-01" end="2018-01-15"/>
                 </absences>
@@ -116,7 +116,7 @@
             </server>
             <server surname="2b9839e4" forename="24cc79ce" year="2010" xmlID="2b9839e4_24cc79ce-2010">
                 <weeklyAbsences>WEDNESDAY</weeklyAbsences>
-                <inabilities>Cross_2012-2000</inabilities>
+                <inabilities>Lector_2012-2000</inabilities>
                 <absences/>
                 <dateTimeOnWishes/>
             </server>
@@ -148,7 +148,7 @@
             </server>
             <server surname="88177fbc" forename="4d730f32" year="2017" xmlID="88177fbc_4d730f32-2017">
                 <weeklyAbsences>TUESDAY SATURDAY</weeklyAbsences>
-                <inabilities>Lector_2012-2000</inabilities>
+                <inabilities>Flambeau_2018-2016</inabilities>
                 <absences/>
                 <dateTimeOnWishes/>
             </server>
@@ -258,7 +258,7 @@
             </server>
             <server surname="eaf9f261" forename="6f23ed23" year="2012" xmlID="eaf9f261_6f23ed23-2012">
                 <weeklyAbsences>TUESDAY WEDNESDAY THURSDAY SATURDAY SUNDAY</weeklyAbsences>
-                <inabilities>Cross_2012-2000</inabilities>
+                <inabilities>Lector_2012-2000</inabilities>
                 <absences>
                     <absence start="2018-01-01" end="2018-01-15"/>
                 </absences>
@@ -266,7 +266,7 @@
             </server>
             <server surname="bb0ed97f" forename="44f70e70" year="2013" xmlID="bb0ed97f_44f70e70-2013">
                 <weeklyAbsences></weeklyAbsences>
-                <inabilities>Lector_2012-2000</inabilities>
+                <inabilities>Flambeau_2018-2016</inabilities>
                 <absences/>
                 <dateTimeOnWishes/>
             </server>
@@ -318,7 +318,7 @@
             </server>
             <server surname="4b235e88" forename="7cc5fdce" year="2015" xmlID="4b235e88_7cc5fdce-2015">
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY</weeklyAbsences>
-                <inabilities>Cross_2012-2000</inabilities>
+                <inabilities>Lector_2012-2000</inabilities>
                 <absences>
                     <absence start="2018-01-01" end="2018-01-15"/>
                 </absences>
@@ -358,7 +358,7 @@
             </server>
             <server surname="cb9a108" forename="c783f1c2" year="2011" xmlID="cb9a108_c783f1c2-2011">
                 <weeklyAbsences>MONDAY THURSDAY</weeklyAbsences>
-                <inabilities>Flambeau_2018-2016</inabilities>
+                <inabilities>Cross_2012-2000</inabilities>
                 <absences/>
                 <dateTimeOnWishes/>
             </server>
@@ -394,7 +394,7 @@
             </server>
             <server surname="31aa60a1" forename="2456cdb3" year="2013" xmlID="31aa60a1_2456cdb3-2013">
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY</weeklyAbsences>
-                <inabilities>Lector_2012-2000</inabilities>
+                <inabilities>Flambeau_2018-2016</inabilities>
                 <absences/>
                 <dateTimeOnWishes/>
             </server>
@@ -452,7 +452,7 @@
             </server>
             <server surname="2d4f48e8" forename="28c469cb" year="2013" xmlID="2d4f48e8_28c469cb-2013">
                 <weeklyAbsences>MONDAY FRIDAY</weeklyAbsences>
-                <inabilities>Flambeau_2018-2016</inabilities>
+                <inabilities>Cross_2012-2000</inabilities>
                 <absences>
                     <absence start="2018-01-01" end="2018-01-15"/>
                 </absences>
@@ -460,7 +460,7 @@
             </server>
             <server surname="9e7cd3cd" forename="37a2d1c5" year="2012" xmlID="9e7cd3cd_37a2d1c5-2012">
                 <weeklyAbsences>MONDAY</weeklyAbsences>
-                <inabilities>Lector_2012-2000</inabilities>
+                <inabilities>Flambeau_2018-2016</inabilities>
                 <absences/>
                 <dateTimeOnWishes/>
             </server>
@@ -484,7 +484,7 @@
             </server>
             <server surname="d4acd0a1" forename="d15be2f6" year="2012" xmlID="d4acd0a1_d15be2f6-2012">
                 <weeklyAbsences>MONDAY THURSDAY</weeklyAbsences>
-                <inabilities>Lector_2012-2000</inabilities>
+                <inabilities>Flambeau_2018-2016</inabilities>
                 <absences/>
                 <dateTimeOnWishes/>
             </server>
@@ -534,7 +534,7 @@
             </server>
             <server surname="2ba569ab" forename="f86b692d" year="2017" xmlID="2ba569ab_f86b692d-2017">
                 <weeklyAbsences>MONDAY WEDNESDAY SATURDAY</weeklyAbsences>
-                <inabilities>Lector_2012-2000</inabilities>
+                <inabilities>Flambeau_2018-2016</inabilities>
                 <absences>
                     <absence start="2018-01-01" end="2018-01-15"/>
                 </absences>
@@ -562,7 +562,7 @@
             </server>
             <server surname="356a4cb8" forename="30b2f3d4" year="2010" xmlID="356a4cb8_30b2f3d4-2010">
                 <weeklyAbsences>MONDAY FRIDAY</weeklyAbsences>
-                <inabilities>Cross_2012-2000</inabilities>
+                <inabilities>Lector_2012-2000</inabilities>
                 <absences>
                     <absence start="2018-01-01" end="2018-01-15"/>
                 </absences>
@@ -761,8 +761,8 @@
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
         </mass>
         <mass date="2018-01-04" time="18:00:00" church="Chapel" form="Holy Mass">
-            <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
-            <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
+            <service type="Altar_2014-2012" server="b1f5c32c_22493afc-2014"/>
+            <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
             <service type="Altar_2016-2014" server="e0084422_7c17e782-2016"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
         </mass>
@@ -789,11 +789,10 @@
         <mass date="2018-01-07" time="11:00:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="b63bcb1_fa357227-2011"/>
             <service type="Altar_2012-2000" server="8b15aac2_4dca0870-2010"/>
-            <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
             <service type="Altar_2014-2012" server="22e4bdd8_b426a587-2011"/>
-            <service type="Cross_2012-2000" server="4d0173ab_d15dcc47-2010"/>
+            <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
+            <service type="Cross_2012-2000" server="6159a5d8_d8adc6c-2011"/>
             <service type="Flambeau_2018-2016" server="946774ac_f364f4c6-2018"/>
-            <service type="Flambeau_2018-2016" server="88177fbc_4d730f32-2017"/>
             <service type="Flambeau_2018-2016" server="764b6639_189c6083-2017"/>
             <service type="Flambeau_2018-2016" server="66dc6593_83a66c37-2018"/>
             <service type="Flambeau_2018-2016" server="35b87bf7_60e8c36b-2017"/>
@@ -802,9 +801,10 @@
             <service type="Flambeau_2018-2016" server="e957123c_7c7c404b-2017"/>
             <service type="Flambeau_2018-2016" server="c0a0e629_a0d1e7d4-2017"/>
             <service type="Flambeau_2018-2016" server="554dcd2b_40b5f04b-2018"/>
+            <service type="Flambeau_2018-2016" server="4731f45a_eaad07ea-2017"/>
+            <service type="Incense_2012-2000" server="4d0173ab_d15dcc47-2010"/>
             <service type="Incense_2012-2000" server="3a4fe56_9e568642-2011"/>
-            <service type="Incense_2012-2000" server="afd13a07_cbfcbba3-2009"/>
-            <service type="Lector_2012-2000" server="6159a5d8_d8adc6c-2011"/>
+            <service type="Lector_2012-2000" server="afd13a07_cbfcbba3-2009"/>
         </mass>
         <mass date="2018-01-08" time="19:00:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
@@ -813,8 +813,8 @@
             <service type="Altar_2016-2014" server="a8b5ae97_96671919-2015"/>
         </mass>
         <mass date="2018-01-11" time="18:00:00" church="Chapel" form="Holy Mass">
-            <service type="Altar_2014-2012" server="b1f5c32c_22493afc-2014"/>
-            <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
+            <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
+            <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
             <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
             <service type="Altar_2016-2014" server="dfdd9f7e_59b5f73e-2014"/>
         </mass>
@@ -828,35 +828,35 @@
         </mass>
         <mass date="2018-01-14" time="08:00:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
-            <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
+            <service type="Altar_2014-2012" server="d4acd0a1_d15be2f6-2012"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
             <service type="Altar_2016-2014" server="e0084422_7c17e782-2016"/>
         </mass>
         <mass date="2018-01-14" time="09:45:00" church="Chapel" form="Holy Mass">
-            <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
-            <service type="Altar_2014-2012" server="d4acd0a1_d15be2f6-2012"/>
+            <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
+            <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
             <service type="Altar_2016-2014" server="b169aee0_5d7854fa-2016"/>
         </mass>
         <mass date="2018-01-14" time="11:00:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="a5e3b1d0_8a4c7945-2012"/>
             <service type="Altar_2012-2000" server="f72b499c_c9e1869c-2018"/>
-            <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
+            <service type="Altar_2014-2012" server="b1f5c32c_22493afc-2014"/>
             <service type="Altar_2014-2012" server="5c4a7ea6_5ffac149-2014"/>
-            <service type="Cross_2012-2000" server="76ecd5d7_5e4921c3-2009"/>
+            <service type="Cross_2012-2000" server="ba922814_83f19a1f-2010"/>
             <service type="Flambeau_2018-2016" server="946774ac_f364f4c6-2018"/>
-            <service type="Flambeau_2018-2016" server="88177fbc_4d730f32-2017"/>
             <service type="Flambeau_2018-2016" server="764b6639_189c6083-2017"/>
             <service type="Flambeau_2018-2016" server="66dc6593_83a66c37-2018"/>
             <service type="Flambeau_2018-2016" server="35b87bf7_60e8c36b-2017"/>
             <service type="Flambeau_2018-2016" server="3a6cb02f_41748926-2015"/>
+            <service type="Flambeau_2018-2016" server="e957123c_7c7c404b-2017"/>
+            <service type="Flambeau_2018-2016" server="c0a0e629_a0d1e7d4-2017"/>
+            <service type="Flambeau_2018-2016" server="554dcd2b_40b5f04b-2018"/>
             <service type="Flambeau_2018-2016" server="4731f45a_eaad07ea-2017"/>
             <service type="Flambeau_2018-2016" server="2c9ac46f_312038d8-2018"/>
-            <service type="Flambeau_2018-2016" server="e5ce6fc6_159a59ff-2013"/>
-            <service type="Flambeau_2018-2016" server="e957123c_7c7c404b-2017"/>
+            <service type="Incense_2012-2000" server="76ecd5d7_5e4921c3-2009"/>
             <service type="Incense_2012-2000" server="742bc837_d666d1ee-2010"/>
-            <service type="Incense_2012-2000" server="9b773e2b_7b4947ac-2010"/>
-            <service type="Lector_2012-2000" server="ba922814_83f19a1f-2010"/>
+            <service type="Lector_2012-2000" server="b2f0de4_36d576bf-2010"/>
         </mass>
         <mass date="2018-01-15" time="19:00:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="5a61a61a_2b84ccb0-2014"/>
@@ -871,8 +871,8 @@
             <service type="Altar_2016-2014" server="45aca69e_2c751bb8-2015"/>
         </mass>
         <mass date="2018-01-20" time="17:00:00" church="Church" form="Saturday Evening Mass">
+            <service type="Altar_2012-2000" server="9b773e2b_7b4947ac-2010"/>
             <service type="Altar_2012-2000" server="87500b6e_e0089b3c-2009"/>
-            <service type="Altar_2012-2000" server="10037dc6_82c0aa85-2010"/>
             <service type="Altar_2014-2012" server="b13a1d59_40730ba6-2013"/>
             <service type="Altar_2014-2012" server="3d7dd5a2_a6aa4c0c-2012"/>
             <service type="Altar_2016-2014" server="930dae10_d458a58-2016"/>
@@ -880,25 +880,24 @@
         </mass>
         <mass date="2018-01-21" time="08:00:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="e9999e3f_6c6a2c06-2013"/>
-            <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
+            <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
             <service type="Altar_2016-2014" server="dfdd9f7e_59b5f73e-2014"/>
-            <service type="Altar_2016-2014" server="b1f5c32c_22493afc-2014"/>
+            <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
         </mass>
         <mass date="2018-01-21" time="09:45:00" church="Chapel" form="Holy Mass">
-            <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
+            <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
             <service type="Altar_2014-2012" server="432d8240_2f77b9da-2012"/>
-            <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
             <service type="Altar_2016-2014" server="f2493813_49b24b0a-2015"/>
+            <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
         </mass>
         <mass date="2018-01-21" time="11:00:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="b0839f8e_f9e7fc15-2013"/>
             <service type="Altar_2012-2000" server="35b87bf7_60e8c36b-2017"/>
             <service type="Altar_2014-2012" server="730b1359_eaae2bd8-2014"/>
             <service type="Altar_2014-2012" server="c47715dc_b819979d-2011"/>
-            <service type="Cross_2012-2000" server="2a34fd23_9e6a22a5-2013"/>
+            <service type="Cross_2012-2000" server="eaae3556_23609c32-2010"/>
             <service type="Flambeau_2018-2016" server="f72b499c_c9e1869c-2018"/>
             <service type="Flambeau_2018-2016" server="946774ac_f364f4c6-2018"/>
-            <service type="Flambeau_2018-2016" server="88177fbc_4d730f32-2017"/>
             <service type="Flambeau_2018-2016" server="764b6639_189c6083-2017"/>
             <service type="Flambeau_2018-2016" server="66dc6593_83a66c37-2018"/>
             <service type="Flambeau_2018-2016" server="a00997a4_49310e6c-2016"/>
@@ -906,9 +905,10 @@
             <service type="Flambeau_2018-2016" server="154393cf_2f9d04a6-2016"/>
             <service type="Flambeau_2018-2016" server="8dbf617_bfb4a567-2018"/>
             <service type="Flambeau_2018-2016" server="7dc312a_456c2835-2016"/>
-            <service type="Incense_2012-2000" server="eaae3556_23609c32-2010"/>
-            <service type="Incense_2012-2000" server="afd13a07_cbfcbba3-2009"/>
-            <service type="Lector_2012-2000" server="b2f0de4_36d576bf-2010"/>
+            <service type="Flambeau_2018-2016" server="554dcd2b_40b5f04b-2018"/>
+            <service type="Incense_2012-2000" server="6159a5d8_d8adc6c-2011"/>
+            <service type="Incense_2012-2000" server="4d0173ab_d15dcc47-2010"/>
+            <service type="Lector_2012-2000" server="2a34fd23_9e6a22a5-2013"/>
         </mass>
         <mass date="2018-01-22" time="19:00:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="c988057c_8c355bb8-2013"/>
@@ -917,13 +917,13 @@
             <service type="Altar_2016-2014" server="a8b5ae97_96671919-2015"/>
         </mass>
         <mass date="2018-01-25" time="18:00:00" church="Chapel" form="Holy Mass">
-            <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
-            <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
+            <service type="Altar_2014-2012" server="b1f5c32c_22493afc-2014"/>
+            <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
             <service type="Altar_2016-2014" server="e0084422_7c17e782-2016"/>
         </mass>
         <mass date="2018-01-27" time="17:00:00" church="Church" form="Saturday Evening Mass">
-            <service type="Altar_2012-2000" server="d4acd0a1_d15be2f6-2012"/>
+            <service type="Altar_2012-2000" server="10037dc6_82c0aa85-2010"/>
             <service type="Altar_2012-2000" server="e0527db4_e51f0dc8-2011"/>
             <service type="Altar_2014-2012" server="b13a1d59_40730ba6-2013"/>
             <service type="Altar_2014-2012" server="9cadd08a_77d1d129-2013"/>
@@ -933,12 +933,12 @@
         <mass date="2018-01-28" time="08:00:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="e9999e3f_6c6a2c06-2013"/>
             <service type="Altar_2014-2012" server="3d7dd5a2_a6aa4c0c-2012"/>
-            <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
             <service type="Altar_2016-2014" server="b0839f8e_f9e7fc15-2013"/>
+            <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
         </mass>
         <mass date="2018-01-28" time="09:45:00" church="Chapel" form="Holy Mass">
-            <service type="Altar_2014-2012" server="c988057c_8c355bb8-2013"/>
             <service type="Altar_2014-2012" server="2d4f48e8_28c469cb-2013"/>
+            <service type="Altar_2014-2012" server="c988057c_8c355bb8-2013"/>
             <service type="Altar_2016-2014" server="3eb5d772_5f2da7e7-2014"/>
             <service type="Altar_2016-2014" server="31aa60a1_2456cdb3-2013"/>
         </mass>
@@ -947,20 +947,20 @@
             <service type="Altar_2012-2000" server="df8c88e8_e6052cc8-2012"/>
             <service type="Altar_2014-2012" server="42d38ee9_90168d58-2014"/>
             <service type="Altar_2014-2012" server="5a61a61a_2b84ccb0-2014"/>
-            <service type="Cross_2012-2000" server="22e4bdd8_b426a587-2011"/>
+            <service type="Cross_2012-2000" server="3a4fe56_9e568642-2011"/>
             <service type="Flambeau_2018-2016" server="f72b499c_c9e1869c-2018"/>
             <service type="Flambeau_2018-2016" server="946774ac_f364f4c6-2018"/>
-            <service type="Flambeau_2018-2016" server="88177fbc_4d730f32-2017"/>
             <service type="Flambeau_2018-2016" server="764b6639_189c6083-2017"/>
             <service type="Flambeau_2018-2016" server="66dc6593_83a66c37-2018"/>
             <service type="Flambeau_2018-2016" server="35b87bf7_60e8c36b-2017"/>
             <service type="Flambeau_2018-2016" server="b169aee0_5d7854fa-2016"/>
             <service type="Flambeau_2018-2016" server="3a6cb02f_41748926-2015"/>
-            <service type="Flambeau_2018-2016" server="2ba569ab_f86b692d-2017"/>
-            <service type="Flambeau_2018-2016" server="9da4fb9d_e0657e75-2012"/>
+            <service type="Flambeau_2018-2016" server="e0084422_7c17e782-2016"/>
+            <service type="Flambeau_2018-2016" server="143d9fdf_d8ed2e7a-2016"/>
+            <service type="Flambeau_2018-2016" server="a00997a4_49310e6c-2016"/>
+            <service type="Incense_2012-2000" server="afd13a07_cbfcbba3-2009"/>
             <service type="Incense_2012-2000" server="76ecd5d7_5e4921c3-2009"/>
-            <service type="Incense_2012-2000" server="742bc837_d666d1ee-2010"/>
-            <service type="Lector_2012-2000" server="43d0369d_f0559b7-2009"/>
+            <service type="Lector_2012-2000" server="22e4bdd8_b426a587-2011"/>
         </mass>
         <mass date="2018-01-29" time="19:00:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="ab41045f_e62e6c9c-2013"/>
@@ -970,7 +970,7 @@
         </mass>
         <mass date="2018-02-01" time="18:00:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="432d8240_2f77b9da-2012"/>
-            <service type="Altar_2014-2012" server="b1f5c32c_22493afc-2014"/>
+            <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
             <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
         </mass>
@@ -986,92 +986,92 @@
         </mass>
         <mass date="2018-02-04" time="08:00:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="e9999e3f_6c6a2c06-2013"/>
-            <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
+            <service type="Altar_2014-2012" server="9cadd08a_77d1d129-2013"/>
             <service type="Altar_2016-2014" server="45aca69e_2c751bb8-2015"/>
             <service type="Altar_2016-2014" server="f2493813_49b24b0a-2015"/>
         </mass>
         <mass date="2018-02-04" time="09:45:00" church="Chapel" form="Holy Mass">
-            <service type="Altar_2014-2012" server="d4acd0a1_d15be2f6-2012"/>
-            <service type="Altar_2014-2012" server="9cadd08a_77d1d129-2013"/>
+            <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
+            <service type="Altar_2014-2012" server="ab41045f_e62e6c9c-2013"/>
             <service type="Altar_2016-2014" server="20ff6758_5e33a8f6-2015"/>
             <service type="Altar_2016-2014" server="74e7685_cbf9c040-2014"/>
         </mass>
         <mass date="2018-02-04" time="11:00:00" church="Church" form="High Mass">
+            <service type="Altar_2012-2000" server="43d0369d_f0559b7-2009"/>
             <service type="Altar_2012-2000" server="c199d9e_c9a855de-2009"/>
-            <service type="Altar_2012-2000" server="715cf7b0_d24fdff0-2011"/>
-            <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
-            <service type="Altar_2014-2012" server="ab41045f_e62e6c9c-2013"/>
-            <service type="Cross_2012-2000" server="b63bcb1_fa357227-2011"/>
+            <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
+            <service type="Altar_2014-2012" server="d4acd0a1_d15be2f6-2012"/>
+            <service type="Cross_2012-2000" server="742bc837_d666d1ee-2010"/>
             <service type="Flambeau_2018-2016" server="f72b499c_c9e1869c-2018"/>
             <service type="Flambeau_2018-2016" server="946774ac_f364f4c6-2018"/>
-            <service type="Flambeau_2018-2016" server="88177fbc_4d730f32-2017"/>
             <service type="Flambeau_2018-2016" server="764b6639_189c6083-2017"/>
             <service type="Flambeau_2018-2016" server="66dc6593_83a66c37-2018"/>
             <service type="Flambeau_2018-2016" server="35b87bf7_60e8c36b-2017"/>
             <service type="Flambeau_2018-2016" server="e0084422_7c17e782-2016"/>
-            <service type="Flambeau_2018-2016" server="c0a0e629_a0d1e7d4-2017"/>
-            <service type="Flambeau_2018-2016" server="554dcd2b_40b5f04b-2018"/>
+            <service type="Flambeau_2018-2016" server="b169aee0_5d7854fa-2016"/>
+            <service type="Flambeau_2018-2016" server="154393cf_2f9d04a6-2016"/>
+            <service type="Flambeau_2018-2016" server="8dbf617_bfb4a567-2018"/>
             <service type="Flambeau_2018-2016" server="7dc312a_456c2835-2016"/>
             <service type="Incense_2012-2000" server="9b773e2b_7b4947ac-2010"/>
             <service type="Incense_2012-2000" server="87500b6e_e0089b3c-2009"/>
-            <service type="Lector_2012-2000" server="2b9839e4_24cc79ce-2010"/>
+            <service type="Lector_2012-2000" server="715cf7b0_d24fdff0-2011"/>
         </mass>
         <mass date="2018-02-05" time="19:00:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="5c4a7ea6_5ffac149-2014"/>
             <service type="Altar_2014-2012" server="5a61a61a_2b84ccb0-2014"/>
+            <service type="Altar_2016-2014" server="b1f5c32c_22493afc-2014"/>
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
-            <service type="Altar_2016-2014" server="b169aee0_5d7854fa-2016"/>
         </mass>
         <mass date="2018-02-08" time="18:00:00" church="Chapel" form="Holy Mass">
-            <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
+            <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
             <service type="Altar_2014-2012" server="2d4f48e8_28c469cb-2013"/>
             <service type="Altar_2016-2014" server="dfdd9f7e_59b5f73e-2014"/>
             <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
         </mass>
         <mass date="2018-02-10" time="17:00:00" church="Church" form="Saturday Evening Mass">
+            <service type="Altar_2012-2000" server="d4acd0a1_d15be2f6-2012"/>
             <service type="Altar_2012-2000" server="eaae3556_23609c32-2010"/>
-            <service type="Altar_2012-2000" server="b5167200_88de15e5-2010"/>
             <service type="Altar_2014-2012" server="b13a1d59_40730ba6-2013"/>
-            <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
+            <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
             <service type="Altar_2016-2014" server="e0084422_7c17e782-2016"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
         </mass>
         <mass date="2018-02-11" time="08:00:00" church="Church" form="Holy Mass">
-            <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
+            <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
             <service type="Altar_2014-2012" server="3d7dd5a2_a6aa4c0c-2012"/>
             <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
-            <service type="Altar_2016-2014" server="5a61a61a_2b84ccb0-2014"/>
+            <service type="Altar_2016-2014" server="b1f5c32c_22493afc-2014"/>
         </mass>
         <mass date="2018-02-11" time="09:45:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="e9999e3f_6c6a2c06-2013"/>
             <service type="Altar_2014-2012" server="432d8240_2f77b9da-2012"/>
+            <service type="Altar_2016-2014" server="5a61a61a_2b84ccb0-2014"/>
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
-            <service type="Altar_2016-2014" server="5adda056_e3491767-2014"/>
         </mass>
         <mass date="2018-02-11" time="11:00:00" church="Church" form="High Mass">
-            <service type="Altar_2012-2000" server="8b15aac2_4dca0870-2010"/>
-            <service type="Altar_2012-2000" server="6159a5d8_d8adc6c-2011"/>
+            <service type="Altar_2012-2000" server="2b9839e4_24cc79ce-2010"/>
+            <service type="Altar_2012-2000" server="b63bcb1_fa357227-2011"/>
+            <service type="Altar_2014-2012" server="6159a5d8_d8adc6c-2011"/>
             <service type="Altar_2014-2012" server="edcf388f_7102167-2014"/>
-            <service type="Altar_2014-2012" server="5ccd8034_f1da7f5c-2012"/>
-            <service type="Cross_2012-2000" server="4d0173ab_d15dcc47-2010"/>
-            <service type="Flambeau_2018-2016" server="b169aee0_5d7854fa-2016"/>
-            <service type="Flambeau_2018-2016" server="a00997a4_49310e6c-2016"/>
-            <service type="Flambeau_2018-2016" server="e957123c_7c7c404b-2017"/>
-            <service type="Flambeau_2018-2016" server="154393cf_2f9d04a6-2016"/>
-            <service type="Flambeau_2018-2016" server="8dbf617_bfb4a567-2018"/>
+            <service type="Cross_2012-2000" server="b2f0de4_36d576bf-2010"/>
             <service type="Flambeau_2018-2016" server="f72b499c_c9e1869c-2018"/>
             <service type="Flambeau_2018-2016" server="946774ac_f364f4c6-2018"/>
-            <service type="Flambeau_2018-2016" server="88177fbc_4d730f32-2017"/>
             <service type="Flambeau_2018-2016" server="764b6639_189c6083-2017"/>
             <service type="Flambeau_2018-2016" server="66dc6593_83a66c37-2018"/>
+            <service type="Flambeau_2018-2016" server="3a6cb02f_41748926-2015"/>
+            <service type="Flambeau_2018-2016" server="35b87bf7_60e8c36b-2017"/>
+            <service type="Flambeau_2018-2016" server="c0a0e629_a0d1e7d4-2017"/>
+            <service type="Flambeau_2018-2016" server="4731f45a_eaad07ea-2017"/>
+            <service type="Flambeau_2018-2016" server="2c9ac46f_312038d8-2018"/>
+            <service type="Flambeau_2018-2016" server="e5ce6fc6_159a59ff-2013"/>
             <service type="Incense_2012-2000" server="10037dc6_82c0aa85-2010"/>
             <service type="Incense_2012-2000" server="e0527db4_e51f0dc8-2011"/>
-            <service type="Lector_2012-2000" server="3a4fe56_9e568642-2011"/>
+            <service type="Lector_2012-2000" server="8b15aac2_4dca0870-2010"/>
         </mass>
         <mass date="2018-02-12" time="19:00:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="42d38ee9_90168d58-2014"/>
             <service type="Altar_2014-2012" server="c988057c_8c355bb8-2013"/>
-            <service type="Altar_2016-2014" server="b1f5c32c_22493afc-2014"/>
+            <service type="Altar_2016-2014" server="b169aee0_5d7854fa-2016"/>
             <service type="Altar_2016-2014" server="5c4a7ea6_5ffac149-2014"/>
         </mass>
         <mass date="2018-02-15" time="18:00:00" church="Chapel" form="Holy Mass">
@@ -1081,5 +1081,5 @@
             <service type="Altar_2016-2014" server="a8b5ae97_96671919-2015"/>
         </mass>
     </futureDraftMasses>
-    <score>-4hard/-1314soft</score>
+    <score>-4hard/-1384soft</score>
 </schedule>

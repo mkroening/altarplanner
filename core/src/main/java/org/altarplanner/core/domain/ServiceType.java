@@ -8,7 +8,7 @@ import java.time.Year;
 import java.util.Comparator;
 import java.util.Objects;
 
-@XmlType(propOrder = {"name", "maxYear", "minYear", "id"})
+@XmlType(propOrder = {"name", "maxYear", "minYear", "xmlID"})
 public class ServiceType implements Serializable {
 
     private String name;
@@ -21,7 +21,7 @@ public class ServiceType implements Serializable {
 
     @XmlAttribute
     @XmlID
-    public String getId() {
+    public String getXmlID() {
         return name +
                 "_" + maxYear
                 + "-" + minYear;
@@ -85,7 +85,7 @@ public class ServiceType implements Serializable {
     @Override
     public String toString() {
         return "ServiceType{" +
-                getId() +
+                getXmlID() +
                 "}";
     }
 

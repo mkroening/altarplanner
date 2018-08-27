@@ -135,7 +135,7 @@ public class PoiIO {
                             .forEach(massIndex -> schedule.getFinalDraftMasses().get(massIndex).getServices().parallelStream()
                                     .filter(service -> server.equals(service.getServer()))
                                     .findAny()
-                                    .ifPresent(service -> serverRow.createCell(columnOffset + massIndex).setCellValue(service.getType().getId())));
+                                    .ifPresent(service -> serverRow.createCell(columnOffset + massIndex).setCellValue(service.getType().getXmlID())));
                 });
 
         sheet.createFreezePane(columnOffset,rowOffset);

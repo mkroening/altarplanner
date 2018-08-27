@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <discreteMassCollection>
     <serviceTypes>
-        <serviceType name="Altar" maxYear="2012" minYear="2000" id="Altar_2012-2000"/>
-        <serviceType name="Altar" maxYear="2014" minYear="2012" id="Altar_2014-2012"/>
-        <serviceType name="Altar" maxYear="2016" minYear="2014" id="Altar_2016-2014"/>
-        <serviceType name="Cross" maxYear="2012" minYear="2000" id="Cross_2012-2000"/>
-        <serviceType name="Flambeau" maxYear="2018" minYear="2016" id="Flambeau_2018-2016"/>
-        <serviceType name="Incense" maxYear="2012" minYear="2000" id="Incense_2012-2000"/>
-        <serviceType name="Lector" maxYear="2012" minYear="2000" id="Lector_2012-2000"/>
+        <serviceType name="Altar" maxYear="2012" minYear="2000" xmlID="Altar_2012-2000"/>
+        <serviceType name="Altar" maxYear="2014" minYear="2012" xmlID="Altar_2014-2012"/>
+        <serviceType name="Altar" maxYear="2016" minYear="2014" xmlID="Altar_2016-2014"/>
+        <serviceType name="Cross" maxYear="2012" minYear="2000" xmlID="Cross_2012-2000"/>
+        <serviceType name="Flambeau" maxYear="2018" minYear="2016" xmlID="Flambeau_2018-2016"/>
+        <serviceType name="Incense" maxYear="2012" minYear="2000" xmlID="Incense_2012-2000"/>
+        <serviceType name="Lector" maxYear="2012" minYear="2000" xmlID="Lector_2012-2000"/>
     </serviceTypes>
     <discreteMasses>
         <discreteMass date="2018-01-01" time="19:00:00" church="Chapel" form="Holy Mass">

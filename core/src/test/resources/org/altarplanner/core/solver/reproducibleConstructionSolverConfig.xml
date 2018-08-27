@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
+    <environmentMode>REPRODUCIBLE</environmentMode>
 
     <solutionClass>org.altarplanner.core.domain.Schedule</solutionClass>
     <entityClass>org.altarplanner.core.domain.Service</entityClass>
@@ -9,5 +10,4 @@
     </scoreDirectorFactory>
 
     <constructionHeuristic/>
-
 </solver>

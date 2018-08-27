@@ -7,7 +7,6 @@ import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +14,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @XmlType(propOrder = {"surname", "forename", "year", "xmlID", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
-public class Server implements Serializable {
+public class Server extends AbstractPersistable {
 
     private String surname;
     private String forename;

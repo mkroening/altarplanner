@@ -11,16 +11,14 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
 
 @PlanningEntity(difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
 @XmlType(propOrder = {"type", "server"})
-public class Service implements Serializable {
+public class Service extends AbstractPersistable {
 
-    private int id;
     private PlanningMass mass;
     private ServiceType type;
     private Server server;
@@ -46,15 +44,6 @@ public class Service implements Serializable {
         return Comparator
                 .comparing(Service::getServer, Server.getDescComparator())
                 .thenComparing(service -> service.getType().getName());
-    }
-
-    @XmlTransient
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @XmlTransient
@@ -92,14 +81,12 @@ public class Service implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Service service = (Service) o;
-        return id == service.id &&
-                Objects.equals(mass, service.mass) &&
-                Objects.equals(type, service.type);
+        return Objects.equals(planningId, service.planningId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, mass, type);
+        return Objects.hash(planningId);
     }
 
     @Override

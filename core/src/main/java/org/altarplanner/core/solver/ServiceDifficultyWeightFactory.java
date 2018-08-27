@@ -29,7 +29,7 @@ public class ServiceDifficultyWeightFactory implements SelectionSorterWeightFact
         public int compareTo(ServiceDifficultyWeight other) {
             return Objects.compare(other, this, Comparator
                     .comparingInt((ServiceDifficultyWeight weight) -> weight.availableServers)
-                    .thenComparingInt(serviceDifficultyWeight -> serviceDifficultyWeight.service.getId()));
+                    .thenComparingInt(serviceDifficultyWeight -> serviceDifficultyWeight.service.getPlanningId()));
         }
 
     }

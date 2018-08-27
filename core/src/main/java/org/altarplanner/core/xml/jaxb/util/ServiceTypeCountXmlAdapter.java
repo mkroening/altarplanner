@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ServiceTypeCountXmlAdapter extends XmlAdapter<ServiceTypeCountXmlAdapter.AdaptedMap, Map<ServiceType, Integer>> {
     public static class AdaptedMap {
@@ -22,23 +23,22 @@ public class ServiceTypeCountXmlAdapter extends XmlAdapter<ServiceTypeCountXmlAd
 
     @Override
     public Map<ServiceType, Integer> unmarshal(AdaptedMap v) {
-        Map<ServiceType, Integer> map = new HashMap<>();
-        for(Entry entry : v.entry) {
-            map.put(entry.serviceType, entry.count);
-        }
-        return map;
+        return v.entry.stream()
+                .collect(Collectors.toUnmodifiableMap(entry -> entry.serviceType, entry -> entry.count));
     }
 
     @Override
     public AdaptedMap marshal(Map<ServiceType, Integer> v) {
         AdaptedMap adaptedMap = new AdaptedMap();
-        for(Map.Entry<ServiceType, Integer> mapEntry : v.entrySet()) {
-            Entry entry = new Entry();
-            entry.serviceType = mapEntry.getKey();
-            entry.count = mapEntry.getValue();
-            adaptedMap.entry.add(entry);
-        }
-        adaptedMap.entry.sort(Comparator.comparing(entry -> entry.serviceType, ServiceType.getDescComparator()));
+        adaptedMap.entry = v.entrySet().stream()
+                .map(mapEntry -> {
+                    Entry entry = new Entry();
+                    entry.serviceType = mapEntry.getKey();
+                    entry.count = mapEntry.getValue();
+                    return entry;
+                })
+                .sorted(Comparator.comparing(entry -> entry.serviceType, ServiceType.getDescComparator()))
+                .collect(Collectors.toUnmodifiableList());
         return adaptedMap;
     }
 }

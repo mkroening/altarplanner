@@ -45,6 +45,7 @@ public class Schedule implements Serializable {
     public static Schedule load(File input) throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
         Schedule unmarshalled = JaxbIO.unmarshal(input, Schedule.class);
         unmarshalled.getAllMasses().forEach(mass -> mass.getServices().forEach(service -> service.setMass(mass)));
+        unmarshalled.setPlanningIds();
         unmarshalled.setPinned();
         return unmarshalled;
     }

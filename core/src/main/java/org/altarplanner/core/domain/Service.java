@@ -17,7 +17,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 @PlanningEntity(difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
-@XmlType(propOrder = {"server", "type", "id"})
+@XmlType(propOrder = {"server", "type"})
 public class Service implements Serializable {
 
     private int id;
@@ -48,7 +48,7 @@ public class Service implements Serializable {
                 .thenComparing(service -> service.getType().getName());
     }
 
-    @XmlAttribute
+    @XmlTransient
     public int getId() {
         return id;
     }

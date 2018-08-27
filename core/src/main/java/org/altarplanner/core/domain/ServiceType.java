@@ -2,11 +2,13 @@ package org.altarplanner.core.domain;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.Comparator;
 import java.util.Objects;
 
+@XmlType(propOrder = {"name", "maxYear", "minYear", "id"})
 public class ServiceType implements Serializable {
 
     private String name;
@@ -38,6 +40,7 @@ public class ServiceType implements Serializable {
                 .thenComparing(ServiceType::getMinYear);
     }
 
+    @XmlAttribute
     public String getName() {
         return name;
     }
@@ -46,6 +49,7 @@ public class ServiceType implements Serializable {
         this.name = name;
     }
 
+    @XmlAttribute
     public int getMaxYear() {
         return maxYear;
     }
@@ -54,6 +58,7 @@ public class ServiceType implements Serializable {
         this.maxYear = maxYear;
     }
 
+    @XmlAttribute
     public int getMinYear() {
         return minYear;
     }

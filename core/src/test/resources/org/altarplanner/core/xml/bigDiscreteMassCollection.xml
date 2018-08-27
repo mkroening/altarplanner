@@ -1,41 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <discreteMassCollection>
     <serviceTypes>
-        <serviceType id="Altar_2012-2000">
-            <maxYear>2012</maxYear>
-            <minYear>2000</minYear>
-            <name>Altar</name>
-        </serviceType>
-        <serviceType id="Altar_2014-2012">
-            <maxYear>2014</maxYear>
-            <minYear>2012</minYear>
-            <name>Altar</name>
-        </serviceType>
-        <serviceType id="Altar_2016-2014">
-            <maxYear>2016</maxYear>
-            <minYear>2014</minYear>
-            <name>Altar</name>
-        </serviceType>
-        <serviceType id="Cross_2012-2000">
-            <maxYear>2012</maxYear>
-            <minYear>2000</minYear>
-            <name>Cross</name>
-        </serviceType>
-        <serviceType id="Flambeau_2018-2016">
-            <maxYear>2018</maxYear>
-            <minYear>2016</minYear>
-            <name>Flambeau</name>
-        </serviceType>
-        <serviceType id="Incense_2012-2000">
-            <maxYear>2012</maxYear>
-            <minYear>2000</minYear>
-            <name>Incense</name>
-        </serviceType>
-        <serviceType id="Lector_2012-2000">
-            <maxYear>2012</maxYear>
-            <minYear>2000</minYear>
-            <name>Lector</name>
-        </serviceType>
+        <serviceType name="Altar" maxYear="2012" minYear="2000" id="Altar_2012-2000"/>
+        <serviceType name="Altar" maxYear="2014" minYear="2012" id="Altar_2014-2012"/>
+        <serviceType name="Altar" maxYear="2016" minYear="2014" id="Altar_2016-2014"/>
+        <serviceType name="Cross" maxYear="2012" minYear="2000" id="Cross_2012-2000"/>
+        <serviceType name="Flambeau" maxYear="2018" minYear="2016" id="Flambeau_2018-2016"/>
+        <serviceType name="Incense" maxYear="2012" minYear="2000" id="Incense_2012-2000"/>
+        <serviceType name="Lector" maxYear="2012" minYear="2000" id="Lector_2012-2000"/>
     </serviceTypes>
     <discreteMasses>
         <discreteMass date="2018-01-01" time="19:00:00" church="Chapel" form="Holy Mass">

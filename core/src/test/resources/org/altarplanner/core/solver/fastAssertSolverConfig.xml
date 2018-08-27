@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
-    <moveThreadCount>AUTO</moveThreadCount>
+    <environmentMode>FAST_ASSERT</environmentMode>
+    <moveThreadCount>2</moveThreadCount>
 
     <solutionClass>org.altarplanner.core.domain.Schedule</solutionClass>
     <entityClass>org.altarplanner.core.domain.Service</entityClass>
@@ -10,7 +11,7 @@
     </scoreDirectorFactory>
 
     <termination>
-        <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
+        <scoreCalculationCountLimit>100000</scoreCalculationCountLimit>
     </termination>
 
     <constructionHeuristic/>

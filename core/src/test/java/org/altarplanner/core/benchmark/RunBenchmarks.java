@@ -13,27 +13,30 @@ public class RunBenchmarks {
 
     }
 
+    private static void runBenchmark(PlannerBenchmarkFactory benchmarkFactory) {
+        Schedule schedule = BigDomainGenerator.genSchedule();
+        benchmarkFactory.buildPlannerBenchmark(schedule).benchmark();
+    }
+
     private static void aggregateBenchmarks() {
         PlannerBenchmarkFactory plannerBenchmarkFactory = PlannerBenchmarkFactory.createFromXmlResource(BENCHMARK_RESOURCE_PATH + "defaultBenchmarkConfig.xml");
         BenchmarkAggregatorFrame.createAndDisplay(plannerBenchmarkFactory);
     }
 
     private static void runDefaultBenchmark() {
-        Schedule schedule = BigDomainGenerator.genSchedule();
-        PlannerBenchmarkFactory benchmarkFactory = PlannerBenchmarkFactory.createFromXmlResource(BENCHMARK_RESOURCE_PATH + "defaultBenchmarkConfig.xml");
-        benchmarkFactory.buildPlannerBenchmark(schedule).benchmark();
+        runBenchmark(PlannerBenchmarkFactory.createFromXmlResource(BENCHMARK_RESOURCE_PATH + "defaultBenchmarkConfig.xml"));
     }
 
     private static void runTabuBenchmarks() {
-        Schedule schedule = BigDomainGenerator.genSchedule();
-        PlannerBenchmarkFactory benchmarkFactory = PlannerBenchmarkFactory.createFromFreemarkerXmlResource(BENCHMARK_RESOURCE_PATH + "tabuBenchmarkTemplate.xml.ftl");
-        benchmarkFactory.buildPlannerBenchmark(schedule).benchmark();
+        runBenchmark(PlannerBenchmarkFactory.createFromFreemarkerXmlResource(BENCHMARK_RESOURCE_PATH + "tabuBenchmarkTemplate.xml.ftl"));
     }
 
     private static void runSimulatedAnnealingBenchmarks() {
-        Schedule schedule = BigDomainGenerator.genSchedule();
-        PlannerBenchmarkFactory benchmarkFactory = PlannerBenchmarkFactory.createFromFreemarkerXmlResource(BENCHMARK_RESOURCE_PATH + "simulatedAnnealingBenchmarkTemplate.xml.ftl");
-        benchmarkFactory.buildPlannerBenchmark(schedule).benchmark();
+        runBenchmark(PlannerBenchmarkFactory.createFromFreemarkerXmlResource(BENCHMARK_RESOURCE_PATH + "simulatedAnnealingBenchmarkTemplate.xml.ftl"));
+    }
+
+    private static void runMultithreadingBenchmark() {
+        runBenchmark(PlannerBenchmarkFactory.createFromXmlResource(BENCHMARK_RESOURCE_PATH + "multithreadingBenchmarkConfig.xml"));
     }
 
 }

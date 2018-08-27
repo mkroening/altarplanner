@@ -16,8 +16,8 @@ global HardSoftScoreHolder scoreHolder;
 
 rule "oneServicePerDay"
     when
-        Service($id : id, $server : server != null, $date : mass.date)
-        Service(mass.date == $date, id > $id, server == $server)
+        Service($id : planningId, $server : server != null, $date : mass.date)
+        Service(mass.date == $date, planningId > $id, server == $server)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end

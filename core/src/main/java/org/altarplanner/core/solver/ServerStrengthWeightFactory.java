@@ -29,7 +29,7 @@ public class ServerStrengthWeightFactory implements SelectionSorterWeightFactory
         public int compareTo(ServerStrengthWeight o) {
             return Objects.compare(o, this, Comparator
                     .comparingInt((ServerStrengthWeight weight) -> weight.possibleServicesCount)
-                    .thenComparing(weight -> weight.server.getXmlID()));
+                    .thenComparing(weight -> weight.server.getPlanningId()));
         }
 
     }

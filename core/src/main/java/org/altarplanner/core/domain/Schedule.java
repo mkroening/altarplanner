@@ -82,10 +82,10 @@ public class Schedule implements Serializable {
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
         publishedMasses.forEach(planningMass ->
-            planningMass.setServices(planningMass.getServices().stream()
-                    .filter(service -> config.getServers().contains(service.getServer()))
-                    .collect(Collectors.toUnmodifiableList())
-            )
+                planningMass.setServices(planningMass.getServices().stream()
+                        .filter(service -> config.getServers().contains(service.getServer()))
+                        .collect(Collectors.toUnmodifiableList())
+                )
         );
         publishedMasses.forEach(mass -> mass.setPinned(true));
         final LocalDate lastPublishedDate = publishedMasses.get(publishedMasses.size() - 1).getDate();
@@ -110,9 +110,9 @@ public class Schedule implements Serializable {
     }
 
     private void setPlanningIds() {
-        final List<Service> services = getServices();
-        IntStream.range(0, services.size())
-                .forEach(value -> services.get(value).setId(value));
+        final List<List<? extends AbstractPersistable>> abstractPersistableLists = List.of(getServices(), getServers());
+        abstractPersistableLists.forEach(list -> IntStream.range(0, list.size())
+                .forEach(index -> list.get(index).setPlanningId(index)));
     }
 
     private void setPinned() {

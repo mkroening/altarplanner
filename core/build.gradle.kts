@@ -17,7 +17,8 @@ dependencies {
         because("we do logging via these interfaces")
     }
 
-    implementation("org.glassfish.jaxb:jaxb-runtime:2.3.0.1") {
+    val jaxbVersion: String by project
+    implementation("org.glassfish.jaxb:jaxb-runtime:$jaxbVersion") {
         because("we use JAXB-RI for XML Binding")
     }
 
@@ -45,8 +46,9 @@ dependencies {
         because("this is used for finding the best algorithm for our domain")
     }
 
-    testImplementation("org.freemarker:freemarker:2.3.28") {
-        because("currently the version provided by optaplanner-benchmark can\"t be resolved, required for benchmark templates")
+    val freemarkerVersion: String by project
+    testImplementation("org.freemarker:freemarker:$freemarkerVersion") {
+        because("currently the version provided by optaplanner-benchmark can't be resolved, required for benchmark templates")
     }
 
     testImplementation("org.optaplanner:optaplanner-test") {

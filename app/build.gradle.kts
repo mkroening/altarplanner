@@ -8,12 +8,14 @@ application {
     mainClassName = "org.altarplanner.app.Launcher"
 }
 
-val currentOS = org.gradle.internal.os.OperatingSystem.current()!!
-val platform = when {
-    currentOS.isWindows -> "win"
-    currentOS.isLinux -> "linux"
-    currentOS.isMacOsX -> "mac"
-    else -> ""
+val currentOS by extra { org.gradle.internal.os.OperatingSystem.current()!! }
+val platform by extra {
+    when {
+        currentOS.isWindows -> "win"
+        currentOS.isLinux -> "linux"
+        currentOS.isMacOsX -> "mac"
+        else -> ""
+    }
 }
 
 fun addToModulePath(file: File) = file.name.startsWith("javafx-") || file.name.startsWith("controlsfx")

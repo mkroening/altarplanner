@@ -8,18 +8,20 @@ application {
     mainClassName = "org.altarplanner.app.Launcher"
 }
 
-val currentOS = org.gradle.internal.os.OperatingSystem.current()!!
-val platform = when {
-    currentOS.isWindows -> "win"
-    currentOS.isLinux -> "linux"
-    currentOS.isMacOsX -> "mac"
-    else -> ""
+val currentOS by extra { org.gradle.internal.os.OperatingSystem.current()!! }
+val platform by extra {
+    when {
+        currentOS.isWindows -> "win"
+        currentOS.isLinux -> "linux"
+        currentOS.isMacOsX -> "mac"
+        else -> ""
+    }
 }
 
 fun addToModulePath(file: File) = file.name.startsWith("javafx-") || file.name.startsWith("controlsfx")
 
 fun javaArgs(classpath: FileCollection) = listOf(
-        "--module-path", classpath.filter{addToModulePath(it)}.asPath,
+        "--module-path", classpath.filter { addToModulePath(it) }.asPath,
         "--add-modules", "javafx.controls",
         "--add-modules", "javafx.fxml",
         "--add-modules", "controlsfx",
@@ -32,14 +34,14 @@ tasks {
     named<JavaCompile>("compileJava") {
         doFirst {
             options.compilerArgs = javaArgs(classpath)
-            classpath = classpath.filter{!addToModulePath(it)}
+            classpath = classpath.filter { !addToModulePath(it) }
         }
     }
 
     named<JavaExec>("run") {
         doFirst {
             jvmArgs = javaArgs(classpath)
-            classpath = classpath.filter{!addToModulePath(it)}
+            classpath = classpath.filter { !addToModulePath(it) }
         }
     }
 }
@@ -49,23 +51,25 @@ dependencies {
         because("we need the domain, solver and IO implementation of the core project")
     }
 
-    compile("org.openjfx:javafx-base:11:$platform") {
+    val javafxVersion: String by project
+    compile("org.openjfx:javafx-base:$javafxVersion:$platform") {
         because("javafx.graphics depends on javafx.base")
     }
 
-    compile("org.openjfx:javafx-graphics:11:$platform") {
+    compile("org.openjfx:javafx-graphics:$javafxVersion:$platform") {
         because("javafx.controls depends on javafx.graphics")
     }
 
-    compile("org.openjfx:javafx-controls:11:$platform") {
+    compile("org.openjfx:javafx-controls:$javafxVersion:$platform") {
         because("we use the JavaFX framework and its controls")
     }
 
-    compile("org.openjfx:javafx-fxml:11:$platform") {
+    compile("org.openjfx:javafx-fxml:$javafxVersion:$platform") {
         because("we define the user interface via FXML")
     }
 
-    compile("ch.qos.logback:logback-classic:+") {
+    val logbackVersion: String by project
+    compile("ch.qos.logback:logback-classic:$logbackVersion") {
         because("we require a SLF4J binding for logging")
     }
 

@@ -9,10 +9,6 @@ dependencies {
         because("we depend on optaplanner projects")
     }
 
-    implementation("org.junit:junit-bom:+") {
-        because("we use JUnit modules")
-    }
-
     implementation("org.optaplanner:optaplanner-core") {
         because("we require a constraint solver")
     }
@@ -21,8 +17,17 @@ dependencies {
         because("we do logging via these interfaces")
     }
 
-    implementation("org.glassfish.jaxb:jaxb-runtime:2.3.0.1") {
+    val jaxbVersion: String by project
+    implementation("org.glassfish.jaxb:jaxb-runtime:$jaxbVersion") {
         because("we use JAXB-RI for XML Binding")
+    }
+
+    implementation("com.sun.xml.bind:jaxb-core:$jaxbVersion") {
+        because("we want to upgrade the rest of jaxb pulled in by optaplanner-persistence-jaxb")
+    }
+
+    implementation("com.sun.xml.bind:jaxb-impl:$jaxbVersion") {
+        because("we want to upgrade the rest of jaxb pulled in by optaplanner-persistence-jaxb")
     }
 
     implementation("com.migesok:jaxb-java-time-adapters:+") {
@@ -37,6 +42,10 @@ dependencies {
         because("we use POI-XSSF to write Excel files")
     }
 
+    testImplementation("org.junit:junit-bom:+") {
+        because("we use JUnit modules")
+    }
+
     testImplementation("ch.qos.logback:logback-classic:+") {
         because("we use this SLF4J API implementation for logging while testing")
     }
@@ -45,8 +54,9 @@ dependencies {
         because("this is used for finding the best algorithm for our domain")
     }
 
-    testImplementation("org.freemarker:freemarker:2.3.28") {
-        because("currently the version provided by optaplanner-benchmark can\"t be resolved, required for benchmark templates")
+    val freemarkerVersion: String by project
+    testImplementation("org.freemarker:freemarker:$freemarkerVersion") {
+        because("currently the version provided by optaplanner-benchmark can't be resolved, required for benchmark templates")
     }
 
     testImplementation("org.optaplanner:optaplanner-test") {

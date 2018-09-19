@@ -16,11 +16,7 @@ val platform = when {
     else -> ""
 }
 
-fun addToModulePath(file: File) = when {
-    file.name.startsWith("javafx-")
-            || file.name.contains("controlsfx") -> true
-    else -> false
-}
+fun addToModulePath(file: File) = file.name.startsWith("javafx-") || file.name.startsWith("controlsfx")
 
 fun javaArgs(classpath: FileCollection) = listOf(
         "--module-path", classpath.filter{addToModulePath(it)}.asPath,

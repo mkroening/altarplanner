@@ -1,5 +1,4 @@
-# This is the image which openjdk relies on.
-image: buildpack-deps:sid-scm
+image: openjdk:11
 
 # Disable the Gradle daemon for Continuous Integration servers as correctness
 # is usually a priority over speed in CI environments. Using a fresh
@@ -9,9 +8,6 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 before_script:
-  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
-  - chmod +x install-jdk.sh
-  - JAVA_HOME=`pwd`/jdk && ./install-jdk.sh -F 10 -L BCL --target $JAVA_HOME && PATH=$JAVA_HOME/bin:$PATH
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 build:

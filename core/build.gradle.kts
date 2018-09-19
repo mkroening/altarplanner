@@ -1,7 +1,7 @@
 description = "This project contains the domain specific implementation of the problem, the integration with OptaPlanner and the IO."
 
 plugins {
-    id("java-library")
+    `java-library`
 }
 
 dependencies {

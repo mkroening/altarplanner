@@ -6,7 +6,7 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "java")
+    apply<JavaBasePlugin>()
 
     configure<JavaPluginConvention> {
         sourceCompatibility = JavaVersion.VERSION_1_10

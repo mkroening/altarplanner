@@ -9,10 +9,6 @@ dependencies {
         because("we depend on optaplanner projects")
     }
 
-    implementation("org.junit:junit-bom:+") {
-        because("we use JUnit modules")
-    }
-
     implementation("org.optaplanner:optaplanner-core") {
         because("we require a constraint solver")
     }
@@ -35,6 +31,10 @@ dependencies {
 
     implementation("org.apache.poi:poi-ooxml:+") {
         because("we use POI-XSSF to write Excel files")
+    }
+
+    testImplementation("org.junit:junit-bom:+") {
+        because("we use JUnit modules")
     }
 
     testImplementation("ch.qos.logback:logback-classic:+") {

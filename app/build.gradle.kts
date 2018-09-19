@@ -21,7 +21,7 @@ val platform by extra {
 fun addToModulePath(file: File) = file.name.startsWith("javafx-") || file.name.startsWith("controlsfx")
 
 fun javaArgs(classpath: FileCollection) = listOf(
-        "--module-path", classpath.filter{addToModulePath(it)}.asPath,
+        "--module-path", classpath.filter { addToModulePath(it) }.asPath,
         "--add-modules", "javafx.controls",
         "--add-modules", "javafx.fxml",
         "--add-modules", "controlsfx",
@@ -34,14 +34,14 @@ tasks {
     named<JavaCompile>("compileJava") {
         doFirst {
             options.compilerArgs = javaArgs(classpath)
-            classpath = classpath.filter{!addToModulePath(it)}
+            classpath = classpath.filter { !addToModulePath(it) }
         }
     }
 
     named<JavaExec>("run") {
         doFirst {
             jvmArgs = javaArgs(classpath)
-            classpath = classpath.filter{!addToModulePath(it)}
+            classpath = classpath.filter { !addToModulePath(it) }
         }
     }
 }

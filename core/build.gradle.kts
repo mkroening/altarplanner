@@ -22,6 +22,14 @@ dependencies {
         because("we use JAXB-RI for XML Binding")
     }
 
+    implementation("com.sun.xml.bind:jaxb-core:$jaxbVersion") {
+        because("we want to upgrade the rest of jaxb pulled in by optaplanner-persistence-jaxb")
+    }
+
+    implementation("com.sun.xml.bind:jaxb-impl:$jaxbVersion") {
+        because("we want to upgrade the rest of jaxb pulled in by optaplanner-persistence-jaxb")
+    }
+
     implementation("com.migesok:jaxb-java-time-adapters:+") {
         because("these JAXB adapters for JSR-310 save us some boilerplate code")
     }

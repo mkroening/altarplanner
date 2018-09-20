@@ -197,7 +197,7 @@ public class Launcher extends Application {
                 LOGGER.info("Schedule has been loaded from {}", selectedFile);
 
                 fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
-                fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("ODF Spreadsheet (.ods)", "*.xlsx"));
+                fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Excel 2007–2019 (.xlsx)", "*.xlsx"));
                 directory = new File("exported/");
                 Files.createDirectories(directory.toPath());
                 fileChooser.setInitialDirectory(directory);

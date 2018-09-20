@@ -369,7 +369,7 @@ public class ServerEditor {
     @FXML private void importServers() throws IOException {
         final FileChooser serverWorkbookFileChooser = new FileChooser();
         serverWorkbookFileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openServerWorkbook"));
-        serverWorkbookFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Microsoft Excel 2007-2013 XML (.xlsx)", "*.xlsx"));
+        serverWorkbookFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel 2007–2019 (.xlsx)", "*.xlsx"));
         final File serverWorkbookFile = serverWorkbookFileChooser.showOpenDialog(removeButton.getScene().getWindow());
 
         if (serverWorkbookFile != null) {

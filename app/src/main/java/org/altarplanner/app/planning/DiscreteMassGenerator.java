@@ -22,6 +22,16 @@ public class DiscreteMassGenerator {
     @FXML private void initialize() {
         startDatePicker.setValue(LocalDate.now().plusMonths(1));
         endDatePicker.setValue(LocalDate.now().plusMonths(1));
+
+        startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isAfter(endDatePicker.getValue()))
+                endDatePicker.setValue(newValue);
+        });
+
+        endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isBefore(startDatePicker.getValue()))
+                startDatePicker.setValue(newValue);
+        });
     }
 
     public void initData(Consumer<List<DiscreteMass>> listConsumer) {

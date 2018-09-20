@@ -186,5 +186,34 @@
                 <entry serviceType="Altar_2016-2014" count="2"/>
             </serviceTypeCount>
         </discreteMass>
+        <discreteMass date="2018-02-03" time="17:00:00" church="Church" form="Saturday Evening Mass">
+            <serviceTypeCount>
+                <entry serviceType="Altar_2012-2000" count="2"/>
+                <entry serviceType="Altar_2014-2012" count="2"/>
+                <entry serviceType="Altar_2016-2014" count="2"/>
+            </serviceTypeCount>
+        </discreteMass>
+        <discreteMass date="2018-02-04" time="08:00:00" church="Church" form="Holy Mass">
+            <serviceTypeCount>
+                <entry serviceType="Altar_2014-2012" count="2"/>
+                <entry serviceType="Altar_2016-2014" count="2"/>
+            </serviceTypeCount>
+        </discreteMass>
+        <discreteMass date="2018-02-04" time="09:45:00" church="Chapel" form="Holy Mass">
+            <serviceTypeCount>
+                <entry serviceType="Altar_2014-2012" count="2"/>
+                <entry serviceType="Altar_2016-2014" count="2"/>
+            </serviceTypeCount>
+        </discreteMass>
+        <discreteMass date="2018-02-04" time="11:00:00" church="Church" form="High Mass">
+            <serviceTypeCount>
+                <entry serviceType="Altar_2012-2000" count="2"/>
+                <entry serviceType="Altar_2014-2012" count="2"/>
+                <entry serviceType="Cross_2012-2000" count="1"/>
+                <entry serviceType="Flambeau_2018-2016" count="10"/>
+                <entry serviceType="Incense_2012-2000" count="2"/>
+                <entry serviceType="Lector_2012-2000" count="1"/>
+            </serviceTypeCount>
+        </discreteMass>
     </discreteMasses>
 </discreteMassCollection>

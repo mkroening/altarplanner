@@ -103,7 +103,7 @@ public class BigDomainGenerator {
         return config;
     }
 
-    public static DiscreteMassCollection genMasses() {
+    public static DiscreteMassCollection genDiscreteMassCollection() {
         List<DiscreteMass> masses = genConfig().getDiscreteMassParallelStreamWithin(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
         return new DiscreteMassCollection(masses);
     }

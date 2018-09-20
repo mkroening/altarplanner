@@ -45,7 +45,7 @@ class JaxbIOTests {
 
     @Test
     void discreteMassCollectionUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
-        final DiscreteMassCollection expected = BigDomainGenerator.genMasses();
+        final DiscreteMassCollection expected = BigDomainGenerator.genDiscreteMassCollection();
         final DiscreteMassCollection unmarshalled = JaxbIO.unmarshal(EXPECTED_DISCRETE_MASS_COLLECTION, DiscreteMassCollection.class);
         assertEquals(expected, unmarshalled);
     }
@@ -54,7 +54,7 @@ class JaxbIOTests {
     void discreteMassCollectionMarshalling() throws IOException, UnknownJAXBException {
         final List<String> expectedLines = Files.lines(EXPECTED_DISCRETE_MASS_COLLECTION.toPath()).collect(Collectors.toUnmodifiableList());
         final Path marshalledPath = Files.createTempFile(null, null);
-        JaxbIO.marshal(BigDomainGenerator.genMasses(), marshalledPath.toFile());
+        JaxbIO.marshal(BigDomainGenerator.genDiscreteMassCollection(), marshalledPath.toFile());
         final List<String> marshalledLines = Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());
         Files.delete(marshalledPath);
         assertEquals(expectedLines, marshalledLines);

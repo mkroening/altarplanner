@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,26 +81,23 @@ class JaxbIOTests {
     void scheduleConstructionConfigIdentities() throws IOException, UnexpectedElementException, UnknownJAXBException {
         final Config config = JaxbIO.unmarshal(EXPECTED_CONFIG, Config.class);
         final Schedule oldSchedule = Schedule.load(EXPECTED_INITIALIZED_SCHEDULE);
-
         final DiscreteMass newMass = new DiscreteMass();
-        newMass.setDate(LocalDate.of(2018, 2 ,2));
-        newMass.setServiceTypeCount(Map.of(config.getServiceTypes().get(1), 1));
+        newMass.setDate(oldSchedule.getPlanningWindow().getEnd().plusDays(1));
+        newMass.setServiceTypeCount(Map.of(config.getServiceTypes().get(0), 1));
+        final Schedule freshSchedule = new Schedule(config, List.of(newMass), oldSchedule);
+        final int serviceIndex = 0;
+        final int serverIndex = freshSchedule.getServers().indexOf(freshSchedule.getServices().get(0).getServer());
 
-        final Schedule tmpSchedule = new Schedule(config, List.of(newMass), oldSchedule);
-        final int serverIndex = 1;
-        final int massIndex = 5;
-        final int serviceIndex = 2;
-
-        assertEquals(tmpSchedule.getServers().get(serverIndex), tmpSchedule.getPublishedMasses().get(massIndex).getServices().get(serviceIndex).getServer());
-        assertNotSame(tmpSchedule.getServers().get(serverIndex), tmpSchedule.getPublishedMasses().get(massIndex).getServices().get(serviceIndex).getServer());
+        assertEquals(freshSchedule.getServers().get(serverIndex), freshSchedule.getServices().get(serviceIndex).getServer());
+        assertNotSame(freshSchedule.getServers().get(serverIndex), freshSchedule.getServices().get(serviceIndex).getServer());
 
         final Path tmpPath = Files.createTempFile(null, null);
-        JaxbIO.marshal(tmpSchedule, tmpPath.toFile());
-        final Schedule newSchedule = Schedule.load(tmpPath.toFile());
+        JaxbIO.marshal(freshSchedule, tmpPath.toFile());
+        final Schedule unmarshalledSchedule = Schedule.load(tmpPath.toFile());
         Files.delete(tmpPath);
 
-        assertEquals(newSchedule.getServers().get(serverIndex), newSchedule.getPublishedMasses().get(massIndex).getServices().get(serviceIndex).getServer());
-        assertSame(newSchedule.getServers().get(serverIndex), newSchedule.getPublishedMasses().get(massIndex).getServices().get(serviceIndex).getServer());
+        assertEquals(unmarshalledSchedule.getServers().get(serverIndex), unmarshalledSchedule.getServices().get(serviceIndex).getServer());
+        assertSame(unmarshalledSchedule.getServers().get(serverIndex), unmarshalledSchedule.getServices().get(serviceIndex).getServer());
     }
 
 }

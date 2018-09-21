@@ -6,7 +6,7 @@ Application to create altar server schedules.
 
 ## Quick development start
 
-Requires Java SE 18.3 (10) with JavaFX for the gui.
+Requires Java 11.
 
 ##### Execute the build
 

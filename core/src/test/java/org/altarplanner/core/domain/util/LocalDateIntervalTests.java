@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static java.time.LocalDate.*;
+import static java.time.LocalDate.EPOCH;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LocalDateIntervalTests {
-    private final static LocalDate TODAY = now();
+    private final static LocalDate TODAY = LocalDate.now();
 
     @Test
     void compareToTestSimple() {

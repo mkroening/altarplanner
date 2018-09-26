@@ -17,8 +17,8 @@ public final class LocalDateInterval implements Comparable<LocalDateInterval>, S
     private final LocalDate end;
 
     public static LocalDateInterval of(LocalDate start, LocalDate end) {
-        Objects.requireNonNull(start, "start");
-        Objects.requireNonNull(end, "end");
+        Objects.requireNonNull(start, "Start date must not be null");
+        Objects.requireNonNull(end, "End date must not be null");
         if (end.isBefore(start))
             throw new DateTimeException("End date can not be before start date.");
         return new LocalDateInterval(start, end);

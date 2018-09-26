@@ -10,6 +10,9 @@ import java.util.stream.Stream;
 
 public final class LocalDateInterval implements Comparable<LocalDateInterval>, Serializable {
 
+    public final static String DELIMITER_SOLIDUS = "/";
+    public final static String DELIMITER_DOUBLE_HYPHEN = "--";
+
     private final LocalDate start;
     private final LocalDate end;
 
@@ -66,6 +69,28 @@ public final class LocalDateInterval implements Comparable<LocalDateInterval>, S
     @Override
     public int hashCode() {
         return Objects.hash(start, end);
+    }
+
+    private String toString(final String delimiter) {
+        if (start.getYear() != end.getYear()) {
+            return start + delimiter + end;
+        }
+        if (start.getMonth() != end.getMonth()) {
+            return start + delimiter + end.toString().substring(5);
+        }
+        if (start.getDayOfMonth() != end.getDayOfMonth()) {
+            return start + delimiter + end.toString().substring(8);
+        }
+        return start + delimiter;
+    }
+
+    @Override
+    public String toString() {
+        return toString(DELIMITER_SOLIDUS);
+    }
+
+    public String toHyphenString() {
+        return toString(DELIMITER_DOUBLE_HYPHEN);
     }
 
 }

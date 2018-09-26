@@ -53,4 +53,12 @@ public class LocalDateIntervalTests {
         assertNotSame(one, same);
         assertEquals(one, same);
     }
+
+    @Test
+    void toStringTest() {
+        assertEquals("1970-01-01/1971-01-01", LocalDateInterval.of(LocalDate.EPOCH, LocalDate.EPOCH.plusYears(1)).toString());
+        assertEquals("1970-01-01/02-01", LocalDateInterval.of(LocalDate.EPOCH, LocalDate.EPOCH.plusMonths(1)).toString());
+        assertEquals("1970-01-01/02", LocalDateInterval.of(LocalDate.EPOCH, LocalDate.EPOCH.plusDays(1)).toString());
+        assertEquals("1970-01-01/", LocalDateInterval.of(LocalDate.EPOCH, LocalDate.EPOCH).toString());
+    }
 }

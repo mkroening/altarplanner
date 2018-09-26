@@ -97,10 +97,10 @@ public final class LocalDateInterval implements Comparable<LocalDateInterval>, S
             return start + delimiter + end;
         }
         if (start.getMonth() != end.getMonth()) {
-            return start + delimiter + end.toString().substring(5);
+            return start + delimiter + end.toString().substring(4 + 1);
         }
         if (start.getDayOfMonth() != end.getDayOfMonth()) {
-            return start + delimiter + end.toString().substring(8);
+            return start + delimiter + end.toString().substring(4 + 1 + 2 + 1);
         }
         return start + delimiter;
     }

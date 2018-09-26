@@ -3,6 +3,7 @@ package org.altarplanner.app.config;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import org.altarplanner.app.Launcher;
@@ -43,6 +44,7 @@ public class ServerEditor {
     @FXML private CheckComboBox<Server> pairedWithCheckComboBox;
     @FXML private CheckComboBox<ServiceType> inabilitiesCheckComboBox;
     @FXML private Tab absencesTab;
+    @FXML private Button addAbsenceButton;
     @FXML private Button removeAbsenceButton;
     @FXML private DatePicker absenceStartDatePicker;
     @FXML private DatePicker absenceEndDatePicker;
@@ -219,6 +221,38 @@ public class ServerEditor {
             }
         });
 
+        absencesListView.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (new KeyCodeCombination(KeyCode.DELETE).match(event)) {
+                removeAbsenceButton.fire();
+            } else if (new KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN).match(event)) {
+                addAbsenceButton.fire();
+            } else if (new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN).match(event)) {
+                final Clipboard clipboard = Clipboard.getSystemClipboard();
+                final ClipboardContent clipboardContent = new ClipboardContent();
+                clipboardContent.putString(absencesListView.getSelectionModel().getSelectedItem().toString());
+                clipboard.setContent(clipboardContent);
+            } else if (new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN).match(event)) {
+                final Clipboard clipboard = Clipboard.getSystemClipboard();
+                final ClipboardContent clipboardContent = new ClipboardContent();
+                clipboardContent.putString(absencesListView.getSelectionModel().getSelectedItem().toString());
+                clipboard.setContent(clipboardContent);
+                absencesListView.getItems().remove(absencesListView.getSelectionModel().getSelectedItem());
+            } else if (new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN).match(event)) {
+                final Clipboard clipboard = Clipboard.getSystemClipboard();
+                if (clipboard.hasString()) {
+                    final String content = clipboard.getString();
+                    try {
+                        final LocalDateInterval interval = LocalDateInterval.parse(content);
+                        absencesListView.getItems().add(interval);
+                        absencesListView.getSelectionModel().select(interval);
+                        absencesListView.getItems().sort(Comparator.naturalOrder());
+                    } catch (DateTimeParseException e) {
+                        LOGGER.info("'{}' is no valid date interval", content);
+                    }
+                }
+            }
+        });
+
         absenceStartDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
                 replaceSelectedAbsence(LocalDateInterval.of(newValue, newValue.isAfter(absenceEndDatePicker.getValue()) ? newValue : absenceEndDatePicker.getValue()));
@@ -323,7 +357,6 @@ public class ServerEditor {
         removeAbsenceButton.setDisable(disable);
         absenceStartDatePicker.setDisable(disable);
         absenceEndDatePicker.setDisable(disable);
-        absencesListView.setDisable(disable);
         if (disable) {
             absencesListView.getItems().clear();
             absenceStartDatePicker.setValue(null);

@@ -45,7 +45,7 @@
                 <Tab fx:id="absencesTab" text="%serverEditor.tab.absences">
                     <VBox>
                         <ToolBar>
-                            <Button mnemonicParsing="false" text="%general.button.add" onAction="#addAbsence"/>
+                            <Button fx:id="addAbsenceButton" mnemonicParsing="false" text="%general.button.add" onAction="#addAbsence"/>
                             <Button fx:id="removeAbsenceButton" mnemonicParsing="false" text="%general.button.remove"
                                     onAction="#removeAbsence"/>
                         </ToolBar>

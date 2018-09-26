@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static java.time.LocalDate.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LocalDateIntervalTests {
-    private final static LocalDate TODAY = LocalDate.now();
+    private final static LocalDate TODAY = now();
 
     @Test
     void compareToTestSimple() {
@@ -56,9 +57,9 @@ public class LocalDateIntervalTests {
 
     @Test
     void toStringTest() {
-        assertEquals("1970-01-01/1971-01-01", LocalDateInterval.of(LocalDate.EPOCH, LocalDate.EPOCH.plusYears(1)).toString());
-        assertEquals("1970-01-01/02-01", LocalDateInterval.of(LocalDate.EPOCH, LocalDate.EPOCH.plusMonths(1)).toString());
-        assertEquals("1970-01-01/02", LocalDateInterval.of(LocalDate.EPOCH, LocalDate.EPOCH.plusDays(1)).toString());
-        assertEquals("1970-01-01/", LocalDateInterval.of(LocalDate.EPOCH, LocalDate.EPOCH).toString());
+        assertEquals("1970-01-01/1971-01-01", LocalDateInterval.of(EPOCH, EPOCH.plusYears(1)).toString());
+        assertEquals("1970-01-01/02-01", LocalDateInterval.of(EPOCH, EPOCH.plusMonths(1)).toString());
+        assertEquals("1970-01-01/02", LocalDateInterval.of(EPOCH, EPOCH.plusDays(1)).toString());
+        assertEquals("1970-01-01/", LocalDateInterval.of(EPOCH, EPOCH).toString());
     }
 }

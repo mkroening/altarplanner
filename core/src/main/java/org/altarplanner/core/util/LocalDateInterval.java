@@ -24,6 +24,27 @@ public final class LocalDateInterval implements Comparable<LocalDateInterval>, S
         return new LocalDateInterval(start, end);
     }
 
+    public static LocalDateInterval parse(String text, DateTimeFormatter formatter, String delimiter) {
+        final int delimiterIndex = text.indexOf(delimiter);
+        final String startText = text.substring(0, delimiterIndex);
+        final LocalDate start = LocalDate.parse(startText, formatter);
+        String tmpEndText = text.substring(delimiterIndex + delimiter.length());
+        if (DateTimeFormatter.ISO_LOCAL_DATE.equals(formatter)) {
+            tmpEndText = text.substring(0, startText.length() - tmpEndText.length()) + tmpEndText;
+        }
+        final String endText = tmpEndText;
+        final LocalDate end = LocalDate.parse(endText, formatter);
+        return LocalDateInterval.of(start, end);
+    }
+
+    public static LocalDateInterval parse(String text) {
+        return LocalDateInterval.parse(text, DateTimeFormatter.ISO_LOCAL_DATE, DELIMITER_SOLIDUS);
+    }
+
+    public static LocalDateInterval parseHyphen(String text) {
+        return LocalDateInterval.parse(text, DateTimeFormatter.ISO_LOCAL_DATE, DELIMITER_DOUBLE_HYPHEN);
+    }
+
     private LocalDateInterval(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;

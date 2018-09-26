@@ -58,7 +58,18 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                             </padding>
                         </HBox>
-                        <ListView fx:id="absencesListView" VBox.vgrow="SOMETIMES"/>
+                        <ListView fx:id="absencesListView" VBox.vgrow="SOMETIMES">
+                            <contextMenu>
+                                <ContextMenu fx:id="absencesListViewContextMenu">
+                                    <items>
+                                        <MenuItem fx:id="absencesListViewContextMenuItemCut" mnemonicParsing="false" text="%general.menu.cut" onAction="#cutAbsence" />
+                                        <MenuItem fx:id="absencesListViewContextMenuItemCopy" mnemonicParsing="false" text="%general.menu.copy" onAction="#copyAbsence" />
+                                        <MenuItem fx:id="absencesListViewContextMenuItemPaste" mnemonicParsing="false" text="%general.menu.paste" onAction="#pasteAbsence" />
+                                        <MenuItem fx:id="absencesListViewContextMenuItemDelete" mnemonicParsing="false" text="%general.menu.delete" onAction="#removeAbsence" />
+                                    </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </ListView>
                     </VBox>
                 </Tab>
                 <Tab fx:id="assignmentWishesTab" text="%serverEditor.tab.assignmentWishes">

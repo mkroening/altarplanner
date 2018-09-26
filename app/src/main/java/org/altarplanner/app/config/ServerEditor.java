@@ -49,6 +49,11 @@ public class ServerEditor {
     @FXML private DatePicker absenceStartDatePicker;
     @FXML private DatePicker absenceEndDatePicker;
     @FXML private ListView<LocalDateInterval> absencesListView;
+    @FXML private ContextMenu absencesListViewContextMenu;
+    @FXML private MenuItem absencesListViewContextMenuItemCut;
+    @FXML private MenuItem absencesListViewContextMenuItemCopy;
+    @FXML private MenuItem absencesListViewContextMenuItemPaste;
+    @FXML private MenuItem absencesListViewContextMenuItemDelete;
     @FXML private Tab assignmentWishesTab;
     @FXML private Button removeAssignmentWishButton;
     @FXML private DatePicker assignmentWishDatePicker;
@@ -227,30 +232,20 @@ public class ServerEditor {
             } else if (new KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN).match(event)) {
                 addAbsenceButton.fire();
             } else if (new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN).match(event)) {
-                final Clipboard clipboard = Clipboard.getSystemClipboard();
-                final ClipboardContent clipboardContent = new ClipboardContent();
-                clipboardContent.putString(absencesListView.getSelectionModel().getSelectedItem().toString());
-                clipboard.setContent(clipboardContent);
+                copyAbsence();
             } else if (new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN).match(event)) {
-                final Clipboard clipboard = Clipboard.getSystemClipboard();
-                final ClipboardContent clipboardContent = new ClipboardContent();
-                clipboardContent.putString(absencesListView.getSelectionModel().getSelectedItem().toString());
-                clipboard.setContent(clipboardContent);
-                absencesListView.getItems().remove(absencesListView.getSelectionModel().getSelectedItem());
+                cutAbsence();
             } else if (new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN).match(event)) {
-                final Clipboard clipboard = Clipboard.getSystemClipboard();
-                if (clipboard.hasString()) {
-                    final String content = clipboard.getString();
-                    try {
-                        final LocalDateInterval interval = LocalDateInterval.parse(content);
-                        absencesListView.getItems().add(interval);
-                        absencesListView.getSelectionModel().select(interval);
-                        absencesListView.getItems().sort(Comparator.naturalOrder());
-                    } catch (DateTimeParseException e) {
-                        LOGGER.info("'{}' is no valid date interval", content);
-                    }
-                }
+                pasteAbsence();
             }
+        });
+
+        absencesListViewContextMenu.setOnShowing(event -> {
+            final boolean hasSelection = absencesListView.getSelectionModel().getSelectedIndex() != -1;
+            absencesListViewContextMenuItemCut.setDisable(!hasSelection);
+            absencesListViewContextMenuItemCopy.setDisable(!hasSelection);
+            absencesListViewContextMenuItemPaste.setDisable(!Clipboard.getSystemClipboard().hasString());
+            absencesListViewContextMenuItemDelete.setDisable(!hasSelection);
         });
 
         absenceStartDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -432,6 +427,34 @@ public class ServerEditor {
         absencesListView.getItems().remove(absencesListView.getSelectionModel().getSelectedItem());
         if (absencesListView.getItems().isEmpty())
             setAbsenceDisable(true);
+    }
+
+    @FXML private void cutAbsence() {
+        copyAbsence();
+        removeAbsence();
+    }
+
+    @FXML private void copyAbsence() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(absencesListView.getSelectionModel().getSelectedItem().toString());
+        clipboard.setContent(clipboardContent);
+    }
+
+    @FXML private void pasteAbsence() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        if (clipboard.hasString()) {
+            final String content = clipboard.getString();
+            try {
+                final LocalDateInterval interval = LocalDateInterval.parse(content);
+                absencesListView.getItems().add(interval);
+                setAbsenceDisable(false);
+                absencesListView.getSelectionModel().select(interval);
+                absencesListView.getItems().sort(Comparator.naturalOrder());
+            } catch (DateTimeParseException e) {
+                LOGGER.info("'{}' is no valid date interval", content);
+            }
+        }
     }
 
     @FXML private void addAssignmentWish() {

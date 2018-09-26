@@ -205,7 +205,7 @@ public class ServerEditor {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(item.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+                    setText(item.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL), " - "));
                 }
             }
         });
@@ -291,7 +291,7 @@ public class ServerEditor {
     private void replaceSelectedAbsence(LocalDateInterval replacingAbsence) {
         absencesListView.getItems().remove(absencesListView.getSelectionModel().getSelectedItem());
         absencesListView.getItems().add(replacingAbsence);
-        absencesListView.getItems().sort(LocalDateInterval.getRecencyComparator());
+        absencesListView.getItems().sort(Comparator.naturalOrder());
         absencesListView.getSelectionModel().select(replacingAbsence);
     }
 
@@ -392,7 +392,7 @@ public class ServerEditor {
         absencesListView.getItems().add(absence);
         setAbsenceDisable(false);
         absencesListView.getSelectionModel().select(absence);
-        absencesListView.getItems().sort(LocalDateInterval.getRecencyComparator());
+        absencesListView.getItems().sort(Comparator.naturalOrder());
     }
 
     @FXML private void removeAbsence() {

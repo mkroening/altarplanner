@@ -4,6 +4,7 @@ import org.altarplanner.core.domain.*;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.util.BigDomainGenerator;
 import org.altarplanner.core.xml.jaxb.util.DiscreteMassCollection;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -25,6 +26,14 @@ class JaxbIOTests {
     private static final File EXPECTED_CONFIG = new File(XML_TEST_PATHNAME + "bigDomainConfig.xml");
     private static final File EXPECTED_DISCRETE_MASS_COLLECTION = new File(XML_TEST_PATHNAME + "bigDiscreteMassCollection.xml");
     private static final File EXPECTED_INITIALIZED_SCHEDULE = new File(XML_TEST_PATHNAME + "bigInitializedSchedule.xml");
+
+    @Test
+    @Disabled
+    void writeExpectedFiles() throws UnknownJAXBException {
+        JaxbIO.marshal(BigDomainGenerator.genConfig(), EXPECTED_CONFIG);
+        JaxbIO.marshal(BigDomainGenerator.genDiscreteMassCollection(), EXPECTED_DISCRETE_MASS_COLLECTION);
+        JaxbIO.marshal(BigDomainGenerator.genInitializedSchedule(), EXPECTED_INITIALIZED_SCHEDULE);
+    }
 
     @Test
     void configUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {

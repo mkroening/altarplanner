@@ -48,7 +48,7 @@ public class PoiIO {
         headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         final XSSFCell headerCell = sheet.createRow(0).createCell(0);
-        headerCell.setCellValue("Altar Plan: " + schedule.getPlanningWindow().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+        headerCell.setCellValue("Altar Plan: " + schedule.getPlanningWindow().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM), " - "));
         headerCell.setCellStyle(headerCellStyle);
         sheet.addMergedRegion(new CellRangeAddress(0,0,0,2*(columns - 1)));
 
@@ -103,7 +103,7 @@ public class PoiIO {
                 .collect(Collectors.groupingBy(PlanningMass::getDate));
         dateMassesMap.forEach((date, masses) -> {
             final int firstMassColumn = columnOffset + schedule.getFinalDraftMasses().indexOf(masses.get(0));
-            dateRow.createCell(firstMassColumn).setCellValue(date.format(DateTimeFormatterUtil.ISO_W_DAY));
+            dateRow.createCell(firstMassColumn).setCellValue(date.format(DateTimeFormatterUtil.ISO_DATE_WITH_DAY_WITH_SHORT_YEAR));
             if (masses.size() > 1)
                 sheet.addMergedRegion(new CellRangeAddress(0, 0, firstMassColumn, firstMassColumn + masses.size() - 1));
         });
@@ -113,7 +113,7 @@ public class PoiIO {
                 .forEach(value -> {
                     PlanningMass mass = schedule.getFinalDraftMasses().get(value);
                     timeChurchRow.createCell(columnOffset + value)
-                            .setCellValue(mass.getTime().format(DateTimeFormatterUtil.ISO_WO_SECONDS) + " - " + mass.getChurch());
+                            .setCellValue(mass.getTime().format(DateTimeFormatterUtil.ISO_LOCAL_TIME_WITHOUT_SECONDS) + " - " + mass.getChurch());
                 });
 
         final XSSFRow formRow = sheet.createRow(2);

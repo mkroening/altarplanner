@@ -70,7 +70,7 @@
                 <weeklyAbsences>TUESDAY WEDNESDAY FRIDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -84,7 +84,7 @@
                 <weeklyAbsences>MONDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -104,7 +104,7 @@
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY THURSDAY FRIDAY SUNDAY</weeklyAbsences>
                 <inabilities>Lector_2012-2000</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -142,7 +142,7 @@
                 <weeklyAbsences>TUESDAY WEDNESDAY THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -174,7 +174,7 @@
                 <weeklyAbsences>WEDNESDAY FRIDAY SATURDAY</weeklyAbsences>
                 <inabilities>Altar_2016-2014</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -202,7 +202,7 @@
                 <weeklyAbsences>THURSDAY FRIDAY</weeklyAbsences>
                 <inabilities>Altar_2012-2000</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -210,7 +210,7 @@
                 <weeklyAbsences>TUESDAY FRIDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -260,7 +260,7 @@
                 <weeklyAbsences>TUESDAY WEDNESDAY THURSDAY SATURDAY SUNDAY</weeklyAbsences>
                 <inabilities>Lector_2012-2000</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -280,7 +280,7 @@
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -320,7 +320,7 @@
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY</weeklyAbsences>
                 <inabilities>Lector_2012-2000</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -340,7 +340,7 @@
                 <weeklyAbsences>MONDAY WEDNESDAY THURSDAY</weeklyAbsences>
                 <inabilities>Altar_2014-2012</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -372,7 +372,7 @@
                 <weeklyAbsences>MONDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -380,7 +380,7 @@
                 <weeklyAbsences>TUESDAY WEDNESDAY THURSDAY SATURDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -422,7 +422,7 @@
                 <weeklyAbsences>THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -454,7 +454,7 @@
                 <weeklyAbsences>MONDAY FRIDAY</weeklyAbsences>
                 <inabilities>Cross_2012-2000</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -536,7 +536,7 @@
                 <weeklyAbsences>MONDAY WEDNESDAY SATURDAY</weeklyAbsences>
                 <inabilities>Flambeau_2018-2016</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -564,7 +564,7 @@
                 <weeklyAbsences>MONDAY FRIDAY</weeklyAbsences>
                 <inabilities>Lector_2012-2000</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -596,7 +596,7 @@
                 <weeklyAbsences>WEDNESDAY THURSDAY</weeklyAbsences>
                 <inabilities>Altar_2012-2000</inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -616,7 +616,7 @@
                 <weeklyAbsences>WEDNESDAY THURSDAY FRIDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -642,7 +642,7 @@
                 <weeklyAbsences>TUESDAY THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -650,7 +650,7 @@
                 <weeklyAbsences>THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>
@@ -706,7 +706,7 @@
                 <weeklyAbsences>MONDAY TUESDAY THURSDAY SATURDAY</weeklyAbsences>
                 <inabilities></inabilities>
                 <absences>
-                    <absence start="2018-01-08" end="2018-01-21"/>
+                    <absence>2018-01-08/21</absence>
                 </absences>
                 <dateTimeOnWishes/>
             </server>

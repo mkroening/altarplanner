@@ -3,7 +3,7 @@ package org.altarplanner.core.domain;
 import com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter;
 import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.util.LocalDateInterval;
-import org.altarplanner.core.xml.jaxb.util.DateSpanXmlAdapter;
+import org.altarplanner.core.xml.jaxb.util.LocalDateIntervalXmlAdapter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -105,7 +105,7 @@ public class Server extends AbstractPersistable {
 
     @XmlElementWrapper(name = "absences")
     @XmlElement(name = "absence")
-    @XmlJavaTypeAdapter(DateSpanXmlAdapter.class)
+    @XmlJavaTypeAdapter(LocalDateIntervalXmlAdapter.class)
     public List<LocalDateInterval> getAbsences() {
         return absences;
     }

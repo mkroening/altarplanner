@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain.mass;
 
-import com.migesok.jaxb.adapter.javatime.LocalTimeXmlAdapter;
 import org.altarplanner.core.domain.Config;
+import org.altarplanner.core.xml.jaxb.util.LocalTimeWithoutSecondsXmlAdapter;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
@@ -44,7 +44,7 @@ public abstract class GenericMass implements Serializable {
                 .thenComparing(GenericMass::getForm);
     }
 
-    @XmlJavaTypeAdapter(LocalTimeXmlAdapter.class)
+    @XmlJavaTypeAdapter(LocalTimeWithoutSecondsXmlAdapter.class)
     @XmlAttribute
     public LocalTime getTime() {
         return time;

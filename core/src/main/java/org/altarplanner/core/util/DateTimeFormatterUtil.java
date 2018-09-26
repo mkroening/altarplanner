@@ -8,4 +8,6 @@ public class DateTimeFormatterUtil {
 
     public final static DateTimeFormatter ISO_LOCAL_TIME_WITHOUT_SECONDS = DateTimeFormatter.ofPattern("HH:mm");
 
+    public final static DateTimeFormatter ISO_LOCAL_DATE_TIME_WITHOUT_SECONDS = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
 }

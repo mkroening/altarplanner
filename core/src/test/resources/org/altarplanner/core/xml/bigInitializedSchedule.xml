@@ -11,38 +11,38 @@
             <serviceType name="Lector" maxYear="2012" minYear="2000" xmlID="Lector_2012-2000"/>
         </serviceTypes>
         <regularMasses>
-            <regularMass day="MONDAY" time="19:00:00" church="Chapel" form="Holy Mass">
+            <regularMass day="MONDAY" time="19:00" church="Chapel" form="Holy Mass">
                 <serviceTypeCount>
                     <entry serviceType="Altar_2014-2012" count="2"/>
                     <entry serviceType="Altar_2016-2014" count="2"/>
                 </serviceTypeCount>
             </regularMass>
-            <regularMass day="THURSDAY" time="18:00:00" church="Chapel" form="Holy Mass">
+            <regularMass day="THURSDAY" time="18:00" church="Chapel" form="Holy Mass">
                 <serviceTypeCount>
                     <entry serviceType="Altar_2014-2012" count="2"/>
                     <entry serviceType="Altar_2016-2014" count="2"/>
                 </serviceTypeCount>
             </regularMass>
-            <regularMass day="SATURDAY" time="17:00:00" church="Church" form="Saturday Evening Mass">
+            <regularMass day="SATURDAY" time="17:00" church="Church" form="Saturday Evening Mass">
                 <serviceTypeCount>
                     <entry serviceType="Altar_2012-2000" count="2"/>
                     <entry serviceType="Altar_2014-2012" count="2"/>
                     <entry serviceType="Altar_2016-2014" count="2"/>
                 </serviceTypeCount>
             </regularMass>
-            <regularMass day="SUNDAY" time="08:00:00" church="Church" form="Holy Mass">
+            <regularMass day="SUNDAY" time="08:00" church="Church" form="Holy Mass">
                 <serviceTypeCount>
                     <entry serviceType="Altar_2014-2012" count="2"/>
                     <entry serviceType="Altar_2016-2014" count="2"/>
                 </serviceTypeCount>
             </regularMass>
-            <regularMass day="SUNDAY" time="09:45:00" church="Chapel" form="Holy Mass">
+            <regularMass day="SUNDAY" time="09:45" church="Chapel" form="Holy Mass">
                 <serviceTypeCount>
                     <entry serviceType="Altar_2014-2012" count="2"/>
                     <entry serviceType="Altar_2016-2014" count="2"/>
                 </serviceTypeCount>
             </regularMass>
-            <regularMass day="SUNDAY" time="11:00:00" church="Church" form="High Mass">
+            <regularMass day="SUNDAY" time="11:00" church="Church" form="High Mass">
                 <serviceTypeCount>
                     <entry serviceType="Altar_2012-2000" count="2"/>
                     <entry serviceType="Altar_2014-2012" count="2"/>
@@ -189,7 +189,7 @@
                 <inabilities></inabilities>
                 <absences/>
                 <dateTimeOnWishes>
-                    <dateTimeOnWish>2018-01-14T11:00:00</dateTimeOnWish>
+                    <dateTimeOnWish>2018-01-14T11:00</dateTimeOnWish>
                 </dateTimeOnWishes>
             </server>
             <server surname="4d0173ab" forename="d15dcc47" year="2010" xmlID="4d0173ab_d15dcc47-2010">
@@ -295,7 +295,7 @@
                 <inabilities>Altar_2014-2012</inabilities>
                 <absences/>
                 <dateTimeOnWishes>
-                    <dateTimeOnWish>2018-01-21T11:00:00</dateTimeOnWish>
+                    <dateTimeOnWish>2018-01-21T11:00</dateTimeOnWish>
                 </dateTimeOnWishes>
             </server>
             <server surname="b8bbdde2" forename="8c31e83f" year="2014" xmlID="b8bbdde2_8c31e83f-2014">
@@ -389,7 +389,7 @@
                 <inabilities>Altar_2012-2000</inabilities>
                 <absences/>
                 <dateTimeOnWishes>
-                    <dateTimeOnWish>2018-01-14T11:00:00</dateTimeOnWish>
+                    <dateTimeOnWish>2018-01-14T11:00</dateTimeOnWish>
                 </dateTimeOnWishes>
             </server>
             <server surname="31aa60a1" forename="2456cdb3" year="2013" xmlID="31aa60a1_2456cdb3-2013">
@@ -415,7 +415,7 @@
                 <inabilities>Altar_2016-2014</inabilities>
                 <absences/>
                 <dateTimeOnWishes>
-                    <dateTimeOnWish>2018-01-21T11:00:00</dateTimeOnWish>
+                    <dateTimeOnWish>2018-01-21T11:00</dateTimeOnWish>
                 </dateTimeOnWishes>
             </server>
             <server surname="1ff4c187" forename="4e643256" year="2016" xmlID="1ff4c187_4e643256-2016">
@@ -523,7 +523,7 @@
                 <inabilities></inabilities>
                 <absences/>
                 <dateTimeOnWishes>
-                    <dateTimeOnWish>2018-01-21T11:00:00</dateTimeOnWish>
+                    <dateTimeOnWish>2018-01-21T11:00</dateTimeOnWish>
                 </dateTimeOnWishes>
             </server>
             <server surname="b86aefc8" forename="335aa97e" year="2013" xmlID="b86aefc8_335aa97e-2013">
@@ -551,7 +551,7 @@
                 <inabilities></inabilities>
                 <absences/>
                 <dateTimeOnWishes>
-                    <dateTimeOnWish>2018-01-14T11:00:00</dateTimeOnWish>
+                    <dateTimeOnWish>2018-01-14T11:00</dateTimeOnWish>
                 </dateTimeOnWishes>
             </server>
             <server surname="10037dc6" forename="82c0aa85" year="2010" xmlID="10037dc6_82c0aa85-2010">
@@ -754,19 +754,19 @@
     </config>
     <publishedMasses/>
     <finalDraftMasses>
-        <mass date="2018-01-01" time="19:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-01" time="19:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="42d38ee9_90168d58-2014"/>
             <service type="Altar_2014-2012" server="c988057c_8c355bb8-2013"/>
             <service type="Altar_2016-2014" server="a8b5ae97_96671919-2015"/>
             <service type="Altar_2016-2014" server="b169aee0_5d7854fa-2016"/>
         </mass>
-        <mass date="2018-01-04" time="18:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-04" time="18:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="2d4f48e8_28c469cb-2013"/>
             <service type="Altar_2014-2012" server="a5e3b1d0_8a4c7945-2012"/>
             <service type="Altar_2016-2014" server="45aca69e_2c751bb8-2015"/>
             <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
         </mass>
-        <mass date="2018-01-06" time="17:00:00" church="Church" form="Saturday Evening Mass">
+        <mass date="2018-01-06" time="17:00" church="Church" form="Saturday Evening Mass">
             <service type="Altar_2012-2000" server="6159a5d8_d8adc6c-2011"/>
             <service type="Altar_2012-2000" server="8b15aac2_4dca0870-2010"/>
             <service type="Altar_2014-2012" server="b13a1d59_40730ba6-2013"/>
@@ -774,19 +774,19 @@
             <service type="Altar_2016-2014" server="7271c408_304c901f-2016"/>
             <service type="Altar_2016-2014" server="930dae10_d458a58-2016"/>
         </mass>
-        <mass date="2018-01-07" time="08:00:00" church="Church" form="Holy Mass">
+        <mass date="2018-01-07" time="08:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="e9999e3f_6c6a2c06-2013"/>
             <service type="Altar_2014-2012" server="c988057c_8c355bb8-2013"/>
             <service type="Altar_2016-2014" server="b0839f8e_f9e7fc15-2013"/>
             <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
         </mass>
-        <mass date="2018-01-07" time="09:45:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-07" time="09:45" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
             <service type="Altar_2014-2012" server="ab41045f_e62e6c9c-2013"/>
             <service type="Altar_2016-2014" server="f2493813_49b24b0a-2015"/>
             <service type="Altar_2016-2014" server="dfdd9f7e_59b5f73e-2014"/>
         </mass>
-        <mass date="2018-01-07" time="11:00:00" church="Church" form="High Mass">
+        <mass date="2018-01-07" time="11:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="b2f0de4_36d576bf-2010"/>
             <service type="Altar_2012-2000" server="e014266b_baab10c-2009"/>
             <service type="Altar_2014-2012" server="432d8240_2f77b9da-2012"/>
@@ -806,19 +806,19 @@
             <service type="Incense_2012-2000" server="9b773e2b_7b4947ac-2010"/>
             <service type="Lector_2012-2000" server="22e4bdd8_b426a587-2011"/>
         </mass>
-        <mass date="2018-01-08" time="19:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-08" time="19:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="edcf388f_7102167-2014"/>
             <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
             <service type="Altar_2016-2014" server="5a61a61a_2b84ccb0-2014"/>
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
         </mass>
-        <mass date="2018-01-11" time="18:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-11" time="18:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="b1f5c32c_22493afc-2014"/>
             <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
             <service type="Altar_2016-2014" server="e0084422_7c17e782-2016"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
         </mass>
-        <mass date="2018-01-13" time="17:00:00" church="Church" form="Saturday Evening Mass">
+        <mass date="2018-01-13" time="17:00" church="Church" form="Saturday Evening Mass">
             <service type="Altar_2012-2000" server="715cf7b0_d24fdff0-2011"/>
             <service type="Altar_2012-2000" server="432d8240_2f77b9da-2012"/>
             <service type="Altar_2014-2012" server="9cadd08a_77d1d129-2013"/>
@@ -826,19 +826,19 @@
             <service type="Altar_2016-2014" server="f2493813_49b24b0a-2015"/>
             <service type="Altar_2016-2014" server="930dae10_d458a58-2016"/>
         </mass>
-        <mass date="2018-01-14" time="08:00:00" church="Church" form="Holy Mass">
+        <mass date="2018-01-14" time="08:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
             <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
             <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
             <service type="Altar_2016-2014" server="dfdd9f7e_59b5f73e-2014"/>
         </mass>
-        <mass date="2018-01-14" time="09:45:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-14" time="09:45" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
             <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
             <service type="Altar_2016-2014" server="e0084422_7c17e782-2016"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
         </mass>
-        <mass date="2018-01-14" time="11:00:00" church="Church" form="High Mass">
+        <mass date="2018-01-14" time="11:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="a5e3b1d0_8a4c7945-2012"/>
             <service type="Altar_2012-2000" server="f72b499c_c9e1869c-2018"/>
             <service type="Altar_2014-2012" server="edcf388f_7102167-2014"/>
@@ -858,19 +858,19 @@
             <service type="Incense_2012-2000" server="b63bcb1_fa357227-2011"/>
             <service type="Lector_2012-2000" server="3a4fe56_9e568642-2011"/>
         </mass>
-        <mass date="2018-01-15" time="19:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-15" time="19:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="ab41045f_e62e6c9c-2013"/>
             <service type="Altar_2014-2012" server="5c4a7ea6_5ffac149-2014"/>
             <service type="Altar_2016-2014" server="20ff6758_5e33a8f6-2015"/>
             <service type="Altar_2016-2014" server="b169aee0_5d7854fa-2016"/>
         </mass>
-        <mass date="2018-01-18" time="18:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-18" time="18:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
             <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
             <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
             <service type="Altar_2016-2014" server="dfdd9f7e_59b5f73e-2014"/>
         </mass>
-        <mass date="2018-01-20" time="17:00:00" church="Church" form="Saturday Evening Mass">
+        <mass date="2018-01-20" time="17:00" church="Church" form="Saturday Evening Mass">
             <service type="Altar_2012-2000" server="c199d9e_c9a855de-2009"/>
             <service type="Altar_2012-2000" server="2b9839e4_24cc79ce-2010"/>
             <service type="Altar_2014-2012" server="9cadd08a_77d1d129-2013"/>
@@ -878,19 +878,19 @@
             <service type="Altar_2016-2014" server="7271c408_304c901f-2016"/>
             <service type="Altar_2016-2014" server="f2493813_49b24b0a-2015"/>
         </mass>
-        <mass date="2018-01-21" time="08:00:00" church="Church" form="Holy Mass">
+        <mass date="2018-01-21" time="08:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
             <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
             <service type="Altar_2016-2014" server="5c4a7ea6_5ffac149-2014"/>
             <service type="Altar_2016-2014" server="b169aee0_5d7854fa-2016"/>
         </mass>
-        <mass date="2018-01-21" time="09:45:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-21" time="09:45" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="d4acd0a1_d15be2f6-2012"/>
             <service type="Altar_2014-2012" server="ab41045f_e62e6c9c-2013"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
             <service type="Altar_2016-2014" server="20ff6758_5e33a8f6-2015"/>
         </mass>
-        <mass date="2018-01-21" time="11:00:00" church="Church" form="High Mass">
+        <mass date="2018-01-21" time="11:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="b0839f8e_f9e7fc15-2013"/>
             <service type="Altar_2012-2000" server="35b87bf7_60e8c36b-2017"/>
             <service type="Altar_2014-2012" server="730b1359_eaae2bd8-2014"/>
@@ -910,19 +910,19 @@
             <service type="Incense_2012-2000" server="742bc837_d666d1ee-2010"/>
             <service type="Lector_2012-2000" server="76ecd5d7_5e4921c3-2009"/>
         </mass>
-        <mass date="2018-01-22" time="19:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-22" time="19:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="eaf9f261_6f23ed23-2012"/>
             <service type="Altar_2014-2012" server="3d7dd5a2_a6aa4c0c-2012"/>
             <service type="Altar_2016-2014" server="5a61a61a_2b84ccb0-2014"/>
             <service type="Altar_2016-2014" server="b1f5c32c_22493afc-2014"/>
         </mass>
-        <mass date="2018-01-25" time="18:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-25" time="18:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="6c57d3f2_c98fdd7b-2012"/>
             <service type="Altar_2014-2012" server="2d4f48e8_28c469cb-2013"/>
             <service type="Altar_2016-2014" server="a8b5ae97_96671919-2015"/>
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
         </mass>
-        <mass date="2018-01-27" time="17:00:00" church="Church" form="Saturday Evening Mass">
+        <mass date="2018-01-27" time="17:00" church="Church" form="Saturday Evening Mass">
             <service type="Altar_2012-2000" server="10037dc6_82c0aa85-2010"/>
             <service type="Altar_2012-2000" server="87500b6e_e0089b3c-2009"/>
             <service type="Altar_2014-2012" server="b13a1d59_40730ba6-2013"/>
@@ -930,19 +930,19 @@
             <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
             <service type="Altar_2016-2014" server="45aca69e_2c751bb8-2015"/>
         </mass>
-        <mass date="2018-01-28" time="08:00:00" church="Church" form="Holy Mass">
+        <mass date="2018-01-28" time="08:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="e9999e3f_6c6a2c06-2013"/>
             <service type="Altar_2014-2012" server="c988057c_8c355bb8-2013"/>
             <service type="Altar_2016-2014" server="dfdd9f7e_59b5f73e-2014"/>
             <service type="Altar_2016-2014" server="5a61a61a_2b84ccb0-2014"/>
         </mass>
-        <mass date="2018-01-28" time="09:45:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-28" time="09:45" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
             <service type="Altar_2014-2012" server="42d38ee9_90168d58-2014"/>
             <service type="Altar_2016-2014" server="74e7685_cbf9c040-2014"/>
             <service type="Altar_2016-2014" server="704518c0_d4603c06-2015"/>
         </mass>
-        <mass date="2018-01-28" time="11:00:00" church="Church" form="High Mass">
+        <mass date="2018-01-28" time="11:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="df8c88e8_e6052cc8-2012"/>
             <service type="Altar_2012-2000" server="43d0369d_f0559b7-2009"/>
             <service type="Altar_2014-2012" server="9cadd08a_77d1d129-2013"/>
@@ -962,19 +962,19 @@
             <service type="Incense_2012-2000" server="22e4bdd8_b426a587-2011"/>
             <service type="Lector_2012-2000" server="715cf7b0_d24fdff0-2011"/>
         </mass>
-        <mass date="2018-01-29" time="19:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-01-29" time="19:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="edcf388f_7102167-2014"/>
             <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
             <service type="Altar_2016-2014" server="b169aee0_5d7854fa-2016"/>
             <service type="Altar_2016-2014" server="5c4a7ea6_5ffac149-2014"/>
         </mass>
-        <mass date="2018-02-01" time="18:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-02-01" time="18:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="432d8240_2f77b9da-2012"/>
             <service type="Altar_2014-2012" server="b1f5c32c_22493afc-2014"/>
             <service type="Altar_2016-2014" server="20ff6758_5e33a8f6-2015"/>
             <service type="Altar_2016-2014" server="e0084422_7c17e782-2016"/>
         </mass>
-        <mass date="2018-02-03" time="17:00:00" church="Church" form="Saturday Evening Mass">
+        <mass date="2018-02-03" time="17:00" church="Church" form="Saturday Evening Mass">
             <service type="Altar_2012-2000" server="9b773e2b_7b4947ac-2010"/>
             <service type="Altar_2012-2000" server="e0527db4_e51f0dc8-2011"/>
             <service type="Altar_2014-2012" server="9cadd08a_77d1d129-2013"/>
@@ -982,19 +982,19 @@
             <service type="Altar_2016-2014" server="930dae10_d458a58-2016"/>
             <service type="Altar_2016-2014" server="f2493813_49b24b0a-2015"/>
         </mass>
-        <mass date="2018-02-04" time="08:00:00" church="Church" form="Holy Mass">
+        <mass date="2018-02-04" time="08:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="e9999e3f_6c6a2c06-2013"/>
             <service type="Altar_2014-2012" server="5adda056_e3491767-2014"/>
             <service type="Altar_2016-2014" server="45aca69e_2c751bb8-2015"/>
             <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
         </mass>
-        <mass date="2018-02-04" time="09:45:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-02-04" time="09:45" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="c988057c_8c355bb8-2013"/>
             <service type="Altar_2014-2012" server="3d7dd5a2_a6aa4c0c-2012"/>
             <service type="Altar_2016-2014" server="edcf388f_7102167-2014"/>
             <service type="Altar_2016-2014" server="b169aee0_5d7854fa-2016"/>
         </mass>
-        <mass date="2018-02-04" time="11:00:00" church="Church" form="High Mass">
+        <mass date="2018-02-04" time="11:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="c199d9e_c9a855de-2009"/>
             <service type="Altar_2012-2000" server="2b9839e4_24cc79ce-2010"/>
             <service type="Altar_2014-2012" server="5ccd8034_f1da7f5c-2012"/>
@@ -1016,19 +1016,19 @@
         </mass>
     </finalDraftMasses>
     <futureDraftMasses>
-        <mass date="2018-02-05" time="19:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-02-05" time="19:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="ab41045f_e62e6c9c-2013"/>
             <service type="Altar_2014-2012" server="5c4a7ea6_5ffac149-2014"/>
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
             <service type="Altar_2016-2014" server="a8b5ae97_96671919-2015"/>
         </mass>
-        <mass date="2018-02-08" time="18:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-02-08" time="18:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
             <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
             <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
         </mass>
-        <mass date="2018-02-10" time="17:00:00" church="Church" form="Saturday Evening Mass">
+        <mass date="2018-02-10" time="17:00" church="Church" form="Saturday Evening Mass">
             <service type="Altar_2012-2000" server="3d7dd5a2_a6aa4c0c-2012"/>
             <service type="Altar_2012-2000" server="356a4cb8_30b2f3d4-2010"/>
             <service type="Altar_2014-2012" server="b13a1d59_40730ba6-2013"/>
@@ -1036,19 +1036,19 @@
             <service type="Altar_2016-2014" server="7271c408_304c901f-2016"/>
             <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
         </mass>
-        <mass date="2018-02-11" time="08:00:00" church="Church" form="Holy Mass">
+        <mass date="2018-02-11" time="08:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="b1f5c32c_22493afc-2014"/>
             <service type="Altar_2014-2012" server="2d4f48e8_28c469cb-2013"/>
             <service type="Altar_2016-2014" server="b0839f8e_f9e7fc15-2013"/>
             <service type="Altar_2016-2014" server="f2493813_49b24b0a-2015"/>
         </mass>
-        <mass date="2018-02-11" time="09:45:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-02-11" time="09:45" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="e9999e3f_6c6a2c06-2013"/>
             <service type="Altar_2014-2012" server="9cadd08a_77d1d129-2013"/>
             <service type="Altar_2016-2014" server="5adda056_e3491767-2014"/>
             <service type="Altar_2016-2014" server="a00997a4_49310e6c-2016"/>
         </mass>
-        <mass date="2018-02-11" time="11:00:00" church="Church" form="High Mass">
+        <mass date="2018-02-11" time="11:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="8b15aac2_4dca0870-2010"/>
             <service type="Altar_2012-2000" server="4d0173ab_d15dcc47-2010"/>
             <service type="Altar_2014-2012" server="9da4fb9d_e0657e75-2012"/>
@@ -1068,19 +1068,19 @@
             <service type="Incense_2012-2000" server="43d0369d_f0559b7-2009"/>
             <service type="Lector_2012-2000" server="b63bcb1_fa357227-2011"/>
         </mass>
-        <mass date="2018-02-12" time="19:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-02-12" time="19:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="5a61a61a_2b84ccb0-2014"/>
             <service type="Altar_2014-2012" server="42d38ee9_90168d58-2014"/>
             <service type="Altar_2016-2014" server="edcf388f_7102167-2014"/>
             <service type="Altar_2016-2014" server="20ff6758_5e33a8f6-2015"/>
         </mass>
-        <mass date="2018-02-15" time="18:00:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-02-15" time="18:00" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="bb0ed97f_44f70e70-2013"/>
             <service type="Altar_2014-2012" server="6c57d3f2_c98fdd7b-2012"/>
             <service type="Altar_2016-2014" server="dfdd9f7e_59b5f73e-2014"/>
             <service type="Altar_2016-2014" server="45aca69e_2c751bb8-2015"/>
         </mass>
-        <mass date="2018-02-17" time="17:00:00" church="Church" form="Saturday Evening Mass">
+        <mass date="2018-02-17" time="17:00" church="Church" form="Saturday Evening Mass">
             <service type="Altar_2012-2000" server="eaae3556_23609c32-2010"/>
             <service type="Altar_2012-2000" server="d4acd0a1_d15be2f6-2012"/>
             <service type="Altar_2014-2012" server="87fb2370_bd373adf-2013"/>
@@ -1088,19 +1088,19 @@
             <service type="Altar_2016-2014" server="e0084422_7c17e782-2016"/>
             <service type="Altar_2016-2014" server="143d9fdf_d8ed2e7a-2016"/>
         </mass>
-        <mass date="2018-02-18" time="08:00:00" church="Church" form="Holy Mass">
+        <mass date="2018-02-18" time="08:00" church="Church" form="Holy Mass">
             <service type="Altar_2014-2012" server="bbafda94_91edc490-2013"/>
             <service type="Altar_2014-2012" server="22e4bdd8_b426a587-2011"/>
             <service type="Altar_2016-2014" server="b8bbdde2_8c31e83f-2014"/>
             <service type="Altar_2016-2014" server="7a4669ba_8d6f0478-2015"/>
         </mass>
-        <mass date="2018-02-18" time="09:45:00" church="Chapel" form="Holy Mass">
+        <mass date="2018-02-18" time="09:45" church="Chapel" form="Holy Mass">
             <service type="Altar_2014-2012" server="ab41045f_e62e6c9c-2013"/>
             <service type="Altar_2014-2012" server="5c4a7ea6_5ffac149-2014"/>
             <service type="Altar_2016-2014" server="4b235e88_7cc5fdce-2015"/>
             <service type="Altar_2016-2014" server="b1f5c32c_22493afc-2014"/>
         </mass>
-        <mass date="2018-02-18" time="11:00:00" church="Church" form="High Mass">
+        <mass date="2018-02-18" time="11:00" church="Church" form="High Mass">
             <service type="Altar_2012-2000" server="3a4fe56_9e568642-2011"/>
             <service type="Altar_2012-2000" server="afd13a07_cbfcbba3-2009"/>
             <service type="Altar_2014-2012" server="9e7cd3cd_37a2d1c5-2012"/>

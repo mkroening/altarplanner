@@ -37,7 +37,7 @@ public final class LocalDateInterval implements Comparable<LocalDateInterval>, S
         return start.format(formatter) + delimiter + end.format(formatter);
     }
 
-    public Stream<LocalDate> stream() {
+    public Stream<LocalDate> dates() {
         return start.datesUntil(end.plusDays(1));
     }
 

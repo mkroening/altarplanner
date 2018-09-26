@@ -8,17 +8,10 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public final class LocalDateInterval implements Serializable {
+public final class LocalDateInterval implements Comparable<LocalDateInterval>, Serializable {
 
     private final LocalDate start;
     private final LocalDate end;
-
-    public static Comparator<LocalDateInterval> getRecencyComparator() {
-        return Comparator
-                .comparing(LocalDateInterval::getEnd)
-                .reversed()
-                .thenComparing(LocalDateInterval::getStart);
-    }
 
     public static LocalDateInterval of(LocalDate start, LocalDate end) {
         Objects.requireNonNull(start, "start");
@@ -51,6 +44,14 @@ public final class LocalDateInterval implements Serializable {
 
     public LocalDate getEnd() {
         return end;
+    }
+
+    @Override
+    public int compareTo(LocalDateInterval o) {
+        return Objects.compare(this, o, Comparator
+                .comparing(LocalDateInterval::getEnd)
+                .thenComparing(LocalDateInterval::getStart)
+                .reversed());
     }
 
     @Override

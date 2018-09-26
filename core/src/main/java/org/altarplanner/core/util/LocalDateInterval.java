@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -26,6 +27,9 @@ public final class LocalDateInterval implements Comparable<LocalDateInterval>, S
 
     public static LocalDateInterval parse(String text, DateTimeFormatter formatter, String delimiter) {
         final int delimiterIndex = text.indexOf(delimiter);
+        if (delimiterIndex == -1) {
+            throw new DateTimeParseException("Delimiter '" + delimiter + "' could not be found in '" + text + "'", text, delimiterIndex);
+        }
         final String startText = text.substring(0, delimiterIndex);
         final LocalDate start = LocalDate.parse(startText, formatter);
         String tmpEndText = text.substring(delimiterIndex + delimiter.length());

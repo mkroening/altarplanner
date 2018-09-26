@@ -30,8 +30,8 @@ public final class LocalDateInterval implements Comparable<LocalDateInterval>, S
         return !date.isBefore(start) && !date.isAfter(end);
     }
 
-    public String format(DateTimeFormatter formatter) {
-        return start.format(formatter) + " - " + end.format(formatter);
+    public String format(DateTimeFormatter formatter, String delimiter) {
+        return start.format(formatter) + delimiter + end.format(formatter);
     }
 
     public Stream<LocalDate> stream() {

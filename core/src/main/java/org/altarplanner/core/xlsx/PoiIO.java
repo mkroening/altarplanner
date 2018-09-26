@@ -48,7 +48,7 @@ public class PoiIO {
         headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         final XSSFCell headerCell = sheet.createRow(0).createCell(0);
-        headerCell.setCellValue("Altar Plan: " + schedule.getPlanningWindow().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+        headerCell.setCellValue("Altar Plan: " + schedule.getPlanningWindow().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM), " - "));
         headerCell.setCellStyle(headerCellStyle);
         sheet.addMergedRegion(new CellRangeAddress(0,0,0,2*(columns - 1)));
 

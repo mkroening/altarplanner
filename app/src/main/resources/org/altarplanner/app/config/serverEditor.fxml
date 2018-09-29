@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.CheckComboBox?>
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0"
+<VBox minHeight="-Infinity" minWidth="-Infinity"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.config.ServerEditor">
     <ToolBar>
@@ -43,7 +43,7 @@
             </GridPane>
             <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="SOMETIMES">
                 <Tab fx:id="absencesTab" text="%serverEditor.tab.absences">
-                    <VBox>
+                    <VBox prefHeight="250">
                         <ToolBar>
                             <Button fx:id="addAbsenceButton" mnemonicParsing="false" text="%general.button.add" onAction="#addAbsence"/>
                             <Button fx:id="removeAbsenceButton" mnemonicParsing="false" text="%general.button.remove"
@@ -73,7 +73,7 @@
                     </VBox>
                 </Tab>
                 <Tab fx:id="assignmentWishesTab" text="%serverEditor.tab.assignmentWishes">
-                    <VBox>
+                    <VBox prefHeight="250">
                         <ToolBar>
                             <Button mnemonicParsing="false" text="%general.button.add" onAction="#addAssignmentWish"/>
                             <Button fx:id="removeAssignmentWishButton" mnemonicParsing="false" text="%general.button.remove"

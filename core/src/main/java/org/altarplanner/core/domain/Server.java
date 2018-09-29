@@ -103,8 +103,7 @@ public class Server extends AbstractPersistable {
         this.year = year;
     }
 
-    @XmlElementWrapper(name = "absences")
-    @XmlElement(name = "absence")
+    @XmlList
     @XmlJavaTypeAdapter(LocalDateIntervalXmlAdapter.class)
     public List<LocalDateInterval> getAbsences() {
         return absences;
@@ -133,8 +132,7 @@ public class Server extends AbstractPersistable {
         this.inabilities = inabilities;
     }
 
-    @XmlElementWrapper(name = "dateTimeOnWishes")
-    @XmlElement(name = "dateTimeOnWish")
+    @XmlList
     @XmlJavaTypeAdapter(LocalDateTimeWithoutSecondsXmlAdapter.class)
     public List<LocalDateTime> getDateTimeOnWishes() {
         return dateTimeOnWishes;

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="250.0" maxHeight="-Infinity" maxWidth="-Infinity"
+<VBox minHeight="-Infinity" minWidth="-Infinity" maxHeight="-Infinity" maxWidth="-Infinity"
       xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.config.ServerImporter">
     <GridPane hgap="10.0" vgap="10.0">
@@ -37,7 +37,7 @@
         <Pane HBox.hgrow="SOMETIMES"/>
         <Button mnemonicParsing="false" onAction="#importServers" text="%general.button.import"/>
         <padding>
-            <Insets right="10.0"/>
+            <Insets bottom="10.0" right="10.0"/>
         </padding>
     </HBox>
 </VBox>

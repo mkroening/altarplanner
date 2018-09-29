@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="300.0"
+<VBox minHeight="-Infinity" minWidth="-Infinity"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.config.ServiceTypeEditor">
     <ToolBar>
@@ -27,5 +27,5 @@
         <Label text="%serviceTypeEditor.label.minimumYear" GridPane.rowIndex="2"/>
         <TextField fx:id="minYearTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     </GridPane>
-    <ListView fx:id="serviceTypeListView" VBox.vgrow="SOMETIMES"/>
+    <ListView fx:id="serviceTypeListView" VBox.vgrow="SOMETIMES" prefHeight="200"/>
 </VBox>

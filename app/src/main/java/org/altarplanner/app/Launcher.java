@@ -3,6 +3,10 @@ package org.altarplanner.app;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
@@ -25,6 +29,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 public class Launcher extends Application {
@@ -42,6 +47,41 @@ public class Launcher extends Application {
             e.printStackTrace();
         }
         CONFIG = config;
+    }
+
+    private static Bounds getBounds(final Node node,
+                                    final BiFunction<Node, Double, Double> widthFunction,
+                                    final BiFunction<Node, Double, Double> heightFunction) {
+        final Orientation bias = node.getContentBias();
+        double prefWidth;
+        double prefHeight;
+        if (bias == Orientation.HORIZONTAL) {
+            prefWidth = widthFunction.apply(node, (double) -1);
+            prefHeight = heightFunction.apply(node, prefWidth);
+        } else if (bias == Orientation.VERTICAL) {
+            prefHeight = heightFunction.apply(node, (double) -1);
+            prefWidth = widthFunction.apply(node, prefHeight);
+        } else {
+            prefWidth = widthFunction.apply(node, (double) -1);
+            prefHeight = heightFunction.apply(node, (double) -1);
+        }
+        return new BoundingBox(0, 0, prefWidth, prefHeight);
+    }
+
+    private static void applyRootSizeConstraints(final Stage stage) {
+        final Parent root = stage.getScene().getRoot();
+        stage.sizeToScene();
+        final double deltaWidth = stage.getWidth() - root.getLayoutBounds().getWidth();
+        final double deltaHeight = stage.getHeight() - root.getLayoutBounds().getHeight();
+        final Bounds minBounds = getBounds(root, Node::minWidth, Node::minHeight);
+        stage.setMinWidth(minBounds.getWidth() + deltaWidth);
+        stage.setMinHeight(minBounds.getHeight() + deltaHeight);
+        final Bounds prefBounds = getBounds(root, Node::prefWidth, Node::prefHeight);
+        stage.setWidth(prefBounds.getWidth() + deltaWidth);
+        stage.setHeight(prefBounds.getHeight() + deltaHeight);
+        final Bounds maxBounds = getBounds(root, Node::maxWidth, Node::maxHeight);
+        stage.setMaxWidth(maxBounds.getWidth() + deltaWidth);
+        stage.setMaxHeight(maxBounds.getHeight() + deltaHeight);
     }
 
     public static void loadParent(String location, boolean inPrimaryStage, Consumer<Object> controllerConsumer) throws IOException {
@@ -66,12 +106,6 @@ public class Launcher extends Application {
 
         stage.hide();
         stage.setTitle(title);
-        stage.setMinHeight(root.minHeight(-1));
-        stage.setMinWidth(root.minWidth(-1));
-        stage.setHeight(root.prefHeight(-1));
-        stage.setWidth(root.prefWidth(-1));
-        stage.setMaxHeight(root.maxHeight(-1));
-        stage.setMaxWidth(root.maxWidth(-1));
         if (stage.getScene() != null) {
             stage.setX(stage.getX());
             stage.setY(stage.getY());
@@ -82,6 +116,7 @@ public class Launcher extends Application {
             stage.setScene(scene);
         }
         stage.show();
+        applyRootSizeConstraints(stage);
     }
 
     public static void loadParent(String location, boolean inPrimaryStage) throws IOException {

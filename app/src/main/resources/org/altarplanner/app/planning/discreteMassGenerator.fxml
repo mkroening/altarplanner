@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" maxHeight="-Infinity" maxWidth="-Infinity"
+<VBox minHeight="-Infinity" minWidth="-Infinity" maxHeight="-Infinity" maxWidth="-Infinity"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.planning.DiscreteMassGenerator">
     <GridPane hgap="10.0" vgap="10.0">
@@ -26,7 +26,7 @@
         <Pane HBox.hgrow="SOMETIMES"/>
         <Button mnemonicParsing="false" text="%discreteMassEditor.button.generateMasses" onAction="#generateMasses"/>
         <padding>
-            <Insets right="10.0"/>
+            <Insets bottom="10.0" right="10.0"/>
         </padding>
     </HBox>
 </VBox>

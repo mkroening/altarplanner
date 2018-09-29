@@ -74,9 +74,9 @@ public class Schedule implements Serializable {
 
     public Schedule(Config config, Collection<DiscreteMass> masses, Schedule lastSchedule) {
         this(config, masses);
-        if (getPlanningWindow().getStart().minusWeeks(2).isAfter(lastSchedule.getPlanningWindow().getEnd()))
-            throw new IllegalArgumentException("The given last schedule is too old to be relevant");
         final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
+        if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEnd()))
+            throw new IllegalArgumentException("The given last schedule is too old to be relevant");
         this.publishedMasses = lastSchedule.getPlannedMasses()
                 .filter(mass -> !publishedRelevanceDate.isAfter(mass.getDate()))
                 .sorted(Comparator.comparing(PlanningMass::getDate))

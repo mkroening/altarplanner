@@ -43,7 +43,7 @@ public class SolverView {
         try {
             Files.createDirectories(directory.toPath());
             fileChooser.setInitialDirectory(directory);
-            fileChooser.setInitialFileName(schedule.getPlanningWindow().getStart() + "_" + schedule.getPlanningWindow().getEnd() + ".xml");
+            fileChooser.setInitialFileName(schedule.getPlanningWindow().toHyphenString() + ".xml");
 
             File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
             if (selectedFile != null) {

@@ -20,7 +20,7 @@ import org.altarplanner.core.xlsx.PoiIO;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
-import org.altarplanner.core.xml.jaxb.util.DiscreteMassCollection;
+import org.altarplanner.core.domain.DiscreteMassCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

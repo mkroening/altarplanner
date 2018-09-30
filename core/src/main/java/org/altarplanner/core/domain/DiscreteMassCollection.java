@@ -1,6 +1,5 @@
-package org.altarplanner.core.xml.jaxb.util;
+package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 
 import javax.xml.bind.annotation.XmlElement;

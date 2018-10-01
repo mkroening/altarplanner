@@ -4,7 +4,6 @@ import org.altarplanner.core.domain.*;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
-import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.domain.DiscreteMassCollection;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.threeten.extra.LocalDateRange;

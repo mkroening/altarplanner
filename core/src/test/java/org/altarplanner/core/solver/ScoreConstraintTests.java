@@ -7,6 +7,7 @@ import org.altarplanner.core.util.LocalDateInterval;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.test.impl.score.buildin.hardsoft.HardSoftScoreVerifier;
+import org.threeten.extra.LocalDateRange;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -102,7 +103,7 @@ class ScoreConstraintTests {
 
         Config config = new Config();
         config.getServers().add(new Server());
-        config.getServers().get(0).getAbsences().add(LocalDateInterval.of(LocalDate.now(), LocalDate.now().plusDays(massCount / 2)));
+        config.getServers().get(0).getAbsences().add(LocalDateRange.ofClosed(LocalDate.now(), LocalDate.now().plusDays(massCount / 2)));
         config.getServiceTypes().add(new ServiceType());
 
         List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);

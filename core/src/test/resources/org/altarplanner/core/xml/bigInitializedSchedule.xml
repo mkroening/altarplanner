@@ -69,7 +69,7 @@
             <server surname="a00997a4" forename="49310e6c" year="2016" xmlID="a00997a4_49310e6c-2016">
                 <weeklyAbsences>TUESDAY WEDNESDAY FRIDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="bbafda94" forename="91edc490" year="2013" xmlID="bbafda94_91edc490-2013">
@@ -81,7 +81,7 @@
             <server surname="154393cf" forename="2f9d04a6" year="2016" xmlID="154393cf_2f9d04a6-2016">
                 <weeklyAbsences>MONDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="125f7c4" forename="aab6a391" year="2011" xmlID="125f7c4_aab6a391-2011">
@@ -99,7 +99,7 @@
             <server surname="b13a1d59" forename="40730ba6" year="2013" xmlID="b13a1d59_40730ba6-2013">
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY THURSDAY FRIDAY SUNDAY</weeklyAbsences>
                 <inabilities>Lector_2012-2000</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="3a4fe56" forename="9e568642" year="2011" xmlID="3a4fe56_9e568642-2011">
@@ -135,7 +135,7 @@
             <server surname="29adbe3" forename="31d1f5fd" year="2012" xmlID="29adbe3_31d1f5fd-2012">
                 <weeklyAbsences>TUESDAY WEDNESDAY THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="88177fbc" forename="4d730f32" year="2017" xmlID="88177fbc_4d730f32-2017">
@@ -165,7 +165,7 @@
             <server surname="43d0369d" forename="f0559b7" year="2009" xmlID="43d0369d_f0559b7-2009">
                 <weeklyAbsences>WEDNESDAY FRIDAY SATURDAY</weeklyAbsences>
                 <inabilities>Altar_2016-2014</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="5a61a61a" forename="2b84ccb0" year="2014" xmlID="5a61a61a_2b84ccb0-2014">
@@ -189,13 +189,13 @@
             <server surname="69235bb2" forename="1f5c3f20" year="2015" xmlID="69235bb2_1f5c3f20-2015">
                 <weeklyAbsences>THURSDAY FRIDAY</weeklyAbsences>
                 <inabilities>Altar_2012-2000</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="89a4dee8" forename="1d275f54" year="2011" xmlID="89a4dee8_1d275f54-2011">
                 <weeklyAbsences>TUESDAY FRIDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="b2f0de4" forename="36d576bf" year="2010" xmlID="b2f0de4_36d576bf-2010">
@@ -243,7 +243,7 @@
             <server surname="eaf9f261" forename="6f23ed23" year="2012" xmlID="eaf9f261_6f23ed23-2012">
                 <weeklyAbsences>TUESDAY WEDNESDAY THURSDAY SATURDAY SUNDAY</weeklyAbsences>
                 <inabilities>Lector_2012-2000</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="bb0ed97f" forename="44f70e70" year="2013" xmlID="bb0ed97f_44f70e70-2013">
@@ -261,7 +261,7 @@
             <server surname="eaae3556" forename="23609c32" year="2010" xmlID="eaae3556_23609c32-2010">
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="704518c0" forename="d4603c06" year="2015" xmlID="704518c0_d4603c06-2015">
@@ -297,7 +297,7 @@
             <server surname="4b235e88" forename="7cc5fdce" year="2015" xmlID="4b235e88_7cc5fdce-2015">
                 <weeklyAbsences>MONDAY TUESDAY WEDNESDAY</weeklyAbsences>
                 <inabilities>Lector_2012-2000</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="5adda056" forename="e3491767" year="2014" xmlID="5adda056_e3491767-2014">
@@ -315,7 +315,7 @@
             <server surname="8dbf617" forename="bfb4a567" year="2018" xmlID="8dbf617_bfb4a567-2018">
                 <weeklyAbsences>MONDAY WEDNESDAY THURSDAY</weeklyAbsences>
                 <inabilities>Altar_2014-2012</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="3eb5d772" forename="5f2da7e7" year="2014" xmlID="3eb5d772_5f2da7e7-2014">
@@ -345,13 +345,13 @@
             <server surname="45aca69e" forename="2c751bb8" year="2015" xmlID="45aca69e_2c751bb8-2015">
                 <weeklyAbsences>MONDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="c988057c" forename="8c355bb8" year="2013" xmlID="c988057c_8c355bb8-2013">
                 <weeklyAbsences>TUESDAY WEDNESDAY THURSDAY SATURDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="ba922814" forename="83f19a1f" year="2010" xmlID="ba922814_83f19a1f-2010">
@@ -387,7 +387,7 @@
             <server surname="1ff4c187" forename="4e643256" year="2016" xmlID="1ff4c187_4e643256-2016">
                 <weeklyAbsences>THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="5c4a7ea6" forename="5ffac149" year="2014" xmlID="5c4a7ea6_5ffac149-2014">
@@ -417,7 +417,7 @@
             <server surname="2d4f48e8" forename="28c469cb" year="2013" xmlID="2d4f48e8_28c469cb-2013">
                 <weeklyAbsences>MONDAY FRIDAY</weeklyAbsences>
                 <inabilities>Cross_2012-2000</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="9e7cd3cd" forename="37a2d1c5" year="2012" xmlID="9e7cd3cd_37a2d1c5-2012">
@@ -495,7 +495,7 @@
             <server surname="2ba569ab" forename="f86b692d" year="2017" xmlID="2ba569ab_f86b692d-2017">
                 <weeklyAbsences>MONDAY WEDNESDAY SATURDAY</weeklyAbsences>
                 <inabilities>Flambeau_2018-2016</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="edcf388f" forename="7102167" year="2014" xmlID="edcf388f_7102167-2014">
@@ -519,7 +519,7 @@
             <server surname="356a4cb8" forename="30b2f3d4" year="2010" xmlID="356a4cb8_30b2f3d4-2010">
                 <weeklyAbsences>MONDAY FRIDAY</weeklyAbsences>
                 <inabilities>Lector_2012-2000</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="946774ac" forename="f364f4c6" year="2018" xmlID="946774ac_f364f4c6-2018">
@@ -549,7 +549,7 @@
             <server surname="7dc312a" forename="456c2835" year="2016" xmlID="7dc312a_456c2835-2016">
                 <weeklyAbsences>WEDNESDAY THURSDAY</weeklyAbsences>
                 <inabilities>Altar_2012-2000</inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="143d9fdf" forename="d8ed2e7a" year="2016" xmlID="143d9fdf_d8ed2e7a-2016">
@@ -567,7 +567,7 @@
             <server surname="74e7685" forename="cbf9c040" year="2014" xmlID="74e7685_cbf9c040-2014">
                 <weeklyAbsences>WEDNESDAY THURSDAY FRIDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="e5ce6fc6" forename="159a59ff" year="2013" xmlID="e5ce6fc6_159a59ff-2013">
@@ -591,13 +591,13 @@
             <server surname="6c290fad" forename="d1a69b23" year="2012" xmlID="6c290fad_d1a69b23-2012">
                 <weeklyAbsences>TUESDAY THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="3d7dd5a2" forename="a6aa4c0c" year="2012" xmlID="3d7dd5a2_a6aa4c0c-2012">
                 <weeklyAbsences>THURSDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
             <server surname="d63c71e3" forename="7a3d48b5" year="2011" xmlID="d63c71e3_7a3d48b5-2011">
@@ -651,7 +651,7 @@
             <server surname="e9999e3f" forename="6c6a2c06" year="2013" xmlID="e9999e3f_6c6a2c06-2013">
                 <weeklyAbsences>MONDAY TUESDAY THURSDAY SATURDAY</weeklyAbsences>
                 <inabilities></inabilities>
-                <absences>2018-01-08/21</absences>
+                <absences>2018-01-08/2018-01-22</absences>
                 <dateTimeOnWishes></dateTimeOnWishes>
             </server>
         </servers>

@@ -51,7 +51,7 @@ public class BigDomainGenerator {
             server.getWeeklyAbsences().add(DayOfWeek.SUNDAY);
 
         if (random.nextFloat() < 0.2)
-            server.getAbsences().add(LocalDateInterval.of(PLANNING_WINDOW.getStart().plusWeeks(1), PLANNING_WINDOW.getStart().plusWeeks(3).minusDays(1)));
+            server.getAbsences().add(LocalDateRange.of(PLANNING_WINDOW.getStart().plusWeeks(1), PLANNING_WINDOW.getStart().plusWeeks(3)));
 
         if (random.nextFloat() < 0.05)
             server.getDateTimeOnWishes().add(LocalDateTime.of(getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY).plusWeeks(random.nextInt(4)), LocalTime.of(11,0)));

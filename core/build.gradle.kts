@@ -5,6 +5,10 @@ plugins {
 }
 
 dependencies {
+    api("org.threeten:threeten-extra:1.4") {
+        because("we use additional date-time classes like LocalDateRange")
+    }
+
     implementation("org.optaplanner:optaplanner-bom:+") {
         because("we depend on optaplanner projects")
     }

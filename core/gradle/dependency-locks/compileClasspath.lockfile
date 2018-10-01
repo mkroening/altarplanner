@@ -44,5 +44,6 @@ org.optaplanner:optaplanner-persistence-common:7.11.0.Final
 org.optaplanner:optaplanner-persistence-jaxb:7.11.0.Final
 org.reflections:reflections:0.9.11
 org.slf4j:slf4j-api:1.7.25
+org.threeten:threeten-extra:1.4
 xmlpull:xmlpull:1.1.3.1
 xpp3:xpp3_min:1.1.4c

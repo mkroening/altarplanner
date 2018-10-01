@@ -1,11 +1,14 @@
 package org.altarplanner.core.domain;
 
 import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,12 +25,20 @@ public class DiscreteMassCollection {
     }
 
     public DiscreteMassCollection(List<DiscreteMass> discreteMasses) {
-        this.discreteMasses = discreteMasses;
+        this.discreteMasses = discreteMasses.stream()
+                .sorted(DiscreteMass.getDescComparator())
+                .collect(Collectors.toUnmodifiableList());
         serviceTypes = discreteMasses.parallelStream()
                 .flatMap(discreteMass -> discreteMass.getServiceTypeCounts().keySet().parallelStream())
                 .distinct()
                 .sorted(ServiceType.getDescComparator())
                 .collect(Collectors.toUnmodifiableList());
+    }
+
+    public LocalDateRange getDateRange() {
+        final LocalDate start = Collections.min(discreteMasses, DiscreteMass.getDescComparator()).getDate();
+        final LocalDate endInclusive = Collections.max(discreteMasses, DiscreteMass.getDescComparator()).getDate();
+        return LocalDateRange.ofClosed(start, endInclusive);
     }
 
     @XmlElementWrapper(name = "serviceTypes")

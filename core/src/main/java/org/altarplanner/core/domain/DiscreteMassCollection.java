@@ -24,7 +24,7 @@ public class DiscreteMassCollection {
     public DiscreteMassCollection(List<DiscreteMass> discreteMasses) {
         this.discreteMasses = discreteMasses;
         serviceTypes = discreteMasses.parallelStream()
-                .flatMap(discreteMass -> discreteMass.getServiceTypeCount().keySet().parallelStream())
+                .flatMap(discreteMass -> discreteMass.getServiceTypeCounts().keySet().parallelStream())
                 .distinct()
                 .sorted(ServiceType.getDescComparator())
                 .collect(Collectors.toUnmodifiableList());

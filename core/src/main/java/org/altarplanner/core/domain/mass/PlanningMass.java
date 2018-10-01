@@ -35,7 +35,7 @@ public class PlanningMass extends GenericMass {
     public PlanningMass(DiscreteMass discreteMass) {
         super(discreteMass);
 
-        this.services = discreteMass.getServiceTypeCount().entrySet().parallelStream()
+        this.services = discreteMass.getServiceTypeCounts().entrySet().parallelStream()
                 .flatMap(serviceTypeCountEntry ->
                         IntStream.range(0, serviceTypeCountEntry.getValue())
                                 .mapToObj(value -> new Service(this, serviceTypeCountEntry.getKey())))

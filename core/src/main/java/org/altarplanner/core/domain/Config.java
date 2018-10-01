@@ -79,7 +79,7 @@ public class Config implements Serializable {
     }
 
     public void removeFromRegularMasses(ServiceType serviceType) {
-        regularMasses.parallelStream().forEach(regularMass -> regularMass.getServiceTypeCount().remove(serviceType));
+        regularMasses.parallelStream().forEach(regularMass -> regularMass.getServiceTypeCounts().remove(serviceType));
     }
 
     public List<Server> getPairedWith(Server server) {

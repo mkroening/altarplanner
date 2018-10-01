@@ -28,7 +28,7 @@ class ScoreConstraintTests {
                 .mapToObj(value -> {
                     DiscreteMass discreteMass = new DiscreteMass();
                     discreteMass.setDate(subsequentMasses ? LocalDate.now().plusDays(value) : LocalDate.now());
-                    discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(subsequentServiceTypes ? value : 0), 1);
+                    discreteMass.getServiceTypeCounts().put(config.getServiceTypes().get(subsequentServiceTypes ? value : 0), 1);
                     return discreteMass;
                 })
                 .collect(Collectors.toUnmodifiableList());
@@ -215,7 +215,7 @@ class ScoreConstraintTests {
         config.getServiceTypes().add(new ServiceType());
 
         DiscreteMass discreteMass = new DiscreteMass();
-        discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(0), 2);
+        discreteMass.getServiceTypeCounts().put(config.getServiceTypes().get(0), 2);
 
         Schedule schedule = new Schedule(config, List.of(discreteMass));
 
@@ -265,7 +265,7 @@ class ScoreConstraintTests {
         config.getServiceTypes().get(0).setMinYear(Year.now().getValue() - 7);
 
         DiscreteMass discreteMass = new DiscreteMass();
-        discreteMass.getServiceTypeCount().put(config.getServiceTypes().get(0), 1);
+        discreteMass.getServiceTypeCounts().put(config.getServiceTypes().get(0), 1);
 
         Schedule schedule = new Schedule(config, List.of(discreteMass));
 

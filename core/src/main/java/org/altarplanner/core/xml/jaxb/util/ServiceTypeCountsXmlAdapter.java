@@ -3,13 +3,15 @@ package org.altarplanner.core.xml.jaxb.util;
 import org.altarplanner.core.domain.ServiceType;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ServiceTypeCountXmlAdapter extends XmlAdapter<ServiceTypeCountXmlAdapter.AdaptedMap, Map<ServiceType, Integer>> {
+public class ServiceTypeCountsXmlAdapter extends XmlAdapter<ServiceTypeCountsXmlAdapter.AdaptedMap, Map<ServiceType, Integer>> {
     public static class AdaptedMap {
+        @XmlElement(name = "serviceTypeCount")
         public List<Entry> entry = new ArrayList<>();
     }
 

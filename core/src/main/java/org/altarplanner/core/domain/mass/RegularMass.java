@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
 
-@XmlType(propOrder = {"day", "time", "church", "form", "serviceTypeCount"})
+@XmlType(propOrder = {"day", "time", "church", "form", "serviceTypeCounts"})
 public class RegularMass extends EditableMass {
 
     private DayOfWeek day = DayOfWeek.SUNDAY;

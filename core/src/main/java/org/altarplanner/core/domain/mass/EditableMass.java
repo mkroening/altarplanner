@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain.mass;
 
 import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.xml.jaxb.util.ServiceTypeCountXmlAdapter;
+import org.altarplanner.core.xml.jaxb.util.ServiceTypeCountsXmlAdapter;
 
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -12,25 +12,25 @@ import java.util.Objects;
 @XmlTransient
 public abstract class EditableMass extends GenericMass {
 
-    private Map<ServiceType, Integer> serviceTypeCount;
+    private Map<ServiceType, Integer> serviceTypeCounts;
 
     EditableMass() {
         super();
-        this.serviceTypeCount = new HashMap<>();
+        this.serviceTypeCounts = new HashMap<>();
     }
 
     EditableMass(EditableMass editableMass) {
         super(editableMass);
-        this.serviceTypeCount = editableMass.serviceTypeCount;
+        this.serviceTypeCounts = editableMass.serviceTypeCounts;
     }
 
-    @XmlJavaTypeAdapter(ServiceTypeCountXmlAdapter.class)
-    public Map<ServiceType, Integer> getServiceTypeCount() {
-        return serviceTypeCount;
+    @XmlJavaTypeAdapter(ServiceTypeCountsXmlAdapter.class)
+    public Map<ServiceType, Integer> getServiceTypeCounts() {
+        return serviceTypeCounts;
     }
 
-    public void setServiceTypeCount(Map<ServiceType, Integer> serviceTypeCount) {
-        this.serviceTypeCount = serviceTypeCount;
+    public void setServiceTypeCounts(Map<ServiceType, Integer> serviceTypeCounts) {
+        this.serviceTypeCounts = serviceTypeCounts;
     }
 
     @Override
@@ -39,12 +39,12 @@ public abstract class EditableMass extends GenericMass {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         EditableMass that = (EditableMass) o;
-        return Objects.equals(serviceTypeCount, that.serviceTypeCount);
+        return Objects.equals(serviceTypeCounts, that.serviceTypeCounts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), serviceTypeCount);
+        return Objects.hash(super.hashCode(), serviceTypeCounts);
     }
 
 }

@@ -448,13 +448,13 @@ public class ServerEditor {
         if (clipboard.hasString()) {
             final String content = clipboard.getString();
             try {
-                final LocalDateRange interval = LocalDateRange.parse(content);
-                absencesListView.getItems().add(interval);
+                final LocalDateRange dateRange = LocalDateRange.parse(content);
+                absencesListView.getItems().add(dateRange);
                 setAbsenceDisable(false);
-                absencesListView.getSelectionModel().select(interval);
+                absencesListView.getSelectionModel().select(dateRange);
                 absencesListView.getItems().sort(LocalDateRangeUtil.RECENCY_COMPARATOR);
             } catch (DateTimeParseException e) {
-                LOGGER.info("'{}' is no valid date interval", content);
+                LOGGER.info("'{}' is no valid date range", content);
             }
         }
     }

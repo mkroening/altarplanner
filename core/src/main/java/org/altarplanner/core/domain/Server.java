@@ -59,7 +59,7 @@ public class Server extends AbstractPersistable {
     Stream<DateOffRequest> getDateOffRequests(Set<LocalDate> relevantDates) {
         final Set<DayOfWeek> weeklyAbsenceSet = Set.copyOf(weeklyAbsences);
         return relevantDates.parallelStream()
-                .filter(date -> weeklyAbsenceSet.contains(date.getDayOfWeek()) || absences.parallelStream().anyMatch(interval -> interval.contains(date)))
+                .filter(date -> weeklyAbsenceSet.contains(date.getDayOfWeek()) || absences.parallelStream().anyMatch(dateRange -> dateRange.contains(date)))
                 .filter(date -> dateTimeOnWishes.parallelStream().noneMatch(dateTime -> date.equals(dateTime.toLocalDate())))
                 .map(date -> new DateOffRequest(this, date));
     }

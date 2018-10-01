@@ -1,9 +1,9 @@
 package org.altarplanner.core.domain;
 
 import org.altarplanner.core.domain.request.*;
-import org.altarplanner.core.util.LocalDateInterval;
-import org.altarplanner.core.xml.jaxb.util.LocalDateIntervalXmlAdapter;
+import org.altarplanner.core.xml.jaxb.util.LocalDateRangeXmlAdapter;
 import org.altarplanner.core.xml.jaxb.util.LocalDateTimeWithoutSecondsXmlAdapter;
+import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -19,7 +19,7 @@ public class Server extends AbstractPersistable {
     private String surname;
     private String forename;
     private int year = LocalDate.now().getYear();
-    private List<LocalDateInterval> absences = new ArrayList<>();
+    private List<LocalDateRange> absences = new ArrayList<>();
     private List<DayOfWeek> weeklyAbsences = new ArrayList<>();
     private List<ServiceType> inabilities = new ArrayList<>();
     private List<LocalDateTime> dateTimeOnWishes = new ArrayList<>();
@@ -59,7 +59,7 @@ public class Server extends AbstractPersistable {
     Stream<DateOffRequest> getDateOffRequests(Set<LocalDate> relevantDates) {
         final Set<DayOfWeek> weeklyAbsenceSet = Set.copyOf(weeklyAbsences);
         return relevantDates.parallelStream()
-                .filter(date -> weeklyAbsenceSet.contains(date.getDayOfWeek()) || absences.parallelStream().anyMatch(interval -> interval.contains(date)))
+                .filter(date -> weeklyAbsenceSet.contains(date.getDayOfWeek()) || absences.parallelStream().anyMatch(dateRange -> dateRange.contains(date)))
                 .filter(date -> dateTimeOnWishes.parallelStream().noneMatch(dateTime -> date.equals(dateTime.toLocalDate())))
                 .map(date -> new DateOffRequest(this, date));
     }
@@ -104,12 +104,12 @@ public class Server extends AbstractPersistable {
     }
 
     @XmlList
-    @XmlJavaTypeAdapter(LocalDateIntervalXmlAdapter.class)
-    public List<LocalDateInterval> getAbsences() {
+    @XmlJavaTypeAdapter(LocalDateRangeXmlAdapter.class)
+    public List<LocalDateRange> getAbsences() {
         return absences;
     }
 
-    public void setAbsences(List<LocalDateInterval> absences) {
+    public void setAbsences(List<LocalDateRange> absences) {
         this.absences = absences;
     }
 

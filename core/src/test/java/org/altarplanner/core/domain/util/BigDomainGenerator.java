@@ -4,9 +4,9 @@ import org.altarplanner.core.domain.*;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
-import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.domain.DiscreteMassCollection;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.threeten.extra.LocalDateRange;
 
 import java.time.*;
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.stream.IntStream;
 public class BigDomainGenerator {
 
     private static final LocalDate TODAY = LocalDate.of(2018, 1, 1);
-    private static final LocalDateInterval PLANNING_WINDOW;
+    private static final LocalDateRange PLANNING_WINDOW;
     static {
         LocalDate nextMonday = TODAY.plusDays(DayOfWeek.MONDAY.getValue() - TODAY.getDayOfWeek().getValue());
-        PLANNING_WINDOW = LocalDateInterval.of(nextMonday, nextMonday.plusWeeks(5).minusDays(1));
+        PLANNING_WINDOW = LocalDateRange.ofClosed(nextMonday, nextMonday.plusWeeks(5).minusDays(1));
     }
 
     private static LocalDate getNextDayOfWeek(LocalDate starting, DayOfWeek dayOfWeek) {
@@ -50,7 +50,7 @@ public class BigDomainGenerator {
             server.getWeeklyAbsences().add(DayOfWeek.SUNDAY);
 
         if (random.nextFloat() < 0.2)
-            server.getAbsences().add(LocalDateInterval.of(PLANNING_WINDOW.getStart().plusWeeks(1), PLANNING_WINDOW.getStart().plusWeeks(3).minusDays(1)));
+            server.getAbsences().add(LocalDateRange.of(PLANNING_WINDOW.getStart().plusWeeks(1), PLANNING_WINDOW.getStart().plusWeeks(3)));
 
         if (random.nextFloat() < 0.05)
             server.getDateTimeOnWishes().add(LocalDateTime.of(getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY).plusWeeks(random.nextInt(4)), LocalTime.of(11,0)));
@@ -104,13 +104,13 @@ public class BigDomainGenerator {
     }
 
     public static DiscreteMassCollection genDiscreteMassCollection() {
-        List<DiscreteMass> masses = genConfig().getDiscreteMassParallelStreamWithin(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
+        List<DiscreteMass> masses = genConfig().getDiscreteMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
         return new DiscreteMassCollection(masses);
     }
 
     public static Schedule genSchedule() {
         Config config = genConfig();
-        List<DiscreteMass> masses = config.getDiscreteMassParallelStreamWithin(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
+        List<DiscreteMass> masses = config.getDiscreteMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
         return new Schedule(config, masses);
     }
 

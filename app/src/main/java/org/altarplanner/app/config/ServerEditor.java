@@ -7,14 +7,15 @@ import javafx.scene.input.*;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.PairRequest;
+import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xml.UnknownJAXBException;
 import org.controlsfx.control.CheckComboBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.threeten.extra.LocalDateRange;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +49,7 @@ public class ServerEditor {
     @FXML private Button removeAbsenceButton;
     @FXML private DatePicker absenceStartDatePicker;
     @FXML private DatePicker absenceEndDatePicker;
-    @FXML private ListView<LocalDateInterval> absencesListView;
+    @FXML private ListView<LocalDateRange> absencesListView;
     @FXML private ContextMenu absencesListViewContextMenu;
     @FXML private MenuItem absencesListViewContextMenuItemCut;
     @FXML private MenuItem absencesListViewContextMenuItemCopy;
@@ -205,14 +206,15 @@ public class ServerEditor {
 
         absencesListView.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(LocalDateInterval item, boolean empty) {
+            protected void updateItem(LocalDateRange item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null) {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(item.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL), " - "));
+                    setText(item.getStart().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " - " +
+                            item.getEndInclusive().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 }
             }
         });
@@ -221,7 +223,7 @@ public class ServerEditor {
             if (newValue != null) {
                 applyAbsenceChanges = false;
                 absenceStartDatePicker.setValue(newValue.getStart());
-                absenceEndDatePicker.setValue(newValue.getEnd());
+                absenceEndDatePicker.setValue(newValue.getEndInclusive());
                 applyAbsenceChanges = true;
             }
         });
@@ -250,13 +252,13 @@ public class ServerEditor {
 
         absenceStartDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                replaceSelectedAbsence(LocalDateInterval.of(newValue, newValue.isAfter(absenceEndDatePicker.getValue()) ? newValue : absenceEndDatePicker.getValue()));
+                replaceSelectedAbsence(LocalDateRange.ofClosed(newValue, newValue.isAfter(absenceEndDatePicker.getValue()) ? newValue : absenceEndDatePicker.getValue()));
             }
         });
 
         absenceEndDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyAbsenceChanges) {
-                replaceSelectedAbsence(LocalDateInterval.of(newValue.isBefore(absenceStartDatePicker.getValue()) ? newValue : absenceStartDatePicker.getValue(), newValue));
+                replaceSelectedAbsence(LocalDateRange.ofClosed(newValue.isBefore(absenceStartDatePicker.getValue()) ? newValue : absenceStartDatePicker.getValue(), newValue));
             }
         });
 
@@ -317,10 +319,10 @@ public class ServerEditor {
             setDisable(true);
     }
 
-    private void replaceSelectedAbsence(LocalDateInterval replacingAbsence) {
+    private void replaceSelectedAbsence(LocalDateRange replacingAbsence) {
         absencesListView.getItems().remove(absencesListView.getSelectionModel().getSelectedItem());
         absencesListView.getItems().add(replacingAbsence);
-        absencesListView.getItems().sort(Comparator.naturalOrder());
+        absencesListView.getItems().sort(LocalDateRangeUtil.RECENCY_COMPARATOR);
         absencesListView.getSelectionModel().select(replacingAbsence);
     }
 
@@ -416,11 +418,11 @@ public class ServerEditor {
     }
 
     @FXML private void addAbsence() {
-        LocalDateInterval absence = LocalDateInterval.of(LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1));
+        LocalDateRange absence = LocalDateRange.ofClosed(LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(1));
         absencesListView.getItems().add(absence);
         setAbsenceDisable(false);
         absencesListView.getSelectionModel().select(absence);
-        absencesListView.getItems().sort(Comparator.naturalOrder());
+        absencesListView.getItems().sort(LocalDateRangeUtil.RECENCY_COMPARATOR);
     }
 
     @FXML private void removeAbsence() {
@@ -446,13 +448,13 @@ public class ServerEditor {
         if (clipboard.hasString()) {
             final String content = clipboard.getString();
             try {
-                final LocalDateInterval interval = LocalDateInterval.parse(content);
-                absencesListView.getItems().add(interval);
+                final LocalDateRange dateRange = LocalDateRange.parse(content);
+                absencesListView.getItems().add(dateRange);
                 setAbsenceDisable(false);
-                absencesListView.getSelectionModel().select(interval);
-                absencesListView.getItems().sort(Comparator.naturalOrder());
+                absencesListView.getSelectionModel().select(dateRange);
+                absencesListView.getItems().sort(LocalDateRangeUtil.RECENCY_COMPARATOR);
             } catch (DateTimeParseException e) {
-                LOGGER.info("'{}' is no valid date interval", content);
+                LOGGER.info("'{}' is no valid date range", content);
             }
         }
     }

@@ -3,13 +3,13 @@ package org.altarplanner.core.domain;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
-import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
 import org.altarplanner.core.xml.jaxb.util.PairRequestXmlAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -67,15 +67,13 @@ public class Config implements Serializable {
         JaxbIO.marshal(this, new File(pathname));
     }
 
-    public Stream<DiscreteMass> getDiscreteMassParallelStreamWithin(LocalDateInterval dateInterval) {
-        Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.parallelStream()
+    public Stream<DiscreteMass> getDiscreteMassStreamFromRegularMassesIn(LocalDateRange dateRange) {
+        Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.stream()
                 .collect(Collectors.groupingBy(RegularMass::getDay));
-
-        return dateInterval.dates()
-                .flatMap(date -> Optional.ofNullable(dayMassMap.get(date.getDayOfWeek()))
-                        .map(masses -> masses.parallelStream()
-                                .map(regularMass -> new DiscreteMass(regularMass, date)))
-                        .orElse(null));
+        return dateRange.stream()
+                .flatMap(date -> Optional.ofNullable(dayMassMap.get(date.getDayOfWeek())).stream()
+                        .flatMap(masses -> masses.stream()
+                                .map(mass -> new DiscreteMass(mass, date))));
     }
 
     public void removeFromRegularMasses(ServiceType serviceType) {

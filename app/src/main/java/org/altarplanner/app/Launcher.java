@@ -16,6 +16,7 @@ import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xlsx.PoiIO;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
@@ -183,7 +184,7 @@ public class Launcher extends Application {
                 final File schedulesDirectory = new File("schedules/");
                 Files.createDirectories(schedulesDirectory.toPath());
                 createdScheduleFileChooser.setInitialDirectory(schedulesDirectory);
-                createdScheduleFileChooser.setInitialFileName(createdSchedule.getPlanningWindow().toHyphenString() + ".xml");
+                createdScheduleFileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(createdSchedule.getPlanningWindow()) + ".xml");
                 final File createdScheduleFile = createdScheduleFileChooser.showSaveDialog(primaryStage);
 
                 if (createdScheduleFile != null) {
@@ -236,7 +237,7 @@ public class Launcher extends Application {
                 directory = new File("exported/");
                 Files.createDirectories(directory.toPath());
                 fileChooser.setInitialDirectory(directory);
-                fileChooser.setInitialFileName(schedule.getPlanningWindow().toHyphenString() + ".xlsx");
+                fileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(schedule.getPlanningWindow()) + ".xlsx");
 
                 selectedFile = fileChooser.showSaveDialog(primaryStage);
                 if (selectedFile != null) {

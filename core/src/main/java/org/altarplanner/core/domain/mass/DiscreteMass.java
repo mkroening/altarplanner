@@ -11,7 +11,7 @@ import java.time.format.FormatStyle;
 import java.util.Comparator;
 import java.util.Objects;
 
-@XmlType(propOrder = {"date", "time", "church", "form", "serviceTypeCount"})
+@XmlType(propOrder = {"date", "time", "church", "form", "serviceTypeCounts"})
 public class DiscreteMass extends EditableMass {
 
     private LocalDate date;

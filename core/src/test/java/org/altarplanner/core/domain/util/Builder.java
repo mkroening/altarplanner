@@ -23,7 +23,7 @@ class Builder {
         regularMass.setTime(time);
         regularMass.setChurch(church);
         regularMass.setForm(form);
-        regularMass.setServiceTypeCount(serviceTypeCount);
+        regularMass.setServiceTypeCounts(serviceTypeCount);
         return regularMass;
     }
 

@@ -107,7 +107,7 @@ public class DiscreteMassEditor {
 
         serviceTypeCountColumn.setCellValueFactory(param -> {
             if (applyChanges)
-                return new SimpleStringProperty(String.valueOf(discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().getOrDefault(param.getValue(), 0)));
+                return new SimpleStringProperty(String.valueOf(discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().getOrDefault(param.getValue(), 0)));
             else
                 return null;
         });
@@ -116,9 +116,9 @@ public class DiscreteMassEditor {
             if (applyChanges) {
                 String newValue = event.getNewValue();
                 if ("".equals(newValue) || "0".equals(newValue)) {
-                    discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().remove(event.getRowValue());
+                    discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().remove(event.getRowValue());
                 } else try {
-                    discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCount().put(event.getRowValue(), Integer.parseInt(newValue));
+                    discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().put(event.getRowValue(), Integer.parseInt(newValue));
                 } catch (NumberFormatException e) {
                     serviceTypeCountTableView.refresh();
                 }

@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ServiceTypeCountXmlAdapter extends XmlAdapter<ServiceTypeCountXmlAdapter.AdaptedMap, Map<ServiceType, Integer>> {
+public class ServiceTypeCountsXmlAdapter extends XmlAdapter<ServiceTypeCountsXmlAdapter.AdaptedMap, Map<ServiceType, Integer>> {
     public static class AdaptedMap {
         public List<Entry> entry = new ArrayList<>();
     }

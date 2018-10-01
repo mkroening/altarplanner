@@ -11,209 +11,209 @@
     </serviceTypes>
     <discreteMasses>
         <discreteMass date="2018-01-01" time="19:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-04" time="18:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-06" time="17:00" church="Church" form="Saturday Evening Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-07" time="08:00" church="Church" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-07" time="09:45" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-07" time="11:00" church="Church" form="High Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Cross_2012-2000" count="1"/>
                 <entry serviceType="Flambeau_2018-2016" count="10"/>
                 <entry serviceType="Incense_2012-2000" count="2"/>
                 <entry serviceType="Lector_2012-2000" count="1"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-08" time="19:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-11" time="18:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-13" time="17:00" church="Church" form="Saturday Evening Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-14" time="08:00" church="Church" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-14" time="09:45" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-14" time="11:00" church="Church" form="High Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Cross_2012-2000" count="1"/>
                 <entry serviceType="Flambeau_2018-2016" count="10"/>
                 <entry serviceType="Incense_2012-2000" count="2"/>
                 <entry serviceType="Lector_2012-2000" count="1"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-15" time="19:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-18" time="18:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-20" time="17:00" church="Church" form="Saturday Evening Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-21" time="08:00" church="Church" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-21" time="09:45" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-21" time="11:00" church="Church" form="High Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Cross_2012-2000" count="1"/>
                 <entry serviceType="Flambeau_2018-2016" count="10"/>
                 <entry serviceType="Incense_2012-2000" count="2"/>
                 <entry serviceType="Lector_2012-2000" count="1"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-22" time="19:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-25" time="18:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-27" time="17:00" church="Church" form="Saturday Evening Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-28" time="08:00" church="Church" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-28" time="09:45" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-28" time="11:00" church="Church" form="High Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Cross_2012-2000" count="1"/>
                 <entry serviceType="Flambeau_2018-2016" count="10"/>
                 <entry serviceType="Incense_2012-2000" count="2"/>
                 <entry serviceType="Lector_2012-2000" count="1"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-01-29" time="19:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-02-01" time="18:00" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-02-03" time="17:00" church="Church" form="Saturday Evening Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-02-04" time="08:00" church="Church" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-02-04" time="09:45" church="Chapel" form="Holy Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Altar_2016-2014" count="2"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
         <discreteMass date="2018-02-04" time="11:00" church="Church" form="High Mass">
-            <serviceTypeCount>
+            <serviceTypeCounts>
                 <entry serviceType="Altar_2012-2000" count="2"/>
                 <entry serviceType="Altar_2014-2012" count="2"/>
                 <entry serviceType="Cross_2012-2000" count="1"/>
                 <entry serviceType="Flambeau_2018-2016" count="10"/>
                 <entry serviceType="Incense_2012-2000" count="2"/>
                 <entry serviceType="Lector_2012-2000" count="1"/>
-            </serviceTypeCount>
+            </serviceTypeCounts>
         </discreteMass>
     </discreteMasses>
 </discreteMassCollection>

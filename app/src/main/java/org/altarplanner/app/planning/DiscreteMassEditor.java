@@ -9,6 +9,7 @@ import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
@@ -203,7 +204,7 @@ public class DiscreteMassEditor {
 
     @FXML private void saveAsAndBack() throws IOException, UnknownJAXBException {
         if (!discreteMassListView.getItems().isEmpty()) {
-            List<DiscreteMass> masses = List.copyOf(discreteMassListView.getItems());
+            final DiscreteMassCollection massCollection = new DiscreteMassCollection(discreteMassListView.getItems());
 
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveDiscreteMasses"));
@@ -211,11 +212,11 @@ public class DiscreteMassEditor {
             File directory = new File("masses/");
             Files.createDirectories(directory.toPath());
             fileChooser.setInitialDirectory(directory);
-            fileChooser.setInitialFileName(masses.get(0).getDate() + "_" + masses.get(masses.size() - 1).getDate() + ".xml");
+            fileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(massCollection.getDateRange()) + ".xml");
 
             File selectedFile = fileChooser.showSaveDialog(removeButton.getScene().getWindow());
             if (selectedFile != null) {
-                JaxbIO.marshal(new DiscreteMassCollection(masses), selectedFile);
+                JaxbIO.marshal(massCollection, selectedFile);
                 LOGGER.info("Masses have been saved as {}", selectedFile);
 
                 Launcher.loadParent("launcher.fxml", true);

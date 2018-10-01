@@ -209,7 +209,7 @@ public class Schedule implements Serializable {
     }
 
     @XmlElementWrapper(name = "publishedMasses")
-    @XmlElement(name = "mass")
+    @XmlElement(name = "planningMass")
     public List<PlanningMass> getPublishedMasses() {
         return publishedMasses;
     }
@@ -219,7 +219,7 @@ public class Schedule implements Serializable {
     }
 
     @XmlElementWrapper(name = "finalDraftMasses")
-    @XmlElement(name = "mass")
+    @XmlElement(name = "planningMass")
     public List<PlanningMass> getFinalDraftMasses() {
         return finalDraftMasses;
     }
@@ -229,7 +229,7 @@ public class Schedule implements Serializable {
     }
 
     @XmlElementWrapper(name = "futureDraftMasses")
-    @XmlElement(name = "mass")
+    @XmlElement(name = "planningMass")
     public List<PlanningMass> getFutureDraftMasses() {
         return futureDraftMasses;
     }

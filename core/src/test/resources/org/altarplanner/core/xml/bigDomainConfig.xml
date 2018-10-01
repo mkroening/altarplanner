@@ -12,43 +12,43 @@
     <regularMasses>
         <regularMass day="MONDAY" time="19:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <entry serviceType="Altar_2014-2012" count="2"/>
-                <entry serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
             </serviceTypeCounts>
         </regularMass>
         <regularMass day="THURSDAY" time="18:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <entry serviceType="Altar_2014-2012" count="2"/>
-                <entry serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
             </serviceTypeCounts>
         </regularMass>
         <regularMass day="SATURDAY" time="17:00" church="Church" form="Saturday Evening Mass">
             <serviceTypeCounts>
-                <entry serviceType="Altar_2012-2000" count="2"/>
-                <entry serviceType="Altar_2014-2012" count="2"/>
-                <entry serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
             </serviceTypeCounts>
         </regularMass>
         <regularMass day="SUNDAY" time="08:00" church="Church" form="Holy Mass">
             <serviceTypeCounts>
-                <entry serviceType="Altar_2014-2012" count="2"/>
-                <entry serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
             </serviceTypeCounts>
         </regularMass>
         <regularMass day="SUNDAY" time="09:45" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <entry serviceType="Altar_2014-2012" count="2"/>
-                <entry serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
             </serviceTypeCounts>
         </regularMass>
         <regularMass day="SUNDAY" time="11:00" church="Church" form="High Mass">
             <serviceTypeCounts>
-                <entry serviceType="Altar_2012-2000" count="2"/>
-                <entry serviceType="Altar_2014-2012" count="2"/>
-                <entry serviceType="Cross_2012-2000" count="1"/>
-                <entry serviceType="Flambeau_2018-2016" count="10"/>
-                <entry serviceType="Incense_2012-2000" count="2"/>
-                <entry serviceType="Lector_2012-2000" count="1"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Cross_2012-2000" count="1"/>
+                <serviceTypeCount serviceType="Flambeau_2018-2016" count="10"/>
+                <serviceTypeCount serviceType="Incense_2012-2000" count="2"/>
+                <serviceTypeCount serviceType="Lector_2012-2000" count="1"/>
             </serviceTypeCounts>
         </regularMass>
     </regularMasses>

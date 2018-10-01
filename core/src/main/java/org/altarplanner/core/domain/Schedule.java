@@ -14,6 +14,7 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.persistence.jaxb.api.score.buildin.hardsoft.HardSoftScoreJaxbXmlAdapter;
+import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -60,12 +61,12 @@ public class Schedule implements Serializable {
                 .map(PlanningMass::new)
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
-        final LocalDateInterval futureDraftInterval = LocalDateInterval.of(
+        final LocalDateRange futureDraftRange = LocalDateRange.ofClosed(
                 getPlanningWindow().getEnd().plusDays(1),
                 getPlanningWindow().getEnd().plusWeeks(2)
         );
         this.futureDraftMasses = config
-                .getDiscreteMassParallelStreamWithin(futureDraftInterval)
+                .getDiscreteMassStreamFromRegularMassesIn(futureDraftRange)
                 .map(PlanningMass::new)
                 .collect(Collectors.toUnmodifiableList());
         setPlanningIds();
@@ -93,12 +94,12 @@ public class Schedule implements Serializable {
         if (lastPublishedDate.isAfter(lastFinalDraftDate)) {
             final LocalDate futureRelevanceDate = lastFinalDraftDate.plusWeeks(2);
             if (futureRelevanceDate.isAfter(lastPublishedDate)) {
-                final LocalDateInterval futureDraftInterval = LocalDateInterval.of(
+                final LocalDateRange futureDraftRange = LocalDateRange.ofClosed(
                         lastPublishedDate.plusDays(1),
                         futureRelevanceDate
                 );
                 this.futureDraftMasses = config
-                        .getDiscreteMassParallelStreamWithin(futureDraftInterval)
+                        .getDiscreteMassStreamFromRegularMassesIn(futureDraftRange)
                         .map(PlanningMass::new)
                         .collect(Collectors.toUnmodifiableList());
             } else {

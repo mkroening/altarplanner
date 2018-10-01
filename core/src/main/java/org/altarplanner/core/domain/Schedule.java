@@ -3,7 +3,6 @@ package org.altarplanner.core.domain;
 import org.altarplanner.core.domain.mass.DiscreteMass;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
-import org.altarplanner.core.util.LocalDateInterval;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
@@ -62,8 +61,8 @@ public class Schedule implements Serializable {
                 .sorted(Comparator.comparing(PlanningMass::getDate))
                 .collect(Collectors.toUnmodifiableList());
         final LocalDateRange futureDraftRange = LocalDateRange.ofClosed(
-                getPlanningWindow().getEnd().plusDays(1),
-                getPlanningWindow().getEnd().plusWeeks(2)
+                getPlanningWindow().getEndInclusive().plusDays(1),
+                getPlanningWindow().getEndInclusive().plusWeeks(2)
         );
         this.futureDraftMasses = config
                 .getDiscreteMassStreamFromRegularMassesIn(futureDraftRange)
@@ -76,7 +75,7 @@ public class Schedule implements Serializable {
     public Schedule(Config config, Collection<DiscreteMass> masses, Schedule lastSchedule) {
         this(config, masses);
         final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
-        if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEnd()))
+        if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEndInclusive()))
             throw new IllegalArgumentException("The given last schedule is too old to be relevant");
         this.publishedMasses = lastSchedule.getPlannedMasses()
                 .filter(mass -> !publishedRelevanceDate.isAfter(mass.getDate()))
@@ -152,8 +151,8 @@ public class Schedule implements Serializable {
         return Math.toIntExact(count);
     }
 
-    public LocalDateInterval getPlanningWindow() {
-        return LocalDateInterval.of(finalDraftMasses.get(0).getDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDate());
+    public LocalDateRange getPlanningWindow() {
+        return LocalDateRange.ofClosed(finalDraftMasses.get(0).getDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDate());
     }
 
     @ProblemFactCollectionProperty

@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.solver.ScheduleSolver;
+import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnknownJAXBException;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class SolverView {
         try {
             Files.createDirectories(directory.toPath());
             fileChooser.setInitialDirectory(directory);
-            fileChooser.setInitialFileName(schedule.getPlanningWindow().toHyphenString() + ".xml");
+            fileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(schedule.getPlanningWindow()) + ".xml");
 
             File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
             if (selectedFile != null) {

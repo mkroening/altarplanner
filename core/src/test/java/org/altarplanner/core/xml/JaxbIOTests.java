@@ -91,7 +91,7 @@ class JaxbIOTests {
         final Config config = JaxbIO.unmarshal(EXPECTED_CONFIG, Config.class);
         final Schedule oldSchedule = Schedule.load(EXPECTED_INITIALIZED_SCHEDULE);
         final DiscreteMass newMass = new DiscreteMass();
-        newMass.setDate(oldSchedule.getPlanningWindow().getEnd().plusDays(1));
+        newMass.setDate(oldSchedule.getPlanningWindow().getEnd());
         newMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
         final Schedule freshSchedule = new Schedule(config, List.of(newMass), oldSchedule);
         final int serviceIndex = 0;

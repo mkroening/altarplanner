@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.massLegacy.DiscreteMass;
 import org.threeten.extra.LocalDateRange;
 
 import java.time.LocalDate;

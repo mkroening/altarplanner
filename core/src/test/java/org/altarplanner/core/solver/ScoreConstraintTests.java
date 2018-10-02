@@ -1,7 +1,7 @@
 package org.altarplanner.core.solver;
 
 import org.altarplanner.core.domain.*;
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.massLegacy.DiscreteMass;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.core.api.solver.SolverFactory;

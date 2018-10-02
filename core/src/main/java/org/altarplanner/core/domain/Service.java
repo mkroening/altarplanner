@@ -1,6 +1,6 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.mass.PlanningMass;
+import org.altarplanner.core.domain.massLegacy.PlanningMass;
 import org.altarplanner.core.solver.ServerStrengthWeightFactory;
 import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;

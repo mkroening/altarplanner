@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.massLegacy.DiscreteMass;
 import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xlsx.PoiIO;
 import org.altarplanner.core.xml.JaxbIO;

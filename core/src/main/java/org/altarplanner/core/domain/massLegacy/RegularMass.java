@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain.mass;
+package org.altarplanner.core.domain.massLegacy;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;

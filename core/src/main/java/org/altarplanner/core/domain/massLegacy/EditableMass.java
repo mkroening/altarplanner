@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain.mass;
+package org.altarplanner.core.domain.massLegacy;
 
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.xml.jaxb.util.ServiceTypeCountsXmlAdapter;

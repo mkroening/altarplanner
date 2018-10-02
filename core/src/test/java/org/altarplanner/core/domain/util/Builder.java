@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain.util;
 
 import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.mass.RegularMass;
+import org.altarplanner.core.domain.massLegacy.RegularMass;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

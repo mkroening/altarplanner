@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.mass.DiscreteMass;
-import org.altarplanner.core.domain.mass.RegularMass;
+import org.altarplanner.core.domain.massLegacy.DiscreteMass;
+import org.altarplanner.core.domain.massLegacy.RegularMass;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

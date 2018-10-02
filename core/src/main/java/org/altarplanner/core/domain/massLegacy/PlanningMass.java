@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain.mass;
+package org.altarplanner.core.domain.massLegacy;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.Server;

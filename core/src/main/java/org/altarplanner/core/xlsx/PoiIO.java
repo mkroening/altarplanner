@@ -3,7 +3,7 @@ package org.altarplanner.core.xlsx;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.Service;
-import org.altarplanner.core.domain.mass.PlanningMass;
+import org.altarplanner.core.domain.massLegacy.PlanningMass;
 import org.altarplanner.core.util.DateTimeFormatterUtil;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;

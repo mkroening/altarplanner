@@ -8,7 +8,7 @@ import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.massLegacy.DiscreteMass;
 import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
@@ -24,7 +24,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
-import java.util.List;
 
 public class DiscreteMassEditor {
 

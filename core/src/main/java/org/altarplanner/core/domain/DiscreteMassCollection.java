@@ -1,6 +1,6 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.massLegacy.DiscreteMass;
 import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;

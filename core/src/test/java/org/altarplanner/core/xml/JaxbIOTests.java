@@ -1,7 +1,7 @@
 package org.altarplanner.core.xml;
 
 import org.altarplanner.core.domain.*;
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.massLegacy.DiscreteMass;
 import org.altarplanner.core.domain.util.BigDomainGenerator;
 import org.altarplanner.core.domain.DiscreteMassCollection;
 import org.junit.jupiter.api.Disabled;

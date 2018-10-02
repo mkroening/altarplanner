@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    api("org.threeten:threeten-extra:1.4") {
+    api("org.threeten:threeten-extra:+") {
         because("we use additional date-time classes like LocalDateRange")
     }
 
@@ -17,21 +17,18 @@ dependencies {
         because("we require a constraint solver")
     }
 
-    implementation("org.slf4j:slf4j-api:+") {
+    val slf4jVersion: String by project
+    implementation("org.slf4j:slf4j-api:$slf4jVersion") {
         because("we do logging via these interfaces")
     }
 
     val jaxbVersion: String by project
+    implementation("javax.xml.bind:jaxb-api:$jaxbVersion") {
+        because("we use the JAXB API for XML Binding")
+    }
+
     implementation("org.glassfish.jaxb:jaxb-runtime:$jaxbVersion") {
-        because("we use JAXB-RI for XML Binding")
-    }
-
-    implementation("com.sun.xml.bind:jaxb-core:$jaxbVersion") {
-        because("we want to upgrade the rest of jaxb pulled in by optaplanner-persistence-jaxb")
-    }
-
-    implementation("com.sun.xml.bind:jaxb-impl:$jaxbVersion") {
-        because("we want to upgrade the rest of jaxb pulled in by optaplanner-persistence-jaxb")
+        because("we want to use the RI JAXB runtime")
     }
 
     implementation("com.migesok:jaxb-java-time-adapters:+") {
@@ -50,7 +47,8 @@ dependencies {
         because("we use JUnit modules")
     }
 
-    testImplementation("ch.qos.logback:logback-classic:+") {
+    val logbackVersion: String by project
+    testImplementation("ch.qos.logback:logback-classic:$logbackVersion") {
         because("we use this SLF4J API implementation for logging while testing")
     }
 

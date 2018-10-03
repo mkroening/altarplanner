@@ -256,13 +256,12 @@ public class Schedule implements Serializable {
                 Objects.equals(publishedMasses, schedule.publishedMasses) &&
                 Objects.equals(finalDraftMasses, schedule.finalDraftMasses) &&
                 Objects.equals(futureDraftMasses, schedule.futureDraftMasses) &&
-                Objects.equals(getServices(), schedule.getServices()) &&
                 Objects.equals(score, schedule.score);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(config, publishedMasses, finalDraftMasses, futureDraftMasses, getServices(), score);
+        return Objects.hash(config, publishedMasses, finalDraftMasses, futureDraftMasses, score);
     }
 
 }

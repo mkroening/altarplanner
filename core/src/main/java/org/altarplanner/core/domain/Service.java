@@ -77,19 +77,6 @@ public class Service extends AbstractPersistable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Service service = (Service) o;
-        return Objects.equals(planningId, service.planningId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(planningId);
-    }
-
-    @Override
     public String toString() {
         return "Service{" +
                 LocalDateTime.of(mass.getDate(), mass.getTime()) +

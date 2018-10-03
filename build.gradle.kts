@@ -13,6 +13,10 @@ subprojects {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    tasks.withType<JavaCompile>().configureEach{
+        options.encoding = "UTF-8"
+    }
+
     repositories {
         jcenter()
     }

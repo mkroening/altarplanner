@@ -12,11 +12,23 @@ public abstract class BaseMass implements GenericMass {
             .thenComparing(BaseMass::getForm)
             .thenComparing(BaseMass::getAnnotation);
 
-    protected String church = Config.RESOURCE_BUNDLE.getString("mass.church");
+    protected String church;
 
-    protected String form = Config.RESOURCE_BUNDLE.getString("mass.form");
+    protected String form;
 
-    protected String annotation = Config.RESOURCE_BUNDLE.getString("mass.annotation");
+    protected String annotation;
+
+    protected BaseMass() {
+        this.church = Config.RESOURCE_BUNDLE.getString("mass.church");
+        this.form = Config.RESOURCE_BUNDLE.getString("mass.form");
+        this.annotation = Config.RESOURCE_BUNDLE.getString("mass.annotation");
+    }
+
+    protected BaseMass(BaseMass baseMass) {
+        this.church = baseMass.church;
+        this.form = baseMass.form;
+        this.annotation = baseMass.annotation;
+    }
 
     @Override
     public String getChurch() {

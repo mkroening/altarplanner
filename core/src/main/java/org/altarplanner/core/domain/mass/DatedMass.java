@@ -8,7 +8,20 @@ import java.util.Objects;
 
 public abstract class DatedMass extends BaseMass implements Comparable<DatedMass> {
 
-    protected LocalDateTime dateTime = LocalDateTime.of(LocalDate.now().plusWeeks(2), LocalTime.of(11, 0));
+    protected LocalDateTime dateTime;
+
+    protected DatedMass() {
+        this.dateTime = LocalDateTime.of(LocalDate.now().plusMonths(1), LocalTime.of(11, 0));
+    }
+
+    protected DatedMass(BaseMass baseMass, LocalDateTime dateTime) {
+        super(baseMass);
+        this.dateTime = dateTime;
+    }
+
+    protected DatedMass(DatedMass datedMass) {
+        this(datedMass, datedMass.dateTime);
+    }
 
     public LocalDateTime getDateTime() {
         return dateTime;

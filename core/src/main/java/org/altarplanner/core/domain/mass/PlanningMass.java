@@ -4,15 +4,32 @@ import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.Service;
 import org.altarplanner.core.domain.ServiceType;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class PlanningMass extends DatedMass {
 
-    protected List<Service> services = List.of();
+    protected List<Service> services;
 
-    protected boolean pinned = false;
+    protected boolean pinned;
+
+    public PlanningMass() {
+        this.services = List.of();
+        this.pinned = false;
+    }
+
+    public PlanningMass(DatedDraftMass datedDraftMass) {
+        super(datedDraftMass);
+        this.services = datedDraftMass.serviceTypeCounts.entrySet().stream()
+                .flatMap(serviceTypeCount -> IntStream.range(0, serviceTypeCount.getValue())
+                        .mapToObj(i -> new Service())) // TODO: integrate with Service
+                .sorted(Comparator.comparing(Service::getType, ServiceType.getDescComparator()))
+                .collect(Collectors.toUnmodifiableList());
+        this.pinned = false;
+    }
 
     public List<Service> getServices() {
         return services;

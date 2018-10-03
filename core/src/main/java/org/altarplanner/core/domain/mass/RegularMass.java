@@ -10,11 +10,17 @@ import java.util.Objects;
 
 public class RegularMass extends BaseMass implements DraftMass, Comparable<RegularMass> {
 
-    protected DayOfWeek day = DayOfWeek.SUNDAY;
+    protected DayOfWeek day;
 
-    protected LocalTime time = LocalTime.of(11, 0);
+    protected LocalTime time;
 
-    protected Map<ServiceType, Integer> serviceTypeCounts = Map.of();
+    protected Map<ServiceType, Integer> serviceTypeCounts;
+
+    public RegularMass() {
+        this.day = DayOfWeek.SUNDAY;
+        this.time = LocalTime.of(11, 0);
+        this.serviceTypeCounts = Map.of();
+    }
 
     public DayOfWeek getDay() {
         return day;

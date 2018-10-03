@@ -2,12 +2,23 @@ package org.altarplanner.core.domain.mass;
 
 import org.altarplanner.core.domain.ServiceType;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 public class DatedDraftMass extends DatedMass implements DraftMass {
 
-    protected Map<ServiceType, Integer> serviceTypeCounts = Map.of();
+    protected Map<ServiceType, Integer> serviceTypeCounts;
+
+    public DatedDraftMass() {
+        this.serviceTypeCounts = Map.of();
+    }
+
+    public DatedDraftMass(RegularMass regularMass, LocalDate date) {
+        super(regularMass, LocalDateTime.of(date, regularMass.time));
+        this.serviceTypeCounts = Map.copyOf(regularMass.serviceTypeCounts);
+    }
 
     @Override
     public Map<ServiceType, Integer> getServiceTypeCounts() {

@@ -52,16 +52,11 @@ public class PlanningMass extends DatedMass {
      * @return the list of serviceTypes in this mass
      */
     private List<ServiceType> getServiceTypes() {
-        return services.stream().map(Service::getType).collect(Collectors.toUnmodifiableList());
+        return services.stream()
+                .map(Service::getType)
+                .collect(Collectors.toUnmodifiableList());
     }
 
-    /**
-     * Used by {@code equals(Object)} and {@code hashCode()} to break the cycle.
-     * @return the list of servers in this mass
-     */
-    private List<Server> getServers() {
-        return services.stream().map(Service::getServer).collect(Collectors.toUnmodifiableList());
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -70,12 +65,11 @@ public class PlanningMass extends DatedMass {
         if (!super.equals(o)) return false;
         PlanningMass that = (PlanningMass) o;
         return pinned == that.pinned &&
-                Objects.equals(getServiceTypes(), that.getServiceTypes()) &&
-                Objects.equals(getServers(), getServers());
+                Objects.equals(getServiceTypes(), that.getServiceTypes());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getServiceTypes(), getServers(), pinned);
+        return Objects.hash(super.hashCode(), getServiceTypes(), pinned);
     }
 }

@@ -17,12 +17,13 @@ class Builder {
         return serviceType;
     }
 
-    static RegularMass buildRegularMass(DayOfWeek day, LocalTime time, String church, String form, Map<ServiceType, Integer> serviceTypeCount) {
+    static RegularMass buildRegularMass(DayOfWeek day, LocalTime time, String church, String form, Map<ServiceType, Integer> serviceTypeCount, String annotation) {
         RegularMass regularMass = new RegularMass();
         regularMass.setDay(day);
         regularMass.setTime(time);
         regularMass.setChurch(church);
         regularMass.setForm(form);
+        regularMass.setAnnotation(annotation);
         regularMass.setServiceTypeCounts(serviceTypeCount);
         return regularMass;
     }

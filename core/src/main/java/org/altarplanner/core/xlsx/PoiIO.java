@@ -65,11 +65,11 @@ public class PoiIO {
             rowIndex++;
 
             final XSSFCell dateTimeCell = sheet.getRow(rowIndex++).createCell(2*columnIndex);
-            dateTimeCell.setCellValue(mass.getDateTimeString());
+            dateTimeCell.setCellValue(mass.getDateTime().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
             dateTimeCell.setCellStyle(bottomOpenCellStyle);
 
             final XSSFCell churchFormCell = sheet.getRow(rowIndex++).createCell(2*columnIndex);
-            churchFormCell.setCellValue(mass.getChurchFormString());
+            churchFormCell.setCellValue(mass.getChurch() + " - " + mass.getForm());
             churchFormCell.setCellStyle(topOpenCellStyle);
 
             for (final Service service : mass.getServices()) {
@@ -103,7 +103,7 @@ public class PoiIO {
 
         final XSSFRow dateRow = sheet.createRow(0);
         final Map<LocalDate, List<PlanningMass>> dateMassesMap = schedule.getFinalDraftMasses().stream()
-                .collect(Collectors.groupingBy(PlanningMass::getDate));
+                .collect(Collectors.groupingBy(planningMass -> planningMass.getDateTime().toLocalDate()));
         dateMassesMap.forEach((date, masses) -> {
             final int firstMassColumn = columnOffset + schedule.getFinalDraftMasses().indexOf(masses.get(0));
             dateRow.createCell(firstMassColumn).setCellValue(date.format(DateTimeFormatterUtil.ISO_DATE_WITH_DAY_WITH_SHORT_YEAR));
@@ -116,7 +116,7 @@ public class PoiIO {
                 .forEach(value -> {
                     PlanningMass mass = schedule.getFinalDraftMasses().get(value);
                     timeChurchRow.createCell(columnOffset + value)
-                            .setCellValue(mass.getTime().format(DateTimeFormatterUtil.ISO_LOCAL_TIME_WITHOUT_SECONDS) + " - " + mass.getChurch());
+                            .setCellValue(mass.getDateTime().toLocalTime().format(DateTimeFormatterUtil.ISO_LOCAL_TIME_WITHOUT_SECONDS) + " - " + mass.getChurch());
                 });
 
         final XSSFRow formRow = sheet.createRow(2);

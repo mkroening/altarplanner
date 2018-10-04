@@ -11,9 +11,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 @PlanningEntity(difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
 @XmlType(propOrder = {"type", "server"})
@@ -77,25 +77,38 @@ public class Service extends AbstractPersistable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Service service = (Service) o;
-        return Objects.equals(planningId, service.planningId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(planningId);
-    }
-
-    @Override
     public String toString() {
         return "Service{" +
-                LocalDateTime.of(mass.getDate(), mass.getTime()) +
+                mass.getDateTime() +
                 ", " + type +
                 ": " + server +
                 "}";
     }
 
+    /**
+     * Used by {@code equals(Object)} and {@code hashCode()}
+     * to distinct two different services with same type in one mass.
+     * @return index of this service in the parent mass
+     */
+    private int indexInMass() {
+        return IntStream.range(0, mass.getServices().size())
+                .filter(index -> this == mass.getServices().get(index))
+                .findAny()
+                .orElseThrow();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Service service = (Service) o;
+        return Objects.equals(mass, service.mass) &&
+                Objects.equals(type, service.type) &&
+                Objects.equals(indexInMass(), service.indexInMass());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mass, type, indexInMass());
+    }
 }

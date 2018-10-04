@@ -1,7 +1,7 @@
 package org.altarplanner.core.solver;
 
 import org.altarplanner.core.domain.*;
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.mass.DatedDraftMass;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.core.api.solver.SolverFactory;
@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Year;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -23,12 +24,13 @@ class ScoreConstraintTests {
 
     private final static int massCount = 10;
 
-    private List<DiscreteMass> generateDiscreteMasses(Config config, boolean subsequentMasses, boolean subsequentServiceTypes) {
+    private List<DatedDraftMass> generateDatedDraftMasses(Config config, boolean subsequentMasses, boolean subsequentServiceTypes) {
         return IntStream.range(0, massCount)
                 .mapToObj(value -> {
-                    DiscreteMass discreteMass = new DiscreteMass();
-                    discreteMass.setDate(subsequentMasses ? LocalDate.now().plusDays(value) : LocalDate.now());
-                    discreteMass.getServiceTypeCounts().put(config.getServiceTypes().get(subsequentServiceTypes ? value : 0), 1);
+                    DatedDraftMass discreteMass = new DatedDraftMass();
+                    discreteMass.setAnnotation(Integer.toString(value));
+                    discreteMass.setDateTime(LocalDateTime.of(subsequentMasses ? LocalDate.now().plusDays(value) : LocalDate.now(), LocalTime.of(11,0)));
+                    discreteMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(subsequentServiceTypes ? value : 0), 1));
                     return discreteMass;
                 })
                 .collect(Collectors.toUnmodifiableList());
@@ -42,7 +44,7 @@ class ScoreConstraintTests {
         config.getServers().add(new Server());
         config.getServiceTypes().add(new ServiceType());
 
-        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, false, false);
+        List<DatedDraftMass> discreteMasses = generateDatedDraftMasses(config, false, false);
 
         Schedule schedule = new Schedule(config, discreteMasses);
 
@@ -81,7 +83,7 @@ class ScoreConstraintTests {
                         .collect(Collectors.toUnmodifiableList())
         );
 
-        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, true);
+        List<DatedDraftMass> discreteMasses = generateDatedDraftMasses(config, true, true);
 
         Schedule schedule = new Schedule(config, discreteMasses);
 
@@ -105,7 +107,7 @@ class ScoreConstraintTests {
         config.getServers().get(0).getAbsences().add(LocalDateRange.ofClosed(LocalDate.now(), LocalDate.now().plusDays(massCount / 2)));
         config.getServiceTypes().add(new ServiceType());
 
-        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+        List<DatedDraftMass> discreteMasses = generateDatedDraftMasses(config, true, false);
 
         Schedule schedule = new Schedule(config, discreteMasses);
 
@@ -130,7 +132,7 @@ class ScoreConstraintTests {
                         .collect(Collectors.toUnmodifiableList()));
         config.getServiceTypes().add(new ServiceType());
 
-        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+        List<DatedDraftMass> discreteMasses = generateDatedDraftMasses(config, true, false);
 
         Schedule schedule = new Schedule(config, discreteMasses);
 
@@ -162,7 +164,7 @@ class ScoreConstraintTests {
                         .mapToObj(value -> config.getServiceTypes().get(2 * value))
                         .collect(Collectors.toUnmodifiableList()));
 
-        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, true);
+        List<DatedDraftMass> discreteMasses = generateDatedDraftMasses(config, true, true);
 
         Schedule schedule = new Schedule(config, discreteMasses);
 
@@ -187,7 +189,7 @@ class ScoreConstraintTests {
                         .collect(Collectors.toUnmodifiableList()));
         config.getServiceTypes().add(new ServiceType());
 
-        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+        List<DatedDraftMass> discreteMasses = generateDatedDraftMasses(config, true, false);
 
         Schedule schedule = new Schedule(config, discreteMasses);
 
@@ -214,8 +216,8 @@ class ScoreConstraintTests {
         config.getPairs().add(new PairRequest(config.getServers().get(0), config.getServers().get(1)));
         config.getServiceTypes().add(new ServiceType());
 
-        DiscreteMass discreteMass = new DiscreteMass();
-        discreteMass.getServiceTypeCounts().put(config.getServiceTypes().get(0), 2);
+        DatedDraftMass discreteMass = new DatedDraftMass();
+        discreteMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 2));
 
         Schedule schedule = new Schedule(config, List.of(discreteMass));
 
@@ -237,7 +239,7 @@ class ScoreConstraintTests {
         config.getServers().add(new Server());
         config.getServiceTypes().add(new ServiceType());
 
-        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+        List<DatedDraftMass> discreteMasses = generateDatedDraftMasses(config, true, false);
 
         Schedule schedule = new Schedule(config, discreteMasses);
 
@@ -264,8 +266,8 @@ class ScoreConstraintTests {
         config.getServiceTypes().add(new ServiceType());
         config.getServiceTypes().get(0).setMinYear(Year.now().getValue() - 7);
 
-        DiscreteMass discreteMass = new DiscreteMass();
-        discreteMass.getServiceTypeCounts().put(config.getServiceTypes().get(0), 1);
+        DatedDraftMass discreteMass = new DatedDraftMass();
+        discreteMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
 
         Schedule schedule = new Schedule(config, List.of(discreteMass));
 
@@ -285,7 +287,7 @@ class ScoreConstraintTests {
         config.getServers().get(1).setSurname("Second");
         config.getServiceTypes().add(new ServiceType());
 
-        List<DiscreteMass> discreteMasses = generateDiscreteMasses(config, true, false);
+        List<DatedDraftMass> discreteMasses = generateDatedDraftMasses(config, true, false);
 
         Schedule schedule = new Schedule(config, discreteMasses);
 

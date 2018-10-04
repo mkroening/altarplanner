@@ -3,32 +3,32 @@ package org.altarplanner.core.domain.mass;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.xml.jaxb.util.ServiceTypeCountsXmlAdapter;
 
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-@XmlTransient
-public abstract class EditableMass extends GenericMass {
+public class DatedDraftMass extends DatedMass implements DraftMass {
 
-    private Map<ServiceType, Integer> serviceTypeCounts;
+    protected Map<ServiceType, Integer> serviceTypeCounts;
 
-    EditableMass() {
-        super();
-        this.serviceTypeCounts = new HashMap<>();
+    public DatedDraftMass() {
+        this.serviceTypeCounts = Map.of();
     }
 
-    EditableMass(EditableMass editableMass) {
-        super(editableMass);
-        this.serviceTypeCounts = editableMass.serviceTypeCounts;
+    public DatedDraftMass(RegularMass regularMass, LocalDate date) {
+        super(regularMass, LocalDateTime.of(date, regularMass.time));
+        this.serviceTypeCounts = Map.copyOf(regularMass.serviceTypeCounts);
     }
 
     @XmlJavaTypeAdapter(ServiceTypeCountsXmlAdapter.class)
+    @Override
     public Map<ServiceType, Integer> getServiceTypeCounts() {
         return serviceTypeCounts;
     }
 
+    @Override
     public void setServiceTypeCounts(Map<ServiceType, Integer> serviceTypeCounts) {
         this.serviceTypeCounts = serviceTypeCounts;
     }
@@ -38,7 +38,7 @@ public abstract class EditableMass extends GenericMass {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        EditableMass that = (EditableMass) o;
+        DatedDraftMass that = (DatedDraftMass) o;
         return Objects.equals(serviceTypeCounts, that.serviceTypeCounts);
     }
 
@@ -46,5 +46,4 @@ public abstract class EditableMass extends GenericMass {
     public int hashCode() {
         return Objects.hash(super.hashCode(), serviceTypeCounts);
     }
-
 }

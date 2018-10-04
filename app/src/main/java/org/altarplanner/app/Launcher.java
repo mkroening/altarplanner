@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.mass.DatedDraftMass;
 import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xlsx.PoiIO;
 import org.altarplanner.core.xml.JaxbIO;
@@ -157,7 +157,7 @@ public class Launcher extends Application {
 
         if (massFile != null) {
             try {
-                final List<DiscreteMass> masses = JaxbIO.unmarshal(massFile, DiscreteMassCollection.class).getDiscreteMasses();
+                final List<DatedDraftMass> masses = JaxbIO.unmarshal(massFile, DiscreteMassCollection.class).getDatedDraftMasses();
                 LOGGER.info("Masses have been loaded from {}", massFile);
 
                 final FileChooser lastScheduleFileChooser = new FileChooser();

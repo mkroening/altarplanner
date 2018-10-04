@@ -41,7 +41,7 @@
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
             </serviceTypeCounts>
         </regularMass>
-        <regularMass day="SUNDAY" time="11:00" church="Church" form="High Mass">
+        <regularMass day="SUNDAY" time="11:00" church="Church" form="High Mass" annotation="Bring your Friends!">
             <serviceTypeCounts>
                 <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>

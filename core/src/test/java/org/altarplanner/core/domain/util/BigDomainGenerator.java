@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain.util;
 
 import org.altarplanner.core.domain.*;
-import org.altarplanner.core.domain.mass.DiscreteMass;
+import org.altarplanner.core.domain.mass.DatedDraftMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.domain.DiscreteMassCollection;
@@ -75,17 +75,17 @@ public class BigDomainGenerator {
         config.setServiceTypes(List.of(altar3, altar2, altar1, cross, flambeau, incense, lector));
 
         RegularMass mon19 = Builder.buildRegularMass(DayOfWeek.MONDAY, LocalTime.of(19, 0), "Chapel", "Holy Mass",
-                Map.of(altar3, 2, altar2, 2));
+                Map.of(altar3, 2, altar2, 2), null);
         RegularMass thu18 = Builder.buildRegularMass(DayOfWeek.THURSDAY, LocalTime.of(18, 0), "Chapel", "Holy Mass",
-                Map.of(altar3, 2, altar2, 2));
+                Map.of(altar3, 2, altar2, 2), null);
         RegularMass sat17 = Builder.buildRegularMass(DayOfWeek.SATURDAY, LocalTime.of(17, 0), "Church", "Saturday Evening Mass",
-                Map.of(altar3, 2, altar2, 2, altar1, 2));
+                Map.of(altar3, 2, altar2, 2, altar1, 2), null);
         RegularMass sun08 = Builder.buildRegularMass(DayOfWeek.SUNDAY, LocalTime.of(8, 0), "Church", "Holy Mass",
-                Map.of(altar3, 2, altar2, 2));
+                Map.of(altar3, 2, altar2, 2), null);
         RegularMass sun09 = Builder.buildRegularMass(DayOfWeek.SUNDAY, LocalTime.of(9, 45), "Chapel", "Holy Mass",
-                Map.of(altar3, 2, altar2, 2));
+                Map.of(altar3, 2, altar2, 2), null);
         RegularMass sun11 = Builder.buildRegularMass(DayOfWeek.SUNDAY, LocalTime.of(11, 0), "Church", "High Mass",
-                Map.of(altar2, 2, altar1, 2, flambeau, 10, lector, 1, incense, 2, cross, 1));
+                Map.of(altar2, 2, altar1, 2, flambeau, 10, lector, 1, incense, 2, cross, 1), "Bring your Friends!");
         config.setRegularMasses(List.of(mon19, thu18, sat17, sun08, sun09, sun11));
 
         List<Server> servers = IntStream.range(0, 100).mapToObj(value -> genServer(random)).collect(Collectors.toUnmodifiableList());
@@ -103,14 +103,14 @@ public class BigDomainGenerator {
         return config;
     }
 
-    public static DiscreteMassCollection genDiscreteMassCollection() {
-        List<DiscreteMass> masses = genConfig().getDiscreteMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
+    public static DiscreteMassCollection genDatedDraftMassCollection() {
+        List<DatedDraftMass> masses = genConfig().getDatedDraftMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
         return new DiscreteMassCollection(masses);
     }
 
     public static Schedule genSchedule() {
         Config config = genConfig();
-        List<DiscreteMass> masses = config.getDiscreteMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
+        List<DatedDraftMass> masses = config.getDatedDraftMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
         return new Schedule(config, masses);
     }
 

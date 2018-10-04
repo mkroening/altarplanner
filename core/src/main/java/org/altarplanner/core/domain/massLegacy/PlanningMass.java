@@ -38,7 +38,7 @@ public class PlanningMass extends GenericMass {
         this.services = discreteMass.getServiceTypeCounts().entrySet().parallelStream()
                 .flatMap(serviceTypeCountEntry ->
                         IntStream.range(0, serviceTypeCountEntry.getValue())
-                                .mapToObj(value -> new Service(this, serviceTypeCountEntry.getKey())))
+                                .mapToObj(value -> new Service())) // desintegrated
                 .sorted(Comparator.comparing(Service::getType, ServiceType.getDescComparator()))
                 .collect(Collectors.toUnmodifiableList());
 

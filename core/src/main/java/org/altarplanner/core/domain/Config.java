@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.massLegacy.DiscreteMass;
-import org.altarplanner.core.domain.massLegacy.RegularMass;
+import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
@@ -67,13 +67,13 @@ public class Config implements Serializable {
         JaxbIO.marshal(this, new File(pathname));
     }
 
-    public Stream<DiscreteMass> getDiscreteMassStreamFromRegularMassesIn(LocalDateRange dateRange) {
+    public Stream<DatedDraftMass> getDatedDraftMassStreamFromRegularMassesIn(LocalDateRange dateRange) {
         Map<DayOfWeek, List<RegularMass>> dayMassMap = regularMasses.stream()
                 .collect(Collectors.groupingBy(RegularMass::getDay));
         return dateRange.stream()
                 .flatMap(date -> Optional.ofNullable(dayMassMap.get(date.getDayOfWeek())).stream()
                         .flatMap(masses -> masses.stream()
-                                .map(mass -> new DiscreteMass(mass, date))));
+                                .map(mass -> new DatedDraftMass(mass, date))));
     }
 
     public void removeFromRegularMasses(ServiceType serviceType) {

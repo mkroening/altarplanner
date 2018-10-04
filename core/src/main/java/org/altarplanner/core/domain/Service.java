@@ -1,6 +1,6 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.massLegacy.PlanningMass;
+import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.solver.ServerStrengthWeightFactory;
 import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -80,7 +79,7 @@ public class Service extends AbstractPersistable {
     @Override
     public String toString() {
         return "Service{" +
-                LocalDateTime.of(mass.getDate(), mass.getTime()) +
+                mass.getDateTime() +
                 ", " + type +
                 ": " + server +
                 "}";

@@ -1,7 +1,9 @@
 package org.altarplanner.core.domain.mass;
 
 import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.xml.jaxb.util.ServiceTypeCountsXmlAdapter;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -20,6 +22,7 @@ public class DatedDraftMass extends DatedMass implements DraftMass {
         this.serviceTypeCounts = Map.copyOf(regularMass.serviceTypeCounts);
     }
 
+    @XmlJavaTypeAdapter(ServiceTypeCountsXmlAdapter.class)
     @Override
     public Map<ServiceType, Integer> getServiceTypeCounts() {
         return serviceTypeCounts;

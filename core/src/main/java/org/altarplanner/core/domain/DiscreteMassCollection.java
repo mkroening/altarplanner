@@ -1,6 +1,6 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.massLegacy.DiscreteMass;
+import org.altarplanner.core.domain.mass.DatedDraftMass;
 import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -14,19 +14,22 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @XmlRootElement
-@XmlType(propOrder = {"serviceTypes", "discreteMasses"})
+@XmlType(propOrder = {"serviceTypes", "datedDraftMasses"})
 public class DiscreteMassCollection {
 
     private List<ServiceType> serviceTypes;
 
-    private List<DiscreteMass> discreteMasses;
+    private List<DatedDraftMass> discreteMasses;
 
+    /**
+     * Noarg public constructor making the class instantiatable for JAXB.
+     */
     public DiscreteMassCollection() {
     }
 
-    public DiscreteMassCollection(List<DiscreteMass> discreteMasses) {
+    public DiscreteMassCollection(List<DatedDraftMass> discreteMasses) {
         this.discreteMasses = discreteMasses.stream()
-                .sorted(DiscreteMass.getDescComparator())
+                .sorted()
                 .collect(Collectors.toUnmodifiableList());
         serviceTypes = discreteMasses.parallelStream()
                 .flatMap(discreteMass -> discreteMass.getServiceTypeCounts().keySet().parallelStream())
@@ -36,8 +39,8 @@ public class DiscreteMassCollection {
     }
 
     public LocalDateRange getDateRange() {
-        final LocalDate start = Collections.min(discreteMasses, DiscreteMass.getDescComparator()).getDate();
-        final LocalDate endInclusive = Collections.max(discreteMasses, DiscreteMass.getDescComparator()).getDate();
+        final LocalDate start = Collections.min(discreteMasses).getDateTime().toLocalDate();
+        final LocalDate endInclusive = Collections.max(discreteMasses).getDateTime().toLocalDate();
         return LocalDateRange.ofClosed(start, endInclusive);
     }
 
@@ -53,11 +56,11 @@ public class DiscreteMassCollection {
 
     @XmlElementWrapper(name = "discreteMasses")
     @XmlElement(name = "discreteMass")
-    public List<DiscreteMass> getDiscreteMasses() {
+    public List<DatedDraftMass> getDatedDraftMasses() {
         return discreteMasses;
     }
 
-    public void setDiscreteMasses(List<DiscreteMass> discreteMasses) {
+    public void setDatedDraftMasses(List<DatedDraftMass> discreteMasses) {
         this.discreteMasses = discreteMasses;
     }
 

@@ -1,7 +1,11 @@
 package org.altarplanner.core.domain.mass;
 
 import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.xml.jaxb.util.LocalTimeWithoutSecondsXmlAdapter;
+import org.altarplanner.core.xml.jaxb.util.ServiceTypeCountsXmlAdapter;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Comparator;
@@ -22,6 +26,7 @@ public class RegularMass extends BaseMass implements DraftMass, Comparable<Regul
         this.serviceTypeCounts = Map.of();
     }
 
+    @XmlAttribute
     public DayOfWeek getDay() {
         return day;
     }
@@ -30,6 +35,8 @@ public class RegularMass extends BaseMass implements DraftMass, Comparable<Regul
         this.day = day;
     }
 
+    @XmlJavaTypeAdapter(LocalTimeWithoutSecondsXmlAdapter.class)
+    @XmlAttribute
     public LocalTime getTime() {
         return time;
     }
@@ -38,6 +45,7 @@ public class RegularMass extends BaseMass implements DraftMass, Comparable<Regul
         this.time = time;
     }
 
+    @XmlJavaTypeAdapter(ServiceTypeCountsXmlAdapter.class)
     @Override
     public Map<ServiceType, Integer> getServiceTypeCounts() {
         return serviceTypeCounts;

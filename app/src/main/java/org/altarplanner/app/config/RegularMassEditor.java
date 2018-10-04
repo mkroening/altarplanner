@@ -8,7 +8,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.massLegacy.RegularMass;
+import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.xml.UnknownJAXBException;
 
 import java.io.IOException;
@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,7 +46,9 @@ public class RegularMassEditor {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(item.getDesc());
+                    setText(item.getDay().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " - " +
+                            item.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + " - " +
+                            item.getChurch());
                 }
             }
         });
@@ -79,7 +82,7 @@ public class RegularMassEditor {
         dayOfWeekChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                  regularMassListView.getSelectionModel().getSelectedItem().setDay(newValue);
-                 regularMassListView.getItems().sort(RegularMass.getDescComparator());
+                 regularMassListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
@@ -88,7 +91,7 @@ public class RegularMassEditor {
                 try {
                     regularMassListView.getSelectionModel().getSelectedItem().setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                     timeTextField.getStyleClass().remove("text-input-error");
-                    regularMassListView.getItems().sort(RegularMass.getDescComparator());
+                    regularMassListView.getItems().sort(Comparator.naturalOrder());
                 } catch (DateTimeParseException e) {
                     if (!timeTextField.getStyleClass().contains("text-input-error"))
                         timeTextField.getStyleClass().add("text-input-error");
@@ -99,7 +102,7 @@ public class RegularMassEditor {
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 regularMassListView.getSelectionModel().getSelectedItem().setChurch(newValue);
-                regularMassListView.getItems().sort(RegularMass.getDescComparator());
+                regularMassListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
@@ -164,7 +167,7 @@ public class RegularMassEditor {
         regularMassListView.getItems().add(regularMass);
         setDisable(false);
         regularMassListView.getSelectionModel().select(regularMass);
-        regularMassListView.getItems().sort(RegularMass.getDescComparator());
+        regularMassListView.getItems().sort(Comparator.naturalOrder());
     }
 
     @FXML private void removeRegularMass() {

@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.massLegacy.DiscreteMass;
-import org.altarplanner.core.domain.massLegacy.PlanningMass;
+import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
@@ -50,36 +50,39 @@ public class Schedule implements Serializable {
         return unmarshalled;
     }
 
+    /**
+     * Noarg public constructor making the class instantiatable for OptaPlanner and JAXB.
+     */
     public Schedule() {
     }
 
-    public Schedule(Config config, Collection<DiscreteMass> masses) {
+    public Schedule(Config config, Collection<DatedDraftMass> masses) {
         this.config = config;
         this.publishedMasses = List.of();
         this.finalDraftMasses = masses.stream()
                 .map(PlanningMass::new)
-                .sorted(Comparator.comparing(PlanningMass::getDate))
+                .sorted()
                 .collect(Collectors.toUnmodifiableList());
         final LocalDateRange futureDraftRange = LocalDateRange.ofClosed(
                 getPlanningWindow().getEndInclusive().plusDays(1),
                 getPlanningWindow().getEndInclusive().plusWeeks(2)
         );
         this.futureDraftMasses = config
-                .getDiscreteMassStreamFromRegularMassesIn(futureDraftRange)
+                .getDatedDraftMassStreamFromRegularMassesIn(futureDraftRange)
                 .map(PlanningMass::new)
                 .collect(Collectors.toUnmodifiableList());
         setPlanningIds();
         setPinned();
     }
 
-    public Schedule(Config config, Collection<DiscreteMass> masses, Schedule lastSchedule) {
+    public Schedule(Config config, Collection<DatedDraftMass> masses, Schedule lastSchedule) {
         this(config, masses);
         final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
         if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEndInclusive()))
             throw new IllegalArgumentException("The given last schedule is too old to be relevant");
         this.publishedMasses = lastSchedule.getPlannedMasses()
-                .filter(mass -> !publishedRelevanceDate.isAfter(mass.getDate()))
-                .sorted(Comparator.comparing(PlanningMass::getDate))
+                .filter(mass -> !publishedRelevanceDate.isAfter(mass.getDateTime().toLocalDate()))
+                .sorted()
                 .collect(Collectors.toUnmodifiableList());
         publishedMasses.forEach(planningMass ->
                 planningMass.setServices(planningMass.getServices().stream()
@@ -88,8 +91,8 @@ public class Schedule implements Serializable {
                 )
         );
         publishedMasses.forEach(mass -> mass.setPinned(true));
-        final LocalDate lastPublishedDate = publishedMasses.get(publishedMasses.size() - 1).getDate();
-        final LocalDate lastFinalDraftDate = finalDraftMasses.get(finalDraftMasses.size() - 1).getDate();
+        final LocalDate lastPublishedDate = publishedMasses.get(publishedMasses.size() - 1).getDateTime().toLocalDate();
+        final LocalDate lastFinalDraftDate = finalDraftMasses.get(finalDraftMasses.size() - 1).getDateTime().toLocalDate();
         if (lastPublishedDate.isAfter(lastFinalDraftDate)) {
             final LocalDate futureRelevanceDate = lastFinalDraftDate.plusWeeks(2);
             if (futureRelevanceDate.isAfter(lastPublishedDate)) {
@@ -98,7 +101,7 @@ public class Schedule implements Serializable {
                         futureRelevanceDate
                 );
                 this.futureDraftMasses = config
-                        .getDiscreteMassStreamFromRegularMassesIn(futureDraftRange)
+                        .getDatedDraftMassStreamFromRegularMassesIn(futureDraftRange)
                         .map(PlanningMass::new)
                         .collect(Collectors.toUnmodifiableList());
             } else {
@@ -152,7 +155,7 @@ public class Schedule implements Serializable {
     }
 
     public LocalDateRange getPlanningWindow() {
-        return LocalDateRange.ofClosed(finalDraftMasses.get(0).getDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDate());
+        return LocalDateRange.ofClosed(finalDraftMasses.get(0).getDateTime().toLocalDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDateTime().toLocalDate());
     }
 
     @ProblemFactCollectionProperty
@@ -171,7 +174,8 @@ public class Schedule implements Serializable {
     @ProblemFactCollectionProperty
     public List<DateOffRequest> getDateOffRequests() {
         final Set<LocalDate> relevantDates = getDraftMasses()
-                .map(PlanningMass::getDate)
+                .map(PlanningMass::getDateTime)
+                .map(LocalDateTime::toLocalDate)
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().stream()
                 .flatMap(server -> server.getDateOffRequests(relevantDates))
@@ -188,7 +192,7 @@ public class Schedule implements Serializable {
     @ProblemFactCollectionProperty
     public List<DateTimeOnRequest> getDateTimeOnRequests() {
         final Set<LocalDateTime> relevantDateTimes = getDraftMasses()
-                .map(planningMass -> LocalDateTime.of(planningMass.getDate(), planningMass.getTime()))
+                .map(PlanningMass::getDateTime)
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().stream()
                 .flatMap(server -> server.getDateTimeOnRequests(relevantDateTimes))

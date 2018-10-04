@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.massLegacy.DiscreteMass;
+import org.altarplanner.core.domain.mass.DatedDraftMass;
 import org.threeten.extra.LocalDateRange;
 
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ public class DiscreteMassGenerator {
     @FXML private DatePicker startDatePicker;
     @FXML private DatePicker endDatePicker;
 
-    private Consumer<List<DiscreteMass>> listConsumer;
+    private Consumer<List<DatedDraftMass>> listConsumer;
 
     @FXML private void initialize() {
         startDatePicker.setValue(LocalDate.now().plusMonths(1));
@@ -34,13 +34,13 @@ public class DiscreteMassGenerator {
         });
     }
 
-    public void initData(Consumer<List<DiscreteMass>> listConsumer) {
+    public void initData(Consumer<List<DatedDraftMass>> listConsumer) {
         this.listConsumer = listConsumer;
     }
 
     @FXML private void generateMasses() {
         listConsumer.accept(Launcher.CONFIG
-                .getDiscreteMassStreamFromRegularMassesIn(LocalDateRange.ofClosed(startDatePicker.getValue(), endDatePicker.getValue()))
+                .getDatedDraftMassStreamFromRegularMassesIn(LocalDateRange.ofClosed(startDatePicker.getValue(), endDatePicker.getValue()))
                 .collect(Collectors.toUnmodifiableList()));
         ((Stage)startDatePicker.getScene().getWindow()).close();
     }

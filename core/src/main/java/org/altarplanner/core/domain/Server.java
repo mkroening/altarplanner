@@ -49,7 +49,7 @@ public class Server extends AbstractPersistable {
     }
 
     boolean isAvailableFor(Service service) {
-        LocalDate date = service.getMass().getDate();
+        LocalDate date = service.getMass().getDateTime().toLocalDate();
         return !inabilities.contains(service.getType())
                 && year <= service.getType().getMaxYear()
                 && !weeklyAbsences.contains(date.getDayOfWeek())

@@ -2,9 +2,12 @@ package org.altarplanner.core.domain.mass;
 
 import org.altarplanner.core.domain.Config;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Comparator;
 import java.util.Objects;
 
+@XmlType(propOrder = {"church", "form", "annotation"})
 public abstract class BaseMass implements GenericMass {
 
     protected static final Comparator<BaseMass> BASE_COMPARATOR = Comparator
@@ -21,7 +24,6 @@ public abstract class BaseMass implements GenericMass {
     protected BaseMass() {
         this.church = Config.RESOURCE_BUNDLE.getString("mass.church");
         this.form = Config.RESOURCE_BUNDLE.getString("mass.form");
-        this.annotation = Config.RESOURCE_BUNDLE.getString("mass.annotation");
     }
 
     protected BaseMass(BaseMass baseMass) {
@@ -30,6 +32,7 @@ public abstract class BaseMass implements GenericMass {
         this.annotation = baseMass.annotation;
     }
 
+    @XmlAttribute
     @Override
     public String getChurch() {
         return church;
@@ -40,6 +43,7 @@ public abstract class BaseMass implements GenericMass {
         this.church = church;
     }
 
+    @XmlAttribute
     @Override
     public String getForm() {
         return form;
@@ -50,6 +54,7 @@ public abstract class BaseMass implements GenericMass {
         this.form = form;
     }
 
+    @XmlAttribute
     @Override
     public String getAnnotation() {
         return annotation;

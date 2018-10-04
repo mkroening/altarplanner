@@ -16,8 +16,8 @@ global HardSoftScoreHolder scoreHolder;
 
 rule "oneServicePerDay"
     when
-        Service($id : planningId, $server : server != null, $date : mass.date)
-        Service(mass.date == $date, planningId > $id, server == $server)
+        Service($id : planningId, $server : server != null, $date : mass.dateTime.toLocalDate)
+        Service(mass.dateTime.toLocalDate == $date, planningId > $id, server == $server)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -32,7 +32,7 @@ end
 rule "dateOffRequest"
     when
         DateOffRequest($server : key, $date : value)
-        Service(server == $server, mass.date == $date)
+        Service(server == $server, mass.dateTime.toLocalDate == $date)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -47,9 +47,9 @@ end
 
 rule "dateTimeOnRequest"
     when
-        DateTimeOnRequest($server : key, $date : value.toLocalDate(), $time : value.toLocalTime())
-        Service(mass.date == $date, mass.time == $time)
-        not Service(server == $server, mass.date == $date, mass.time == $time)
+        DateTimeOnRequest($server : key, $dateTime : value)
+        Service(mass.dateTime == $dateTime)
+        not Service(server == $server, mass.dateTime == $dateTime)
     then
         scoreHolder.addHardConstraintMatch(kcontext, -1);
 end
@@ -69,9 +69,9 @@ end
 
 rule "maximizeIntervals"
     when
-        Service($server : server != null, $date1 : mass.date)
-        Service(server == $server, $date2 : mass.date > $date1)
-        not Service(server == $server, $date1 < mass.date, mass.date < $date2)
+        Service($server : server != null, $date1 : mass.dateTime.toLocalDate)
+        Service(server == $server, $date2 : mass.dateTime.toLocalDate > $date1)
+        not Service(server == $server, $date1 < mass.dateTime.toLocalDate, mass.dateTime.toLocalDate < $date2)
     then
         long softWeight = - 14 / ChronoUnit.DAYS.between($date1, $date2);
         scoreHolder.addSoftConstraintMatch(kcontext, Math.toIntExact(softWeight));

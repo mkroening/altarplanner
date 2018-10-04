@@ -1,7 +1,7 @@
 package org.altarplanner.core.domain.util;
 
 import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.massLegacy.RegularMass;
+import org.altarplanner.core.domain.mass.RegularMass;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -17,12 +17,13 @@ class Builder {
         return serviceType;
     }
 
-    static RegularMass buildRegularMass(DayOfWeek day, LocalTime time, String church, String form, Map<ServiceType, Integer> serviceTypeCount) {
+    static RegularMass buildRegularMass(DayOfWeek day, LocalTime time, String church, String form, Map<ServiceType, Integer> serviceTypeCount, String annotation) {
         RegularMass regularMass = new RegularMass();
         regularMass.setDay(day);
         regularMass.setTime(time);
         regularMass.setChurch(church);
         regularMass.setForm(form);
+        regularMass.setAnnotation(annotation);
         regularMass.setServiceTypeCounts(serviceTypeCount);
         return regularMass;
     }

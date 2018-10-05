@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
 
 @PlanningEntity(difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
 @XmlType(propOrder = {"type", "server"})
-public class Service extends AbstractPersistable {
+public class Service extends AbstractPersistable implements Comparable<Service> {
 
     private PlanningMass mass;
     private ServiceType type;
@@ -38,12 +38,6 @@ public class Service extends AbstractPersistable {
 
     public String getDesc() {
         return server.getDesc() + " (" + type.getName() + ")";
-    }
-
-    public static Comparator<Service> getDescComparator() {
-        return Comparator
-                .comparing(Service::getServer)
-                .thenComparing(service -> service.getType().getName());
     }
 
     @XmlTransient
@@ -83,6 +77,13 @@ public class Service extends AbstractPersistable {
                 ", " + type +
                 ": " + server +
                 "}";
+    }
+
+    @Override
+    public int compareTo(Service o) {
+        return Objects.compare(this, o, Comparator
+                .comparing(Service::getServer, Comparator.nullsFirst(Comparator.naturalOrder()))
+                .thenComparing(Service::getType));
     }
 
     /**

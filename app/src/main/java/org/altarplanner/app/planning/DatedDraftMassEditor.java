@@ -13,7 +13,7 @@ import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
-import org.altarplanner.core.domain.DiscreteMassCollection;
+import org.altarplanner.core.domain.DatedDraftMassCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +27,10 @@ import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.Comparator;
 
-public class DiscreteMassEditor {
+public class DatedDraftMassEditor {
 
     @FXML private Button removeButton;
-    @FXML private ListView<DatedDraftMass> discreteMassListView;
+    @FXML private ListView<DatedDraftMass> datedDraftMassListView;
     @FXML private DatePicker datePicker;
     @FXML private TextField timeTextField;
     @FXML private TextField churchTextField;
@@ -42,10 +42,10 @@ public class DiscreteMassEditor {
 
     private boolean applyChanges;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DiscreteMassEditor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatedDraftMassEditor.class);
 
     @FXML private void initialize() {
-        discreteMassListView.setCellFactory(param -> new ListCell<>() {
+        datedDraftMassListView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(DatedDraftMass item, boolean empty) {
                 super.updateItem(item, empty);
@@ -60,7 +60,7 @@ public class DiscreteMassEditor {
             }
         });
 
-        discreteMassListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        datedDraftMassListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 applyChanges = false;
                 datePicker.setValue(newValue.getDateTime().toLocalDate());
@@ -75,20 +75,20 @@ public class DiscreteMassEditor {
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                final var time = discreteMassListView.getSelectionModel().getSelectedItem().getDateTime().toLocalTime();
-                discreteMassListView.getSelectionModel().getSelectedItem().setDateTime(LocalDateTime.of(newValue, time));
-                discreteMassListView.getItems().sort(Comparator.naturalOrder());
+                final var time = datedDraftMassListView.getSelectionModel().getSelectedItem().getDateTime().toLocalTime();
+                datedDraftMassListView.getSelectionModel().getSelectedItem().setDateTime(LocalDateTime.of(newValue, time));
+                datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
         timeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 try {
-                    final var date = discreteMassListView.getSelectionModel().getSelectedItem().getDateTime().toLocalDate();
+                    final var date = datedDraftMassListView.getSelectionModel().getSelectedItem().getDateTime().toLocalDate();
                     final var newTime = LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
-                    discreteMassListView.getSelectionModel().getSelectedItem().setDateTime(LocalDateTime.of(date, newTime));
+                    datedDraftMassListView.getSelectionModel().getSelectedItem().setDateTime(LocalDateTime.of(date, newTime));
                     timeTextField.getStyleClass().remove("text-input-error");
-                    discreteMassListView.getItems().sort(Comparator.naturalOrder());
+                    datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
                 } catch (DateTimeParseException e) {
                     if (!timeTextField.getStyleClass().contains("text-input-error"))
                         timeTextField.getStyleClass().add("text-input-error");
@@ -98,20 +98,20 @@ public class DiscreteMassEditor {
 
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                discreteMassListView.getSelectionModel().getSelectedItem().setChurch(newValue);
-                discreteMassListView.getItems().sort(Comparator.naturalOrder());
+                datedDraftMassListView.getSelectionModel().getSelectedItem().setChurch(newValue);
+                datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
         formTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                discreteMassListView.getSelectionModel().getSelectedItem().setForm(newValue);
+                datedDraftMassListView.getSelectionModel().getSelectedItem().setForm(newValue);
             }
         });
 
         annotationTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                discreteMassListView.getSelectionModel().getSelectedItem().setForm(newValue.isBlank() ? null : newValue.trim());
+                datedDraftMassListView.getSelectionModel().getSelectedItem().setForm(newValue.isBlank() ? null : newValue.trim());
             }
         });
 
@@ -121,7 +121,7 @@ public class DiscreteMassEditor {
 
         serviceTypeCountColumn.setCellValueFactory(param -> {
             if (applyChanges)
-                return new SimpleStringProperty(String.valueOf(discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().getOrDefault(param.getValue(), 0)));
+                return new SimpleStringProperty(String.valueOf(datedDraftMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().getOrDefault(param.getValue(), 0)));
             else
                 return null;
         });
@@ -130,9 +130,9 @@ public class DiscreteMassEditor {
             if (applyChanges) {
                 String newValue = event.getNewValue();
                 if ("".equals(newValue) || "0".equals(newValue)) {
-                    discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().remove(event.getRowValue());
+                    datedDraftMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().remove(event.getRowValue());
                 } else try {
-                    discreteMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().put(event.getRowValue(), Integer.parseInt(newValue));
+                    datedDraftMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().put(event.getRowValue(), Integer.parseInt(newValue));
                 } catch (NumberFormatException e) {
                     serviceTypeCountTableView.refresh();
                 }
@@ -140,8 +140,8 @@ public class DiscreteMassEditor {
         });
 
         serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
-        if (!discreteMassListView.getItems().isEmpty())
-            discreteMassListView.getSelectionModel().selectFirst();
+        if (!datedDraftMassListView.getItems().isEmpty())
+            datedDraftMassListView.getSelectionModel().selectFirst();
         else
             setDisable(true);
     }
@@ -149,7 +149,7 @@ public class DiscreteMassEditor {
     private void setDisable(boolean disable) {
         applyChanges = false;
         removeButton.setDisable(disable);
-        discreteMassListView.setDisable(disable);
+        datedDraftMassListView.setDisable(disable);
         datePicker.setDisable(disable);
         timeTextField.setDisable(disable);
         churchTextField.setDisable(disable);
@@ -166,35 +166,35 @@ public class DiscreteMassEditor {
         }
     }
 
-    @FXML private void addDiscreteMass() {
-        DatedDraftMass discreteMass = new DatedDraftMass();
-        discreteMassListView.getItems().add(discreteMass);
+    @FXML private void addDatedDraftMass() {
+        DatedDraftMass datedDraftMass = new DatedDraftMass();
+        datedDraftMassListView.getItems().add(datedDraftMass);
         setDisable(false);
-        discreteMassListView.getSelectionModel().select(discreteMass);
-        discreteMassListView.getItems().sort(Comparator.naturalOrder());
+        datedDraftMassListView.getSelectionModel().select(datedDraftMass);
+        datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
     }
 
-    @FXML private void removeDiscreteMass() {
-        discreteMassListView.getItems().remove(discreteMassListView.getSelectionModel().getSelectedItem());
-        if (discreteMassListView.getItems().isEmpty())
+    @FXML private void removeDatedDraftMass() {
+        datedDraftMassListView.getItems().remove(datedDraftMassListView.getSelectionModel().getSelectedItem());
+        if (datedDraftMassListView.getItems().isEmpty())
             setDisable(true);
     }
 
     @FXML private void generateFromRegularMasses() throws IOException {
-        Launcher.loadParent("planning/discreteMassGenerator.fxml", false,
-                discreteMassGenerator -> ((DiscreteMassGenerator)discreteMassGenerator)
-                        .initData(discreteMasses -> {
-                            discreteMassListView.getItems().addAll(discreteMasses);
+        Launcher.loadParent("planning/datedDraftMassGenerator.fxml", false,
+                datedDraftMassGenerator -> ((DatedDraftMassGenerator)datedDraftMassGenerator)
+                        .initData(datedDraftMasses -> {
+                            datedDraftMassListView.getItems().addAll(datedDraftMasses);
                             setDisable(false);
-                            if (discreteMassListView.getSelectionModel().getSelectedItem() == null)
-                                discreteMassListView.getSelectionModel().selectFirst();
-                            discreteMassListView.getItems().sort(Comparator.naturalOrder());
+                            if (datedDraftMassListView.getSelectionModel().getSelectedItem() == null)
+                                datedDraftMassListView.getSelectionModel().selectFirst();
+                            datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
                         }));
     }
 
     @FXML private void openFile() throws IOException, UnknownJAXBException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openDatedDraftMasses"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("masses/");
         Files.createDirectories(directory.toPath());
@@ -203,14 +203,14 @@ public class DiscreteMassEditor {
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
         if (selectedFile != null) {
             try {
-                DiscreteMassCollection massCollection = JaxbIO.unmarshal(selectedFile, DiscreteMassCollection.class);
+                DatedDraftMassCollection massCollection = JaxbIO.unmarshal(selectedFile, DatedDraftMassCollection.class);
                 serviceTypeCountTableView.getItems().setAll(massCollection.getServiceTypes());
-                discreteMassListView.getItems().setAll(massCollection.getDatedDraftMasses());
+                datedDraftMassListView.getItems().setAll(massCollection.getDatedDraftMasses());
                 LOGGER.info("Masses have been loaded from {}", selectedFile);
 
                 setDisable(false);
-                discreteMassListView.getSelectionModel().selectFirst();
-                discreteMassListView.getItems().sort(Comparator.naturalOrder());
+                datedDraftMassListView.getSelectionModel().selectFirst();
+                datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
             } catch (UnexpectedElementException e) {
                 LOGGER.error("No masses could have been loaded");
             }
@@ -218,11 +218,11 @@ public class DiscreteMassEditor {
     }
 
     @FXML private void saveAsAndBack() throws IOException, UnknownJAXBException {
-        if (!discreteMassListView.getItems().isEmpty()) {
-            final DiscreteMassCollection massCollection = new DiscreteMassCollection(discreteMassListView.getItems());
+        if (!datedDraftMassListView.getItems().isEmpty()) {
+            final DatedDraftMassCollection massCollection = new DatedDraftMassCollection(datedDraftMassListView.getItems());
 
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveDiscreteMasses"));
+            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveDatedDraftMasses"));
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
             File directory = new File("masses/");
             Files.createDirectories(directory.toPath());

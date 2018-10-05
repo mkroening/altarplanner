@@ -21,7 +21,7 @@ import org.altarplanner.core.xlsx.PoiIO;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
-import org.altarplanner.core.domain.DiscreteMassCollection;
+import org.altarplanner.core.domain.DatedDraftMassCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -142,13 +142,13 @@ public class Launcher extends Application {
         loadParent("config/serverEditor.fxml", true);
     }
 
-    @FXML private void createDiscreteMasses() throws IOException {
-        loadParent("planning/discreteMassEditor.fxml", true);
+    @FXML private void createDatedDraftMasses() throws IOException {
+        loadParent("planning/datedDraftMassEditor.fxml", true);
     }
 
     @FXML private void createSchedule() throws IOException, UnknownJAXBException {
         final FileChooser massFileChooser = new FileChooser();
-        massFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDiscreteMasses"));
+        massFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openDatedDraftMasses"));
         massFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         final File massDirectory = new File("masses/");
         Files.createDirectories(massDirectory.toPath());
@@ -157,7 +157,7 @@ public class Launcher extends Application {
 
         if (massFile != null) {
             try {
-                final List<DatedDraftMass> masses = JaxbIO.unmarshal(massFile, DiscreteMassCollection.class).getDatedDraftMasses();
+                final List<DatedDraftMass> masses = JaxbIO.unmarshal(massFile, DatedDraftMassCollection.class).getDatedDraftMasses();
                 LOGGER.info("Masses have been loaded from {}", massFile);
 
                 final FileChooser lastScheduleFileChooser = new FileChooser();

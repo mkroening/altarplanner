@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.*?>
 <VBox minHeight="-Infinity" minWidth="-Infinity"
       xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.altarplanner.app.planning.DiscreteMassEditor">
+      fx:controller="org.altarplanner.app.planning.DatedDraftMassEditor">
     <ToolBar>
-        <Button mnemonicParsing="false" text="%general.button.add" onAction="#addDiscreteMass"/>
-        <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeDiscreteMass"/>
-        <Button mnemonicParsing="false" text="%discreteMassEditor.button.generateFromRegularMasses" onAction="#generateFromRegularMasses"/>
+        <Button mnemonicParsing="false" text="%general.button.add" onAction="#addDatedDraftMass"/>
+        <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeDatedDraftMass"/>
+        <Button mnemonicParsing="false" text="%datedDraftMassEditor.button.generateFromRegularMasses" onAction="#generateFromRegularMasses"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" text="%discreteMassEditor.button.open..." onAction="#openFile"/>
-        <Button mnemonicParsing="false" text="%discreteMassEditor.button.saveAsAndBack" onAction="#saveAsAndBack"/>
+        <Button mnemonicParsing="false" text="%datedDraftMassEditor.button.open..." onAction="#openFile"/>
+        <Button mnemonicParsing="false" text="%datedDraftMassEditor.button.saveAsAndBack" onAction="#saveAsAndBack"/>
     </ToolBar>
     <SplitPane dividerPositions="0.4" VBox.vgrow="SOMETIMES">
-        <ListView fx:id="discreteMassListView"/>
+        <ListView fx:id="datedDraftMassListView"/>
         <VBox>
             <GridPane hgap="10.0" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0">
                 <columnConstraints>

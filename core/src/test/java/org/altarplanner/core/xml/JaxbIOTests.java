@@ -3,7 +3,7 @@ package org.altarplanner.core.xml;
 import org.altarplanner.core.domain.*;
 import org.altarplanner.core.domain.mass.DatedDraftMass;
 import org.altarplanner.core.domain.util.BigDomainGenerator;
-import org.altarplanner.core.domain.DiscreteMassCollection;
+import org.altarplanner.core.domain.DatedDraftMassCollection;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -25,15 +25,15 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 class JaxbIOTests {
 
     private static final String XML_TEST_PATHNAME = "src/test/resources/org/altarplanner/core/xml/";
-    private static final File EXPECTED_CONFIG = new File(XML_TEST_PATHNAME + "bigDomainConfig.xml");
-    private static final File EXPECTED_DISCRETE_MASS_COLLECTION = new File(XML_TEST_PATHNAME + "bigDiscreteMassCollection.xml");
-    private static final File EXPECTED_INITIALIZED_SCHEDULE = new File(XML_TEST_PATHNAME + "bigInitializedSchedule.xml");
+    private static final File EXPECTED_CONFIG = new File(XML_TEST_PATHNAME + "bigConfig.xml");
+    private static final File EXPECTED_DATED_DRAFT_MASS_COLLECTION = new File(XML_TEST_PATHNAME + "bigDatedDraftMassCollection.xml");
+    private static final File EXPECTED_INITIALIZED_SCHEDULE = new File(XML_TEST_PATHNAME + "bigScheduleInitialized.xml");
 
     @Test
     @Disabled
     void writeExpectedFiles() throws UnknownJAXBException {
         JaxbIO.marshal(BigDomainGenerator.genConfig(), EXPECTED_CONFIG);
-        JaxbIO.marshal(BigDomainGenerator.genDatedDraftMassCollection(), EXPECTED_DISCRETE_MASS_COLLECTION);
+        JaxbIO.marshal(BigDomainGenerator.genDatedDraftMassCollection(), EXPECTED_DATED_DRAFT_MASS_COLLECTION);
         JaxbIO.marshal(BigDomainGenerator.genInitializedSchedule(), EXPECTED_INITIALIZED_SCHEDULE);
     }
 
@@ -55,15 +55,15 @@ class JaxbIOTests {
     }
 
     @Test
-    void discreteMassCollectionUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
-        final DiscreteMassCollection expected = BigDomainGenerator.genDatedDraftMassCollection();
-        final DiscreteMassCollection unmarshalled = JaxbIO.unmarshal(EXPECTED_DISCRETE_MASS_COLLECTION, DiscreteMassCollection.class);
+    void datedDraftMassCollectionUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
+        final DatedDraftMassCollection expected = BigDomainGenerator.genDatedDraftMassCollection();
+        final DatedDraftMassCollection unmarshalled = JaxbIO.unmarshal(EXPECTED_DATED_DRAFT_MASS_COLLECTION, DatedDraftMassCollection.class);
         assertEquals(expected, unmarshalled);
     }
 
     @Test
-    void discreteMassCollectionMarshalling() throws IOException, UnknownJAXBException {
-        final List<String> expectedLines = Files.lines(EXPECTED_DISCRETE_MASS_COLLECTION.toPath()).collect(Collectors.toUnmodifiableList());
+    void datedDraftMassCollectionMarshalling() throws IOException, UnknownJAXBException {
+        final List<String> expectedLines = Files.lines(EXPECTED_DATED_DRAFT_MASS_COLLECTION.toPath()).collect(Collectors.toUnmodifiableList());
         final Path marshalledPath = Files.createTempFile(null, null);
         JaxbIO.marshal(BigDomainGenerator.genDatedDraftMassCollection(), marshalledPath.toFile());
         final List<String> marshalledLines = Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());

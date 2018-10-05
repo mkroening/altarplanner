@@ -15,32 +15,32 @@ import java.util.stream.Collectors;
 
 @XmlRootElement
 @XmlType(propOrder = {"serviceTypes", "datedDraftMasses"})
-public class DiscreteMassCollection {
+public class DatedDraftMassCollection {
 
     private List<ServiceType> serviceTypes;
 
-    private List<DatedDraftMass> discreteMasses;
+    private List<DatedDraftMass> datedDraftMasses;
 
     /**
      * Noarg public constructor making the class instantiatable for JAXB.
      */
-    public DiscreteMassCollection() {
+    public DatedDraftMassCollection() {
     }
 
-    public DiscreteMassCollection(List<DatedDraftMass> discreteMasses) {
-        this.discreteMasses = discreteMasses.stream()
+    public DatedDraftMassCollection(List<DatedDraftMass> datedDraftMasses) {
+        this.datedDraftMasses = datedDraftMasses.stream()
                 .sorted()
                 .collect(Collectors.toUnmodifiableList());
-        serviceTypes = discreteMasses.parallelStream()
-                .flatMap(discreteMass -> discreteMass.getServiceTypeCounts().keySet().parallelStream())
+        serviceTypes = datedDraftMasses.parallelStream()
+                .flatMap(datedDraftMass -> datedDraftMass.getServiceTypeCounts().keySet().parallelStream())
                 .distinct()
                 .sorted(ServiceType.getDescComparator())
                 .collect(Collectors.toUnmodifiableList());
     }
 
     public LocalDateRange getDateRange() {
-        final LocalDate start = Collections.min(discreteMasses).getDateTime().toLocalDate();
-        final LocalDate endInclusive = Collections.max(discreteMasses).getDateTime().toLocalDate();
+        final LocalDate start = Collections.min(datedDraftMasses).getDateTime().toLocalDate();
+        final LocalDate endInclusive = Collections.max(datedDraftMasses).getDateTime().toLocalDate();
         return LocalDateRange.ofClosed(start, endInclusive);
     }
 
@@ -54,28 +54,28 @@ public class DiscreteMassCollection {
         this.serviceTypes = serviceTypes;
     }
 
-    @XmlElementWrapper(name = "discreteMasses")
-    @XmlElement(name = "discreteMass")
+    @XmlElementWrapper(name = "datedDraftMasses")
+    @XmlElement(name = "datedDraftMass")
     public List<DatedDraftMass> getDatedDraftMasses() {
-        return discreteMasses;
+        return datedDraftMasses;
     }
 
-    public void setDatedDraftMasses(List<DatedDraftMass> discreteMasses) {
-        this.discreteMasses = discreteMasses;
+    public void setDatedDraftMasses(List<DatedDraftMass> datedDraftMasses) {
+        this.datedDraftMasses = datedDraftMasses;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DiscreteMassCollection that = (DiscreteMassCollection) o;
+        DatedDraftMassCollection that = (DatedDraftMassCollection) o;
         return Objects.equals(serviceTypes, that.serviceTypes) &&
-                Objects.equals(discreteMasses, that.discreteMasses);
+                Objects.equals(datedDraftMasses, that.datedDraftMasses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(serviceTypes, discreteMasses);
+        return Objects.hash(serviceTypes, datedDraftMasses);
     }
 
 }

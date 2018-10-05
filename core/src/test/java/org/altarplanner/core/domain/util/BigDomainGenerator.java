@@ -4,7 +4,7 @@ import org.altarplanner.core.domain.*;
 import org.altarplanner.core.domain.mass.DatedDraftMass;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
-import org.altarplanner.core.domain.DiscreteMassCollection;
+import org.altarplanner.core.domain.DatedDraftMassCollection;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.threeten.extra.LocalDateRange;
 
@@ -103,9 +103,9 @@ public class BigDomainGenerator {
         return config;
     }
 
-    public static DiscreteMassCollection genDatedDraftMassCollection() {
+    public static DatedDraftMassCollection genDatedDraftMassCollection() {
         List<DatedDraftMass> masses = genConfig().getDatedDraftMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
-        return new DiscreteMassCollection(masses);
+        return new DatedDraftMassCollection(masses);
     }
 
     public static Schedule genSchedule() {

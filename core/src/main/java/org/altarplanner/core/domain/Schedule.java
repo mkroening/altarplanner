@@ -155,7 +155,9 @@ public class Schedule implements Serializable {
     }
 
     public LocalDateRange getPlanningWindow() {
-        return LocalDateRange.ofClosed(finalDraftMasses.get(0).getDateTime().toLocalDate(), finalDraftMasses.get(finalDraftMasses.size() - 1).getDateTime().toLocalDate());
+        final var start = Collections.min(finalDraftMasses).getDateTime().toLocalDate();
+        final var end = Collections.max(finalDraftMasses).getDateTime().toLocalDate();
+        return LocalDateRange.ofClosed(start, end);
     }
 
     @ProblemFactCollectionProperty

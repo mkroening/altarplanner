@@ -60,7 +60,10 @@ public class PoiIO {
         schedule.getFinalDraftMasses().forEach(mass -> {
             int rowIndex = Collections.min(columnHeights);
             final int columnIndex = columnHeights.indexOf(rowIndex);
-            final int rowsToCreate = rowIndex - sheet.getLastRowNum() + mass.getServices().size() + 2;
+            int rowsToCreate = rowIndex - sheet.getLastRowNum() + mass.getServices().size() + 2;
+            if (mass.getAnnotation() != null) {
+                ++rowsToCreate;
+            }
             IntStream.range(0, rowsToCreate).forEach(value -> sheet.createRow(sheet.getLastRowNum() + 1));
             rowIndex++;
 
@@ -71,6 +74,12 @@ public class PoiIO {
             final XSSFCell churchFormCell = sheet.getRow(rowIndex++).createCell(2*columnIndex);
             churchFormCell.setCellValue(mass.getChurch() + " - " + mass.getForm());
             churchFormCell.setCellStyle(topOpenCellStyle);
+
+            if (mass.getAnnotation() != null) {
+                final XSSFCell annotationCell = sheet.getRow(rowIndex++).createCell(2*columnIndex);
+                annotationCell.setCellValue(mass.getAnnotation());
+                annotationCell.setCellStyle(topOpenCellStyle);
+            }
 
             for (final Service service : mass.getServices()) {
                 XSSFCell serviceCell = sheet.getRow(rowIndex++).createCell(2*columnIndex);

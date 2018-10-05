@@ -35,6 +35,7 @@ public class DiscreteMassEditor {
     @FXML private TextField timeTextField;
     @FXML private TextField churchTextField;
     @FXML private TextField formTextField;
+    @FXML private TextField annotationTextField;
     @FXML private TableView<ServiceType> serviceTypeCountTableView;
     @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
@@ -66,6 +67,7 @@ public class DiscreteMassEditor {
                 timeTextField.setText(newValue.getDateTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                 churchTextField.setText(newValue.getChurch());
                 formTextField.setText(newValue.getForm());
+                annotationTextField.setText(newValue.getAnnotation());
                 serviceTypeCountTableView.refresh();
                 applyChanges = true;
             }
@@ -104,6 +106,12 @@ public class DiscreteMassEditor {
         formTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 discreteMassListView.getSelectionModel().getSelectedItem().setForm(newValue);
+            }
+        });
+
+        annotationTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (applyChanges) {
+                discreteMassListView.getSelectionModel().getSelectedItem().setForm(newValue.isBlank() ? null : newValue.trim());
             }
         });
 
@@ -146,12 +154,14 @@ public class DiscreteMassEditor {
         timeTextField.setDisable(disable);
         churchTextField.setDisable(disable);
         formTextField.setDisable(disable);
+        annotationTextField.setDisable(disable);
         serviceTypeCountTableView.setEditable(!disable);
         if (disable) {
             datePicker.setValue(null);
             timeTextField.clear();
             churchTextField.clear();
             formTextField.clear();
+            annotationTextField.clear();
             serviceTypeCountTableView.refresh();
         }
     }

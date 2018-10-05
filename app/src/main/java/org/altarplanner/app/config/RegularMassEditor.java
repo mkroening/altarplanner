@@ -30,6 +30,7 @@ public class RegularMassEditor {
     @FXML private TextField timeTextField;
     @FXML private TextField churchTextField;
     @FXML private TextField formTextField;
+    @FXML private TextField annotationTextField;
     @FXML private TableView<ServiceType> serviceTypeCountTableView;
     @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
@@ -60,6 +61,7 @@ public class RegularMassEditor {
                 timeTextField.setText(newValue.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                 churchTextField.setText(newValue.getChurch());
                 formTextField.setText(newValue.getForm());
+                annotationTextField.setText(newValue.getAnnotation());
                 serviceTypeCountTableView.refresh();
                 applyChanges = true;
             }
@@ -112,6 +114,12 @@ public class RegularMassEditor {
             }
         });
 
+        annotationTextField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            if (applyChanges) {
+                regularMassListView.getSelectionModel().getSelectedItem().setAnnotation(newValue.isBlank() ? null : newValue.trim());
+            }
+        }));
+
         serviceTypeNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDesc()));
 
         serviceTypeCountColumn.setCellFactory(param -> new TextFieldTableCell<>(new DefaultStringConverter()));
@@ -152,12 +160,14 @@ public class RegularMassEditor {
         timeTextField.setDisable(disable);
         churchTextField.setDisable(disable);
         formTextField.setDisable(disable);
+        annotationTextField.setDisable(disable);
         serviceTypeCountTableView.setEditable(!disable);
         if (disable) {
             dayOfWeekChoiceBox.getSelectionModel().clearSelection();
             timeTextField.clear();
             churchTextField.clear();
             formTextField.clear();
+            annotationTextField.clear();
             serviceTypeCountTableView.refresh();
         }
     }

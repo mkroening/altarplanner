@@ -30,7 +30,7 @@ public class PlanningMass extends DatedMass {
         this.services = datedDraftMass.serviceTypeCounts.entrySet().stream()
                 .flatMap(serviceTypeCount -> IntStream.range(0, serviceTypeCount.getValue())
                         .mapToObj(i -> new Service(this, serviceTypeCount.getKey())))
-                .sorted(Comparator.comparing(Service::getType, ServiceType.getDescComparator()))
+                .sorted(Comparator.comparing(Service::getType))
                 .collect(Collectors.toUnmodifiableList());
         this.pinned = false;
     }

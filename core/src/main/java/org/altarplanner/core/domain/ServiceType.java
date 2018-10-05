@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 @XmlType(propOrder = {"name", "maxYear", "minYear", "xmlID"})
-public class ServiceType implements Serializable {
+public class ServiceType implements Comparable<ServiceType>, Serializable {
 
     private String name;
     private int maxYear = Year.now().getValue();
@@ -31,13 +31,6 @@ public class ServiceType implements Serializable {
         return name +
                 " (" + Config.RESOURCE_BUNDLE.getString("serviceType.year") + ": " +
                 maxYear + " - " + minYear + ")";
-    }
-
-    public static Comparator<ServiceType> getDescComparator() {
-        return Comparator
-                .comparing(ServiceType::getName)
-                .thenComparing(ServiceType::getMaxYear)
-                .thenComparing(ServiceType::getMinYear);
     }
 
     @XmlAttribute
@@ -65,6 +58,14 @@ public class ServiceType implements Serializable {
 
     public void setMinYear(int minYear) {
         this.minYear = minYear;
+    }
+
+    @Override
+    public int compareTo(ServiceType o) {
+        return Objects.compare(this, o, Comparator
+                .comparing(ServiceType::getName)
+                .thenComparing(Comparator.comparing(ServiceType::getMaxYear).reversed())
+                .thenComparing(Comparator.comparing(ServiceType::getMinYear).reversed()));
     }
 
     @Override

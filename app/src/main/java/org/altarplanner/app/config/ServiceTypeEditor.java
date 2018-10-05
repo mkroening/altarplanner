@@ -10,6 +10,7 @@ import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.xml.UnknownJAXBException;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 public class ServiceTypeEditor {
@@ -50,7 +51,7 @@ public class ServiceTypeEditor {
         nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 serviceTypeListView.getSelectionModel().getSelectedItem().setName(newValue);
-                serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
+                serviceTypeListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
@@ -59,7 +60,7 @@ public class ServiceTypeEditor {
                 try {
                     serviceTypeListView.getSelectionModel().getSelectedItem().setMaxYear(Integer.parseInt(newValue));
                     maxYearTextField.getStyleClass().remove("text-input-error");
-                    serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
+                    serviceTypeListView.getItems().sort(Comparator.naturalOrder());
                 } catch (NumberFormatException e) {
                     if (!maxYearTextField.getStyleClass().contains("text-input-error"))
                         maxYearTextField.getStyleClass().add("text-input-error");
@@ -72,7 +73,7 @@ public class ServiceTypeEditor {
                 try {
                     serviceTypeListView.getSelectionModel().getSelectedItem().setMinYear(Integer.parseInt(newValue));
                     minYearTextField.getStyleClass().remove("text-input-error");
-                    serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
+                    serviceTypeListView.getItems().sort(Comparator.naturalOrder());
                 } catch (NumberFormatException e) {
                     if (!minYearTextField.getStyleClass().contains("text-input-error"))
                         minYearTextField.getStyleClass().add("text-input-error");
@@ -112,7 +113,7 @@ public class ServiceTypeEditor {
         serviceTypeListView.getItems().add(serviceType);
         setDisable(false);
         serviceTypeListView.getSelectionModel().select(serviceType);
-        serviceTypeListView.getItems().sort(ServiceType.getDescComparator());
+        serviceTypeListView.getItems().sort(Comparator.naturalOrder());
     }
 
     @FXML private void removeServiceType() {

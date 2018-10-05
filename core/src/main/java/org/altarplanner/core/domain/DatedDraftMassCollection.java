@@ -34,7 +34,7 @@ public class DatedDraftMassCollection {
         serviceTypes = datedDraftMasses.parallelStream()
                 .flatMap(datedDraftMass -> datedDraftMass.getServiceTypeCounts().keySet().parallelStream())
                 .distinct()
-                .sorted(ServiceType.getDescComparator())
+                .sorted()
                 .collect(Collectors.toUnmodifiableList());
     }
 

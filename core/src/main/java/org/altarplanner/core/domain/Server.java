@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @XmlType(propOrder = {"surname", "forename", "year", "xmlID", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
-public class Server extends AbstractPersistable {
+public class Server extends AbstractPersistable implements Comparable<Server> {
 
     private String surname;
     private String forename;
@@ -39,13 +39,6 @@ public class Server extends AbstractPersistable {
 
     public String getDesc() {
         return surname + ", " + forename;
-    }
-
-    public static Comparator<Server> getDescComparator() {
-        return Comparator
-                .comparing(Server::getSurname)
-                .thenComparing(Server::getForename)
-                .thenComparing(Server::getYear);
     }
 
     boolean isAvailableFor(Service service) {
@@ -140,6 +133,14 @@ public class Server extends AbstractPersistable {
 
     public void setDateTimeOnWishes(List<LocalDateTime> dateTimeOnWishes) {
         this.dateTimeOnWishes = dateTimeOnWishes;
+    }
+
+    @Override
+    public int compareTo(Server o) {
+        return Objects.compare(this, o, Comparator
+                .comparing(Server::getSurname)
+                .thenComparing(Server::getForename)
+                .thenComparing(Server::getYear));
     }
 
     @Override

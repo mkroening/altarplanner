@@ -63,7 +63,7 @@ public class Config implements Serializable {
     }
 
     public void save() throws UnknownJAXBException {
-        this.pairs.sort(Comparator.comparing(PairRequest::getKey, Server.getDescComparator()));
+        this.pairs.sort(Comparator.comparing(PairRequest::getKey));
         JaxbIO.marshal(this, new File(pathname));
     }
 

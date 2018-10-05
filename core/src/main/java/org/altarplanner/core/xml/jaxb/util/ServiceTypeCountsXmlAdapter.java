@@ -39,7 +39,7 @@ public class ServiceTypeCountsXmlAdapter extends XmlAdapter<ServiceTypeCountsXml
                     entry.count = mapEntry.getValue();
                     return entry;
                 })
-                .sorted(Comparator.comparing(entry -> entry.serviceType, ServiceType.getDescComparator()))
+                .sorted(Comparator.comparing(entry -> entry.serviceType))
                 .collect(Collectors.toUnmodifiableList());
         return adaptedMap;
     }

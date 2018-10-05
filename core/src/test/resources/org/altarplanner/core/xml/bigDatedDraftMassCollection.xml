@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <datedDraftMassCollection>
     <serviceTypes>
-        <serviceType name="Altar" maxYear="2012" minYear="2000" xmlID="Altar_2012-2000"/>
-        <serviceType name="Altar" maxYear="2014" minYear="2012" xmlID="Altar_2014-2012"/>
         <serviceType name="Altar" maxYear="2016" minYear="2014" xmlID="Altar_2016-2014"/>
+        <serviceType name="Altar" maxYear="2014" minYear="2012" xmlID="Altar_2014-2012"/>
+        <serviceType name="Altar" maxYear="2012" minYear="2000" xmlID="Altar_2012-2000"/>
         <serviceType name="Cross" maxYear="2012" minYear="2000" xmlID="Cross_2012-2000"/>
         <serviceType name="Flambeau" maxYear="2018" minYear="2016" xmlID="Flambeau_2018-2016"/>
         <serviceType name="Incense" maxYear="2012" minYear="2000" xmlID="Incense_2012-2000"/>
@@ -12,39 +12,39 @@
     <datedDraftMasses>
         <datedDraftMass dateTime="2018-01-01T19:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-04T18:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-06T17:00" church="Church" form="Saturday Evening Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-07T08:00" church="Church" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-07T09:45" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-07T11:00" church="Church" form="High Mass" annotation="Bring your Friends!">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Cross_2012-2000" count="1"/>
                 <serviceTypeCount serviceType="Flambeau_2018-2016" count="10"/>
                 <serviceTypeCount serviceType="Incense_2012-2000" count="2"/>
@@ -53,39 +53,39 @@
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-08T19:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-11T18:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-13T17:00" church="Church" form="Saturday Evening Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-14T08:00" church="Church" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-14T09:45" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-14T11:00" church="Church" form="High Mass" annotation="Bring your Friends!">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Cross_2012-2000" count="1"/>
                 <serviceTypeCount serviceType="Flambeau_2018-2016" count="10"/>
                 <serviceTypeCount serviceType="Incense_2012-2000" count="2"/>
@@ -94,39 +94,39 @@
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-15T19:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-18T18:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-20T17:00" church="Church" form="Saturday Evening Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-21T08:00" church="Church" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-21T09:45" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-21T11:00" church="Church" form="High Mass" annotation="Bring your Friends!">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Cross_2012-2000" count="1"/>
                 <serviceTypeCount serviceType="Flambeau_2018-2016" count="10"/>
                 <serviceTypeCount serviceType="Incense_2012-2000" count="2"/>
@@ -135,39 +135,39 @@
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-22T19:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-25T18:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-27T17:00" church="Church" form="Saturday Evening Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-28T08:00" church="Church" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-28T09:45" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-28T11:00" church="Church" form="High Mass" annotation="Bring your Friends!">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Cross_2012-2000" count="1"/>
                 <serviceTypeCount serviceType="Flambeau_2018-2016" count="10"/>
                 <serviceTypeCount serviceType="Incense_2012-2000" count="2"/>
@@ -176,39 +176,39 @@
         </datedDraftMass>
         <datedDraftMass dateTime="2018-01-29T19:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-02-01T18:00" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-02-03T17:00" church="Church" form="Saturday Evening Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-02-04T08:00" church="Church" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-02-04T09:45" church="Chapel" form="Holy Mass">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
                 <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
             </serviceTypeCounts>
         </datedDraftMass>
         <datedDraftMass dateTime="2018-02-04T11:00" church="Church" form="High Mass" annotation="Bring your Friends!">
             <serviceTypeCounts>
-                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
                 <serviceTypeCount serviceType="Cross_2012-2000" count="1"/>
                 <serviceTypeCount serviceType="Flambeau_2018-2016" count="10"/>
                 <serviceTypeCount serviceType="Incense_2012-2000" count="2"/>

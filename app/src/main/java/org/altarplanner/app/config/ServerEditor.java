@@ -120,14 +120,14 @@ public class ServerEditor {
         surnameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyMainChanges) {
                 serverListView.getSelectionModel().getSelectedItem().setSurname(newValue);
-                serverListView.getItems().sort(Server.getDescComparator());
+                serverListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
         forenameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyMainChanges) {
                 serverListView.getSelectionModel().getSelectedItem().setForename(newValue);
-                serverListView.getItems().sort(Server.getDescComparator());
+                serverListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
@@ -386,7 +386,7 @@ public class ServerEditor {
         serverListView.getItems().add(server);
         setDisable(false);
         serverListView.getSelectionModel().select(server);
-        serverListView.getItems().sort(Server.getDescComparator());
+        serverListView.getItems().sort(Comparator.naturalOrder());
     }
 
     @FXML private void removeServer() {

@@ -42,7 +42,7 @@ public class Service extends AbstractPersistable {
 
     public static Comparator<Service> getDescComparator() {
         return Comparator
-                .comparing(Service::getServer, Server.getDescComparator())
+                .comparing(Service::getServer)
                 .thenComparing(service -> service.getType().getName());
     }
 

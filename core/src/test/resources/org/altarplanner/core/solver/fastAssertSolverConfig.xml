@@ -11,7 +11,7 @@
     </scoreDirectorFactory>
 
     <termination>
-        <scoreCalculationCountLimit>100000</scoreCalculationCountLimit>
+        <scoreCalculationCountLimit>10000</scoreCalculationCountLimit>
     </termination>
 
     <constructionHeuristic/>

@@ -26,7 +26,7 @@ public class ServiceTypeCountsXmlAdapter extends XmlAdapter<ServiceTypeCountsXml
     @Override
     public Map<ServiceType, Integer> unmarshal(AdaptedMap v) {
         return v.entry.stream()
-                .collect(Collectors.toUnmodifiableMap(entry -> entry.serviceType, entry -> entry.count));
+                .collect(Collectors.toMap(entry -> entry.serviceType, entry -> entry.count));
     }
 
     @Override

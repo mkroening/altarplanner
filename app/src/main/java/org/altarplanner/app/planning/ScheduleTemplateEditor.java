@@ -8,12 +8,12 @@ import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xml.JaxbIO;
 import org.altarplanner.core.xml.UnexpectedElementException;
 import org.altarplanner.core.xml.UnknownJAXBException;
-import org.altarplanner.core.domain.DatedDraftMassCollection;
+import org.altarplanner.core.domain.ScheduleTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +27,10 @@ import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.Comparator;
 
-public class DatedDraftMassEditor {
+public class ScheduleTemplateEditor {
 
     @FXML private Button removeButton;
-    @FXML private ListView<DatedDraftMass> datedDraftMassListView;
+    @FXML private ListView<PlanningMassTemplate> planningMassTemplateListView;
     @FXML private DatePicker datePicker;
     @FXML private TextField timeTextField;
     @FXML private TextField churchTextField;
@@ -42,12 +42,12 @@ public class DatedDraftMassEditor {
 
     private boolean applyChanges;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DatedDraftMassEditor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleTemplateEditor.class);
 
     @FXML private void initialize() {
-        datedDraftMassListView.setCellFactory(param -> new ListCell<>() {
+        planningMassTemplateListView.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(DatedDraftMass item, boolean empty) {
+            protected void updateItem(PlanningMassTemplate item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null) {
@@ -60,7 +60,7 @@ public class DatedDraftMassEditor {
             }
         });
 
-        datedDraftMassListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        planningMassTemplateListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 applyChanges = false;
                 datePicker.setValue(newValue.getDateTime().toLocalDate());
@@ -75,20 +75,20 @@ public class DatedDraftMassEditor {
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                final var time = datedDraftMassListView.getSelectionModel().getSelectedItem().getDateTime().toLocalTime();
-                datedDraftMassListView.getSelectionModel().getSelectedItem().setDateTime(LocalDateTime.of(newValue, time));
-                datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
+                final var time = planningMassTemplateListView.getSelectionModel().getSelectedItem().getDateTime().toLocalTime();
+                planningMassTemplateListView.getSelectionModel().getSelectedItem().setDateTime(LocalDateTime.of(newValue, time));
+                planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
         timeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
                 try {
-                    final var date = datedDraftMassListView.getSelectionModel().getSelectedItem().getDateTime().toLocalDate();
+                    final var date = planningMassTemplateListView.getSelectionModel().getSelectedItem().getDateTime().toLocalDate();
                     final var newTime = LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
-                    datedDraftMassListView.getSelectionModel().getSelectedItem().setDateTime(LocalDateTime.of(date, newTime));
+                    planningMassTemplateListView.getSelectionModel().getSelectedItem().setDateTime(LocalDateTime.of(date, newTime));
                     timeTextField.getStyleClass().remove("text-input-error");
-                    datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
+                    planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
                 } catch (DateTimeParseException e) {
                     if (!timeTextField.getStyleClass().contains("text-input-error"))
                         timeTextField.getStyleClass().add("text-input-error");
@@ -98,20 +98,20 @@ public class DatedDraftMassEditor {
 
         churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                datedDraftMassListView.getSelectionModel().getSelectedItem().setChurch(newValue);
-                datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
+                planningMassTemplateListView.getSelectionModel().getSelectedItem().setChurch(newValue);
+                planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
             }
         });
 
         formTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                datedDraftMassListView.getSelectionModel().getSelectedItem().setForm(newValue);
+                planningMassTemplateListView.getSelectionModel().getSelectedItem().setForm(newValue);
             }
         });
 
         annotationTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (applyChanges) {
-                datedDraftMassListView.getSelectionModel().getSelectedItem().setForm(newValue.isBlank() ? null : newValue.trim());
+                planningMassTemplateListView.getSelectionModel().getSelectedItem().setForm(newValue.isBlank() ? null : newValue.trim());
             }
         });
 
@@ -121,7 +121,7 @@ public class DatedDraftMassEditor {
 
         serviceTypeCountColumn.setCellValueFactory(param -> {
             if (applyChanges)
-                return new SimpleStringProperty(String.valueOf(datedDraftMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().getOrDefault(param.getValue(), 0)));
+                return new SimpleStringProperty(String.valueOf(planningMassTemplateListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().getOrDefault(param.getValue(), 0)));
             else
                 return null;
         });
@@ -130,9 +130,9 @@ public class DatedDraftMassEditor {
             if (applyChanges) {
                 String newValue = event.getNewValue();
                 if ("".equals(newValue) || "0".equals(newValue)) {
-                    datedDraftMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().remove(event.getRowValue());
+                    planningMassTemplateListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().remove(event.getRowValue());
                 } else try {
-                    datedDraftMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().put(event.getRowValue(), Integer.parseInt(newValue));
+                    planningMassTemplateListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().put(event.getRowValue(), Integer.parseInt(newValue));
                 } catch (NumberFormatException e) {
                     serviceTypeCountTableView.refresh();
                 }
@@ -140,8 +140,8 @@ public class DatedDraftMassEditor {
         });
 
         serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
-        if (!datedDraftMassListView.getItems().isEmpty())
-            datedDraftMassListView.getSelectionModel().selectFirst();
+        if (!planningMassTemplateListView.getItems().isEmpty())
+            planningMassTemplateListView.getSelectionModel().selectFirst();
         else
             setDisable(true);
     }
@@ -149,7 +149,7 @@ public class DatedDraftMassEditor {
     private void setDisable(boolean disable) {
         applyChanges = false;
         removeButton.setDisable(disable);
-        datedDraftMassListView.setDisable(disable);
+        planningMassTemplateListView.setDisable(disable);
         datePicker.setDisable(disable);
         timeTextField.setDisable(disable);
         churchTextField.setDisable(disable);
@@ -166,35 +166,35 @@ public class DatedDraftMassEditor {
         }
     }
 
-    @FXML private void addDatedDraftMass() {
-        DatedDraftMass datedDraftMass = new DatedDraftMass();
-        datedDraftMassListView.getItems().add(datedDraftMass);
+    @FXML private void addPlanningMassTemplate() {
+        PlanningMassTemplate planningMassTemplate = new PlanningMassTemplate();
+        planningMassTemplateListView.getItems().add(planningMassTemplate);
         setDisable(false);
-        datedDraftMassListView.getSelectionModel().select(datedDraftMass);
-        datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
+        planningMassTemplateListView.getSelectionModel().select(planningMassTemplate);
+        planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
     }
 
-    @FXML private void removeDatedDraftMass() {
-        datedDraftMassListView.getItems().remove(datedDraftMassListView.getSelectionModel().getSelectedItem());
-        if (datedDraftMassListView.getItems().isEmpty())
+    @FXML private void removePlanningMassTemplate() {
+        planningMassTemplateListView.getItems().remove(planningMassTemplateListView.getSelectionModel().getSelectedItem());
+        if (planningMassTemplateListView.getItems().isEmpty())
             setDisable(true);
     }
 
     @FXML private void generateFromRegularMasses() throws IOException {
-        Launcher.loadParent("planning/datedDraftMassGenerator.fxml", false,
-                datedDraftMassGenerator -> ((DatedDraftMassGenerator)datedDraftMassGenerator)
-                        .initData(datedDraftMasses -> {
-                            datedDraftMassListView.getItems().addAll(datedDraftMasses);
+        Launcher.loadParent("planning/planningMassTemplateGenerator.fxml", false,
+                planningMassTemplateGenerator -> ((PlanningMassTemplateGenerator)planningMassTemplateGenerator)
+                        .initData(planningMassTemplates -> {
+                            planningMassTemplateListView.getItems().addAll(planningMassTemplates);
                             setDisable(false);
-                            if (datedDraftMassListView.getSelectionModel().getSelectedItem() == null)
-                                datedDraftMassListView.getSelectionModel().selectFirst();
-                            datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
+                            if (planningMassTemplateListView.getSelectionModel().getSelectedItem() == null)
+                                planningMassTemplateListView.getSelectionModel().selectFirst();
+                            planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
                         }));
     }
 
     @FXML private void openFile() throws IOException, UnknownJAXBException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openDatedDraftMasses"));
+        fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openScheduleTemplate"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File directory = new File("masses/");
         Files.createDirectories(directory.toPath());
@@ -203,14 +203,14 @@ public class DatedDraftMassEditor {
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
         if (selectedFile != null) {
             try {
-                DatedDraftMassCollection massCollection = JaxbIO.unmarshal(selectedFile, DatedDraftMassCollection.class);
+                ScheduleTemplate massCollection = JaxbIO.unmarshal(selectedFile, ScheduleTemplate.class);
                 serviceTypeCountTableView.getItems().setAll(massCollection.getServiceTypes());
-                datedDraftMassListView.getItems().setAll(massCollection.getDatedDraftMasses());
+                planningMassTemplateListView.getItems().setAll(massCollection.getPlanningMassTemplates());
                 LOGGER.info("Masses have been loaded from {}", selectedFile);
 
                 setDisable(false);
-                datedDraftMassListView.getSelectionModel().selectFirst();
-                datedDraftMassListView.getItems().sort(Comparator.naturalOrder());
+                planningMassTemplateListView.getSelectionModel().selectFirst();
+                planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
             } catch (UnexpectedElementException e) {
                 LOGGER.error("No masses could have been loaded");
             }
@@ -218,11 +218,11 @@ public class DatedDraftMassEditor {
     }
 
     @FXML private void saveAsAndBack() throws IOException, UnknownJAXBException {
-        if (!datedDraftMassListView.getItems().isEmpty()) {
-            final DatedDraftMassCollection massCollection = new DatedDraftMassCollection(datedDraftMassListView.getItems());
+        if (!planningMassTemplateListView.getItems().isEmpty()) {
+            final ScheduleTemplate massCollection = new ScheduleTemplate(planningMassTemplateListView.getItems());
 
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveDatedDraftMasses"));
+            fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveScheduleTemplate"));
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
             File directory = new File("masses/");
             Files.createDirectories(directory.toPath());

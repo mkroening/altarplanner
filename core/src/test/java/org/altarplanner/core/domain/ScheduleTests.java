@@ -1,6 +1,6 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +19,11 @@ class ScheduleTests {
     @Test
     void constructorPublishedRelevanceTest() {
         final var config = new Config();
-        final var firstMass = new DatedDraftMass();
+        final var firstMass = new PlanningMassTemplate();
         firstMass.setDateTime(LocalDateTime.of(TODAY.minusWeeks(2), LocalTime.of(11,0)));
-        final var secondMass = new DatedDraftMass();
+        final var secondMass = new PlanningMassTemplate();
         secondMass.setDateTime(LocalDateTime.of(TODAY, LocalTime.of(11,0)));
-        final var thirdMass = new DatedDraftMass();
+        final var thirdMass = new PlanningMassTemplate();
         thirdMass.setDateTime(LocalDateTime.of(TODAY.plusWeeks(2), LocalTime.of(11,0)));
         final var publishedSchedule = new Schedule(config, List.of(firstMass, secondMass));
         final var schedule = new Schedule(config, List.of(thirdMass), publishedSchedule);
@@ -34,9 +34,9 @@ class ScheduleTests {
     @Test
     void constructorPublishedFutureTest() {
         final var config = new Config();
-        final var firstMass = new DatedDraftMass();
+        final var firstMass = new PlanningMassTemplate();
         firstMass.setDateTime(LocalDateTime.of(TODAY.minusWeeks(6), LocalTime.of(11,0)));
-        final var secondMass = new DatedDraftMass();
+        final var secondMass = new PlanningMassTemplate();
         secondMass.setDateTime(LocalDateTime.of(TODAY, LocalTime.of(11,0)));
         final var publishedSchedule = new Schedule(config, List.of(secondMass));
         final var schedule = new Schedule(config, List.of(firstMass), publishedSchedule);
@@ -50,11 +50,11 @@ class ScheduleTests {
         final var regularMass = new RegularMass();
         regularMass.setDay(TODAY.getDayOfWeek());
         config.setRegularMasses(List.of(regularMass));
-        final var firstMass = new DatedDraftMass();
+        final var firstMass = new PlanningMassTemplate();
         firstMass.setDateTime(LocalDateTime.of(TODAY, LocalTime.of(11,0)));
-        final var secondMass = new DatedDraftMass();
+        final var secondMass = new PlanningMassTemplate();
         secondMass.setDateTime(LocalDateTime.of(TODAY.plusWeeks(1), LocalTime.of(11,0)));
-        final var thirdMass = new DatedDraftMass();
+        final var thirdMass = new PlanningMassTemplate();
         thirdMass.setDateTime(LocalDateTime.of(TODAY.plusWeeks(2), LocalTime.of(11,0)));
         final var lastSchedule = new Schedule(config, List.of(thirdMass));
         assertEquals(2, lastSchedule.getFutureDraftMasses().size());

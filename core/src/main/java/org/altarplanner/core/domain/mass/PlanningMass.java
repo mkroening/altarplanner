@@ -25,9 +25,9 @@ public class PlanningMass extends DatedMass {
     public PlanningMass() {
     }
 
-    public PlanningMass(DatedDraftMass datedDraftMass) {
-        super(datedDraftMass);
-        this.services = datedDraftMass.serviceTypeCounts.entrySet().stream()
+    public PlanningMass(PlanningMassTemplate planningMassTemplate) {
+        super(planningMassTemplate);
+        this.services = planningMassTemplate.serviceTypeCounts.entrySet().stream()
                 .flatMap(serviceTypeCount -> IntStream.range(0, serviceTypeCount.getValue())
                         .mapToObj(i -> new Service(this, serviceTypeCount.getKey())))
                 .sorted(Comparator.comparing(Service::getType))

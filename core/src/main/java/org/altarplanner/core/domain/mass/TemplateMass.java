@@ -4,7 +4,7 @@ import org.altarplanner.core.domain.ServiceType;
 
 import java.util.Map;
 
-public interface DraftMass extends GenericMass {
+public interface TemplateMass extends GenericMass {
 
     Map<ServiceType, Integer> getServiceTypeCounts();
 

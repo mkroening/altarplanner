@@ -1,7 +1,7 @@
 package org.altarplanner.core.solver;
 
 import org.altarplanner.core.domain.*;
-import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.core.api.solver.SolverFactory;
@@ -24,14 +24,14 @@ class ScoreConstraintTests {
 
     private final static int massCount = 10;
 
-    private List<DatedDraftMass> generateDatedDraftMasses(Config config, boolean subsequentMasses, boolean subsequentServiceTypes) {
+    private List<PlanningMassTemplate> generatePlanningMassTemplates(Config config, boolean subsequentMasses, boolean subsequentServiceTypes) {
         return IntStream.range(0, massCount)
                 .mapToObj(value -> {
-                    DatedDraftMass datedDraftMass = new DatedDraftMass();
-                    datedDraftMass.setAnnotation(Integer.toString(value));
-                    datedDraftMass.setDateTime(LocalDateTime.of(subsequentMasses ? LocalDate.now().plusDays(value) : LocalDate.now(), LocalTime.of(11,0)));
-                    datedDraftMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(subsequentServiceTypes ? value : 0), 1));
-                    return datedDraftMass;
+                    PlanningMassTemplate planningMassTemplate = new PlanningMassTemplate();
+                    planningMassTemplate.setAnnotation(Integer.toString(value));
+                    planningMassTemplate.setDateTime(LocalDateTime.of(subsequentMasses ? LocalDate.now().plusDays(value) : LocalDate.now(), LocalTime.of(11,0)));
+                    planningMassTemplate.setServiceTypeCounts(Map.of(config.getServiceTypes().get(subsequentServiceTypes ? value : 0), 1));
+                    return planningMassTemplate;
                 })
                 .collect(Collectors.toUnmodifiableList());
     }
@@ -44,9 +44,9 @@ class ScoreConstraintTests {
         config.getServers().add(new Server());
         config.getServiceTypes().add(new ServiceType());
 
-        List<DatedDraftMass> datedDraftMasses = generateDatedDraftMasses(config, false, false);
+        List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, false, false);
 
-        Schedule schedule = new Schedule(config, datedDraftMasses);
+        Schedule schedule = new Schedule(config, planningMassTemplates);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -83,9 +83,9 @@ class ScoreConstraintTests {
                         .collect(Collectors.toUnmodifiableList())
         );
 
-        List<DatedDraftMass> datedDraftMasses = generateDatedDraftMasses(config, true, true);
+        List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, true);
 
-        Schedule schedule = new Schedule(config, datedDraftMasses);
+        Schedule schedule = new Schedule(config, planningMassTemplates);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -107,9 +107,9 @@ class ScoreConstraintTests {
         config.getServers().get(0).getAbsences().add(LocalDateRange.ofClosed(LocalDate.now(), LocalDate.now().plusDays(massCount / 2)));
         config.getServiceTypes().add(new ServiceType());
 
-        List<DatedDraftMass> datedDraftMasses = generateDatedDraftMasses(config, true, false);
+        List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, datedDraftMasses);
+        Schedule schedule = new Schedule(config, planningMassTemplates);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -132,9 +132,9 @@ class ScoreConstraintTests {
                         .collect(Collectors.toUnmodifiableList()));
         config.getServiceTypes().add(new ServiceType());
 
-        List<DatedDraftMass> datedDraftMasses = generateDatedDraftMasses(config, true, false);
+        List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, datedDraftMasses);
+        Schedule schedule = new Schedule(config, planningMassTemplates);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -164,9 +164,9 @@ class ScoreConstraintTests {
                         .mapToObj(value -> config.getServiceTypes().get(2 * value))
                         .collect(Collectors.toUnmodifiableList()));
 
-        List<DatedDraftMass> datedDraftMasses = generateDatedDraftMasses(config, true, true);
+        List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, true);
 
-        Schedule schedule = new Schedule(config, datedDraftMasses);
+        Schedule schedule = new Schedule(config, planningMassTemplates);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -189,9 +189,9 @@ class ScoreConstraintTests {
                         .collect(Collectors.toUnmodifiableList()));
         config.getServiceTypes().add(new ServiceType());
 
-        List<DatedDraftMass> datedDraftMasses = generateDatedDraftMasses(config, true, false);
+        List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, datedDraftMasses);
+        Schedule schedule = new Schedule(config, planningMassTemplates);
 
         schedule.getServices().forEach(service -> service.setServer(schedule.getServers().get(0)));
 
@@ -216,10 +216,10 @@ class ScoreConstraintTests {
         config.getPairs().add(new PairRequest(config.getServers().get(0), config.getServers().get(1)));
         config.getServiceTypes().add(new ServiceType());
 
-        DatedDraftMass datedDraftMass = new DatedDraftMass();
-        datedDraftMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 2));
+        PlanningMassTemplate planningMassTemplate = new PlanningMassTemplate();
+        planningMassTemplate.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 2));
 
-        Schedule schedule = new Schedule(config, List.of(datedDraftMass));
+        Schedule schedule = new Schedule(config, List.of(planningMassTemplate));
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 
@@ -239,9 +239,9 @@ class ScoreConstraintTests {
         config.getServers().add(new Server());
         config.getServiceTypes().add(new ServiceType());
 
-        List<DatedDraftMass> datedDraftMasses = generateDatedDraftMasses(config, true, false);
+        List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, datedDraftMasses);
+        Schedule schedule = new Schedule(config, planningMassTemplates);
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 
@@ -266,10 +266,10 @@ class ScoreConstraintTests {
         config.getServiceTypes().add(new ServiceType());
         config.getServiceTypes().get(0).setMinYear(Year.now().getValue() - 7);
 
-        DatedDraftMass datedDraftMass = new DatedDraftMass();
-        datedDraftMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
+        PlanningMassTemplate planningMassTemplate = new PlanningMassTemplate();
+        planningMassTemplate.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
 
-        Schedule schedule = new Schedule(config, List.of(datedDraftMass));
+        Schedule schedule = new Schedule(config, List.of(planningMassTemplate));
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
         schedule.getServices().get(0).setServer(schedule.getServers().get(0));
@@ -287,9 +287,9 @@ class ScoreConstraintTests {
         config.getServers().get(1).setSurname("Second");
         config.getServiceTypes().add(new ServiceType());
 
-        List<DatedDraftMass> datedDraftMasses = generateDatedDraftMasses(config, true, false);
+        List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, datedDraftMasses);
+        Schedule schedule = new Schedule(config, planningMassTemplates);
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 

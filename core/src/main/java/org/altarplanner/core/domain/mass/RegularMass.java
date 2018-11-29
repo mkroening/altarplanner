@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 
-public class RegularMass extends BaseMass implements DraftMass, Comparable<RegularMass> {
+public class RegularMass extends BaseMass implements TemplateMass, Comparable<RegularMass> {
 
     protected DayOfWeek day;
 

@@ -28,7 +28,7 @@
             <Font size="16"/>
         </font>
     </Label>
-    <Button mnemonicParsing="false" text="%launcher.button.createDatedDraftMasses" onAction="#createDatedDraftMasses"/>
+    <Button mnemonicParsing="false" text="%launcher.button.editScheduleTemplates" onAction="#editScheduleTemplate"/>
     <Button mnemonicParsing="false" text="%launcher.button.createSchedule" onAction="#createSchedule"/>
     <Button mnemonicParsing="false" text="%launcher.button.planSchedule" onAction="#planSchedule"/>
     <Button mnemonicParsing="false" text="%launcher.button.exportSchedule" onAction="#exportSchedule"/>

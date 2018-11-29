@@ -1,6 +1,6 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.xml.JaxbIO;
@@ -56,7 +56,7 @@ public class Schedule implements Serializable {
     public Schedule() {
     }
 
-    public Schedule(Config config, Collection<DatedDraftMass> masses) {
+    public Schedule(Config config, Collection<PlanningMassTemplate> masses) {
         this.config = config;
         this.publishedMasses = List.of();
         this.finalDraftMasses = masses.stream()
@@ -68,14 +68,14 @@ public class Schedule implements Serializable {
                 getPlanningWindow().getEndInclusive().plusWeeks(2)
         );
         this.futureDraftMasses = config
-                .getDatedDraftMassStreamFromRegularMassesIn(futureDraftRange)
+                .getPlanningMassTemplateStreamFromRegularMassesIn(futureDraftRange)
                 .map(PlanningMass::new)
                 .collect(Collectors.toUnmodifiableList());
         setPlanningIds();
         setPinned();
     }
 
-    public Schedule(Config config, Collection<DatedDraftMass> masses, Schedule lastSchedule) {
+    public Schedule(Config config, Collection<PlanningMassTemplate> masses, Schedule lastSchedule) {
         this(config, masses);
         final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
         if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEndInclusive()))
@@ -101,7 +101,7 @@ public class Schedule implements Serializable {
                         futureRelevanceDate
                 );
                 this.futureDraftMasses = config
-                        .getDatedDraftMassStreamFromRegularMassesIn(futureDraftRange)
+                        .getPlanningMassTemplateStreamFromRegularMassesIn(futureDraftRange)
                         .map(PlanningMass::new)
                         .collect(Collectors.toUnmodifiableList());
             } else {

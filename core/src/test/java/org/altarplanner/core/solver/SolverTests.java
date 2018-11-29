@@ -10,7 +10,7 @@ class SolverTests {
     void solverTest() {
         SolverFactory.createFromXmlResource("org/altarplanner/core/solver/fastAssertSolverConfig.xml")
                 .buildSolver()
-                .solve(BigDomainGenerator.genSchedule());
+                .solve(BigDomainGenerator.generateSchedule());
     }
 
 }

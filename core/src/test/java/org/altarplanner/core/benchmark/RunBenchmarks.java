@@ -14,7 +14,7 @@ public class RunBenchmarks {
     }
 
     private static void runBenchmark(PlannerBenchmarkFactory benchmarkFactory) {
-        Schedule schedule = BigDomainGenerator.genSchedule();
+        Schedule schedule = BigDomainGenerator.generateSchedule();
         benchmarkFactory.buildPlannerBenchmark(schedule).benchmark();
     }
 

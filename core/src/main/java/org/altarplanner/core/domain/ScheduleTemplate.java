@@ -1,6 +1,6 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -14,33 +14,33 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @XmlRootElement
-@XmlType(propOrder = {"serviceTypes", "datedDraftMasses"})
-public class DatedDraftMassCollection {
+@XmlType(propOrder = {"serviceTypes", "planningMassTemplates"})
+public class ScheduleTemplate {
 
     private List<ServiceType> serviceTypes;
 
-    private List<DatedDraftMass> datedDraftMasses;
+    private List<PlanningMassTemplate> planningMassTemplates;
 
     /**
      * Noarg public constructor making the class instantiatable for JAXB.
      */
-    public DatedDraftMassCollection() {
+    public ScheduleTemplate() {
     }
 
-    public DatedDraftMassCollection(List<DatedDraftMass> datedDraftMasses) {
-        this.datedDraftMasses = datedDraftMasses.stream()
+    public ScheduleTemplate(List<PlanningMassTemplate> planningMassTemplates) {
+        this.planningMassTemplates = planningMassTemplates.stream()
                 .sorted()
                 .collect(Collectors.toUnmodifiableList());
-        serviceTypes = datedDraftMasses.parallelStream()
-                .flatMap(datedDraftMass -> datedDraftMass.getServiceTypeCounts().keySet().parallelStream())
+        serviceTypes = planningMassTemplates.parallelStream()
+                .flatMap(planningMassTemplate -> planningMassTemplate.getServiceTypeCounts().keySet().parallelStream())
                 .distinct()
                 .sorted()
                 .collect(Collectors.toUnmodifiableList());
     }
 
     public LocalDateRange getDateRange() {
-        final LocalDate start = Collections.min(datedDraftMasses).getDateTime().toLocalDate();
-        final LocalDate endInclusive = Collections.max(datedDraftMasses).getDateTime().toLocalDate();
+        final LocalDate start = Collections.min(planningMassTemplates).getDateTime().toLocalDate();
+        final LocalDate endInclusive = Collections.max(planningMassTemplates).getDateTime().toLocalDate();
         return LocalDateRange.ofClosed(start, endInclusive);
     }
 
@@ -54,28 +54,28 @@ public class DatedDraftMassCollection {
         this.serviceTypes = serviceTypes;
     }
 
-    @XmlElementWrapper(name = "datedDraftMasses")
-    @XmlElement(name = "datedDraftMass")
-    public List<DatedDraftMass> getDatedDraftMasses() {
-        return datedDraftMasses;
+    @XmlElementWrapper(name = "planningMassTemplates")
+    @XmlElement(name = "planningMassTemplate")
+    public List<PlanningMassTemplate> getPlanningMassTemplates() {
+        return planningMassTemplates;
     }
 
-    public void setDatedDraftMasses(List<DatedDraftMass> datedDraftMasses) {
-        this.datedDraftMasses = datedDraftMasses;
+    public void setPlanningMassTemplates(List<PlanningMassTemplate> planningMassTemplates) {
+        this.planningMassTemplates = planningMassTemplates;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DatedDraftMassCollection that = (DatedDraftMassCollection) o;
+        ScheduleTemplate that = (ScheduleTemplate) o;
         return Objects.equals(serviceTypes, that.serviceTypes) &&
-                Objects.equals(datedDraftMasses, that.datedDraftMasses);
+                Objects.equals(planningMassTemplates, that.planningMassTemplates);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(serviceTypes, datedDraftMasses);
+        return Objects.hash(serviceTypes, planningMassTemplates);
     }
 
 }

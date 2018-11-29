@@ -1,10 +1,10 @@
 package org.altarplanner.core.domain.util;
 
 import org.altarplanner.core.domain.*;
-import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
-import org.altarplanner.core.domain.DatedDraftMassCollection;
+import org.altarplanner.core.domain.ScheduleTemplate;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.threeten.extra.LocalDateRange;
 
@@ -103,19 +103,19 @@ public class BigDomainGenerator {
         return config;
     }
 
-    public static DatedDraftMassCollection genDatedDraftMassCollection() {
-        List<DatedDraftMass> masses = genConfig().getDatedDraftMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
-        return new DatedDraftMassCollection(masses);
+    public static ScheduleTemplate generateScheduleTemplate() {
+        List<PlanningMassTemplate> masses = genConfig().getPlanningMassTemplateStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
+        return new ScheduleTemplate(masses);
     }
 
-    public static Schedule genSchedule() {
+    public static Schedule generateSchedule() {
         Config config = genConfig();
-        List<DatedDraftMass> masses = config.getDatedDraftMassStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
+        List<PlanningMassTemplate> masses = config.getPlanningMassTemplateStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
         return new Schedule(config, masses);
     }
 
-    public static Schedule genInitializedSchedule() {
-        Schedule uninitialized = genSchedule();
+    public static Schedule generateInitializedSchedule() {
+        Schedule uninitialized = generateSchedule();
         SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("org/altarplanner/core/solver/reproducibleConstructionSolverConfig.xml");
         return solverFactory.buildSolver().solve(uninitialized);
     }

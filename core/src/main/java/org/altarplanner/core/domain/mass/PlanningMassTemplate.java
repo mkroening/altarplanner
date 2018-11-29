@@ -9,15 +9,15 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-public class DatedDraftMass extends DatedMass implements DraftMass {
+public class PlanningMassTemplate extends DatedMass implements TemplateMass {
 
     protected Map<ServiceType, Integer> serviceTypeCounts;
 
-    public DatedDraftMass() {
+    public PlanningMassTemplate() {
         this.serviceTypeCounts = Map.of();
     }
 
-    public DatedDraftMass(RegularMass regularMass, LocalDate date) {
+    public PlanningMassTemplate(RegularMass regularMass, LocalDate date) {
         super(regularMass, LocalDateTime.of(date, regularMass.time));
         this.serviceTypeCounts = Map.copyOf(regularMass.serviceTypeCounts);
     }
@@ -38,7 +38,7 @@ public class DatedDraftMass extends DatedMass implements DraftMass {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        DatedDraftMass that = (DatedDraftMass) o;
+        PlanningMassTemplate that = (PlanningMassTemplate) o;
         return Objects.equals(serviceTypeCounts, that.serviceTypeCounts);
     }
 

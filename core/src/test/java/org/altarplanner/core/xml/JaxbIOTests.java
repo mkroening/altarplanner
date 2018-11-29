@@ -1,9 +1,9 @@
 package org.altarplanner.core.xml;
 
 import org.altarplanner.core.domain.*;
-import org.altarplanner.core.domain.mass.DatedDraftMass;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.util.BigDomainGenerator;
-import org.altarplanner.core.domain.DatedDraftMassCollection;
+import org.altarplanner.core.domain.ScheduleTemplate;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -26,15 +26,15 @@ class JaxbIOTests {
 
     private static final String XML_TEST_PATHNAME = "src/test/resources/org/altarplanner/core/xml/";
     private static final File EXPECTED_CONFIG = new File(XML_TEST_PATHNAME + "bigConfig.xml");
-    private static final File EXPECTED_DATED_DRAFT_MASS_COLLECTION = new File(XML_TEST_PATHNAME + "bigDatedDraftMassCollection.xml");
+    private static final File EXPECTED_SCHEDULE_TEMPLATE = new File(XML_TEST_PATHNAME + "bigScheduleTemplate.xml");
     private static final File EXPECTED_INITIALIZED_SCHEDULE = new File(XML_TEST_PATHNAME + "bigScheduleInitialized.xml");
 
     @Test
     @Disabled
     void writeExpectedFiles() throws UnknownJAXBException {
         JaxbIO.marshal(BigDomainGenerator.genConfig(), EXPECTED_CONFIG);
-        JaxbIO.marshal(BigDomainGenerator.genDatedDraftMassCollection(), EXPECTED_DATED_DRAFT_MASS_COLLECTION);
-        JaxbIO.marshal(BigDomainGenerator.genInitializedSchedule(), EXPECTED_INITIALIZED_SCHEDULE);
+        JaxbIO.marshal(BigDomainGenerator.generateScheduleTemplate(), EXPECTED_SCHEDULE_TEMPLATE);
+        JaxbIO.marshal(BigDomainGenerator.generateInitializedSchedule(), EXPECTED_INITIALIZED_SCHEDULE);
     }
 
     @Test
@@ -55,17 +55,17 @@ class JaxbIOTests {
     }
 
     @Test
-    void datedDraftMassCollectionUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
-        final DatedDraftMassCollection expected = BigDomainGenerator.genDatedDraftMassCollection();
-        final DatedDraftMassCollection unmarshalled = JaxbIO.unmarshal(EXPECTED_DATED_DRAFT_MASS_COLLECTION, DatedDraftMassCollection.class);
+    void scheduleTemplateUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
+        final ScheduleTemplate expected = BigDomainGenerator.generateScheduleTemplate();
+        final ScheduleTemplate unmarshalled = JaxbIO.unmarshal(EXPECTED_SCHEDULE_TEMPLATE, ScheduleTemplate.class);
         assertEquals(expected, unmarshalled);
     }
 
     @Test
-    void datedDraftMassCollectionMarshalling() throws IOException, UnknownJAXBException {
-        final List<String> expectedLines = Files.lines(EXPECTED_DATED_DRAFT_MASS_COLLECTION.toPath()).collect(Collectors.toUnmodifiableList());
+    void scheduleTemplateMarshalling() throws IOException, UnknownJAXBException {
+        final List<String> expectedLines = Files.lines(EXPECTED_SCHEDULE_TEMPLATE.toPath()).collect(Collectors.toUnmodifiableList());
         final Path marshalledPath = Files.createTempFile(null, null);
-        JaxbIO.marshal(BigDomainGenerator.genDatedDraftMassCollection(), marshalledPath.toFile());
+        JaxbIO.marshal(BigDomainGenerator.generateScheduleTemplate(), marshalledPath.toFile());
         final List<String> marshalledLines = Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());
         Files.delete(marshalledPath);
         assertEquals(expectedLines, marshalledLines);
@@ -73,7 +73,7 @@ class JaxbIOTests {
 
     @Test
     void scheduleUnmarshalling() throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
-        final Schedule expected = BigDomainGenerator.genInitializedSchedule();
+        final Schedule expected = BigDomainGenerator.generateInitializedSchedule();
         final Schedule unmarshalled = Schedule.load(EXPECTED_INITIALIZED_SCHEDULE);
         assertEquals(expected, unmarshalled);
     }
@@ -82,7 +82,7 @@ class JaxbIOTests {
     void scheduleMarshalling() throws UnknownJAXBException, IOException {
         final List<String> expectedLines = Files.lines(EXPECTED_INITIALIZED_SCHEDULE.toPath()).collect(Collectors.toUnmodifiableList());
         final Path marshalledPath = Files.createTempFile(null, null);
-        JaxbIO.marshal(BigDomainGenerator.genInitializedSchedule(), marshalledPath.toFile());
+        JaxbIO.marshal(BigDomainGenerator.generateInitializedSchedule(), marshalledPath.toFile());
         final List<String> marshalledLines = Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());
         Files.delete(marshalledPath);
         assertEquals(expectedLines, marshalledLines);
@@ -92,7 +92,7 @@ class JaxbIOTests {
     void scheduleConstructionConfigIdentities() throws IOException, UnexpectedElementException, UnknownJAXBException {
         final Config config = JaxbIO.unmarshal(EXPECTED_CONFIG, Config.class);
         final Schedule oldSchedule = Schedule.load(EXPECTED_INITIALIZED_SCHEDULE);
-        final DatedDraftMass newMass = new DatedDraftMass();
+        final PlanningMassTemplate newMass = new PlanningMassTemplate();
         newMass.setDateTime(LocalDateTime.of(oldSchedule.getPlanningWindow().getEnd(), LocalTime.of(11,0)));
         newMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
         final Schedule freshSchedule = new Schedule(config, List.of(newMass), oldSchedule);

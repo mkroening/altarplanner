@@ -9,7 +9,7 @@ dependencies {
         because("we use additional date-time classes like LocalDateRange")
     }
 
-    implementation("org.optaplanner:optaplanner-bom:+") {
+    implementation(platform("org.optaplanner:optaplanner-bom:+")) {
         because("we depend on optaplanner projects")
     }
 
@@ -23,11 +23,15 @@ dependencies {
     }
 
     val jaxbVersion: String by project
-    implementation("javax.xml.bind:jaxb-api:$jaxbVersion") {
+    implementation(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:$jaxbVersion")) {
+        because("we depend on official JAXB artifacts")
+    }
+
+    implementation("jakarta.xml.bind:jakarta.xml.bind-api") {
         because("we use the JAXB API for XML Binding")
     }
 
-    implementation("org.glassfish.jaxb:jaxb-runtime:$jaxbVersion") {
+    implementation("org.glassfish.jaxb:jaxb-runtime") {
         because("we want to use the RI JAXB runtime")
     }
 
@@ -43,7 +47,7 @@ dependencies {
         because("we use POI-XSSF to write Excel files")
     }
 
-    testImplementation("org.junit:junit-bom:+") {
+    testImplementation(enforcedPlatform("org.junit:junit-bom:+")) {
         because("we use JUnit modules")
     }
 

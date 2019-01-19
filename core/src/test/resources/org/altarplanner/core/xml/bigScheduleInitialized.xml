@@ -1065,5 +1065,6 @@
             <service type="Lector_2012-2000" server="742bc837_d666d1ee-2010"/>
         </planningMass>
     </futureDraftMasses>
+    <feastDays>2018-01-01 2018-01-06</feastDays>
     <score>-4hard/-1630soft</score>
 </schedule>

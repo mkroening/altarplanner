@@ -1,5 +1,6 @@
 package org.altarplanner.core.domain;
 
+import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.xml.JaxbIO;
@@ -16,6 +17,7 @@ import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -31,13 +33,14 @@ import java.util.stream.Stream;
 
 @PlanningSolution
 @XmlRootElement
-@XmlType(propOrder = {"config", "publishedMasses", "finalDraftMasses", "futureDraftMasses", "score"})
+@XmlType(propOrder = {"config", "publishedMasses", "finalDraftMasses", "futureDraftMasses", "feastDays", "score"})
 public class Schedule implements Serializable {
 
     private Config config;
     private List<PlanningMass> publishedMasses;
     private List<PlanningMass> finalDraftMasses;
     private List<PlanningMass> futureDraftMasses;
+    private List<LocalDate> feastDays;
     @PlanningScore
     private HardSoftScore score;
 
@@ -70,6 +73,7 @@ public class Schedule implements Serializable {
                 .getPlanningMassTemplateStreamFromRegularMassesIn(futureDraftRange)
                 .map(PlanningMass::new)
                 .collect(Collectors.toUnmodifiableList());
+        this.feastDays = scheduleTemplate.getFeastDays();
         setPlanningIds();
         setPinned();
     }
@@ -241,6 +245,16 @@ public class Schedule implements Serializable {
 
     public void setFutureDraftMasses(List<PlanningMass> futureDraftMasses) {
         this.futureDraftMasses = futureDraftMasses;
+    }
+
+    @XmlList
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
+    public List<LocalDate> getFeastDays() {
+        return feastDays;
+    }
+
+    public void setFeastDays(List<LocalDate> feastDays) {
+        this.feastDays = feastDays;
     }
 
     @XmlJavaTypeAdapter(HardSoftScoreJaxbXmlAdapter.class)

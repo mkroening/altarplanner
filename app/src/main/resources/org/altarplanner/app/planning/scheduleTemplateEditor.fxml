@@ -10,6 +10,7 @@
         <Button mnemonicParsing="false" text="%general.button.add" onAction="#addPlanningMassTemplate"/>
         <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removePlanningMassTemplate"/>
         <Button mnemonicParsing="false" text="%scheduleTemplateEditor.button.generateFromRegularMasses" onAction="#generateFromRegularMasses"/>
+        <Button mnemonicParsing="false" text="%scheduleTemplateEditor.button.editFeastDays" onAction="#editFeastDays"/>
         <Pane HBox.hgrow="ALWAYS"/>
         <Button mnemonicParsing="false" text="%scheduleTemplateEditor.button.open" onAction="#openFile"/>
         <Button mnemonicParsing="false" text="%scheduleTemplateEditor.button.saveAsAndBack" onAction="#saveAsAndBack"/>

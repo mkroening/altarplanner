@@ -95,7 +95,7 @@ class JaxbIOTests {
         final PlanningMassTemplate newMass = new PlanningMassTemplate();
         newMass.setDateTime(LocalDateTime.of(oldSchedule.getPlanningWindow().getEnd(), LocalTime.of(11,0)));
         newMass.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
-        final Schedule freshSchedule = new Schedule(config, List.of(newMass), oldSchedule);
+        final Schedule freshSchedule = new Schedule(new ScheduleTemplate(List.of(newMass)), oldSchedule, config);
         final int serviceIndex = 0;
         final int serverIndex = freshSchedule.getServers().indexOf(freshSchedule.getServices().get(0).getServer());
 

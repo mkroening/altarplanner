@@ -111,7 +111,7 @@ public class BigDomainGenerator {
     public static Schedule generateSchedule() {
         Config config = genConfig();
         List<PlanningMassTemplate> masses = config.getPlanningMassTemplateStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
-        return new Schedule(config, masses);
+        return new Schedule(new ScheduleTemplate(masses), config);
     }
 
     public static Schedule generateInitializedSchedule() {

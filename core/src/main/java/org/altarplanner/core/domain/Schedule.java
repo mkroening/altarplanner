@@ -1,6 +1,5 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.xml.JaxbIO;
@@ -56,10 +55,10 @@ public class Schedule implements Serializable {
     public Schedule() {
     }
 
-    public Schedule(Config config, Collection<PlanningMassTemplate> masses) {
+    public Schedule(ScheduleTemplate scheduleTemplate, Config config) {
         this.config = config;
         this.publishedMasses = List.of();
-        this.finalDraftMasses = masses.stream()
+        this.finalDraftMasses = scheduleTemplate.getPlanningMassTemplates().stream()
                 .map(PlanningMass::new)
                 .sorted()
                 .collect(Collectors.toUnmodifiableList());
@@ -75,8 +74,8 @@ public class Schedule implements Serializable {
         setPinned();
     }
 
-    public Schedule(Config config, Collection<PlanningMassTemplate> masses, Schedule lastSchedule) {
-        this(config, masses);
+    public Schedule(ScheduleTemplate scheduleTemplate, Schedule lastSchedule, Config config) {
+        this(scheduleTemplate, config);
         final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
         if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEndInclusive()))
             throw new IllegalArgumentException("The given last schedule is too old to be relevant");

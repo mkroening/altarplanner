@@ -25,8 +25,8 @@ class ScheduleTests {
         secondMass.setDateTime(LocalDateTime.of(TODAY, LocalTime.of(11,0)));
         final var thirdMass = new PlanningMassTemplate();
         thirdMass.setDateTime(LocalDateTime.of(TODAY.plusWeeks(2), LocalTime.of(11,0)));
-        final var publishedSchedule = new Schedule(config, List.of(firstMass, secondMass));
-        final var schedule = new Schedule(config, List.of(thirdMass), publishedSchedule);
+        final var publishedSchedule = new Schedule(new ScheduleTemplate(List.of(firstMass, secondMass)), config);
+        final var schedule = new Schedule(new ScheduleTemplate(List.of(thirdMass)), publishedSchedule, config);
         assertEquals(1, schedule.getPublishedMasses().size());
         assertSame(publishedSchedule.getFinalDraftMasses().get(1), schedule.getPublishedMasses().get(0));
     }
@@ -38,8 +38,8 @@ class ScheduleTests {
         firstMass.setDateTime(LocalDateTime.of(TODAY.minusWeeks(6), LocalTime.of(11,0)));
         final var secondMass = new PlanningMassTemplate();
         secondMass.setDateTime(LocalDateTime.of(TODAY, LocalTime.of(11,0)));
-        final var publishedSchedule = new Schedule(config, List.of(secondMass));
-        final var schedule = new Schedule(config, List.of(firstMass), publishedSchedule);
+        final var publishedSchedule = new Schedule(new ScheduleTemplate(List.of(secondMass)), config);
+        final var schedule = new Schedule(new ScheduleTemplate(List.of(firstMass)), publishedSchedule, config);
         assertEquals(1, schedule.getPublishedMasses().size());
         assertSame(publishedSchedule.getFinalDraftMasses().get(0), schedule.getPublishedMasses().get(0));
     }
@@ -56,14 +56,14 @@ class ScheduleTests {
         secondMass.setDateTime(LocalDateTime.of(TODAY.plusWeeks(1), LocalTime.of(11,0)));
         final var thirdMass = new PlanningMassTemplate();
         thirdMass.setDateTime(LocalDateTime.of(TODAY.plusWeeks(2), LocalTime.of(11,0)));
-        final var lastSchedule = new Schedule(config, List.of(thirdMass));
+        final var lastSchedule = new Schedule(new ScheduleTemplate(List.of(thirdMass)), config);
         assertEquals(2, lastSchedule.getFutureDraftMasses().size());
         assertEquals(TODAY.getDayOfWeek(), lastSchedule.getFutureDraftMasses().get(0).getDateTime().getDayOfWeek());
         assertEquals(TODAY.getDayOfWeek(), lastSchedule.getFutureDraftMasses().get(1).getDateTime().getDayOfWeek());
-        final var middleSchedule = new Schedule(config, List.of(secondMass), lastSchedule);
+        final var middleSchedule = new Schedule(new ScheduleTemplate(List.of(secondMass)), lastSchedule, config);
         assertEquals(1, middleSchedule.getFutureDraftMasses().size());
         assertEquals(TODAY.getDayOfWeek(), middleSchedule.getFutureDraftMasses().get(0).getDateTime().getDayOfWeek());
-        final var firstSchedule = new Schedule(config, List.of(firstMass), middleSchedule);
+        final var firstSchedule = new Schedule(new ScheduleTemplate(List.of(firstMass)), middleSchedule, config);
         assertEquals(0, firstSchedule.getFutureDraftMasses().size());
     }
 

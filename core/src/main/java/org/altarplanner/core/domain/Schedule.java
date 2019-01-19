@@ -183,7 +183,7 @@ public class Schedule implements Serializable {
                 .map(LocalDateTime::toLocalDate)
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().stream()
-                .flatMap(server -> server.getDateOffRequests(relevantDates))
+                .flatMap(server -> server.getDateOffRequests(relevantDates, Set.copyOf(feastDays)))
                 .collect(Collectors.toUnmodifiableList());
     }
 

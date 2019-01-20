@@ -20,12 +20,14 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.Comparator;
+import java.util.List;
 
 public class ScheduleTemplateEditor {
 
@@ -40,6 +42,7 @@ public class ScheduleTemplateEditor {
     @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
     @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
+    private List<LocalDate> feastDays = List.of();
     private boolean applyChanges;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleTemplateEditor.class);
@@ -203,9 +206,10 @@ public class ScheduleTemplateEditor {
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
         if (selectedFile != null) {
             try {
-                ScheduleTemplate massCollection = JaxbIO.unmarshal(selectedFile, ScheduleTemplate.class);
-                serviceTypeCountTableView.getItems().setAll(massCollection.getServiceTypes());
-                planningMassTemplateListView.getItems().setAll(massCollection.getPlanningMassTemplates());
+                ScheduleTemplate scheduleTemplate = JaxbIO.unmarshal(selectedFile, ScheduleTemplate.class);
+                serviceTypeCountTableView.getItems().setAll(scheduleTemplate.getServiceTypes());
+                planningMassTemplateListView.getItems().setAll(scheduleTemplate.getPlanningMassTemplates());
+                feastDays = scheduleTemplate.getFeastDays();
                 LOGGER.info("Masses have been loaded from {}", selectedFile);
 
                 setDisable(false);
@@ -219,7 +223,7 @@ public class ScheduleTemplateEditor {
 
     @FXML private void saveAsAndBack() throws IOException, UnknownJAXBException {
         if (!planningMassTemplateListView.getItems().isEmpty()) {
-            final ScheduleTemplate massCollection = new ScheduleTemplate(planningMassTemplateListView.getItems());
+            final var massCollection = new ScheduleTemplate(planningMassTemplateListView.getItems(), feastDays);
 
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveScheduleTemplate"));
@@ -242,4 +246,10 @@ public class ScheduleTemplateEditor {
         }
     }
 
+    @FXML private void editFeastDays() throws IOException {
+        Launcher.loadParent("planning/feastDayEditor.fxml", false, feastDayEditor -> {
+            ((FeastDayEditor)feastDayEditor).addFeastDays(feastDays);
+            ((FeastDayEditor)feastDayEditor).setFeastDaysConsumer(feastDays -> this.feastDays = List.copyOf(feastDays));
+        });
+    }
 }

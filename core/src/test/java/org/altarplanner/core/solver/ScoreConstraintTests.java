@@ -46,7 +46,7 @@ class ScoreConstraintTests {
 
         List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, false, false);
 
-        Schedule schedule = new Schedule(config, planningMassTemplates);
+        Schedule schedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -85,7 +85,7 @@ class ScoreConstraintTests {
 
         List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, true);
 
-        Schedule schedule = new Schedule(config, planningMassTemplates);
+        Schedule schedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -109,7 +109,7 @@ class ScoreConstraintTests {
 
         List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, planningMassTemplates);
+        Schedule schedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -134,7 +134,7 @@ class ScoreConstraintTests {
 
         List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, planningMassTemplates);
+        Schedule schedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -166,7 +166,7 @@ class ScoreConstraintTests {
 
         List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, true);
 
-        Schedule schedule = new Schedule(config, planningMassTemplates);
+        Schedule schedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
 
         scoreVerifier.assertHardWeight(constraintName, 0, schedule);
 
@@ -191,7 +191,7 @@ class ScoreConstraintTests {
 
         List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, planningMassTemplates);
+        Schedule schedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
 
         schedule.getServices().forEach(service -> service.setServer(schedule.getServers().get(0)));
 
@@ -219,7 +219,7 @@ class ScoreConstraintTests {
         PlanningMassTemplate planningMassTemplate = new PlanningMassTemplate();
         planningMassTemplate.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 2));
 
-        Schedule schedule = new Schedule(config, List.of(planningMassTemplate));
+        Schedule schedule = new Schedule(new ScheduleTemplate(List.of(planningMassTemplate)), config);
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 
@@ -241,7 +241,7 @@ class ScoreConstraintTests {
 
         List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, planningMassTemplates);
+        Schedule schedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 
@@ -269,7 +269,7 @@ class ScoreConstraintTests {
         PlanningMassTemplate planningMassTemplate = new PlanningMassTemplate();
         planningMassTemplate.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
 
-        Schedule schedule = new Schedule(config, List.of(planningMassTemplate));
+        Schedule schedule = new Schedule(new ScheduleTemplate(List.of(planningMassTemplate)), config);
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
         schedule.getServices().get(0).setServer(schedule.getServers().get(0));
@@ -289,7 +289,7 @@ class ScoreConstraintTests {
 
         List<PlanningMassTemplate> planningMassTemplates = generatePlanningMassTemplates(config, true, false);
 
-        Schedule schedule = new Schedule(config, planningMassTemplates);
+        Schedule schedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
 
         scoreVerifier.assertSoftWeight(constraintName, 0, schedule);
 

@@ -157,7 +157,7 @@ public class Launcher extends Application {
 
         if (massFile != null) {
             try {
-                final List<PlanningMassTemplate> masses = JaxbIO.unmarshal(massFile, ScheduleTemplate.class).getPlanningMassTemplates();
+                final var scheduleTemplate = JaxbIO.unmarshal(massFile, ScheduleTemplate.class);
                 LOGGER.info("Masses have been loaded from {}", massFile);
 
                 final FileChooser lastScheduleFileChooser = new FileChooser();
@@ -171,10 +171,10 @@ public class Launcher extends Application {
                 final Schedule createdSchedule;
                 if (lastScheduleFile != null) {
                     final Schedule lastSchedule = Schedule.load(lastScheduleFile);
-                    createdSchedule = new Schedule(CONFIG, masses, lastSchedule);
+                    createdSchedule = new Schedule(scheduleTemplate, lastSchedule, CONFIG);
                     LOGGER.info("Last Schedule has been loaded from {}", lastScheduleFile);
                 } else {
-                    createdSchedule = new Schedule(CONFIG, masses);
+                    createdSchedule = new Schedule(scheduleTemplate, CONFIG);
                     LOGGER.info("Last Schedule has not been selected");
                 }
 

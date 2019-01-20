@@ -1,12 +1,15 @@
 package org.altarplanner.core.domain;
 
+import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -14,12 +17,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @XmlRootElement
-@XmlType(propOrder = {"serviceTypes", "planningMassTemplates"})
+@XmlType(propOrder = {"serviceTypes", "planningMassTemplates", "feastDays"})
 public class ScheduleTemplate {
 
     private List<ServiceType> serviceTypes;
 
     private List<PlanningMassTemplate> planningMassTemplates;
+
+    private List<LocalDate> feastDays;
 
     /**
      * Noarg public constructor making the class instantiatable for JAXB.
@@ -27,7 +32,7 @@ public class ScheduleTemplate {
     public ScheduleTemplate() {
     }
 
-    public ScheduleTemplate(List<PlanningMassTemplate> planningMassTemplates) {
+    public ScheduleTemplate(List<PlanningMassTemplate> planningMassTemplates, List<LocalDate> feastDays) {
         this.planningMassTemplates = planningMassTemplates.stream()
                 .sorted()
                 .collect(Collectors.toUnmodifiableList());
@@ -36,6 +41,11 @@ public class ScheduleTemplate {
                 .distinct()
                 .sorted()
                 .collect(Collectors.toUnmodifiableList());
+        this.feastDays = feastDays;
+    }
+
+    public ScheduleTemplate(List<PlanningMassTemplate> planningMassTemplates) {
+        this(planningMassTemplates, Collections.emptyList());
     }
 
     public LocalDateRange getDateRange() {
@@ -62,6 +72,16 @@ public class ScheduleTemplate {
 
     public void setPlanningMassTemplates(List<PlanningMassTemplate> planningMassTemplates) {
         this.planningMassTemplates = planningMassTemplates;
+    }
+
+    @XmlList
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
+    public List<LocalDate> getFeastDays() {
+        return feastDays;
+    }
+
+    public void setFeastDays(List<LocalDate> feastDays) {
+        this.feastDays = feastDays;
     }
 
     @Override

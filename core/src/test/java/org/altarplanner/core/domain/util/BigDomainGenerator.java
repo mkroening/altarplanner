@@ -4,7 +4,6 @@ import org.altarplanner.core.domain.*;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
-import org.altarplanner.core.domain.ScheduleTemplate;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.threeten.extra.LocalDateRange;
 
@@ -19,6 +18,11 @@ public class BigDomainGenerator {
 
     private static final LocalDate TODAY = LocalDate.of(2018, 1, 1);
     private static final LocalDateRange PLANNING_WINDOW;
+    private static final List<LocalDate> FEAST_DAYS = List.of(
+            LocalDate.of(2018, 1, 1),
+            LocalDate.of(2018, 1, 6)
+    );
+
     static {
         LocalDate nextMonday = TODAY.plusDays(DayOfWeek.MONDAY.getValue() - TODAY.getDayOfWeek().getValue());
         PLANNING_WINDOW = LocalDateRange.ofClosed(nextMonday, nextMonday.plusWeeks(5).minusDays(1));
@@ -105,13 +109,13 @@ public class BigDomainGenerator {
 
     public static ScheduleTemplate generateScheduleTemplate() {
         List<PlanningMassTemplate> masses = genConfig().getPlanningMassTemplateStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
-        return new ScheduleTemplate(masses);
+        return new ScheduleTemplate(masses, FEAST_DAYS);
     }
 
     public static Schedule generateSchedule() {
         Config config = genConfig();
         List<PlanningMassTemplate> masses = config.getPlanningMassTemplateStreamFromRegularMassesIn(PLANNING_WINDOW).collect(Collectors.toUnmodifiableList());
-        return new Schedule(config, masses);
+        return new Schedule(new ScheduleTemplate(masses, FEAST_DAYS), config);
     }
 
     public static Schedule generateInitializedSchedule() {

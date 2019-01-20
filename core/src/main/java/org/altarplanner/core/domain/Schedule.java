@@ -1,6 +1,6 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.mass.PlanningMassTemplate;
+import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
 import org.altarplanner.core.xml.JaxbIO;
@@ -17,6 +17,7 @@ import org.threeten.extra.LocalDateRange;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -32,13 +33,14 @@ import java.util.stream.Stream;
 
 @PlanningSolution
 @XmlRootElement
-@XmlType(propOrder = {"config", "publishedMasses", "finalDraftMasses", "futureDraftMasses", "score"})
+@XmlType(propOrder = {"config", "publishedMasses", "finalDraftMasses", "futureDraftMasses", "feastDays", "score"})
 public class Schedule implements Serializable {
 
     private Config config;
     private List<PlanningMass> publishedMasses;
     private List<PlanningMass> finalDraftMasses;
     private List<PlanningMass> futureDraftMasses;
+    private List<LocalDate> feastDays;
     @PlanningScore
     private HardSoftScore score;
 
@@ -56,10 +58,10 @@ public class Schedule implements Serializable {
     public Schedule() {
     }
 
-    public Schedule(Config config, Collection<PlanningMassTemplate> masses) {
+    public Schedule(ScheduleTemplate scheduleTemplate, Config config) {
         this.config = config;
         this.publishedMasses = List.of();
-        this.finalDraftMasses = masses.stream()
+        this.finalDraftMasses = scheduleTemplate.getPlanningMassTemplates().stream()
                 .map(PlanningMass::new)
                 .sorted()
                 .collect(Collectors.toUnmodifiableList());
@@ -71,12 +73,13 @@ public class Schedule implements Serializable {
                 .getPlanningMassTemplateStreamFromRegularMassesIn(futureDraftRange)
                 .map(PlanningMass::new)
                 .collect(Collectors.toUnmodifiableList());
+        this.feastDays = scheduleTemplate.getFeastDays();
         setPlanningIds();
         setPinned();
     }
 
-    public Schedule(Config config, Collection<PlanningMassTemplate> masses, Schedule lastSchedule) {
-        this(config, masses);
+    public Schedule(ScheduleTemplate scheduleTemplate, Schedule lastSchedule, Config config) {
+        this(scheduleTemplate, config);
         final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
         if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEndInclusive()))
             throw new IllegalArgumentException("The given last schedule is too old to be relevant");
@@ -180,7 +183,7 @@ public class Schedule implements Serializable {
                 .map(LocalDateTime::toLocalDate)
                 .collect(Collectors.toUnmodifiableSet());
         return config.getServers().stream()
-                .flatMap(server -> server.getDateOffRequests(relevantDates))
+                .flatMap(server -> server.getDateOffRequests(relevantDates, Set.copyOf(feastDays)))
                 .collect(Collectors.toUnmodifiableList());
     }
 
@@ -242,6 +245,16 @@ public class Schedule implements Serializable {
 
     public void setFutureDraftMasses(List<PlanningMass> futureDraftMasses) {
         this.futureDraftMasses = futureDraftMasses;
+    }
+
+    @XmlList
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
+    public List<LocalDate> getFeastDays() {
+        return feastDays;
+    }
+
+    public void setFeastDays(List<LocalDate> feastDays) {
+        this.feastDays = feastDays;
     }
 
     @XmlJavaTypeAdapter(HardSoftScoreJaxbXmlAdapter.class)

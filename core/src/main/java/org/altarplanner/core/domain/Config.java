@@ -76,8 +76,9 @@ public class Config implements Serializable {
                                 .map(mass -> new PlanningMassTemplate(mass, date))));
     }
 
-    public void removeFromRegularMasses(ServiceType serviceType) {
-        regularMasses.parallelStream().forEach(regularMass -> regularMass.getServiceTypeCounts().remove(serviceType));
+    public void remove(final ServiceType serviceType) {
+        regularMasses.forEach(regularMass -> regularMass.getServiceTypeCounts().remove(serviceType));
+        servers.forEach(server -> server.getInabilities().remove(serviceType));
     }
 
     public List<Server> getPairedWith(Server server) {

@@ -117,7 +117,7 @@ public class ServiceTypeEditor {
     }
 
     @FXML private void removeServiceType() {
-        Launcher.CONFIG.removeFromRegularMasses(serviceTypeListView.getSelectionModel().getSelectedItem());
+        Launcher.CONFIG.remove(serviceTypeListView.getSelectionModel().getSelectedItem());
         serviceTypeListView.getItems().remove(serviceTypeListView.getSelectionModel().getSelectedItem());
         if (serviceTypeListView.getItems().isEmpty())
             setDisable(true);

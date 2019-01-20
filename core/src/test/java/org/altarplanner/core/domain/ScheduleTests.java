@@ -3,14 +3,19 @@ package org.altarplanner.core.domain;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.junit.jupiter.api.Test;
+import org.threeten.extra.LocalDateRange;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.AbstractMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 class ScheduleTests {
@@ -68,4 +73,43 @@ class ScheduleTests {
         assertEquals(0, firstSchedule.getFutureDraftMasses().size());
     }
 
+    @Test
+    void getDateOffRequestTest() {
+        final var config = new Config();
+        final var server = new Server();
+        server.setWeeklyAbsences(List.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY));
+        server.setAbsences(List.of(LocalDateRange.ofClosed(LAST_MONDAY.plusDays(2), LAST_MONDAY.plusDays(5))));
+        config.setServers(List.of(server));
+        final var planningMassTemplates = IntStream.of(1, 3, 5, 7)
+                .mapToObj(dayOfWeek -> {
+                    final var planningMassTemplate = new PlanningMassTemplate();
+                    planningMassTemplate.setDateTime(LocalDateTime.of(LAST_MONDAY.plusDays(dayOfWeek - 1), LocalTime.MIDNIGHT));
+                    return planningMassTemplate;
+                }).collect(Collectors.toUnmodifiableList());
+
+        final var normalSchedule = new Schedule(new ScheduleTemplate(planningMassTemplates), config);
+        final var normalDateOffRequests = normalSchedule.getDateOffRequests();
+        assertIterableEquals(
+                List.of(LAST_MONDAY, LAST_MONDAY.plusDays(2), LAST_MONDAY.plusDays(4)),
+                normalDateOffRequests.stream()
+                        .map(AbstractMap.SimpleImmutableEntry::getValue)
+                        .sorted()
+                        .collect(Collectors.toUnmodifiableList()),
+                "DateOffRequests are not correct"
+        );
+
+        final var feastDays = IntStream.rangeClosed(1, 7)
+                .mapToObj(dayOfWeek -> LAST_MONDAY.plusDays(dayOfWeek - 1))
+                .collect(Collectors.toUnmodifiableList());
+        final var feastDaySchedule = new Schedule(new ScheduleTemplate(planningMassTemplates, feastDays), config);
+        final var feastDayDateOffRequests = feastDaySchedule.getDateOffRequests();
+        assertIterableEquals(
+                List.of(LAST_MONDAY.plusDays(2), LAST_MONDAY.plusDays(4)),
+                feastDayDateOffRequests.stream()
+                        .map(AbstractMap.SimpleImmutableEntry::getValue)
+                        .sorted()
+                        .collect(Collectors.toUnmodifiableList()),
+                "feast day DateOffRequests are not correct"
+        );
+    }
 }

@@ -4,11 +4,13 @@ import org.altarplanner.core.domain.util.BigDomainGenerator;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.core.api.solver.SolverFactory;
 
-class SolverTests {
+public class SolverTests {
+
+    public static final String FAST_ASSERT_SOLVER_CONFIG_RESOURCE = "org/altarplanner/core/solver/fastAssertSolverConfig.xml";
 
     @Test
     void solverTest() {
-        SolverFactory.createFromXmlResource("org/altarplanner/core/solver/fastAssertSolverConfig.xml")
+        SolverFactory.createFromXmlResource(FAST_ASSERT_SOLVER_CONFIG_RESOURCE)
                 .buildSolver()
                 .solve(BigDomainGenerator.generateSchedule());
     }

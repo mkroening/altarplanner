@@ -59,7 +59,8 @@ public class Schedule implements Serializable {
     }
 
     public Schedule(ScheduleTemplate scheduleTemplate, Config config) {
-        this.config = config;
+        this.config = new Config(config);
+        this.config.setServiceTypes(scheduleTemplate.getServiceTypes());
         this.publishedMasses = List.of();
         this.finalDraftMasses = scheduleTemplate.getPlanningMassTemplates().stream()
                 .map(PlanningMass::new)

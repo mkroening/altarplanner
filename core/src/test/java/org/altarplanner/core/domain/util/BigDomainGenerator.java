@@ -16,6 +16,8 @@ import java.util.stream.IntStream;
 
 public class BigDomainGenerator {
 
+    public static final String REPRODUCIBLE_CONSTRUCTION_SOLVER_CONFIG_RESOURCE = "org/altarplanner/core/solver/reproducibleConstructionSolverConfig.xml";
+
     private static final LocalDate TODAY = LocalDate.of(2018, 1, 1);
     private static final LocalDateRange PLANNING_WINDOW;
     private static final List<LocalDate> FEAST_DAYS = List.of(
@@ -120,7 +122,7 @@ public class BigDomainGenerator {
 
     public static Schedule generateInitializedSchedule() {
         Schedule uninitialized = generateSchedule();
-        SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource("org/altarplanner/core/solver/reproducibleConstructionSolverConfig.xml");
+        SolverFactory<Schedule> solverFactory = SolverFactory.createFromXmlResource(REPRODUCIBLE_CONSTRUCTION_SOLVER_CONFIG_RESOURCE);
         return solverFactory.buildSolver().solve(uninitialized);
     }
 

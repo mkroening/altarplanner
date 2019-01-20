@@ -37,10 +37,10 @@ public class Config implements Serializable {
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.core.locale.locale");
     private static final String pathname = "config.xml";
 
-    private List<ServiceType> serviceTypes = new ArrayList<>();
-    private List<RegularMass> regularMasses = new ArrayList<>();
-    private List<Server> servers = new ArrayList<>();
-    private List<PairRequest> pairs = new ArrayList<>();
+    private List<ServiceType> serviceTypes;
+    private List<RegularMass> regularMasses;
+    private List<Server> servers;
+    private List<PairRequest> pairs;
 
     public static Config load() throws UnknownJAXBException, IOException {
         File defaultFile = new File(pathname);
@@ -60,6 +60,17 @@ public class Config implements Serializable {
     }
 
     public Config() {
+        this.serviceTypes = new ArrayList<>();
+        this.regularMasses = new ArrayList<>();
+        this.servers = new ArrayList<>();
+        this.pairs = new ArrayList<>();
+    }
+
+    public Config(Config other) {
+        this.serviceTypes = other.serviceTypes;
+        this.regularMasses = other.regularMasses;
+        this.servers = other.servers;
+        this.pairs = other.pairs;
     }
 
     public void save() throws UnknownJAXBException {
@@ -76,8 +87,9 @@ public class Config implements Serializable {
                                 .map(mass -> new PlanningMassTemplate(mass, date))));
     }
 
-    public void removeFromRegularMasses(ServiceType serviceType) {
-        regularMasses.parallelStream().forEach(regularMass -> regularMass.getServiceTypeCounts().remove(serviceType));
+    public void remove(final ServiceType serviceType) {
+        regularMasses.forEach(regularMass -> regularMass.getServiceTypeCounts().remove(serviceType));
+        servers.forEach(server -> server.getInabilities().remove(serviceType));
     }
 
     public List<Server> getPairedWith(Server server) {

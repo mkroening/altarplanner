@@ -25,8 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 class JaxbIOTests {
 
     private static final String XML_TEST_PATHNAME = "src/test/resources/org/altarplanner/core/xml/";
-    private static final File EXPECTED_CONFIG = new File(XML_TEST_PATHNAME + "bigConfig.xml");
-    private static final File EXPECTED_SCHEDULE_TEMPLATE = new File(XML_TEST_PATHNAME + "bigScheduleTemplate.xml");
+    static final File EXPECTED_CONFIG = new File(XML_TEST_PATHNAME + "bigConfig.xml");
+    static final File EXPECTED_SCHEDULE_TEMPLATE = new File(XML_TEST_PATHNAME + "bigScheduleTemplate.xml");
     private static final File EXPECTED_INITIALIZED_SCHEDULE = new File(XML_TEST_PATHNAME + "bigScheduleInitialized.xml");
 
     @Test

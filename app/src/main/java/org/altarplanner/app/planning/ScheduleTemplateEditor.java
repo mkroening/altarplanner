@@ -10,13 +10,11 @@ import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.util.LocalDateRangeUtil;
-import org.altarplanner.core.xml.JaxbIO;
-import org.altarplanner.core.xml.UnexpectedElementException;
-import org.altarplanner.core.xml.UnknownJAXBException;
 import org.altarplanner.core.domain.ScheduleTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.UnmarshalException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -195,7 +193,7 @@ public class ScheduleTemplateEditor {
                         }));
     }
 
-    @FXML private void openFile() throws IOException, UnknownJAXBException {
+    @FXML private void openFile() throws IOException, UnmarshalException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openScheduleTemplate"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -205,23 +203,19 @@ public class ScheduleTemplateEditor {
 
         File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
         if (selectedFile != null) {
-            try {
-                ScheduleTemplate scheduleTemplate = JaxbIO.unmarshal(selectedFile, ScheduleTemplate.class);
-                serviceTypeCountTableView.getItems().setAll(scheduleTemplate.getServiceTypes());
-                planningMassTemplateListView.getItems().setAll(scheduleTemplate.getPlanningMassTemplates());
-                feastDays = scheduleTemplate.getFeastDays();
-                LOGGER.info("Masses have been loaded from {}", selectedFile);
+            ScheduleTemplate scheduleTemplate = ScheduleTemplate.unmarshal(selectedFile.toPath());
+            serviceTypeCountTableView.getItems().setAll(scheduleTemplate.getServiceTypes());
+            planningMassTemplateListView.getItems().setAll(scheduleTemplate.getPlanningMassTemplates());
+            feastDays = scheduleTemplate.getFeastDays();
+            LOGGER.info("Masses have been loaded from {}", selectedFile);
 
-                setDisable(false);
-                planningMassTemplateListView.getSelectionModel().selectFirst();
-                planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
-            } catch (UnexpectedElementException e) {
-                LOGGER.error("No masses could have been loaded");
-            }
+            setDisable(false);
+            planningMassTemplateListView.getSelectionModel().selectFirst();
+            planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
         } else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
-    @FXML private void saveAsAndBack() throws IOException, UnknownJAXBException {
+    @FXML private void saveAsAndBack() throws IOException {
         if (!planningMassTemplateListView.getItems().isEmpty()) {
             final var massCollection = new ScheduleTemplate(planningMassTemplateListView.getItems(), feastDays);
 
@@ -235,7 +229,7 @@ public class ScheduleTemplateEditor {
 
             File selectedFile = fileChooser.showSaveDialog(removeButton.getScene().getWindow());
             if (selectedFile != null) {
-                JaxbIO.marshal(massCollection, selectedFile);
+                massCollection.marshal(selectedFile.toPath());
                 LOGGER.info("Masses have been saved as {}", selectedFile);
 
                 Launcher.loadParent("launcher.fxml", true);

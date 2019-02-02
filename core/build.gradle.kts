@@ -23,11 +23,11 @@ dependencies {
     }
 
     val jaxbVersion: String by project
-    implementation(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:$jaxbVersion")) {
+    api(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:$jaxbVersion")) {
         because("we depend on official JAXB artifacts")
     }
 
-    implementation("jakarta.xml.bind:jakarta.xml.bind-api") {
+    api("jakarta.xml.bind:jakarta.xml.bind-api") {
         because("we use the JAXB API for XML Binding")
     }
 

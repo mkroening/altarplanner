@@ -1,6 +1,8 @@
 package org.altarplanner.core.domain;
 
-import org.altarplanner.core.domain.request.*;
+import org.altarplanner.core.domain.request.DateOffRequest;
+import org.altarplanner.core.domain.request.DateTimeOnRequest;
+import org.altarplanner.core.domain.request.ServiceTypeOffRequest;
 import org.altarplanner.core.xml.jaxb.util.LocalDateRangeXmlAdapter;
 import org.altarplanner.core.xml.jaxb.util.LocalDateTimeWithoutSecondsXmlAdapter;
 import org.threeten.extra.LocalDateRange;
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
-@XmlType(propOrder = {"surname", "forename", "year", "xmlID", "weeklyAbsences", "inabilities", "absences", "dateTimeOnWishes"})
+@XmlType(propOrder = {"surname", "forename", "year", "xmlID", "absences", "dateTimeOnWishes", "weeklyAbsences", "inabilities"})
 public class Server extends AbstractPersistable implements Comparable<Server> {
 
     private String surname;
@@ -35,6 +37,9 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
         return surname +
                 "_" + forename +
                 "-" + year;
+    }
+
+    public void setXmlID(String xmlID) {
     }
 
     public String getDesc() {
@@ -118,7 +123,8 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     }
 
     @XmlIDREF
-    @XmlList
+    @XmlElementWrapper(name = "inabilities")
+    @XmlElement(name = "inability")
     public List<ServiceType> getInabilities() {
         return inabilities;
     }

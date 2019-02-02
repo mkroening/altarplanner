@@ -8,8 +8,6 @@ import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.solver.ScheduleSolver;
 import org.altarplanner.core.util.LocalDateRangeUtil;
-import org.altarplanner.core.xml.JaxbIO;
-import org.altarplanner.core.xml.UnknownJAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,13 +46,9 @@ public class SolverView {
 
             File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
             if (selectedFile != null) {
-                try {
-                    JaxbIO.marshal(schedule, selectedFile);
-                    LOGGER.info("Schedule has been saved as {}", selectedFile);
-                    Launcher.loadParent("launcher.fxml", true);
-                } catch (IOException | UnknownJAXBException e) {
-                    e.printStackTrace();
-                }
+                schedule.marshal(selectedFile.toPath());
+                LOGGER.info("Schedule has been saved as {}", selectedFile);
+                Launcher.loadParent("launcher.fxml", true);
             } else LOGGER.info("Schedule has not been saved, because no file has been selected");
         } catch (IOException e) {
             e.printStackTrace();

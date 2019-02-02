@@ -43,23 +43,29 @@ public class Launcher extends Application {
 
     static {
         Config tmpConfig;
-        try {
-            tmpConfig = Config.unmarshal(CONFIG_PATH);
-        } catch (UnmarshalException e) {
-            e.printStackTrace();
-            LOGGER.warn("Config corrupt!");
-            final var corruptPath = Path.of("config_corrupt_" + LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + ".xml");
-            LOGGER.warn("Moving \"{}\" to \"{}\"", CONFIG_PATH, corruptPath);
+        if (Files.exists(CONFIG_PATH)) {
             try {
-                Files.move(CONFIG_PATH, corruptPath);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-                LOGGER.error("Move failed.");
-                System.exit(1);
+                tmpConfig = Config.unmarshal(CONFIG_PATH);
+                LOGGER.info("Successfully loaded {}", CONFIG_PATH);
+            } catch (UnmarshalException e) {
+                e.printStackTrace();
+                LOGGER.warn("{} corrupt!", CONFIG_PATH);
+                final var corruptPath = Path.of("config_corrupt_" + LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + ".xml");
+                LOGGER.warn("Moving \"{}\" to \"{}\"", CONFIG_PATH, corruptPath);
+                try {
+                    Files.move(CONFIG_PATH, corruptPath);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                    LOGGER.error("Move failed.");
+                    System.exit(1);
+                }
+                LOGGER.info("Creating new config.");
+                tmpConfig = new Config();
+                tmpConfig.marshal(CONFIG_PATH);
             }
-            LOGGER.info("Creating new config.");
+        } else {
+            LOGGER.warn("{} does not exist, creating new Config", CONFIG_PATH);
             tmpConfig = new Config();
-            tmpConfig.marshal(CONFIG_PATH);
         }
         CONFIG = tmpConfig;
     }

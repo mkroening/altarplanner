@@ -11,7 +11,6 @@ import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.util.LocalDateRangeUtil;
-import org.altarplanner.core.xml.UnknownJAXBException;
 import org.controlsfx.control.CheckComboBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -410,10 +409,10 @@ public class ServerEditor {
         } else LOGGER.info("No server workbook has been selected");
     }
 
-    @FXML private void saveAndBack() throws IOException, UnknownJAXBException {
+    @FXML private void saveAndBack() throws IOException {
         applyListViews(serverListView.getSelectionModel().getSelectedItem());
         Launcher.CONFIG.setServers(List.copyOf(serverListView.getItems()));
-        Launcher.CONFIG.save();
+        Launcher.CONFIG.marshal(Launcher.CONFIG_PATH);
         Launcher.loadParent("launcher.fxml", true);
     }
 

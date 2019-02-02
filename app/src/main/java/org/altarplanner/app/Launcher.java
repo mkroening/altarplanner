@@ -15,39 +15,53 @@ import javafx.stage.Stage;
 import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
-import org.altarplanner.core.domain.mass.PlanningMassTemplate;
+import org.altarplanner.core.domain.ScheduleTemplate;
 import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.altarplanner.core.xlsx.PoiIO;
-import org.altarplanner.core.xml.JaxbIO;
-import org.altarplanner.core.xml.UnexpectedElementException;
-import org.altarplanner.core.xml.UnknownJAXBException;
-import org.altarplanner.core.domain.ScheduleTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.UnmarshalException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.List;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 public class Launcher extends Application {
 
+    public static final Path CONFIG_PATH = Path.of("config.xml");
     public static final Config CONFIG;
     public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("org.altarplanner.app.locale.locale");
     private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
     private static Stage primaryStage;
 
     static {
-        Config config = new Config();
+        Config tmpConfig;
         try {
-            config = Config.load();
-        } catch (UnknownJAXBException | IOException e) {
+            tmpConfig = Config.unmarshal(CONFIG_PATH);
+        } catch (UnmarshalException e) {
             e.printStackTrace();
+            LOGGER.warn("Config corrupt!");
+            final var corruptPath = Path.of("config_corrupt_" + LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + ".xml");
+            LOGGER.warn("Moving \"{}\" to \"{}\"", CONFIG_PATH, corruptPath);
+            try {
+                Files.move(CONFIG_PATH, corruptPath);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                LOGGER.error("Move failed.");
+                System.exit(1);
+            }
+            LOGGER.info("Creating new config.");
+            tmpConfig = new Config();
+            tmpConfig.marshal(CONFIG_PATH);
         }
-        CONFIG = config;
+        CONFIG = tmpConfig;
     }
 
     private static Bounds getBounds(final Node node,
@@ -146,7 +160,7 @@ public class Launcher extends Application {
         loadParent("planning/scheduleTemplateEditor.fxml", true);
     }
 
-    @FXML private void createSchedule() throws IOException, UnknownJAXBException {
+    @FXML private void createSchedule() throws IOException, UnmarshalException {
         final FileChooser massFileChooser = new FileChooser();
         massFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openScheduleTemplate"));
         massFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -156,48 +170,44 @@ public class Launcher extends Application {
         final File massFile = massFileChooser.showOpenDialog(primaryStage);
 
         if (massFile != null) {
-            try {
-                final var scheduleTemplate = JaxbIO.unmarshal(massFile, ScheduleTemplate.class);
-                LOGGER.info("Masses have been loaded from {}", massFile);
+            final var scheduleTemplate = ScheduleTemplate.unmarshal(massFile.toPath());
+            LOGGER.info("Masses have been loaded from {}", massFile);
 
-                final FileChooser lastScheduleFileChooser = new FileChooser();
-                lastScheduleFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openLastSchedule"));
-                lastScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-                final File scheduleDirectory = new File("schedules/");
-                Files.createDirectories(scheduleDirectory.toPath());
-                lastScheduleFileChooser.setInitialDirectory(scheduleDirectory);
-                final File lastScheduleFile = lastScheduleFileChooser.showOpenDialog(primaryStage);
+            final FileChooser lastScheduleFileChooser = new FileChooser();
+            lastScheduleFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openLastSchedule"));
+            lastScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+            final File scheduleDirectory = new File("schedules/");
+            Files.createDirectories(scheduleDirectory.toPath());
+            lastScheduleFileChooser.setInitialDirectory(scheduleDirectory);
+            final File lastScheduleFile = lastScheduleFileChooser.showOpenDialog(primaryStage);
 
-                final Schedule createdSchedule;
-                if (lastScheduleFile != null) {
-                    final Schedule lastSchedule = Schedule.load(lastScheduleFile);
-                    createdSchedule = new Schedule(scheduleTemplate, lastSchedule, CONFIG);
-                    LOGGER.info("Last Schedule has been loaded from {}", lastScheduleFile);
-                } else {
-                    createdSchedule = new Schedule(scheduleTemplate, CONFIG);
-                    LOGGER.info("Last Schedule has not been selected");
-                }
-
-                final FileChooser createdScheduleFileChooser = new FileChooser();
-                createdScheduleFileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
-                createdScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-                final File schedulesDirectory = new File("schedules/");
-                Files.createDirectories(schedulesDirectory.toPath());
-                createdScheduleFileChooser.setInitialDirectory(schedulesDirectory);
-                createdScheduleFileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(createdSchedule.getPlanningWindow()) + ".xml");
-                final File createdScheduleFile = createdScheduleFileChooser.showSaveDialog(primaryStage);
-
-                if (createdScheduleFile != null) {
-                    JaxbIO.marshal(createdSchedule, createdScheduleFile);
-                    LOGGER.info("Schedule has been saved as {}", createdScheduleFile);
-                } else LOGGER.info("Schedule has not been saved, because no file has been selected");
-            } catch (UnexpectedElementException e) {
-                LOGGER.error("No masses could have been loaded. Please try a different file!");
+            final Schedule createdSchedule;
+            if (lastScheduleFile != null) {
+                final Schedule lastSchedule = Schedule.unmarshal(lastScheduleFile.toPath());
+                createdSchedule = new Schedule(scheduleTemplate, lastSchedule, CONFIG);
+                LOGGER.info("Last Schedule has been loaded from {}", lastScheduleFile);
+            } else {
+                createdSchedule = new Schedule(scheduleTemplate, CONFIG);
+                LOGGER.info("Last Schedule has not been selected");
             }
+
+            final FileChooser createdScheduleFileChooser = new FileChooser();
+            createdScheduleFileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
+            createdScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+            final File schedulesDirectory = new File("schedules/");
+            Files.createDirectories(schedulesDirectory.toPath());
+            createdScheduleFileChooser.setInitialDirectory(schedulesDirectory);
+            createdScheduleFileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(createdSchedule.getPlanningWindow()) + ".xml");
+            final File createdScheduleFile = createdScheduleFileChooser.showSaveDialog(primaryStage);
+
+            if (createdScheduleFile != null) {
+                createdSchedule.marshal(createdScheduleFile.toPath());
+                LOGGER.info("Schedule has been saved as {}", createdScheduleFile);
+            } else LOGGER.info("Schedule has not been saved, because no file has been selected");
         } else LOGGER.info("No masses have been loaded, because no file has been selected");
     }
 
-    @FXML private void planSchedule() throws IOException, UnknownJAXBException {
+    @FXML private void planSchedule() throws IOException, UnmarshalException {
         final FileChooser lastScheduleFileChooser = new FileChooser();
         lastScheduleFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openSchedule"));
         lastScheduleFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -207,13 +217,9 @@ public class Launcher extends Application {
         final File scheduleFile = lastScheduleFileChooser.showOpenDialog(primaryStage);
 
         if (scheduleFile != null) {
-            try {
-                final Schedule schedule = Schedule.load(scheduleFile);
-                LOGGER.info("Schedule has been loaded from {}", scheduleFile);
-                loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).solve(schedule));
-            } catch (UnexpectedElementException e) {
-                LOGGER.error("Schedule could not have been loaded. Please try a different file!");
-            }
+            final Schedule schedule = Schedule.unmarshal(scheduleFile.toPath());
+            LOGGER.info("Schedule has been loaded from {}", scheduleFile);
+            loadParent("planning/solverView.fxml", true, solverView -> ((SolverView)solverView).solve(schedule));
         }
         else LOGGER.info("Schedule has not been loaded, because no file has been selected");
     }
@@ -228,25 +234,21 @@ public class Launcher extends Application {
 
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null) {
-            try {
-                Schedule schedule = Schedule.load(selectedFile);
-                LOGGER.info("Schedule has been loaded from {}", selectedFile);
+            Schedule schedule = Schedule.unmarshal(selectedFile.toPath());
+            LOGGER.info("Schedule has been loaded from {}", selectedFile);
 
-                fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
-                fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Excel 2007–2019 (.xlsx)", "*.xlsx"));
-                directory = new File("exported/");
-                Files.createDirectories(directory.toPath());
-                fileChooser.setInitialDirectory(directory);
-                fileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(schedule.getPlanningWindow()) + ".xlsx");
+            fileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
+            fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Excel 2007–2019 (.xlsx)", "*.xlsx"));
+            directory = new File("exported/");
+            Files.createDirectories(directory.toPath());
+            fileChooser.setInitialDirectory(directory);
+            fileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(schedule.getPlanningWindow()) + ".xlsx");
 
-                selectedFile = fileChooser.showSaveDialog(primaryStage);
-                if (selectedFile != null) {
-                    PoiIO.exportSchedule(schedule, selectedFile, 3);
-                    LOGGER.info("Schedule has been exported as {}", selectedFile);
-                } else LOGGER.info("Schedule has not been exported, because no file to save to has been selected");
-            } catch (UnexpectedElementException e) {
-                LOGGER.error("Schedule could not have been loaded. Please try a different file!");
-            }
+            selectedFile = fileChooser.showSaveDialog(primaryStage);
+            if (selectedFile != null) {
+                PoiIO.exportSchedule(schedule, selectedFile, 3);
+                LOGGER.info("Schedule has been exported as {}", selectedFile);
+            } else LOGGER.info("Schedule has not been exported, because no file to save to has been selected");
         } else LOGGER.info("Schedule has not been exported, because no file to load from has been selected");
     }
 

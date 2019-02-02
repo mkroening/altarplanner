@@ -3,9 +3,7 @@ package org.altarplanner.core.domain;
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.request.*;
-import org.altarplanner.core.xml.JaxbIO;
-import org.altarplanner.core.xml.UnexpectedElementException;
-import org.altarplanner.core.xml.UnknownJAXBException;
+import org.altarplanner.core.xml.StrictJAXB;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
@@ -15,18 +13,19 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.persistence.jaxb.api.score.buildin.hardsoft.HardSoftScoreJaxbXmlAdapter;
 import org.threeten.extra.LocalDateRange;
 
+import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -44,8 +43,8 @@ public class Schedule implements Serializable {
     @PlanningScore
     private HardSoftScore score;
 
-    public static Schedule load(File input) throws FileNotFoundException, UnexpectedElementException, UnknownJAXBException {
-        Schedule unmarshalled = JaxbIO.unmarshal(input, Schedule.class);
+    public static Schedule unmarshal(Path input) throws UnmarshalException {
+        Schedule unmarshalled = StrictJAXB.unmarshal(input, Schedule.class);
         unmarshalled.getAllMasses().forEach(mass -> mass.getServices().forEach(service -> service.setMass(mass)));
         unmarshalled.setPlanningIds();
         unmarshalled.setPinned();
@@ -60,7 +59,6 @@ public class Schedule implements Serializable {
 
     public Schedule(ScheduleTemplate scheduleTemplate, Config config) {
         this.config = new Config(config);
-        this.config.setServiceTypes(scheduleTemplate.getServiceTypes());
         this.publishedMasses = List.of();
         this.finalDraftMasses = scheduleTemplate.getPlanningMassTemplates().stream()
                 .map(PlanningMass::new)
@@ -77,6 +75,7 @@ public class Schedule implements Serializable {
         this.feastDays = scheduleTemplate.getFeastDays();
         setPlanningIds();
         setPinned();
+        setServiceTypes();
     }
 
     public Schedule(ScheduleTemplate scheduleTemplate, Schedule lastSchedule, Config config) {
@@ -114,6 +113,11 @@ public class Schedule implements Serializable {
         }
         setPlanningIds();
         setPinned();
+        setServiceTypes();
+    }
+
+    public void marshal(Path output) {
+        StrictJAXB.marshal(this, output);
     }
 
     private void setPlanningIds() {
@@ -126,6 +130,14 @@ public class Schedule implements Serializable {
         publishedMasses.forEach(mass -> mass.setPinned(true));
         finalDraftMasses.forEach(mass -> mass.setPinned(false));
         futureDraftMasses.forEach(mass -> mass.setPinned(false));
+    }
+
+    private void setServiceTypes() {
+        final var serviceTypes = getServices().stream()
+                .map(Service::getType)
+                .collect(Collectors.toUnmodifiableSet());
+        getServers().forEach(server -> server.getInabilities().removeIf(Predicate.not(serviceTypes::contains)));
+        config.setServiceTypes(serviceTypes.stream().sorted().collect(Collectors.toUnmodifiableList()));
     }
 
     private Stream<PlanningMass> getAllMasses() {

@@ -27,6 +27,9 @@ public class ServiceType implements Comparable<ServiceType>, Serializable {
                 + "-" + minYear;
     }
 
+    public void setXmlID(String xmlID) {
+    }
+
     public String getDesc() {
         return name +
                 " (" + Config.RESOURCE_BUNDLE.getString("serviceType.year") + ": " +

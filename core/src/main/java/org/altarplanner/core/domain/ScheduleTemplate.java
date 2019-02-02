@@ -2,14 +2,17 @@ package org.altarplanner.core.domain;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
+import org.altarplanner.core.xml.StrictJAXB;
 import org.threeten.extra.LocalDateRange;
 
+import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +28,10 @@ public class ScheduleTemplate {
     private List<PlanningMassTemplate> planningMassTemplates;
 
     private List<LocalDate> feastDays;
+
+    public static ScheduleTemplate unmarshal(Path input) throws UnmarshalException {
+        return StrictJAXB.unmarshal(input, ScheduleTemplate.class);
+    }
 
     /**
      * Noarg public constructor making the class instantiatable for JAXB.
@@ -46,6 +53,10 @@ public class ScheduleTemplate {
 
     public ScheduleTemplate(List<PlanningMassTemplate> planningMassTemplates) {
         this(planningMassTemplates, Collections.emptyList());
+    }
+
+    public void marshal(Path output) {
+        StrictJAXB.marshal(this, output);
     }
 
     public LocalDateRange getDateRange() {

@@ -2,15 +2,15 @@ package org.altarplanner.core.domain.mass;
 
 public interface GenericMass {
 
-    String getChurch();
+  String getChurch();
 
-    void setChurch(String church);
+  void setChurch(String church);
 
-    String getForm();
+  String getForm();
 
-    void setForm(String form);
+  void setForm(String form);
 
-    String getAnnotation();
+  String getAnnotation();
 
-    void setAnnotation(String annotation);
+  void setAnnotation(String annotation);
 }

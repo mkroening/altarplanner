@@ -6,13 +6,13 @@ import org.optaplanner.core.api.solver.SolverFactory;
 
 public class SolverTests {
 
-    public static final String FAST_ASSERT_SOLVER_CONFIG_RESOURCE = "org/altarplanner/core/solver/fastAssertSolverConfig.xml";
+  public static final String FAST_ASSERT_SOLVER_CONFIG_RESOURCE =
+      "org/altarplanner/core/solver/fastAssertSolverConfig.xml";
 
-    @Test
-    void solverTest() {
-        SolverFactory.createFromXmlResource(FAST_ASSERT_SOLVER_CONFIG_RESOURCE)
-                .buildSolver()
-                .solve(BigDomainGenerator.generateSchedule());
-    }
-
+  @Test
+  void solverTest() {
+    SolverFactory.createFromXmlResource(FAST_ASSERT_SOLVER_CONFIG_RESOURCE)
+        .buildSolver()
+        .solve(BigDomainGenerator.generateSchedule());
+  }
 }

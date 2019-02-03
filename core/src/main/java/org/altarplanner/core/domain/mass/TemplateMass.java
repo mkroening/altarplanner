@@ -1,12 +1,11 @@
 package org.altarplanner.core.domain.mass;
 
-import org.altarplanner.core.domain.ServiceType;
-
 import java.util.Map;
+import org.altarplanner.core.domain.ServiceType;
 
 public interface TemplateMass extends GenericMass {
 
-    Map<ServiceType, Integer> getServiceTypeCounts();
+  Map<ServiceType, Integer> getServiceTypeCounts();
 
-    void setServiceTypeCounts(Map<ServiceType, Integer> serviceTypeCounts);
+  void setServiceTypeCounts(Map<ServiceType, Integer> serviceTypeCounts);
 }

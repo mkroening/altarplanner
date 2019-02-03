@@ -225,7 +225,7 @@ public class ScheduleTemplateEditor {
             File directory = new File("masses/");
             Files.createDirectories(directory.toPath());
             fileChooser.setInitialDirectory(directory);
-            fileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(massCollection.getDateRange()) + ".xml");
+            fileChooser.setInitialFileName(Launcher.RESOURCE_BUNDLE.getString("general.domain.scheduleTemplate") + '_' + LocalDateRangeUtil.getHyphenString(massCollection.getDateRange()) + ".xml");
 
             File selectedFile = fileChooser.showSaveDialog(removeButton.getScene().getWindow());
             if (selectedFile != null) {

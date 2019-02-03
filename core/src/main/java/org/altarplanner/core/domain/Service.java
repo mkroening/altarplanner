@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @PlanningEntity(difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
@@ -37,7 +38,7 @@ public class Service extends AbstractPersistable implements Comparable<Service> 
     }
 
     public String getDesc() {
-        return server.getDesc() + " (" + type.getName() + ")";
+        return Optional.ofNullable(server).map(Server::getDesc).orElse("Unplanned") + " (" + type.getName() + ")";
     }
 
     @XmlTransient

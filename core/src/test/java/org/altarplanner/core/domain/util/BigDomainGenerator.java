@@ -1,13 +1,20 @@
 package org.altarplanner.core.domain.util;
 
-import org.altarplanner.core.domain.*;
+import org.altarplanner.core.domain.Config;
+import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.ScheduleTemplate;
+import org.altarplanner.core.domain.Server;
+import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.threeten.extra.LocalDateRange;
 
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;

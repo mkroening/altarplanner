@@ -2,7 +2,13 @@ package org.altarplanner.app.config;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;

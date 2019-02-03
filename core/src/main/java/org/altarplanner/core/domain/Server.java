@@ -7,12 +7,22 @@ import org.altarplanner.core.xml.jaxb.util.LocalDateRangeXmlAdapter;
 import org.altarplanner.core.xml.jaxb.util.LocalDateTimeWithoutSecondsXmlAdapter;
 import org.threeten.extra.LocalDateRange;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlList;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @XmlType(propOrder = {"surname", "forename", "year", "xmlID", "absences", "dateTimeOnWishes", "weeklyAbsences", "inabilities"})

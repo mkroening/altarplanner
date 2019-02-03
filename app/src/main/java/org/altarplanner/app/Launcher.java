@@ -203,7 +203,7 @@ public class Launcher extends Application {
             final File schedulesDirectory = new File("schedules/");
             Files.createDirectories(schedulesDirectory.toPath());
             createdScheduleFileChooser.setInitialDirectory(schedulesDirectory);
-            createdScheduleFileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(createdSchedule.getPlanningWindow()) + ".xml");
+            createdScheduleFileChooser.setInitialFileName(Launcher.RESOURCE_BUNDLE.getString("general.domain.schedule") + '_' + LocalDateRangeUtil.getHyphenString(createdSchedule.getPlanningWindow()) + ".xml");
             final File createdScheduleFile = createdScheduleFileChooser.showSaveDialog(primaryStage);
 
             if (createdScheduleFile != null) {
@@ -248,7 +248,7 @@ public class Launcher extends Application {
             directory = new File("exported/");
             Files.createDirectories(directory.toPath());
             fileChooser.setInitialDirectory(directory);
-            fileChooser.setInitialFileName(LocalDateRangeUtil.getHyphenString(schedule.getPlanningWindow()) + ".xlsx");
+            fileChooser.setInitialFileName(Launcher.RESOURCE_BUNDLE.getString("general.domain.schedule") + '_' + LocalDateRangeUtil.getHyphenString(schedule.getPlanningWindow()) + ".xlsx");
 
             selectedFile = fileChooser.showSaveDialog(primaryStage);
             if (selectedFile != null) {

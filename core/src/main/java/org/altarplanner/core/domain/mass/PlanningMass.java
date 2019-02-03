@@ -5,6 +5,7 @@ import org.altarplanner.core.domain.ServiceType;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.Comparator;
 import java.util.List;
@@ -35,6 +36,7 @@ public class PlanningMass extends DatedMass {
         this.pinned = false;
     }
 
+    @XmlElementWrapper(name = "services")
     @XmlElement(name = "service")
     public List<Service> getServices() {
         return services;

@@ -26,7 +26,7 @@ class JaxbIOTests {
     private static final String XML_TEST_PATHNAME = "src/test/resources/org/altarplanner/core/xml/";
     static final Path EXPECTED_CONFIG = Path.of(XML_TEST_PATHNAME + "bigConfig.xml");
     static final Path EXPECTED_SCHEDULE_TEMPLATE = Path.of(XML_TEST_PATHNAME + "bigScheduleTemplate.xml");
-    private static final Path EXPECTED_INITIALIZED_SCHEDULE = Path.of(XML_TEST_PATHNAME + "bigScheduleInitialized.xml");
+    static final Path EXPECTED_INITIALIZED_SCHEDULE = Path.of(XML_TEST_PATHNAME + "bigScheduleInitialized.xml");
 
     @Test
     @Disabled

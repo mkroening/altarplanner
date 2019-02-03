@@ -1,5 +1,15 @@
 package org.altarplanner.app.config;
 
+import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
+import java.time.format.TextStyle;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,185 +26,233 @@ import org.altarplanner.app.Launcher;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.RegularMass;
 
-import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
-import java.time.format.TextStyle;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
-
 public class RegularMassEditor {
 
-    @FXML private Button removeButton;
-    @FXML private ListView<RegularMass> regularMassListView;
-    @FXML private ChoiceBox<DayOfWeek> dayOfWeekChoiceBox;
-    @FXML private TextField timeTextField;
-    @FXML private TextField churchTextField;
-    @FXML private TextField formTextField;
-    @FXML private TextField annotationTextField;
-    @FXML private TableView<ServiceType> serviceTypeCountTableView;
-    @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
-    @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
+  @FXML private Button removeButton;
+  @FXML private ListView<RegularMass> regularMassListView;
+  @FXML private ChoiceBox<DayOfWeek> dayOfWeekChoiceBox;
+  @FXML private TextField timeTextField;
+  @FXML private TextField churchTextField;
+  @FXML private TextField formTextField;
+  @FXML private TextField annotationTextField;
+  @FXML private TableView<ServiceType> serviceTypeCountTableView;
+  @FXML private TableColumn<ServiceType, String> serviceTypeNameColumn;
+  @FXML private TableColumn<ServiceType, String> serviceTypeCountColumn;
 
-    private boolean applyChanges;
+  private boolean applyChanges;
 
-    @FXML private void initialize() {
-        regularMassListView.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(RegularMass item, boolean empty) {
+  @FXML
+  private void initialize() {
+    regularMassListView.setCellFactory(
+        param ->
+            new ListCell<>() {
+              @Override
+              protected void updateItem(RegularMass item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
+                  setText(null);
+                  setGraphic(null);
                 } else {
-                    setText(item.getDay().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " - " +
-                            item.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + " - " +
-                            item.getChurch());
+                  setText(
+                      item.getDay().getDisplayName(TextStyle.FULL, Locale.getDefault())
+                          + " - "
+                          + item.getTime()
+                              .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
+                          + " - "
+                          + item.getChurch());
                 }
-            }
-        });
+              }
+            });
 
-        regularMassListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+    regularMassListView
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue != null) {
                 applyChanges = false;
                 dayOfWeekChoiceBox.getSelectionModel().select(newValue.getDay());
-                timeTextField.setText(newValue.getTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
+                timeTextField.setText(
+                    newValue
+                        .getTime()
+                        .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
                 churchTextField.setText(newValue.getChurch());
                 formTextField.setText(newValue.getForm());
                 annotationTextField.setText(newValue.getAnnotation());
                 serviceTypeCountTableView.refresh();
                 applyChanges = true;
-            }
+              }
+            });
+
+    dayOfWeekChoiceBox.setConverter(
+        new StringConverter<>() {
+          @Override
+          public String toString(DayOfWeek object) {
+            return object.getDisplayName(TextStyle.FULL, Locale.getDefault());
+          }
+
+          @Override
+          public DayOfWeek fromString(String string) {
+            return null;
+          }
         });
 
-        dayOfWeekChoiceBox.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(DayOfWeek object) {
-                return object.getDisplayName(TextStyle.FULL, Locale.getDefault());
-            }
+    dayOfWeekChoiceBox.getItems().setAll(DayOfWeek.values());
 
-            @Override
-            public DayOfWeek fromString(String string) {
-                return null;
-            }
-        });
+    dayOfWeekChoiceBox
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (applyChanges) {
+                regularMassListView.getSelectionModel().getSelectedItem().setDay(newValue);
+                regularMassListView.getItems().sort(Comparator.naturalOrder());
+              }
+            });
 
-        dayOfWeekChoiceBox.getItems().setAll(DayOfWeek.values());
-
-        dayOfWeekChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (applyChanges) {
-                 regularMassListView.getSelectionModel().getSelectedItem().setDay(newValue);
-                 regularMassListView.getItems().sort(Comparator.naturalOrder());
-            }
-        });
-
-        timeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (applyChanges) {
+    timeTextField
+        .textProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (applyChanges) {
                 try {
-                    regularMassListView.getSelectionModel().getSelectedItem().setTime(LocalTime.parse(newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
-                    timeTextField.getStyleClass().remove("text-input-error");
-                    regularMassListView.getItems().sort(Comparator.naturalOrder());
+                  regularMassListView
+                      .getSelectionModel()
+                      .getSelectedItem()
+                      .setTime(
+                          LocalTime.parse(
+                              newValue, DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
+                  timeTextField.getStyleClass().remove("text-input-error");
+                  regularMassListView.getItems().sort(Comparator.naturalOrder());
                 } catch (DateTimeParseException e) {
-                    if (!timeTextField.getStyleClass().contains("text-input-error"))
-                        timeTextField.getStyleClass().add("text-input-error");
+                  if (!timeTextField.getStyleClass().contains("text-input-error"))
+                    timeTextField.getStyleClass().add("text-input-error");
                 }
-            }
-        });
+              }
+            });
 
-        churchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (applyChanges) {
+    churchTextField
+        .textProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (applyChanges) {
                 regularMassListView.getSelectionModel().getSelectedItem().setChurch(newValue);
                 regularMassListView.getItems().sort(Comparator.naturalOrder());
-            }
-        });
+              }
+            });
 
-        formTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (applyChanges) {
+    formTextField
+        .textProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (applyChanges) {
                 regularMassListView.getSelectionModel().getSelectedItem().setForm(newValue);
-            }
+              }
+            });
+
+    annotationTextField
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              if (applyChanges) {
+                regularMassListView
+                    .getSelectionModel()
+                    .getSelectedItem()
+                    .setAnnotation(newValue.isBlank() ? null : newValue.trim());
+              }
+            }));
+
+    serviceTypeNameColumn.setCellValueFactory(
+        param -> new SimpleStringProperty(param.getValue().getDesc()));
+
+    serviceTypeCountColumn.setCellFactory(
+        param -> new TextFieldTableCell<>(new DefaultStringConverter()));
+
+    serviceTypeCountColumn.setCellValueFactory(
+        param -> {
+          if (applyChanges)
+            return new SimpleStringProperty(
+                String.valueOf(
+                    regularMassListView
+                        .getSelectionModel()
+                        .getSelectedItem()
+                        .getServiceTypeCounts()
+                        .getOrDefault(param.getValue(), 0)));
+          else return null;
         });
 
-        annotationTextField.textProperty().addListener(((observable, oldValue, newValue) -> {
-            if (applyChanges) {
-                regularMassListView.getSelectionModel().getSelectedItem().setAnnotation(newValue.isBlank() ? null : newValue.trim());
-            }
-        }));
-
-        serviceTypeNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDesc()));
-
-        serviceTypeCountColumn.setCellFactory(param -> new TextFieldTableCell<>(new DefaultStringConverter()));
-
-        serviceTypeCountColumn.setCellValueFactory(param -> {
-            if (applyChanges)
-                return new SimpleStringProperty(String.valueOf(regularMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().getOrDefault(param.getValue(), 0)));
-            else
-                return null;
+    serviceTypeCountColumn.setOnEditCommit(
+        event -> {
+          if (applyChanges) {
+            String newValue = event.getNewValue();
+            if ("".equals(newValue) || "0".equals(newValue)) {
+              regularMassListView
+                  .getSelectionModel()
+                  .getSelectedItem()
+                  .getServiceTypeCounts()
+                  .remove(event.getRowValue());
+            } else
+              try {
+                regularMassListView
+                    .getSelectionModel()
+                    .getSelectedItem()
+                    .getServiceTypeCounts()
+                    .put(event.getRowValue(), Integer.parseInt(newValue));
+              } catch (NumberFormatException e) {
+                serviceTypeCountTableView.refresh();
+              }
+          }
         });
 
-        serviceTypeCountColumn.setOnEditCommit(event -> {
-            if (applyChanges) {
-                String newValue = event.getNewValue();
-                if ("".equals(newValue) || "0".equals(newValue)) {
-                    regularMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().remove(event.getRowValue());
-                } else try {
-                    regularMassListView.getSelectionModel().getSelectedItem().getServiceTypeCounts().put(event.getRowValue(), Integer.parseInt(newValue));
-                } catch (NumberFormatException e) {
-                    serviceTypeCountTableView.refresh();
-                }
-            }
-        });
+    regularMassListView.getItems().setAll(Launcher.CONFIG.getRegularMasses());
+    serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
+    if (!regularMassListView.getItems().isEmpty())
+      regularMassListView.getSelectionModel().selectFirst();
+    else setDisable(true);
+  }
 
-        regularMassListView.getItems().setAll(Launcher.CONFIG.getRegularMasses());
-        serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
-        if (!regularMassListView.getItems().isEmpty())
-            regularMassListView.getSelectionModel().selectFirst();
-        else
-            setDisable(true);
+  private void setDisable(boolean disable) {
+    applyChanges = false;
+    removeButton.setDisable(disable);
+    regularMassListView.setDisable(disable);
+    dayOfWeekChoiceBox.setDisable(disable);
+    timeTextField.setDisable(disable);
+    churchTextField.setDisable(disable);
+    formTextField.setDisable(disable);
+    annotationTextField.setDisable(disable);
+    serviceTypeCountTableView.setEditable(!disable);
+    if (disable) {
+      dayOfWeekChoiceBox.getSelectionModel().clearSelection();
+      timeTextField.clear();
+      churchTextField.clear();
+      formTextField.clear();
+      annotationTextField.clear();
+      serviceTypeCountTableView.refresh();
     }
+  }
 
-    private void setDisable(boolean disable) {
-        applyChanges = false;
-        removeButton.setDisable(disable);
-        regularMassListView.setDisable(disable);
-        dayOfWeekChoiceBox.setDisable(disable);
-        timeTextField.setDisable(disable);
-        churchTextField.setDisable(disable);
-        formTextField.setDisable(disable);
-        annotationTextField.setDisable(disable);
-        serviceTypeCountTableView.setEditable(!disable);
-        if (disable) {
-            dayOfWeekChoiceBox.getSelectionModel().clearSelection();
-            timeTextField.clear();
-            churchTextField.clear();
-            formTextField.clear();
-            annotationTextField.clear();
-            serviceTypeCountTableView.refresh();
-        }
-    }
+  @FXML
+  private void addRegularMass() {
+    RegularMass regularMass = new RegularMass();
+    regularMassListView.getItems().add(regularMass);
+    setDisable(false);
+    regularMassListView.getSelectionModel().select(regularMass);
+    regularMassListView.getItems().sort(Comparator.naturalOrder());
+  }
 
-    @FXML private void addRegularMass() {
-        RegularMass regularMass = new RegularMass();
-        regularMassListView.getItems().add(regularMass);
-        setDisable(false);
-        regularMassListView.getSelectionModel().select(regularMass);
-        regularMassListView.getItems().sort(Comparator.naturalOrder());
-    }
+  @FXML
+  private void removeRegularMass() {
+    regularMassListView
+        .getItems()
+        .remove(regularMassListView.getSelectionModel().getSelectedItem());
+    if (regularMassListView.getItems().isEmpty()) setDisable(true);
+  }
 
-    @FXML private void removeRegularMass() {
-        regularMassListView.getItems().remove(regularMassListView.getSelectionModel().getSelectedItem());
-        if (regularMassListView.getItems().isEmpty())
-            setDisable(true);
-    }
-
-    @FXML private void saveAndBack() throws IOException {
-        Launcher.CONFIG.setRegularMasses(List.copyOf(regularMassListView.getItems()));
-        Launcher.CONFIG.marshal(Launcher.CONFIG_PATH);
-        Launcher.loadParent("launcher.fxml", true);
-    }
-
+  @FXML
+  private void saveAndBack() throws IOException {
+    Launcher.CONFIG.setRegularMasses(List.copyOf(regularMassListView.getItems()));
+    Launcher.CONFIG.marshal(Launcher.CONFIG_PATH);
+    Launcher.loadParent("launcher.fxml", true);
+  }
 }

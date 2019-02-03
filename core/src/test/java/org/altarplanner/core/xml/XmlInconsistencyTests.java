@@ -4,17 +4,20 @@ import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.ScheduleTemplate;
 import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.junit.jupiter.api.Test;
-import org.optaplanner.core.api.solver.SolverFactory;
 
 import javax.xml.bind.UnmarshalException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 
-import static org.altarplanner.core.domain.util.BigDomainGenerator.REPRODUCIBLE_CONSTRUCTION_SOLVER_CONFIG_RESOURCE;
 import static org.altarplanner.core.xml.JaxbIOTests.EXPECTED_CONFIG;
+import static org.altarplanner.core.xml.JaxbIOTests.EXPECTED_INITIALIZED_SCHEDULE;
 import static org.altarplanner.core.xml.JaxbIOTests.EXPECTED_SCHEDULE_TEMPLATE;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class XmlInconsistencyTests {
 
@@ -31,13 +34,48 @@ class XmlInconsistencyTests {
         config.getServers().get(0).getInabilities().add(newServiceType);
 
         final var scheduleTemplate = ScheduleTemplate.unmarshal(EXPECTED_SCHEDULE_TEMPLATE);
-        final var schedulePath = Files.createTempFile(null, null);
-        new Schedule(scheduleTemplate, config).marshal(schedulePath);
-        final var schedule = Schedule.unmarshal(schedulePath);
+        final var schedule = new Schedule(scheduleTemplate, config);
 
-        final var solver = SolverFactory
-                .createFromXmlResource(REPRODUCIBLE_CONSTRUCTION_SOLVER_CONFIG_RESOURCE)
-                .buildSolver();
-        assertDoesNotThrow(() -> solver.solve(schedule), "An inconsistency between scheduleTemplate and config");
+        final var schedulePath = Files.createTempFile(null, null);
+        schedule.marshal(schedulePath);
+        Schedule.unmarshal(schedulePath);
+    }
+
+    @Test
+    void configPastScheduleAllServersInconsistencyTest() throws UnmarshalException, IOException {
+        final var config = Config.unmarshal(EXPECTED_CONFIG);
+        config.setPairs(List.of());
+        config.setServers(List.of());
+
+        final var pastSchedule = Schedule.unmarshal(EXPECTED_INITIALIZED_SCHEDULE);
+
+        final var planningMassTemplate = new PlanningMassTemplate();
+        planningMassTemplate.setDateTime(LocalDateTime.of(pastSchedule.getPlanningWindow().getEnd(), LocalTime.MIDNIGHT));
+        planningMassTemplate.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
+        final var scheduleTemplate = new ScheduleTemplate(List.of(planningMassTemplate));
+        final var schedule = new Schedule(scheduleTemplate, pastSchedule, config);
+
+        final var schedulePath = Files.createTempFile(null, null);
+        schedule.marshal(schedulePath);
+        Schedule.unmarshal(schedulePath);
+    }
+
+    @Test
+    void configPastScheduleSomeServersInconsistencyTest() throws UnmarshalException, IOException {
+        final var config = Config.unmarshal(EXPECTED_CONFIG);
+        config.setPairs(List.of());
+        config.setServers(config.getServers().subList(0, config.getServers().size() / 2));
+
+        final var pastSchedule = Schedule.unmarshal(EXPECTED_INITIALIZED_SCHEDULE);
+
+        final var planningMassTemplate = new PlanningMassTemplate();
+        planningMassTemplate.setDateTime(LocalDateTime.of(pastSchedule.getPlanningWindow().getEnd(), LocalTime.MIDNIGHT));
+        planningMassTemplate.setServiceTypeCounts(Map.of(config.getServiceTypes().get(0), 1));
+        final var scheduleTemplate = new ScheduleTemplate(List.of(planningMassTemplate));
+        final var schedule = new Schedule(scheduleTemplate, pastSchedule, config);
+
+        final var schedulePath = Files.createTempFile(null, null);
+        schedule.marshal(schedulePath);
+        Schedule.unmarshal(schedulePath);
     }
 }

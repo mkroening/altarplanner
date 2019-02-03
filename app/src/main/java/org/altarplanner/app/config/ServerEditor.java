@@ -176,8 +176,9 @@ public class ServerEditor {
                       .setYear(Integer.parseInt(newValue));
                   yearTextField.getStyleClass().remove("text-input-error");
                 } catch (NumberFormatException e) {
-                  if (!yearTextField.getStyleClass().contains("text-input-error"))
+                  if (!yearTextField.getStyleClass().contains("text-input-error")) {
                     yearTextField.getStyleClass().add("text-input-error");
+                  }
                 }
               }
             });
@@ -203,11 +204,12 @@ public class ServerEditor {
         .addListener(
             (ListChangeListener<? super DayOfWeek>)
                 change -> {
-                  if (applyMainChanges)
+                  if (applyMainChanges) {
                     serverListView
                         .getSelectionModel()
                         .getSelectedItem()
                         .setWeeklyAbsences(List.copyOf(change.getList()));
+                  }
                 });
 
     pairedWithCheckComboBox.setConverter(
@@ -445,16 +447,20 @@ public class ServerEditor {
                   assignmentWishesListView.getSelectionModel().select(newAssignmentWish);
                   assignmentWishesListView.getItems().sort(Comparator.reverseOrder());
                 } catch (DateTimeParseException e) {
-                  if (!assignmentWishTimeTextField.getStyleClass().contains("text-input-error"))
+                  if (!assignmentWishTimeTextField.getStyleClass().contains("text-input-error")) {
                     assignmentWishTimeTextField.getStyleClass().add("text-input-error");
+                  }
                 }
               }
             });
 
     inabilitiesCheckComboBox.getItems().setAll(Launcher.CONFIG.getServiceTypes());
     serverListView.getItems().setAll(Launcher.CONFIG.getServers());
-    if (!serverListView.getItems().isEmpty()) serverListView.getSelectionModel().selectFirst();
-    else setDisable(true);
+    if (!serverListView.getItems().isEmpty()) {
+      serverListView.getSelectionModel().selectFirst();
+    } else {
+      setDisable(true);
+    }
   }
 
   private void replaceSelectedAbsence(LocalDateRange replacingAbsence) {
@@ -532,7 +538,9 @@ public class ServerEditor {
   private void removeServer() {
     Launcher.CONFIG.removeAllPairsWith(serverListView.getSelectionModel().getSelectedItem());
     serverListView.getItems().remove(serverListView.getSelectionModel().getSelectedItem());
-    if (serverListView.getItems().isEmpty()) setDisable(true);
+    if (serverListView.getItems().isEmpty()) {
+      setDisable(true);
+    }
   }
 
   @FXML
@@ -555,7 +563,9 @@ public class ServerEditor {
             ((ServerImporter) serverImporter)
                 .setServersConsumer(servers -> serverListView.getItems().addAll(servers));
           });
-    } else LOGGER.info("No server workbook has been selected");
+    } else {
+      LOGGER.info("No server workbook has been selected");
+    }
   }
 
   @FXML
@@ -579,7 +589,9 @@ public class ServerEditor {
   @FXML
   private void removeAbsence() {
     absencesListView.getItems().remove(absencesListView.getSelectionModel().getSelectedItem());
-    if (absencesListView.getItems().isEmpty()) setAbsenceDisable(true);
+    if (absencesListView.getItems().isEmpty()) {
+      setAbsenceDisable(true);
+    }
   }
 
   @FXML
@@ -628,6 +640,8 @@ public class ServerEditor {
     assignmentWishesListView
         .getItems()
         .remove(assignmentWishesListView.getSelectionModel().getSelectedItem());
-    if (assignmentWishesListView.getItems().isEmpty()) setAssignmentWishDisable(true);
+    if (assignmentWishesListView.getItems().isEmpty()) {
+      setAssignmentWishDisable(true);
+    }
   }
 }

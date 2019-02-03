@@ -77,8 +77,12 @@ public class ServiceType implements Comparable<ServiceType>, Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     ServiceType that = (ServiceType) o;
     return maxYear == that.maxYear && minYear == that.minYear && Objects.equals(name, that.name);
   }

@@ -67,9 +67,15 @@ public class RegularMass extends BaseMass implements TemplateMass, Comparable<Re
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    if (!super.equals(o)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    if (!super.equals(o)) {
+      return false;
+    }
     RegularMass that = (RegularMass) o;
     return day == that.day
         && Objects.equals(time, that.time)

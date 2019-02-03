@@ -55,7 +55,9 @@ public class SolverView {
         schedule.marshal(selectedFile.toPath());
         LOGGER.info("Schedule has been saved as {}", selectedFile);
         Launcher.loadParent("launcher.fxml", true);
-      } else LOGGER.info("Schedule has not been saved, because no file has been selected");
+      } else {
+        LOGGER.info("Schedule has not been saved, because no file has been selected");
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }

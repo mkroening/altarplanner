@@ -46,23 +46,38 @@ public class BigDomainGenerator {
     server.setForename("");
     server.setYear(TODAY.getYear() - random.nextInt(10));
 
-    if (random.nextFloat() < 0.4) server.getWeeklyAbsences().add(DayOfWeek.MONDAY);
-    if (random.nextFloat() < 0.3) server.getWeeklyAbsences().add(DayOfWeek.TUESDAY);
-    if (random.nextFloat() < 0.4) server.getWeeklyAbsences().add(DayOfWeek.WEDNESDAY);
-    if (random.nextFloat() < 0.45) server.getWeeklyAbsences().add(DayOfWeek.THURSDAY);
-    if (random.nextFloat() < 0.35) server.getWeeklyAbsences().add(DayOfWeek.FRIDAY);
-    if (random.nextFloat() < 0.3) server.getWeeklyAbsences().add(DayOfWeek.SATURDAY);
-    if (random.nextFloat() < 0.1) server.getWeeklyAbsences().add(DayOfWeek.SUNDAY);
+    if (random.nextFloat() < 0.4) {
+      server.getWeeklyAbsences().add(DayOfWeek.MONDAY);
+    }
+    if (random.nextFloat() < 0.3) {
+      server.getWeeklyAbsences().add(DayOfWeek.TUESDAY);
+    }
+    if (random.nextFloat() < 0.4) {
+      server.getWeeklyAbsences().add(DayOfWeek.WEDNESDAY);
+    }
+    if (random.nextFloat() < 0.45) {
+      server.getWeeklyAbsences().add(DayOfWeek.THURSDAY);
+    }
+    if (random.nextFloat() < 0.35) {
+      server.getWeeklyAbsences().add(DayOfWeek.FRIDAY);
+    }
+    if (random.nextFloat() < 0.3) {
+      server.getWeeklyAbsences().add(DayOfWeek.SATURDAY);
+    }
+    if (random.nextFloat() < 0.1) {
+      server.getWeeklyAbsences().add(DayOfWeek.SUNDAY);
+    }
 
-    if (random.nextFloat() < 0.2)
+    if (random.nextFloat() < 0.2) {
       server
           .getAbsences()
           .add(
               LocalDateRange.of(
                   PLANNING_WINDOW.getStart().plusWeeks(1),
                   PLANNING_WINDOW.getStart().plusWeeks(3)));
+    }
 
-    if (random.nextFloat() < 0.05)
+    if (random.nextFloat() < 0.05) {
       server
           .getDateTimeOnWishes()
           .add(
@@ -70,6 +85,7 @@ public class BigDomainGenerator {
                   getNextDayOfWeek(PLANNING_WINDOW.getStart(), DayOfWeek.SUNDAY)
                       .plusWeeks(random.nextInt(4)),
                   LocalTime.of(11, 0)));
+    }
 
     server.setSurname(Integer.toHexString(random.nextInt()));
     server.setForename(Integer.toHexString(random.nextInt()));
@@ -154,11 +170,13 @@ public class BigDomainGenerator {
 
     servers.forEach(
         server -> {
-          if (random.nextFloat() < .4)
+          if (random.nextFloat() < .4) {
             server.getInabilities().add(config.getServiceTypes().get(random.nextInt(7)));
+          }
 
-          if (random.nextFloat() < .2)
+          if (random.nextFloat() < .2) {
             config.addPair(new PairRequest(server, servers.get(random.nextInt(servers.size()))));
+          }
         });
 
     config.setServers(servers);

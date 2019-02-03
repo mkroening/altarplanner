@@ -145,9 +145,10 @@ public class PoiIO {
           dateRow
               .createCell(firstMassColumn)
               .setCellValue(date.format(DateTimeFormatterUtil.ISO_DATE_WITH_DAY_WITH_SHORT_YEAR));
-          if (masses.size() > 1)
+          if (masses.size() > 1) {
             sheet.addMergedRegion(
                 new CellRangeAddress(0, 0, firstMassColumn, firstMassColumn + masses.size() - 1));
+          }
         });
 
     final XSSFRow timeChurchRow = sheet.createRow(1);

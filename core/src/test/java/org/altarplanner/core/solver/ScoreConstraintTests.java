@@ -22,11 +22,10 @@ import org.threeten.extra.LocalDateRange;
 
 class ScoreConstraintTests {
 
+  private static final int massCount = 10;
   private HardSoftScoreVerifier<Schedule> scoreVerifier =
       new HardSoftScoreVerifier<>(
           SolverFactory.createFromXmlResource("org/altarplanner/core/solver/solverConfig.xml"));
-
-  private static final int massCount = 10;
 
   private List<PlanningMassTemplate> generatePlanningMassTemplates(
       Config config, boolean subsequentMasses, boolean subsequentServiceTypes) {

@@ -66,8 +66,12 @@ public abstract class BaseMass implements GenericMass {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     BaseMass baseMass = (BaseMass) o;
     return Objects.equals(church, baseMass.church)
         && Objects.equals(form, baseMass.form)

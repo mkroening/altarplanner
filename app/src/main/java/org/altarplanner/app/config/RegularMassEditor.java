@@ -126,8 +126,9 @@ public class RegularMassEditor {
                   timeTextField.getStyleClass().remove("text-input-error");
                   regularMassListView.getItems().sort(Comparator.naturalOrder());
                 } catch (DateTimeParseException e) {
-                  if (!timeTextField.getStyleClass().contains("text-input-error"))
+                  if (!timeTextField.getStyleClass().contains("text-input-error")) {
                     timeTextField.getStyleClass().add("text-input-error");
+                  }
                 }
               }
             });
@@ -171,7 +172,7 @@ public class RegularMassEditor {
 
     serviceTypeCountColumn.setCellValueFactory(
         param -> {
-          if (applyChanges)
+          if (applyChanges) {
             return new SimpleStringProperty(
                 String.valueOf(
                     regularMassListView
@@ -179,7 +180,9 @@ public class RegularMassEditor {
                         .getSelectedItem()
                         .getServiceTypeCounts()
                         .getOrDefault(param.getValue(), 0)));
-          else return null;
+          } else {
+            return null;
+          }
         });
 
     serviceTypeCountColumn.setOnEditCommit(
@@ -192,7 +195,7 @@ public class RegularMassEditor {
                   .getSelectedItem()
                   .getServiceTypeCounts()
                   .remove(event.getRowValue());
-            } else
+            } else {
               try {
                 regularMassListView
                     .getSelectionModel()
@@ -202,14 +205,17 @@ public class RegularMassEditor {
               } catch (NumberFormatException e) {
                 serviceTypeCountTableView.refresh();
               }
+            }
           }
         });
 
     regularMassListView.getItems().setAll(Launcher.CONFIG.getRegularMasses());
     serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
-    if (!regularMassListView.getItems().isEmpty())
+    if (!regularMassListView.getItems().isEmpty()) {
       regularMassListView.getSelectionModel().selectFirst();
-    else setDisable(true);
+    } else {
+      setDisable(true);
+    }
   }
 
   private void setDisable(boolean disable) {
@@ -246,7 +252,9 @@ public class RegularMassEditor {
     regularMassListView
         .getItems()
         .remove(regularMassListView.getSelectionModel().getSelectedItem());
-    if (regularMassListView.getItems().isEmpty()) setDisable(true);
+    if (regularMassListView.getItems().isEmpty()) {
+      setDisable(true);
+    }
   }
 
   @FXML

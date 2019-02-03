@@ -85,8 +85,9 @@ public class Schedule implements Serializable {
   public Schedule(ScheduleTemplate scheduleTemplate, Schedule lastSchedule, Config config) {
     this(scheduleTemplate, config);
     final LocalDate publishedRelevanceDate = getPlanningWindow().getStart().minusWeeks(2);
-    if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEndInclusive()))
+    if (publishedRelevanceDate.isAfter(lastSchedule.getPlanningWindow().getEndInclusive())) {
       throw new IllegalArgumentException("The given last schedule is too old to be relevant");
+    }
     this.publishedMasses =
         lastSchedule
             .getPlannedMasses()
@@ -298,8 +299,12 @@ public class Schedule implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Schedule schedule = (Schedule) o;
     return Objects.equals(config, schedule.config)
         && Objects.equals(publishedMasses, schedule.publishedMasses)

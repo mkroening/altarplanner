@@ -233,8 +233,12 @@ public class Launcher extends Application {
       if (createdScheduleFile != null) {
         createdSchedule.marshal(createdScheduleFile.toPath());
         LOGGER.info("Schedule has been saved as {}", createdScheduleFile);
-      } else LOGGER.info("Schedule has not been saved, because no file has been selected");
-    } else LOGGER.info("No masses have been loaded, because no file has been selected");
+      } else {
+        LOGGER.info("Schedule has not been saved, because no file has been selected");
+      }
+    } else {
+      LOGGER.info("No masses have been loaded, because no file has been selected");
+    }
   }
 
   @FXML
@@ -256,7 +260,9 @@ public class Launcher extends Application {
           "planning/solverView.fxml",
           true,
           solverView -> ((SolverView) solverView).solve(schedule));
-    } else LOGGER.info("Schedule has not been loaded, because no file has been selected");
+    } else {
+      LOGGER.info("Schedule has not been loaded, because no file has been selected");
+    }
   }
 
   @FXML
@@ -290,9 +296,11 @@ public class Launcher extends Application {
       if (selectedFile != null) {
         PoiIO.exportSchedule(schedule, selectedFile, 3);
         LOGGER.info("Schedule has been exported as {}", selectedFile);
-      } else
+      } else {
         LOGGER.info("Schedule has not been exported, because no file to save to has been selected");
-    } else
+      }
+    } else {
       LOGGER.info("Schedule has not been exported, because no file to load from has been selected");
+    }
   }
 }

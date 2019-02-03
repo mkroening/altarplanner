@@ -76,8 +76,9 @@ public class ServiceTypeEditor {
                   maxYearTextField.getStyleClass().remove("text-input-error");
                   serviceTypeListView.getItems().sort(Comparator.naturalOrder());
                 } catch (NumberFormatException e) {
-                  if (!maxYearTextField.getStyleClass().contains("text-input-error"))
+                  if (!maxYearTextField.getStyleClass().contains("text-input-error")) {
                     maxYearTextField.getStyleClass().add("text-input-error");
+                  }
                 }
               }
             });
@@ -95,16 +96,19 @@ public class ServiceTypeEditor {
                   minYearTextField.getStyleClass().remove("text-input-error");
                   serviceTypeListView.getItems().sort(Comparator.naturalOrder());
                 } catch (NumberFormatException e) {
-                  if (!minYearTextField.getStyleClass().contains("text-input-error"))
+                  if (!minYearTextField.getStyleClass().contains("text-input-error")) {
                     minYearTextField.getStyleClass().add("text-input-error");
+                  }
                 }
               }
             });
 
     serviceTypeListView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
-    if (!serviceTypeListView.getItems().isEmpty())
+    if (!serviceTypeListView.getItems().isEmpty()) {
       serviceTypeListView.getSelectionModel().selectFirst();
-    else setDisable(true);
+    } else {
+      setDisable(true);
+    }
   }
 
   private void setDisable(boolean disable) {
@@ -143,6 +147,8 @@ public class ServiceTypeEditor {
     serviceTypeListView
         .getItems()
         .remove(serviceTypeListView.getSelectionModel().getSelectedItem());
-    if (serviceTypeListView.getItems().isEmpty()) setDisable(true);
+    if (serviceTypeListView.getItems().isEmpty()) {
+      setDisable(true);
+    }
   }
 }

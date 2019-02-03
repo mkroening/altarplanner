@@ -103,8 +103,12 @@ public class Service extends AbstractPersistable implements Comparable<Service> 
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Service service = (Service) o;
     return Objects.equals(mass, service.mass)
         && Objects.equals(type, service.type)

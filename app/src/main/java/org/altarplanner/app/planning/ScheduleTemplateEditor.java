@@ -132,8 +132,9 @@ public class ScheduleTemplateEditor {
                   timeTextField.getStyleClass().remove("text-input-error");
                   planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
                 } catch (DateTimeParseException e) {
-                  if (!timeTextField.getStyleClass().contains("text-input-error"))
+                  if (!timeTextField.getStyleClass().contains("text-input-error")) {
                     timeTextField.getStyleClass().add("text-input-error");
+                  }
                 }
               }
             });
@@ -183,7 +184,7 @@ public class ScheduleTemplateEditor {
 
     serviceTypeCountColumn.setCellValueFactory(
         param -> {
-          if (applyChanges)
+          if (applyChanges) {
             return new SimpleStringProperty(
                 String.valueOf(
                     planningMassTemplateListView
@@ -191,7 +192,9 @@ public class ScheduleTemplateEditor {
                         .getSelectedItem()
                         .getServiceTypeCounts()
                         .getOrDefault(param.getValue(), 0)));
-          else return null;
+          } else {
+            return null;
+          }
         });
 
     serviceTypeCountColumn.setOnEditCommit(
@@ -204,7 +207,7 @@ public class ScheduleTemplateEditor {
                   .getSelectedItem()
                   .getServiceTypeCounts()
                   .remove(event.getRowValue());
-            } else
+            } else {
               try {
                 planningMassTemplateListView
                     .getSelectionModel()
@@ -214,13 +217,16 @@ public class ScheduleTemplateEditor {
               } catch (NumberFormatException e) {
                 serviceTypeCountTableView.refresh();
               }
+            }
           }
         });
 
     serviceTypeCountTableView.getItems().setAll(Launcher.CONFIG.getServiceTypes());
-    if (!planningMassTemplateListView.getItems().isEmpty())
+    if (!planningMassTemplateListView.getItems().isEmpty()) {
       planningMassTemplateListView.getSelectionModel().selectFirst();
-    else setDisable(true);
+    } else {
+      setDisable(true);
+    }
   }
 
   private void setDisable(boolean disable) {
@@ -257,7 +263,9 @@ public class ScheduleTemplateEditor {
     planningMassTemplateListView
         .getItems()
         .remove(planningMassTemplateListView.getSelectionModel().getSelectedItem());
-    if (planningMassTemplateListView.getItems().isEmpty()) setDisable(true);
+    if (planningMassTemplateListView.getItems().isEmpty()) {
+      setDisable(true);
+    }
   }
 
   @FXML
@@ -272,7 +280,9 @@ public class ScheduleTemplateEditor {
                       planningMassTemplateListView.getItems().addAll(planningMassTemplates);
                       setDisable(false);
                       if (planningMassTemplateListView.getSelectionModel().getSelectedItem()
-                          == null) planningMassTemplateListView.getSelectionModel().selectFirst();
+                          == null) {
+                        planningMassTemplateListView.getSelectionModel().selectFirst();
+                      }
                       planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
                     }));
   }
@@ -298,7 +308,9 @@ public class ScheduleTemplateEditor {
       setDisable(false);
       planningMassTemplateListView.getSelectionModel().selectFirst();
       planningMassTemplateListView.getItems().sort(Comparator.naturalOrder());
-    } else LOGGER.info("No masses have been loaded, because no file has been selected");
+    } else {
+      LOGGER.info("No masses have been loaded, because no file has been selected");
+    }
   }
 
   @FXML
@@ -326,7 +338,9 @@ public class ScheduleTemplateEditor {
         LOGGER.info("Masses have been saved as {}", selectedFile);
 
         Launcher.loadParent("launcher.fxml", true);
-      } else LOGGER.info("Masses have not been saved, because no file has been selected");
+      } else {
+        LOGGER.info("Masses have not been saved, because no file has been selected");
+      }
     } else {
       LOGGER.info("No Masses available to save");
       Launcher.loadParent("launcher.fxml", true);

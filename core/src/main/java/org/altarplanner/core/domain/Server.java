@@ -180,8 +180,12 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Server server = (Server) o;
     return year == server.year
         && Objects.equals(surname, server.surname)

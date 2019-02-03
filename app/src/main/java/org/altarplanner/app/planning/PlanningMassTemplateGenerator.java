@@ -27,14 +27,18 @@ public class PlanningMassTemplateGenerator {
         .valueProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
-              if (newValue.isAfter(endDatePicker.getValue())) endDatePicker.setValue(newValue);
+              if (newValue.isAfter(endDatePicker.getValue())) {
+                endDatePicker.setValue(newValue);
+              }
             });
 
     endDatePicker
         .valueProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
-              if (newValue.isBefore(startDatePicker.getValue())) startDatePicker.setValue(newValue);
+              if (newValue.isBefore(startDatePicker.getValue())) {
+                startDatePicker.setValue(newValue);
+              }
             });
   }
 

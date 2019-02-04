@@ -42,7 +42,8 @@ public class ServerImporter {
         .forEach(
             dayOfWeek -> {
               final var pattern =
-                  Launcher.RESOURCE_BUNDLE.getString("serverImporter.label.absentOnDayOfWeek");
+                  Launcher.RESOURCE_BUNDLE.getString(
+                      "serverImporter.label.absentOnDayOfWeekLogicalValue");
               final var text =
                   MessageFormat.format(
                       pattern, dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()));
@@ -101,13 +102,8 @@ public class ServerImporter {
               absentOnDayOfWeekColumnIndices));
       ((Stage) surnameHeadingChoiceBox.getScene().getWindow()).close();
     } catch (final IllegalStateException e) {
-      LOGGER.debug("Unable to parse cells", e);
-      LOGGER.error("Unable to parse cells");
-      LOGGER.error("Required cell types:");
-      LOGGER.error("  Surname: STRING");
-      LOGGER.error("  Forename: STRING");
-      LOGGER.error("  Year: NUMERIC");
-      LOGGER.error("  Regular Absences: BOOLEAN");
+      LOGGER.debug("Unable to parse cells.", e);
+      LOGGER.error("Unable to parse cells. Do the cell types match the required ones?");
     }
   }
 }

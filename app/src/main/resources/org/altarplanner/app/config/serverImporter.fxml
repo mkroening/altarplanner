@@ -11,9 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.CheckBox?>
 <VBox minHeight="-Infinity" minWidth="-Infinity" maxHeight="-Infinity" maxWidth="-Infinity"
       xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.config.ServerImporter">
+    <ToolBar>
+      <CheckBox fx:id="importRegularAbsencesCheckBox" text="%serverImporter.checkBox.importRegularAbsences" selected="true"/>
+    </ToolBar>
     <GridPane fx:id="attributeColumnNameGridPane" hgap="10.0" vgap="10.0">
         <columnConstraints>
             <ColumnConstraints minWidth="-Infinity"/>

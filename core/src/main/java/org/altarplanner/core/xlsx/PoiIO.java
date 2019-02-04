@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -244,12 +245,14 @@ public class PoiIO {
                 server.setSurname(row.getCell(surnameColumnIndex).getStringCellValue());
                 server.setForename(row.getCell(forenameColumnIndex).getStringCellValue());
                 server.setYear((int) row.getCell(yearColumnIndex).getNumericCellValue());
-                absentOnDayOfWeekColumnIndices.forEach(
-                    (regularAbsence, columnIndex) -> {
-                      if (columnIndex >= 0 && row.getCell(columnIndex).getBooleanCellValue()) {
-                        server.getWeeklyAbsences().add(regularAbsence);
-                      }
-                    });
+                server.setWeeklyAbsences(
+                    absentOnDayOfWeekColumnIndices.entrySet().stream()
+                        .filter(
+                            regularAbsenceColumnIndexEntry ->
+                                row.getCell(regularAbsenceColumnIndexEntry.getValue())
+                                    .getBooleanCellValue())
+                        .map(Entry::getKey)
+                        .collect(Collectors.toUnmodifiableList()));
                 return server;
               })
           .collect(Collectors.toUnmodifiableList());

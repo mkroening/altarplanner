@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -30,6 +31,7 @@ public class ServerImporter {
   @FXML private ChoiceBox<String> surnameHeadingChoiceBox;
   @FXML private ChoiceBox<String> forenameHeadingChoiceBox;
   @FXML private ChoiceBox<String> yearHeadingChoiceBox;
+  @FXML private CheckBox importRegularAbsencesCheckBox;
   private Map<DayOfWeek, ChoiceBox<String>> absentOnDayOfWeekChoiceBoxes;
   private Consumer<List<Server>> serversConsumer;
   private Path input;
@@ -47,13 +49,23 @@ public class ServerImporter {
               final var text =
                   MessageFormat.format(
                       pattern, dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()));
-              attributeColumnNameGridPane.add(new Label(text), 0, rowIndex + dayOfWeek.getValue());
+              final var label = new Label(text);
+              label.disableProperty().bind(importRegularAbsencesCheckBox.selectedProperty().not());
+              attributeColumnNameGridPane.add(label, 0, rowIndex + dayOfWeek.getValue());
             });
 
     absentOnDayOfWeekChoiceBoxes =
         Arrays.stream(DayOfWeek.values())
             .collect(
-                Collectors.toUnmodifiableMap(Function.identity(), dayOfWeek -> new ChoiceBox<>()));
+                Collectors.toUnmodifiableMap(
+                    Function.identity(),
+                    dayOfWeek -> {
+                      final var choiceBox = new ChoiceBox<String>();
+                      choiceBox
+                          .disableProperty()
+                          .bind(importRegularAbsencesCheckBox.selectedProperty().not());
+                      return choiceBox;
+                    }));
 
     absentOnDayOfWeekChoiceBoxes.forEach(
         (dayOfWeek, stringChoiceBox) ->
@@ -83,16 +95,18 @@ public class ServerImporter {
   @FXML
   private void importServers() {
     try {
-      final var absentOnDayOfWeekColumnIndices =
-          absentOnDayOfWeekChoiceBoxes.entrySet().stream()
-              .collect(
-                  Collectors.toUnmodifiableMap(
-                      Entry::getKey,
-                      absentOnDayOfWeekChoiceBox ->
-                          absentOnDayOfWeekChoiceBox
-                              .getValue()
-                              .getSelectionModel()
-                              .getSelectedIndex()));
+      final Map<DayOfWeek, Integer> absentOnDayOfWeekColumnIndices =
+          importRegularAbsencesCheckBox.isSelected()
+              ? absentOnDayOfWeekChoiceBoxes.entrySet().stream()
+                  .collect(
+                      Collectors.toUnmodifiableMap(
+                          Entry::getKey,
+                          absentOnDayOfWeekChoiceBox ->
+                              absentOnDayOfWeekChoiceBox
+                                  .getValue()
+                                  .getSelectionModel()
+                                  .getSelectedIndex()))
+              : Map.of();
       serversConsumer.accept(
           PoiIO.readServers(
               input,

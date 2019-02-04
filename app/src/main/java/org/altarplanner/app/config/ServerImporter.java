@@ -8,13 +8,15 @@ import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import org.altarplanner.core.domain.Server;
 import org.altarplanner.core.xlsx.PoiIO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ServerImporter {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(ServerImporter.class);
   @FXML private ChoiceBox<String> surnameHeadingChoiceBox;
   @FXML private ChoiceBox<String> forenameHeadingChoiceBox;
   @FXML private ChoiceBox<String> yearHeadingChoiceBox;
-
   private Consumer<List<Server>> serversConsumer;
   private File inputFile;
 
@@ -35,12 +37,21 @@ public class ServerImporter {
 
   @FXML
   private void importServers() {
-    serversConsumer.accept(
-        PoiIO.readServers(
-            inputFile,
-            surnameHeadingChoiceBox.getSelectionModel().getSelectedIndex(),
-            forenameHeadingChoiceBox.getSelectionModel().getSelectedIndex(),
-            yearHeadingChoiceBox.getSelectionModel().getSelectedIndex()));
-    ((Stage) surnameHeadingChoiceBox.getScene().getWindow()).close();
+    try {
+      serversConsumer.accept(
+          PoiIO.readServers(
+              inputFile,
+              surnameHeadingChoiceBox.getSelectionModel().getSelectedIndex(),
+              forenameHeadingChoiceBox.getSelectionModel().getSelectedIndex(),
+              yearHeadingChoiceBox.getSelectionModel().getSelectedIndex()));
+      ((Stage) surnameHeadingChoiceBox.getScene().getWindow()).close();
+    } catch (final IllegalStateException e) {
+      LOGGER.debug("Unable to parse cells", e);
+      LOGGER.error("Unable to parse cells");
+      LOGGER.error("Required cell types:");
+      LOGGER.error("  Surname: STRING");
+      LOGGER.error("  Forename: STRING");
+      LOGGER.error("  Year: NUMERIC");
+    }
   }
 }

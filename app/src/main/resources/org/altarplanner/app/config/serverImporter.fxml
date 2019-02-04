@@ -13,7 +13,7 @@
 <VBox minHeight="-Infinity" minWidth="-Infinity" maxHeight="-Infinity" maxWidth="-Infinity"
       xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.altarplanner.app.config.ServerImporter">
-    <GridPane hgap="10.0" vgap="10.0">
+    <GridPane fx:id="attributeColumnNameGridPane" hgap="10.0" vgap="10.0">
         <columnConstraints>
             <ColumnConstraints minWidth="-Infinity"/>
             <ColumnConstraints hgrow="SOMETIMES"/>

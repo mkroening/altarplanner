@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -211,9 +213,9 @@ public class PoiIO {
     workbook.close();
   }
 
-  public static List<String> readHeader(final File inputFile) {
+  public static List<String> readHeader(final Path input) {
     try (final XSSFWorkbook workbook =
-        new XSSFWorkbook(OPCPackage.open(inputFile, PackageAccess.READ))) {
+        new XSSFWorkbook(OPCPackage.open(input.toFile(), PackageAccess.READ))) {
       final XSSFRow headerRow = workbook.getSheetAt(0).getRow(0);
       Objects.requireNonNull(headerRow, "Header row at sheet index 0 must not be null.");
       final List<Cell> cells = new ArrayList<>(headerRow.getLastCellNum());
@@ -221,17 +223,18 @@ public class PoiIO {
       return cells.stream().map(Cell::getStringCellValue).collect(Collectors.toUnmodifiableList());
     } catch (final IOException | InvalidFormatException e) {
       throw new IllegalArgumentException(
-          "Could not read the file (" + inputFile.getName() + ").", e);
+          "Could not read the file (" + input.getFileName() + ").", e);
     }
   }
 
   public static List<Server> readServers(
-      final File inputFile,
+      final Path input,
       final int surnameColumnIndex,
       final int forenameColumnIndex,
-      final int yearColumnIndex) {
+      final int yearColumnIndex,
+      final Map<DayOfWeek, Integer> absentOnDayOfWeekColumnIndices) {
     try (final XSSFWorkbook workbook =
-        new XSSFWorkbook(OPCPackage.open(inputFile, PackageAccess.READ))) {
+        new XSSFWorkbook(OPCPackage.open(input.toFile(), PackageAccess.READ))) {
       final XSSFSheet sheet = workbook.getSheetAt(0);
       return IntStream.range(1, sheet.getLastRowNum())
           .mapToObj(sheet::getRow)
@@ -241,12 +244,18 @@ public class PoiIO {
                 server.setSurname(row.getCell(surnameColumnIndex).getStringCellValue());
                 server.setForename(row.getCell(forenameColumnIndex).getStringCellValue());
                 server.setYear((int) row.getCell(yearColumnIndex).getNumericCellValue());
+                absentOnDayOfWeekColumnIndices.forEach(
+                    (regularAbsence, columnIndex) -> {
+                      if (columnIndex >= 0 && row.getCell(columnIndex).getBooleanCellValue()) {
+                        server.getWeeklyAbsences().add(regularAbsence);
+                      }
+                    });
                 return server;
               })
           .collect(Collectors.toUnmodifiableList());
     } catch (final IOException | InvalidFormatException e) {
       throw new IllegalArgumentException(
-          "Could not read the file (" + inputFile.getName() + ").", e);
+          "Could not read the file (" + input.getFileName() + ").", e);
     }
   }
 }

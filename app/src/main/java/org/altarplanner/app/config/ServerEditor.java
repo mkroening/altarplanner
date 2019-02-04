@@ -559,7 +559,7 @@ public class ServerEditor {
           "config/serverImporter.fxml",
           false,
           serverImporter -> {
-            ((ServerImporter) serverImporter).setInputFile(serverWorkbookFile);
+            ((ServerImporter) serverImporter).setInputFile(serverWorkbookFile.toPath());
             ((ServerImporter) serverImporter)
                 .setServersConsumer(
                     servers -> {

@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.domain.state;
 
 import java.io.Serializable;
 import java.nio.file.Path;
@@ -15,6 +15,7 @@ import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.xml.StrictJAXB;

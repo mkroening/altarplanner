@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.domain.state;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.xml.jaxb.util.PairRequestXmlAdapter;

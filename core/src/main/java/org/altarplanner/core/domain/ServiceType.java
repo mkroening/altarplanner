@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlType;
+import org.altarplanner.core.domain.state.Config;
 
 @XmlType(propOrder = {"name", "maxYear", "minYear", "xmlID"})
 public class ServiceType implements Comparable<ServiceType>, Serializable {

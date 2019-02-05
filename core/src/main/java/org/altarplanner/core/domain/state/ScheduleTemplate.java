@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.domain.state;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import java.nio.file.Path;

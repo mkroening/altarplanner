@@ -1,6 +1,6 @@
 package org.altarplanner.core.benchmark;
 
-import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.state.Schedule;
 import org.altarplanner.core.domain.util.BigDomainGenerator;
 import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
 import org.optaplanner.benchmark.impl.aggregator.swingui.BenchmarkAggregatorFrame;

@@ -15,6 +15,9 @@ import java.util.stream.IntStream;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.mass.RegularMass;
 import org.altarplanner.core.domain.planning.Server;
+import org.altarplanner.core.domain.state.Config;
+import org.altarplanner.core.domain.state.Schedule;
+import org.altarplanner.core.domain.state.ScheduleTemplate;
 import org.junit.jupiter.api.Test;
 import org.threeten.extra.LocalDateRange;
 

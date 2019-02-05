@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.altarplanner.core.domain.Config;
+import org.altarplanner.core.domain.state.Config;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.DateOffRequest;
 import org.altarplanner.core.domain.request.DateTimeOnRequest;

@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.state.Schedule;
 import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.domain.planning.Service;
 import org.altarplanner.core.domain.mass.PlanningMass;

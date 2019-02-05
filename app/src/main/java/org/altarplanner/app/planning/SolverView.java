@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.state.Schedule;
 import org.altarplanner.core.solver.ScheduleSolver;
 import org.altarplanner.core.util.LocalDateRangeUtil;
 import org.slf4j.Logger;

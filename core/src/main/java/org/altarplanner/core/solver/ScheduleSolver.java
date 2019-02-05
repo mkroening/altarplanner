@@ -1,7 +1,7 @@
 package org.altarplanner.core.solver;
 
 import java.util.function.Consumer;
-import org.altarplanner.core.domain.Schedule;
+import org.altarplanner.core.domain.state.Schedule;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.slf4j.Logger;

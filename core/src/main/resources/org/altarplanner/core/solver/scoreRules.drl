@@ -3,9 +3,12 @@ dialect  "java"
 
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
 
-import org.altarplanner.core.domain.request.*;
-import org.altarplanner.core.domain.Server;
-import org.altarplanner.core.domain.Service;
+import org.altarplanner.core.domain.request.DateOffRequest;
+import org.altarplanner.core.domain.request.DateTimeOnRequest;
+import org.altarplanner.core.domain.request.PairRequest;
+import org.altarplanner.core.domain.request.ServiceTypeOffRequest;
+import org.altarplanner.core.domain.planning.Server;
+import org.altarplanner.core.domain.planning.Service;
 import java.time.temporal.ChronoUnit;
 
 global HardSoftScoreHolder scoreHolder;

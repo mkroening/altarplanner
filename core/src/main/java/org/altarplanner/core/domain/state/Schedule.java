@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.domain.state;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import java.io.Serializable;
@@ -22,6 +22,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.altarplanner.core.domain.mass.PlanningMass;
+import org.altarplanner.core.domain.planning.AbstractPersistable;
+import org.altarplanner.core.domain.planning.Server;
+import org.altarplanner.core.domain.planning.Service;
 import org.altarplanner.core.domain.request.DateOffRequest;
 import org.altarplanner.core.domain.request.DateTimeOnRequest;
 import org.altarplanner.core.domain.request.PairRequest;
@@ -39,17 +42,9 @@ import org.threeten.extra.LocalDateRange;
 @PlanningSolution
 @XmlRootElement
 @XmlType(
-    propOrder = {
-      "config",
-      "publishedMasses",
-      "finalDraftMasses",
-      "futureDraftMasses",
-      "feastDays",
-      "score"
-    })
-public class Schedule implements Serializable {
+    propOrder = {"publishedMasses", "finalDraftMasses", "futureDraftMasses", "feastDays", "score"})
+public class Schedule extends ServerAware implements FeastDayAware, Serializable {
 
-  private Config config;
   private List<PlanningMass> publishedMasses;
   private List<PlanningMass> finalDraftMasses;
   private List<PlanningMass> futureDraftMasses;
@@ -60,7 +55,7 @@ public class Schedule implements Serializable {
   public Schedule() {}
 
   public Schedule(ScheduleTemplate scheduleTemplate, Config config) {
-    this.config = new Config(config);
+    super(config);
     this.publishedMasses = List.of();
     this.finalDraftMasses =
         scheduleTemplate.getPlanningMassTemplates().stream()
@@ -157,7 +152,7 @@ public class Schedule implements Serializable {
         getServices().stream().map(Service::getType).collect(Collectors.toUnmodifiableSet());
     getServers()
         .forEach(server -> server.getInabilities().removeIf(Predicate.not(serviceTypes::contains)));
-    config.setServiceTypes(serviceTypes.stream().sorted().collect(Collectors.toUnmodifiableList()));
+    setServiceTypes(serviceTypes.stream().sorted().collect(Collectors.toUnmodifiableList()));
   }
 
   private Stream<PlanningMass> getAllMasses() {
@@ -174,8 +169,7 @@ public class Schedule implements Serializable {
   }
 
   public int getAvailableServerCountFor(Service service) {
-    long count =
-        config.getServers().stream().filter(server -> server.isAvailableFor(service)).count();
+    long count = getServers().stream().filter(server -> server.isAvailableFor(service)).count();
     return Math.toIntExact(count);
   }
 
@@ -197,7 +191,7 @@ public class Schedule implements Serializable {
   @ProblemFactCollectionProperty
   @ValueRangeProvider(id = "serverRange")
   public List<Server> getServers() {
-    return config.getServers();
+    return super.getServers();
   }
 
   @PlanningEntityCollectionProperty
@@ -214,14 +208,14 @@ public class Schedule implements Serializable {
             .map(PlanningMass::getDateTime)
             .map(LocalDateTime::toLocalDate)
             .collect(Collectors.toUnmodifiableSet());
-    return config.getServers().stream()
+    return getServers().stream()
         .flatMap(server -> server.getDateOffRequests(relevantDates, Set.copyOf(feastDays)))
         .collect(Collectors.toUnmodifiableList());
   }
 
   @ProblemFactCollectionProperty
   public List<ServiceTypeOffRequest> getServiceTypeOffRequests() {
-    return config.getServers().stream()
+    return getServers().stream()
         .flatMap(Server::getServiceTypeOffRequests)
         .collect(Collectors.toUnmodifiableList());
   }
@@ -230,22 +224,14 @@ public class Schedule implements Serializable {
   public List<DateTimeOnRequest> getDateTimeOnRequests() {
     final Set<LocalDateTime> relevantDateTimes =
         getDraftMasses().map(PlanningMass::getDateTime).collect(Collectors.toUnmodifiableSet());
-    return config.getServers().stream()
+    return getServers().stream()
         .flatMap(server -> server.getDateTimeOnRequests(relevantDateTimes))
         .collect(Collectors.toUnmodifiableList());
   }
 
   @ProblemFactCollectionProperty
-  public List<PairRequest> getPairRequests() {
-    return config.getPairs();
-  }
-
-  public Config getConfig() {
-    return config;
-  }
-
-  public void setConfig(Config config) {
-    this.config = config;
+  public List<PairRequest> getPairs() {
+    return super.getPairs();
   }
 
   @XmlElementWrapper(name = "publishedMasses")
@@ -305,16 +291,20 @@ public class Schedule implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
+    if (!super.equals(o)) {
+      return false;
+    }
     Schedule schedule = (Schedule) o;
-    return Objects.equals(config, schedule.config)
-        && Objects.equals(publishedMasses, schedule.publishedMasses)
-        && Objects.equals(finalDraftMasses, schedule.finalDraftMasses)
-        && Objects.equals(futureDraftMasses, schedule.futureDraftMasses)
-        && Objects.equals(score, schedule.score);
+    return publishedMasses.equals(schedule.publishedMasses)
+        && finalDraftMasses.equals(schedule.finalDraftMasses)
+        && futureDraftMasses.equals(schedule.futureDraftMasses)
+        && feastDays.equals(schedule.feastDays)
+        && score.equals(schedule.score);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(config, publishedMasses, finalDraftMasses, futureDraftMasses, score);
+    return Objects.hash(
+        super.hashCode(), publishedMasses, finalDraftMasses, futureDraftMasses, feastDays, score);
   }
 }

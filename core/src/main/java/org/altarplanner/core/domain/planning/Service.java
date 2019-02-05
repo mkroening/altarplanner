@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.domain.planning;
 
 import java.util.Comparator;
 import java.util.Objects;
@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.solver.ServerStrengthWeightFactory;
 import org.altarplanner.core.solver.ServiceDifficultyWeightFactory;

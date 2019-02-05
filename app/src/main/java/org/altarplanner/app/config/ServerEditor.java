@@ -33,7 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Server;
+import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.util.LocalDateRangeUtil;

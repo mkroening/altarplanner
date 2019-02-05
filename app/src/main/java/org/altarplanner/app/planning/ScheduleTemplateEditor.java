@@ -25,7 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import javax.xml.bind.UnmarshalException;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.ScheduleTemplate;
+import org.altarplanner.core.domain.state.ScheduleTemplate;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.util.LocalDateRangeUtil;

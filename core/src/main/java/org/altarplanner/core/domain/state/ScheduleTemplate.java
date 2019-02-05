@@ -1,8 +1,9 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.domain.state;
 
 import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -19,23 +20,23 @@ import org.altarplanner.core.xml.StrictJAXB;
 import org.threeten.extra.LocalDateRange;
 
 @XmlRootElement
-@XmlType(propOrder = {"serviceTypes", "planningMassTemplates", "feastDays"})
-public class ScheduleTemplate {
-
-  private List<ServiceType> serviceTypes;
+@XmlType(propOrder = {"planningMassTemplates", "feastDays"})
+public class ScheduleTemplate extends ServerTypeAware implements FeastDayAware {
 
   private List<PlanningMassTemplate> planningMassTemplates;
-
   private List<LocalDate> feastDays;
 
   /** Noarg public constructor making the class instantiatable for JAXB. */
-  public ScheduleTemplate() {}
+  public ScheduleTemplate() {
+    this.planningMassTemplates = new ArrayList<>();
+    this.feastDays = new ArrayList<>();
+  }
 
   public ScheduleTemplate(
       List<PlanningMassTemplate> planningMassTemplates, List<LocalDate> feastDays) {
     this.planningMassTemplates =
         planningMassTemplates.stream().sorted().collect(Collectors.toUnmodifiableList());
-    serviceTypes =
+    super.setServiceTypes(
         planningMassTemplates
             .parallelStream()
             .flatMap(
@@ -43,7 +44,7 @@ public class ScheduleTemplate {
                     planningMassTemplate.getServiceTypeCounts().keySet().parallelStream())
             .distinct()
             .sorted()
-            .collect(Collectors.toUnmodifiableList());
+            .collect(Collectors.toUnmodifiableList()));
     this.feastDays = feastDays;
   }
 
@@ -64,16 +65,6 @@ public class ScheduleTemplate {
     final LocalDate endInclusive =
         Collections.max(planningMassTemplates).getDateTime().toLocalDate();
     return LocalDateRange.ofClosed(start, endInclusive);
-  }
-
-  @XmlElementWrapper(name = "serviceTypes")
-  @XmlElement(name = "serviceType")
-  public List<ServiceType> getServiceTypes() {
-    return serviceTypes;
-  }
-
-  public void setServiceTypes(List<ServiceType> serviceTypes) {
-    this.serviceTypes = serviceTypes;
   }
 
   @XmlElementWrapper(name = "planningMassTemplates")
@@ -105,12 +96,12 @@ public class ScheduleTemplate {
       return false;
     }
     ScheduleTemplate that = (ScheduleTemplate) o;
-    return Objects.equals(serviceTypes, that.serviceTypes)
-        && Objects.equals(planningMassTemplates, that.planningMassTemplates);
+    return planningMassTemplates.equals(that.planningMassTemplates)
+        && feastDays.equals(that.feastDays);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(serviceTypes, planningMassTemplates);
+    return Objects.hash(planningMassTemplates, feastDays);
   }
 }

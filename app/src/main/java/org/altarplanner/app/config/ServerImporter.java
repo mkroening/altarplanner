@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.Server;
+import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.xlsx.PoiIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

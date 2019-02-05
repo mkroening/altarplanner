@@ -3,7 +3,7 @@ package org.altarplanner.core.xml.jaxb.util;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-import org.altarplanner.core.domain.Server;
+import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.domain.request.PairRequest;
 
 public class PairRequestXmlAdapter

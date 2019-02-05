@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.domain.request.PairRequest;
 import org.altarplanner.core.xml.jaxb.util.PairRequestXmlAdapter;
 

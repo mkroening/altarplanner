@@ -3,7 +3,7 @@ package org.altarplanner.core.solver;
 import java.util.Comparator;
 import java.util.Objects;
 import org.altarplanner.core.domain.Schedule;
-import org.altarplanner.core.domain.Server;
+import org.altarplanner.core.domain.planning.Server;
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
 
 public class ServerStrengthWeightFactory implements SelectionSorterWeightFactory<Schedule, Server> {

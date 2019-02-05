@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.domain.planning;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.altarplanner.core.domain.Config;
+import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.request.DateOffRequest;
 import org.altarplanner.core.domain.request.DateTimeOnRequest;
 import org.altarplanner.core.domain.request.ServiceTypeOffRequest;
@@ -62,7 +64,7 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     return surname + ", " + forename;
   }
 
-  boolean isAvailableFor(Service service) {
+  public boolean isAvailableFor(Service service) {
     LocalDate date = service.getMass().getDateTime().toLocalDate();
     return !inabilities.contains(service.getType())
         && year <= service.getType().getMaxYear()
@@ -70,7 +72,7 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
         && absences.parallelStream().noneMatch(absence -> absence.contains(date));
   }
 
-  Stream<DateOffRequest> getDateOffRequests(
+  public Stream<DateOffRequest> getDateOffRequests(
       Set<LocalDate> relevantDates, Set<LocalDate> feastDays) {
     final Set<DayOfWeek> weeklyAbsenceSet = Set.copyOf(weeklyAbsences);
     return relevantDates
@@ -87,14 +89,14 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
         .map(date -> new DateOffRequest(this, date));
   }
 
-  Stream<ServiceTypeOffRequest> getServiceTypeOffRequests() {
+  public Stream<ServiceTypeOffRequest> getServiceTypeOffRequests() {
     return inabilities
         .parallelStream()
         .filter(serviceType -> serviceType.getMaxYear() >= year)
         .map(serviceType -> new ServiceTypeOffRequest(this, serviceType));
   }
 
-  Stream<DateTimeOnRequest> getDateTimeOnRequests(Set<LocalDateTime> relevantDateTimes) {
+  public Stream<DateTimeOnRequest> getDateTimeOnRequests(Set<LocalDateTime> relevantDateTimes) {
     return dateTimeOnWishes
         .parallelStream()
         .filter(relevantDateTimes::contains)

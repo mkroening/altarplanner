@@ -5,7 +5,7 @@
     <inheritedSolverBenchmark>
         <solver>
             <solutionClass>org.altarplanner.core.domain.Schedule</solutionClass>
-            <entityClass>org.altarplanner.core.domain.Service</entityClass>
+            <entityClass>org.altarplanner.core.domain.planning.Service</entityClass>
             <scoreDirectorFactory>
                 <scoreDrl>org/altarplanner/core/solver/scoreRules.drl</scoreDrl>
             </scoreDirectorFactory>

@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 import org.altarplanner.core.domain.Config;
 import org.altarplanner.core.domain.Schedule;
 import org.altarplanner.core.domain.ScheduleTemplate;
-import org.altarplanner.core.domain.Server;
+import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.domain.ServiceType;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.request.PairRequest;

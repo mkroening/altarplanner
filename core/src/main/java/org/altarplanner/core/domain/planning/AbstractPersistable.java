@@ -1,4 +1,4 @@
-package org.altarplanner.core.domain;
+package org.altarplanner.core.domain.planning;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlTransient;

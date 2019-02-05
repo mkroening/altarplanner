@@ -2,7 +2,7 @@ description = "AltarPlanner creates altar server schedules. This project is the 
 
 allprojects {
     group = "org.altarplanner"
-    version = "1.0-SNAPSHOT"
+    version = "0.1-SNAPSHOT"
 }
 
 buildscript {

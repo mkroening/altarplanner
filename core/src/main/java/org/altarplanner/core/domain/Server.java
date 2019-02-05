@@ -189,17 +189,12 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     Server server = (Server) o;
     return year == server.year
         && Objects.equals(surname, server.surname)
-        && Objects.equals(forename, server.forename)
-        && Objects.equals(absences, server.absences)
-        && Objects.equals(weeklyAbsences, server.weeklyAbsences)
-        && Objects.equals(inabilities, server.inabilities)
-        && Objects.equals(dateTimeOnWishes, server.dateTimeOnWishes);
+        && Objects.equals(forename, server.forename);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        surname, forename, year, absences, weeklyAbsences, inabilities, dateTimeOnWishes);
+    return Objects.hash(year, surname, forename);
   }
 
   @Override

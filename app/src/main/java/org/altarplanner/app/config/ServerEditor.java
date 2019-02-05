@@ -559,9 +559,18 @@ public class ServerEditor {
           "config/serverImporter.fxml",
           false,
           serverImporter -> {
-            ((ServerImporter) serverImporter).setInputFile(serverWorkbookFile);
+            ((ServerImporter) serverImporter).setInputFile(serverWorkbookFile.toPath());
+            ((ServerImporter) serverImporter).setServers(List.copyOf(serverListView.getItems()));
             ((ServerImporter) serverImporter)
-                .setServersConsumer(servers -> serverListView.getItems().addAll(servers));
+                .setServersConsumer(
+                    servers -> {
+                      serverListView.getItems().setAll(servers);
+                      if (!serverListView.getItems().isEmpty()) {
+                        setDisable(false);
+                        serverListView.getItems().sort(Comparator.naturalOrder());
+                        serverListView.getSelectionModel().selectFirst();
+                      }
+                    });
           });
     } else {
       LOGGER.info("No server workbook has been selected");

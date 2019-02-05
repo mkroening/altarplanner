@@ -560,14 +560,15 @@ public class ServerEditor {
           false,
           serverImporter -> {
             ((ServerImporter) serverImporter).setInputFile(serverWorkbookFile.toPath());
+            ((ServerImporter) serverImporter).setServers(List.copyOf(serverListView.getItems()));
             ((ServerImporter) serverImporter)
                 .setServersConsumer(
                     servers -> {
-                      serverListView.getItems().addAll(servers);
+                      serverListView.getItems().setAll(servers);
                       if (!serverListView.getItems().isEmpty()) {
                         setDisable(false);
-                        serverListView.getSelectionModel().select(servers.get(0));
                         serverListView.getItems().sort(Comparator.naturalOrder());
+                        serverListView.getSelectionModel().selectFirst();
                       }
                     });
           });

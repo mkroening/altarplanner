@@ -33,6 +33,7 @@ public class ServerImporter {
   @FXML private ChoiceBox<String> yearHeadingChoiceBox;
   @FXML private CheckBox importRegularAbsencesCheckBox;
   private Map<DayOfWeek, ChoiceBox<String>> absentOnDayOfWeekChoiceBoxes;
+  private Map<Server, Server> servers;
   private Consumer<List<Server>> serversConsumer;
   private Path input;
 
@@ -72,6 +73,11 @@ public class ServerImporter {
             attributeColumnNameGridPane.add(stringChoiceBox, 1, rowIndex + dayOfWeek.getValue()));
   }
 
+  public void setServers(final List<Server> servers) {
+    this.servers =
+        servers.stream().collect(Collectors.toMap(Function.identity(), Function.identity()));
+  }
+
   public void setServersConsumer(Consumer<List<Server>> serversConsumer) {
     this.serversConsumer = serversConsumer;
   }
@@ -107,13 +113,23 @@ public class ServerImporter {
                                   .getSelectionModel()
                                   .getSelectedIndex()))
               : Map.of();
-      serversConsumer.accept(
+      final var readServers =
           PoiIO.readServers(
               input,
               surnameHeadingChoiceBox.getSelectionModel().getSelectedIndex(),
               forenameHeadingChoiceBox.getSelectionModel().getSelectedIndex(),
               yearHeadingChoiceBox.getSelectionModel().getSelectedIndex(),
-              absentOnDayOfWeekColumnIndices));
+              absentOnDayOfWeekColumnIndices);
+      readServers.stream()
+          .filter(readServer -> servers.putIfAbsent(readServer, readServer) != null)
+          .forEach(
+              readServer -> {
+                final var currentServer = servers.get(readServer);
+                if (importRegularAbsencesCheckBox.isSelected()) {
+                  currentServer.setWeeklyAbsences(readServer.getWeeklyAbsences());
+                }
+              });
+      serversConsumer.accept(List.copyOf(servers.values()));
       ((Stage) surnameHeadingChoiceBox.getScene().getWindow()).close();
     } catch (final IllegalStateException e) {
       LOGGER.debug("Unable to parse cells.", e);

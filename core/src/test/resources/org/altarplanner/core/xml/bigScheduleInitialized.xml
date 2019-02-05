@@ -10,49 +10,6 @@
             <serviceType name="Incense" maxYear="2012" minYear="2000" xmlID="Incense_2012-2000"/>
             <serviceType name="Lector" maxYear="2012" minYear="2000" xmlID="Lector_2012-2000"/>
         </serviceTypes>
-        <regularMasses>
-            <regularMass day="MONDAY" time="19:00" church="Chapel" form="Holy Mass">
-                <serviceTypeCounts>
-                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
-                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
-                </serviceTypeCounts>
-            </regularMass>
-            <regularMass day="THURSDAY" time="18:00" church="Chapel" form="Holy Mass">
-                <serviceTypeCounts>
-                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
-                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
-                </serviceTypeCounts>
-            </regularMass>
-            <regularMass day="SATURDAY" time="17:00" church="Church" form="Saturday Evening Mass">
-                <serviceTypeCounts>
-                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
-                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
-                    <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
-                </serviceTypeCounts>
-            </regularMass>
-            <regularMass day="SUNDAY" time="08:00" church="Church" form="Holy Mass">
-                <serviceTypeCounts>
-                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
-                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
-                </serviceTypeCounts>
-            </regularMass>
-            <regularMass day="SUNDAY" time="09:45" church="Chapel" form="Holy Mass">
-                <serviceTypeCounts>
-                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
-                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
-                </serviceTypeCounts>
-            </regularMass>
-            <regularMass day="SUNDAY" time="11:00" church="Church" form="High Mass" annotation="Bring your Friends!">
-                <serviceTypeCounts>
-                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
-                    <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
-                    <serviceTypeCount serviceType="Cross_2012-2000" count="1"/>
-                    <serviceTypeCount serviceType="Flambeau_2018-2016" count="10"/>
-                    <serviceTypeCount serviceType="Incense_2012-2000" count="2"/>
-                    <serviceTypeCount serviceType="Lector_2012-2000" count="1"/>
-                </serviceTypeCounts>
-            </regularMass>
-        </regularMasses>
         <servers>
             <server surname="554dcd2b" forename="40b5f04b" year="2018" xmlID="554dcd2b_40b5f04b-2018">
                 <absences></absences>
@@ -777,6 +734,49 @@
             <pair server="9da4fb9d_e0657e75-2012" pairedWith="2ba569ab_f86b692d-2017"/>
             <pair server="2ba569ab_f86b692d-2017" pairedWith="9da4fb9d_e0657e75-2012"/>
         </pairs>
+        <regularMasses>
+            <regularMass day="MONDAY" time="19:00" church="Chapel" form="Holy Mass">
+                <serviceTypeCounts>
+                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                </serviceTypeCounts>
+            </regularMass>
+            <regularMass day="THURSDAY" time="18:00" church="Chapel" form="Holy Mass">
+                <serviceTypeCounts>
+                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                </serviceTypeCounts>
+            </regularMass>
+            <regularMass day="SATURDAY" time="17:00" church="Church" form="Saturday Evening Mass">
+                <serviceTypeCounts>
+                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                    <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
+                </serviceTypeCounts>
+            </regularMass>
+            <regularMass day="SUNDAY" time="08:00" church="Church" form="Holy Mass">
+                <serviceTypeCounts>
+                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                </serviceTypeCounts>
+            </regularMass>
+            <regularMass day="SUNDAY" time="09:45" church="Chapel" form="Holy Mass">
+                <serviceTypeCounts>
+                    <serviceTypeCount serviceType="Altar_2016-2014" count="2"/>
+                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                </serviceTypeCounts>
+            </regularMass>
+            <regularMass day="SUNDAY" time="11:00" church="Church" form="High Mass" annotation="Bring your Friends!">
+                <serviceTypeCounts>
+                    <serviceTypeCount serviceType="Altar_2014-2012" count="2"/>
+                    <serviceTypeCount serviceType="Altar_2012-2000" count="2"/>
+                    <serviceTypeCount serviceType="Cross_2012-2000" count="1"/>
+                    <serviceTypeCount serviceType="Flambeau_2018-2016" count="10"/>
+                    <serviceTypeCount serviceType="Incense_2012-2000" count="2"/>
+                    <serviceTypeCount serviceType="Lector_2012-2000" count="1"/>
+                </serviceTypeCounts>
+            </regularMass>
+        </regularMasses>
     </config>
     <publishedMasses/>
     <finalDraftMasses>

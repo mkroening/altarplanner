@@ -21,7 +21,7 @@ import org.threeten.extra.LocalDateRange;
 
 @XmlRootElement
 @XmlType(propOrder = {"planningMassTemplates", "feastDays"})
-public class ScheduleTemplate extends ServerTypeAware {
+public class ScheduleTemplate extends ServerTypeAware implements FeastDayAware {
 
   private List<PlanningMassTemplate> planningMassTemplates;
   private List<LocalDate> feastDays;

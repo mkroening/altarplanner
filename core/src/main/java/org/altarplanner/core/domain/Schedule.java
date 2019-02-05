@@ -40,7 +40,7 @@ import org.threeten.extra.LocalDateRange;
 @XmlRootElement
 @XmlType(
     propOrder = {"publishedMasses", "finalDraftMasses", "futureDraftMasses", "feastDays", "score"})
-public class Schedule extends ServerAware implements Serializable {
+public class Schedule extends ServerAware implements FeastDayAware, Serializable {
 
   private List<PlanningMass> publishedMasses;
   private List<PlanningMass> finalDraftMasses;

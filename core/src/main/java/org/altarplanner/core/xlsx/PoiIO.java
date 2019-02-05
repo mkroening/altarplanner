@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.altarplanner.core.domain.Schedule;
@@ -221,7 +222,10 @@ public class PoiIO {
       Objects.requireNonNull(headerRow, "Header row at sheet index 0 must not be null.");
       final List<Cell> cells = new ArrayList<>(headerRow.getLastCellNum());
       headerRow.forEach(cells::add);
-      return cells.stream().map(Cell::getStringCellValue).collect(Collectors.toUnmodifiableList());
+      return cells.stream()
+          .map(Cell::getStringCellValue)
+          .filter(Predicate.not(String::isBlank))
+          .collect(Collectors.toUnmodifiableList());
     } catch (final IOException | InvalidFormatException e) {
       throw new IllegalArgumentException(
           "Could not read the file (" + input.getFileName() + ").", e);

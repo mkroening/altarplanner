@@ -96,9 +96,7 @@ public class ServerImporter {
           stringChoiceBox.getItems().setAll(header);
           stringChoiceBox.getSelectionModel().select(2 + dayOfWeek.getValue());
         });
-    if (2 + 7 >= header.size() - 1) {
-      importRegularAbsencesCheckBox.setSelected(false);
-    }
+    importRegularAbsencesCheckBox.setSelected(2 + 7 <= header.size() - 1);
   }
 
   @FXML

@@ -37,7 +37,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class PoiIO {
+public class XSSF {
 
   public static void exportSchedule(Schedule schedule, File file, int columns) throws IOException {
     final XSSFWorkbook workbook = new XSSFWorkbook();

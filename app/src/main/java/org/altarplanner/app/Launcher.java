@@ -28,7 +28,7 @@ import org.altarplanner.core.domain.state.Config;
 import org.altarplanner.core.domain.state.Schedule;
 import org.altarplanner.core.domain.state.ScheduleTemplate;
 import org.altarplanner.core.util.LocalDateRangeUtil;
-import org.altarplanner.core.xlsx.PoiIO;
+import org.altarplanner.core.xlsx.XSSF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -294,7 +294,7 @@ public class Launcher extends Application {
 
       selectedFile = fileChooser.showSaveDialog(primaryStage);
       if (selectedFile != null) {
-        PoiIO.exportSchedule(schedule, selectedFile, 3);
+        XSSF.exportSchedule(schedule, selectedFile, 3);
         LOGGER.info("Schedule has been exported as {}", selectedFile);
       } else {
         LOGGER.info("Schedule has not been exported, because no file to save to has been selected");

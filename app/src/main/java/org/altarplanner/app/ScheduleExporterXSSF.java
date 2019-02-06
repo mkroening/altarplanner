@@ -71,7 +71,7 @@ public class ScheduleExporterXSSF {
   private void exportSchedule() throws IOException {
     switch (formatChoiceBox.getSelectionModel().getSelectedIndex()) {
       case 0:
-        XSSF.exportSchedule(schedule, output, compactFormatColumnCountProperty.getValue());
+        XSSF.exportScheduleCompact(schedule, output, compactFormatColumnCountProperty.getValue());
         break;
       case 1:
         XSSF.exportScheduleOverview(schedule, output);

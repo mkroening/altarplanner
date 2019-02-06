@@ -18,10 +18,10 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.altarplanner.core.domain.state.Schedule;
+import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.domain.planning.Service;
-import org.altarplanner.core.domain.mass.PlanningMass;
+import org.altarplanner.core.domain.state.Schedule;
 import org.altarplanner.core.util.DateTimeFormatterUtil;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -207,6 +207,12 @@ public class XSSF {
             });
 
     sheet.createFreezePane(columnOffset, rowOffset);
+    sheet.setAutoFilter(
+        new CellRangeAddress(
+            rowOffset - 1,
+            rowOffset - 1 + schedule.getServers().size() - 1,
+            0,
+            columnOffset + schedule.getFinalDraftMasses().size() - 1));
 
     IntStream.range(0, columnOffset + schedule.getServers().size() - 1)
         .forEach(sheet::autoSizeColumn);

@@ -88,8 +88,7 @@ public abstract class ServerAware extends ServerTypeAware {
       return false;
     }
     ServerAware that = (ServerAware) o;
-    return servers.equals(that.servers) &&
-      pairs.equals(that.pairs);
+    return servers.equals(that.servers) && pairs.equals(that.pairs);
   }
 
   @Override

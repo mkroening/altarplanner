@@ -8,8 +8,8 @@ import java.util.stream.IntStream;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
-import org.altarplanner.core.domain.planning.Service;
 import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.domain.planning.Service;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
 
 @DeepPlanningClone

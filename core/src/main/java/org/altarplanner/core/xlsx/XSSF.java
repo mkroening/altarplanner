@@ -38,7 +38,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class XSSF {
 
-  public static void exportScheduleCompact(Schedule schedule, Path output, int columns) throws IOException {
+  public static void exportScheduleCompact(Schedule schedule, Path output, int columns)
+      throws IOException {
     final XSSFWorkbook workbook = new XSSFWorkbook();
     final XSSFSheet sheet = workbook.createSheet();
 

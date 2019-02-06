@@ -8,5 +8,4 @@ public interface FeastDayAware {
   List<LocalDate> getFeastDays();
 
   void setFeastDays(List<LocalDate> feastDays);
-
 }

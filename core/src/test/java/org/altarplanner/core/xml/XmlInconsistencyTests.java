@@ -11,11 +11,11 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import javax.xml.bind.UnmarshalException;
+import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.domain.state.Config;
 import org.altarplanner.core.domain.state.Schedule;
 import org.altarplanner.core.domain.state.ScheduleTemplate;
-import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.junit.jupiter.api.Test;
 
 class XmlInconsistencyTests {

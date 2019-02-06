@@ -8,7 +8,6 @@ import javafx.stage.Window;
 import javax.xml.bind.UnmarshalException;
 import org.altarplanner.core.domain.state.Schedule;
 import org.altarplanner.core.util.LocalDateRangeUtil;
-import org.altarplanner.core.xlsx.XSSF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +44,15 @@ public class ScheduleExporter {
 
       selectedFile = fileChooser.showSaveDialog(fileChooserOwnerWindow);
       if (selectedFile != null) {
-        XSSF.exportSchedule(schedule, selectedFile, 3);
-        LOGGER.info("Schedule has been exported as {}", selectedFile);
+        if (selectedFile.getName().endsWith(".xlsx")) {
+          final var output = selectedFile;
+          Launcher.loadParent("scheduleExporterXSSF.fxml", false, scheduleExporterXSSF -> {
+            ((ScheduleExporterXSSF) scheduleExporterXSSF).setOutput(output);
+            ((ScheduleExporterXSSF) scheduleExporterXSSF).setSchedule(schedule);
+          });
+        } else {
+          LOGGER.info("{} has an unsupported file extension", selectedFile);
+        }
       } else {
         LOGGER.info("Schedule has not been exported, because no file to save to has been selected");
       }

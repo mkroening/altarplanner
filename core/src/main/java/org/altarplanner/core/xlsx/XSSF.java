@@ -6,11 +6,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,11 +19,10 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.altarplanner.core.domain.mass.PlanningMass;
 import org.altarplanner.core.domain.planning.Server;
 import org.altarplanner.core.domain.planning.Service;
+import org.altarplanner.core.domain.state.Config;
 import org.altarplanner.core.domain.state.Schedule;
-import org.altarplanner.core.util.DateTimeFormatterUtil;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
@@ -33,6 +33,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -132,50 +133,32 @@ public class XSSF {
   public static void exportScheduleOverview(Schedule schedule, File file) throws IOException {
     final XSSFWorkbook workbook = new XSSFWorkbook();
     final XSSFSheet sheet = workbook.createSheet();
+    final XSSFDataFormat format = workbook.createDataFormat();
+    final XSSFCellStyle isoLocalDateTimeWithoutSecondsCellStyle = workbook.createCellStyle();
+    isoLocalDateTimeWithoutSecondsCellStyle.setDataFormat(format.getFormat("NN, YYYY-MM-DD HH:MM"));
 
     final int rowOffset = 3;
     final int columnOffset = 2;
     final char firstColumnChar = 'A' + columnOffset;
 
-    final XSSFRow dateRow = sheet.createRow(0);
-    final Map<LocalDate, List<PlanningMass>> dateMassesMap =
-        schedule.getFinalDraftMasses().stream()
-            .collect(
-                Collectors.groupingBy(planningMass -> planningMass.getDateTime().toLocalDate()));
-    dateMassesMap.forEach(
-        (date, masses) -> {
-          final int firstMassColumn =
-              columnOffset + schedule.getFinalDraftMasses().indexOf(masses.get(0));
-          dateRow
-              .createCell(firstMassColumn)
-              .setCellValue(date.format(DateTimeFormatterUtil.ISO_DATE_WITH_DAY_WITH_SHORT_YEAR));
-          if (masses.size() > 1) {
-            sheet.addMergedRegion(
-                new CellRangeAddress(0, 0, firstMassColumn, firstMassColumn + masses.size() - 1));
-          }
-        });
-
-    final XSSFRow timeChurchRow = sheet.createRow(1);
+    final XSSFRow dateTimeRow = sheet.createRow(0);
+    final XSSFRow churchFormRow = sheet.createRow(1);
+    final XSSFRow annotationRow = sheet.createRow(2);
+    annotationRow.createCell(0).setCellValue(Config.RESOURCE_BUNDLE.getString("altarServer"));
+    annotationRow.createCell(1).setCellValue(Config.RESOURCE_BUNDLE.getString("assignmentCount"));
     IntStream.range(0, schedule.getFinalDraftMasses().size())
         .forEach(
-            value -> {
-              PlanningMass mass = schedule.getFinalDraftMasses().get(value);
-              timeChurchRow
-                  .createCell(columnOffset + value)
-                  .setCellValue(
-                      mass.getDateTime()
-                              .toLocalTime()
-                              .format(DateTimeFormatterUtil.ISO_LOCAL_TIME_WITHOUT_SECONDS)
-                          + " - "
-                          + mass.getChurch());
-            });
-
-    final XSSFRow formRow = sheet.createRow(2);
-    IntStream.range(0, schedule.getFinalDraftMasses().size())
-        .forEach(
-            value -> {
-              PlanningMass mass = schedule.getFinalDraftMasses().get(value);
-              formRow.createCell(columnOffset + value).setCellValue(mass.getForm());
+            i -> {
+              final var mass = schedule.getFinalDraftMasses().get(i);
+              final var date =
+                  Date.from(mass.getDateTime().atZone(ZoneId.systemDefault()).toInstant());
+              final var dateTimeCell = dateTimeRow.createCell(columnOffset + i);
+              dateTimeCell.setCellValue(date);
+              dateTimeCell.setCellStyle(isoLocalDateTimeWithoutSecondsCellStyle);
+              churchFormRow
+                  .createCell(columnOffset + i)
+                  .setCellValue(mass.getChurch() + " - " + mass.getForm());
+              annotationRow.createCell(columnOffset + i).setCellValue(mass.getAnnotation());
             });
 
     IntStream.range(0, schedule.getServers().size())

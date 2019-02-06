@@ -1,7 +1,7 @@
 package org.altarplanner.app;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -25,7 +25,7 @@ public class ScheduleExporterXSSF {
 
   private ObjectProperty<Integer> compactFormatColumnCountProperty;
   private Schedule schedule;
-  private File output;
+  private Path output;
 
   @FXML
   private void initialize() {
@@ -63,7 +63,7 @@ public class ScheduleExporterXSSF {
     this.schedule = schedule;
   }
 
-  public void setOutput(final File output) {
+  public void setOutput(final Path output) {
     this.output = output;
   }
 

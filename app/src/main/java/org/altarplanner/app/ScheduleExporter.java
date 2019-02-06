@@ -2,7 +2,10 @@ package org.altarplanner.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Optional;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javax.xml.bind.UnmarshalException;
@@ -20,38 +23,42 @@ public class ScheduleExporter {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openSchedule"));
     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-    File directory = new File("schedules/");
-    Files.createDirectories(directory.toPath());
-    fileChooser.setInitialDirectory(directory);
+    final var scheduleDir = Path.of("schedules/");
+    Files.createDirectories(scheduleDir);
+    fileChooser.setInitialDirectory(scheduleDir.toFile());
 
-    File selectedFile = fileChooser.showOpenDialog(fileChooserOwnerWindow);
-    if (selectedFile != null) {
-      Schedule schedule = Schedule.unmarshal(selectedFile.toPath());
-      LOGGER.info("Schedule has been loaded from {}", selectedFile);
+    final var input =
+        Optional.ofNullable(fileChooser.showOpenDialog(fileChooserOwnerWindow)).map(File::toPath);
+    if (input.isPresent()) {
+      Schedule schedule = Schedule.unmarshal(input.get());
+      LOGGER.info("Schedule has been loaded from {}", input);
 
       fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));
       fileChooser
           .getExtensionFilters()
           .setAll(new FileChooser.ExtensionFilter("Excel 2007–2019 (.xlsx)", "*.xlsx"));
-      directory = new File("exported/");
-      Files.createDirectories(directory.toPath());
-      fileChooser.setInitialDirectory(directory);
+      final var exportedDir = Path.of("exported/");
+      Files.createDirectories(exportedDir);
+      fileChooser.setInitialDirectory(exportedDir.toFile());
       fileChooser.setInitialFileName(
           Launcher.RESOURCE_BUNDLE.getString("general.domain.schedule")
               + '_'
               + LocalDateRangeUtil.getHyphenString(schedule.getPlanningWindow())
               + ".xlsx");
 
-      selectedFile = fileChooser.showSaveDialog(fileChooserOwnerWindow);
-      if (selectedFile != null) {
-        if (selectedFile.getName().endsWith(".xlsx")) {
-          final var output = selectedFile;
-          Launcher.loadParent("scheduleExporterXSSF.fxml", false, scheduleExporterXSSF -> {
-            ((ScheduleExporterXSSF) scheduleExporterXSSF).setOutput(output);
-            ((ScheduleExporterXSSF) scheduleExporterXSSF).setSchedule(schedule);
-          });
+      final var output =
+          Optional.ofNullable(fileChooser.showSaveDialog(fileChooserOwnerWindow)).map(File::toPath);
+      if (output.isPresent()) {
+        if (FileSystems.getDefault().getPathMatcher("glob:**.xlsx").matches(output.get())) {
+          Launcher.loadParent(
+              "scheduleExporterXSSF.fxml",
+              false,
+              scheduleExporterXSSF -> {
+                ((ScheduleExporterXSSF) scheduleExporterXSSF).setOutput(output.get());
+                ((ScheduleExporterXSSF) scheduleExporterXSSF).setSchedule(schedule);
+              });
         } else {
-          LOGGER.info("{} has an unsupported file extension", selectedFile);
+          LOGGER.info("{} has an unsupported file extension", output.get().getFileName());
         }
       } else {
         LOGGER.info("Schedule has not been exported, because no file to save to has been selected");

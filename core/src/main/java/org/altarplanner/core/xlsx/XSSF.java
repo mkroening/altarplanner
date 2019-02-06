@@ -1,7 +1,5 @@
 package org.altarplanner.core.xlsx;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,7 +38,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class XSSF {
 
-  public static void exportScheduleCompact(Schedule schedule, File file, int columns) throws IOException {
+  public static void exportScheduleCompact(Schedule schedule, Path output, int columns) throws IOException {
     final XSSFWorkbook workbook = new XSSFWorkbook();
     final XSSFSheet sheet = workbook.createSheet();
 
@@ -125,12 +123,12 @@ public class XSSF {
 
     IntStream.range(0, columns).forEach(value -> sheet.autoSizeColumn(2 * value));
 
-    workbook.write(new FileOutputStream(file));
+    workbook.write(Files.newOutputStream(output));
 
     workbook.close();
   }
 
-  public static void exportScheduleOverview(Schedule schedule, File file) throws IOException {
+  public static void exportScheduleOverview(Schedule schedule, Path output) throws IOException {
     final XSSFWorkbook workbook = new XSSFWorkbook();
     final XSSFSheet sheet = workbook.createSheet();
     final XSSFDataFormat format = workbook.createDataFormat();
@@ -200,7 +198,7 @@ public class XSSF {
     IntStream.range(0, columnOffset + schedule.getServers().size() - 1)
         .forEach(sheet::autoSizeColumn);
 
-    workbook.write(Files.newOutputStream(file.toPath()));
+    workbook.write(Files.newOutputStream(output));
     workbook.close();
   }
 

@@ -3,6 +3,7 @@ package org.altarplanner.core.domain.mass;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -22,7 +23,7 @@ public class RegularMass extends BaseMass implements TemplateMass, Comparable<Re
   public RegularMass() {
     this.day = DayOfWeek.SUNDAY;
     this.time = LocalTime.of(11, 0);
-    this.serviceTypeCounts = Map.of();
+    this.serviceTypeCounts = new HashMap<>();
   }
 
   @XmlAttribute

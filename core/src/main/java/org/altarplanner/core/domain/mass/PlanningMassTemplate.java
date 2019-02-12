@@ -2,6 +2,7 @@ package org.altarplanner.core.domain.mass;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -13,12 +14,12 @@ public class PlanningMassTemplate extends DatedMass implements TemplateMass {
   protected Map<ServiceType, Integer> serviceTypeCounts;
 
   public PlanningMassTemplate() {
-    this.serviceTypeCounts = Map.of();
+    this.serviceTypeCounts = new HashMap<>();
   }
 
   public PlanningMassTemplate(RegularMass regularMass, LocalDate date) {
     super(regularMass, LocalDateTime.of(date, regularMass.time));
-    this.serviceTypeCounts = Map.copyOf(regularMass.serviceTypeCounts);
+    this.serviceTypeCounts = new HashMap<>(regularMass.serviceTypeCounts);
   }
 
   @XmlJavaTypeAdapter(ServiceTypeCountsXmlAdapter.class)

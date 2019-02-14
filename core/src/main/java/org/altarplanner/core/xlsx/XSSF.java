@@ -36,16 +36,19 @@ public class XSSF {
       throws IOException {
     try (final var workbook = new XSSFWorkbook()) {
       final var sheet = workbook.createSheet();
+      final var format = workbook.createDataFormat();
 
       final var topOpenCellStyle = workbook.createCellStyle();
       topOpenCellStyle.setBorderLeft(BorderStyle.THIN);
       topOpenCellStyle.setBorderRight(BorderStyle.THIN);
       topOpenCellStyle.setBorderBottom(BorderStyle.THIN);
 
-      final var bottomOpenCellStyle = workbook.createCellStyle();
-      bottomOpenCellStyle.setBorderTop(BorderStyle.THIN);
-      bottomOpenCellStyle.setBorderLeft(BorderStyle.THIN);
-      bottomOpenCellStyle.setBorderRight(BorderStyle.THIN);
+      final var dateTimeCellStyle = workbook.createCellStyle();
+      dateTimeCellStyle.setBorderTop(BorderStyle.THIN);
+      dateTimeCellStyle.setBorderLeft(BorderStyle.THIN);
+      dateTimeCellStyle.setBorderRight(BorderStyle.THIN);
+      dateTimeCellStyle.setDataFormat(format.getFormat("NN, YYYY-MM-DD HH:MM"));
+      dateTimeCellStyle.setAlignment(HorizontalAlignment.LEFT);
 
       final var topBottomOpenCellStyle = workbook.createCellStyle();
       topBottomOpenCellStyle.setBorderLeft(BorderStyle.THIN);
@@ -89,9 +92,10 @@ public class XSSF {
                 rowIndex++;
 
                 final var dateTimeCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
-                dateTimeCell.setCellValue(
-                    mass.getDateTime().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
-                dateTimeCell.setCellStyle(bottomOpenCellStyle);
+                final var date =
+                    Date.from(mass.getDateTime().atZone(ZoneId.systemDefault()).toInstant());
+                dateTimeCell.setCellValue(date);
+                dateTimeCell.setCellStyle(dateTimeCellStyle);
 
                 final var churchFormCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
                 churchFormCell.setCellValue(mass.getChurch() + " - " + mass.getForm());
@@ -132,6 +136,7 @@ public class XSSF {
       final var isoLocalDateTimeWithoutSecondsCellStyle = workbook.createCellStyle();
       isoLocalDateTimeWithoutSecondsCellStyle.setDataFormat(
           format.getFormat("NN, YYYY-MM-DD HH:MM"));
+      isoLocalDateTimeWithoutSecondsCellStyle.setAlignment(HorizontalAlignment.LEFT);
 
       final int rowOffset = 3;
       final int columnOffset = 2;

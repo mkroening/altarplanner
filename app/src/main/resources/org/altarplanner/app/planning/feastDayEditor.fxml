@@ -7,25 +7,22 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<?import javafx.scene.layout.Pane?>
-<VBox fx:controller="org.altarplanner.app.planning.FeastDayEditor"
-      minHeight="-Infinity" minWidth="-Infinity"
-      xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.altarplanner.app.planning.FeastDayEditor">
     <ToolBar>
-        <Button mnemonicParsing="false" text="%general.button.add" onAction="#addFeastDay"/>
-        <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeFeastDay"/>
-        <Pane HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" text="%feastDayEditor.button.applyAndClose" onAction="#applyAndClose"/>
+        <Button mnemonicParsing="false" onAction="#addFeastDay" text="%general.button.add" />
+        <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeFeastDay" text="%general.button.remove" />
+        <Pane HBox.hgrow="ALWAYS" />
+        <Button mnemonicParsing="false" onAction="#applyAndClose" text="%feastDayEditor.button.applyAndClose" />
     </ToolBar>
     <HBox alignment="CENTER_LEFT" spacing="10.0">
         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </padding>
-        <Label minWidth="-Infinity" text="%feastDayEditor.label.feastDay"/>
-        <DatePicker fx:id="datePicker"/>
+        <Label minWidth="-Infinity" text="%feastDayEditor.label.feastDay" />
+        <DatePicker fx:id="datePicker" />
     </HBox>
-    <ListView fx:id="feastDayListView" VBox.vgrow="SOMETIMES" prefHeight="200"/>
+    <ListView fx:id="feastDayListView" prefHeight="200" VBox.vgrow="SOMETIMES" />
 </VBox>

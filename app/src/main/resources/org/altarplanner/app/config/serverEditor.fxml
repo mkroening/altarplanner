@@ -1,71 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.CheckComboBox?>
-<VBox minHeight="-Infinity" minWidth="-Infinity"
-      xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.altarplanner.app.config.ServerEditor">
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.altarplanner.app.config.ServerEditor">
     <ToolBar>
-        <Button mnemonicParsing="false" text="%general.button.add" onAction="#addServer"/>
-        <Button fx:id="removeButton" mnemonicParsing="false" text="%general.button.remove" onAction="#removeServer"/>
-        <Button mnemonicParsing="false" text="%general.button.import" onAction="#importServers"/>
-        <Pane HBox.hgrow="SOMETIMES"/>
-        <Button mnemonicParsing="false" text="%configuration.button.saveAndBack" onAction="#saveAndBack"/>
+        <Button mnemonicParsing="false" onAction="#addServer" text="%general.button.add" />
+        <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeServer" text="%general.button.remove" />
+        <Button mnemonicParsing="false" onAction="#importServers" text="%general.button.import" />
+        <Pane HBox.hgrow="SOMETIMES" />
+        <Button mnemonicParsing="false" onAction="#saveAndBack" text="%configuration.button.saveAndBack" />
     </ToolBar>
     <SplitPane dividerPositions="0.3" VBox.vgrow="SOMETIMES">
-        <ListView fx:id="serverListView"/>
+        <ListView fx:id="serverListView" />
         <VBox>
             <GridPane hgap="10.0" vgap="10.0">
                 <columnConstraints>
-                    <ColumnConstraints minWidth="-Infinity"/>
-                    <ColumnConstraints hgrow="SOMETIMES"/>
+                    <ColumnConstraints minWidth="-Infinity" />
+                    <ColumnConstraints hgrow="SOMETIMES" />
                 </columnConstraints>
-                <Label text="%serverEditor.label.surname"/>
-                <TextField fx:id="surnameTextField" GridPane.columnIndex="1"/>
-                <Label text="%serverEditor.label.forename" GridPane.rowIndex="1"/>
-                <TextField fx:id="forenameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <Label text="%serverEditor.label.year" GridPane.rowIndex="2"/>
-                <TextField fx:id="yearTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="%serverEditor.label.surname" />
+                <TextField fx:id="surnameTextField" GridPane.columnIndex="1" />
+                <Label text="%serverEditor.label.forename" GridPane.rowIndex="1" />
+                <TextField fx:id="forenameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="%serverEditor.label.year" GridPane.rowIndex="2" />
+                <TextField fx:id="yearTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Label text="%serverEditor.label.weeklyAbsences" GridPane.rowIndex="3"/>
-                <CheckComboBox fx:id="weeklyAbsencesCheckComboBox" prefWidth="${surnameTextField.width}"
-                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <CheckComboBox fx:id="weeklyAbsencesCheckComboBox" prefWidth="${surnameTextField.width}" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                 <Label text="%serverEditor.label.pairedWith" GridPane.rowIndex="4"/>
-                <CheckComboBox fx:id="pairedWithCheckComboBox" prefWidth="${surnameTextField.width}"
-                               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <CheckComboBox fx:id="pairedWithCheckComboBox" prefWidth="${surnameTextField.width}" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                 <Label text="%serverEditor.label.inabilities" GridPane.rowIndex="5"/>
-                <CheckComboBox fx:id="inabilitiesCheckComboBox" prefWidth="${surnameTextField.width}"
-                               GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <CheckComboBox fx:id="inabilitiesCheckComboBox" prefWidth="${surnameTextField.width}" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                 <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
             <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="SOMETIMES">
                 <Tab fx:id="absencesTab" text="%serverEditor.tab.absences">
                     <VBox prefHeight="250">
                         <ToolBar>
-                            <Button fx:id="addAbsenceButton" mnemonicParsing="false" text="%general.button.add" onAction="#addAbsence"/>
-                            <Button fx:id="removeAbsenceButton" mnemonicParsing="false" text="%general.button.remove"
-                                    onAction="#removeAbsence"/>
+                            <Button fx:id="addAbsenceButton" mnemonicParsing="false" onAction="#addAbsence" text="%general.button.add" />
+                            <Button fx:id="removeAbsenceButton" mnemonicParsing="false" onAction="#removeAbsence" text="%general.button.remove" />
                         </ToolBar>
-                        <HBox spacing="10.0" alignment="CENTER_LEFT">
-                            <Label text="%general.label.start" minWidth="-Infinity"/>
-                            <DatePicker fx:id="absenceStartDatePicker"/>
-                            <Label text="%general.label.end" minWidth="-Infinity"/>
-                            <DatePicker fx:id="absenceEndDatePicker"/>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <Label minWidth="-Infinity" text="%general.label.start" />
+                            <DatePicker fx:id="absenceStartDatePicker" />
+                            <Label minWidth="-Infinity" text="%general.label.end" />
+                            <DatePicker fx:id="absenceEndDatePicker" />
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                         </HBox>
                         <ListView fx:id="absencesListView" VBox.vgrow="SOMETIMES">
                             <contextMenu>
                                 <ContextMenu fx:id="absencesListViewContextMenu">
                                     <items>
-                                        <MenuItem fx:id="absencesListViewContextMenuItemCut" mnemonicParsing="false" text="%general.menu.cut" onAction="#cutAbsence" />
-                                        <MenuItem fx:id="absencesListViewContextMenuItemCopy" mnemonicParsing="false" text="%general.menu.copy" onAction="#copyAbsence" />
-                                        <MenuItem fx:id="absencesListViewContextMenuItemPaste" mnemonicParsing="false" text="%general.menu.paste" onAction="#pasteAbsence" />
-                                        <MenuItem fx:id="absencesListViewContextMenuItemDelete" mnemonicParsing="false" text="%general.menu.delete" onAction="#removeAbsence" />
+                                        <MenuItem fx:id="absencesListViewContextMenuItemCut" mnemonicParsing="false" onAction="#cutAbsence" text="%general.menu.cut" />
+                                        <MenuItem fx:id="absencesListViewContextMenuItemCopy" mnemonicParsing="false" onAction="#copyAbsence" text="%general.menu.copy" />
+                                        <MenuItem fx:id="absencesListViewContextMenuItemPaste" mnemonicParsing="false" onAction="#pasteAbsence" text="%general.menu.paste" />
+                                        <MenuItem fx:id="absencesListViewContextMenuItemDelete" mnemonicParsing="false" onAction="#removeAbsence" text="%general.menu.delete" />
                                     </items>
                                 </ContextMenu>
                             </contextMenu>
@@ -75,20 +93,19 @@
                 <Tab fx:id="assignmentWishesTab" text="%serverEditor.tab.assignmentWishes">
                     <VBox prefHeight="250">
                         <ToolBar>
-                            <Button mnemonicParsing="false" text="%general.button.add" onAction="#addAssignmentWish"/>
-                            <Button fx:id="removeAssignmentWishButton" mnemonicParsing="false" text="%general.button.remove"
-                                    onAction="#removeAssignmentWish"/>
+                            <Button mnemonicParsing="false" onAction="#addAssignmentWish" text="%general.button.add" />
+                            <Button fx:id="removeAssignmentWishButton" mnemonicParsing="false" onAction="#removeAssignmentWish" text="%general.button.remove" />
                         </ToolBar>
-                        <HBox spacing="10.0" alignment="CENTER_LEFT">
-                            <Label text="%general.label.date" minWidth="-Infinity"/>
-                            <DatePicker fx:id="assignmentWishDatePicker"/>
-                            <Label text="%general.label.time" minWidth="-Infinity"/>
-                            <TextField fx:id="assignmentWishTimeTextField"/>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <Label minWidth="-Infinity" text="%general.label.date" />
+                            <DatePicker fx:id="assignmentWishDatePicker" />
+                            <Label minWidth="-Infinity" text="%general.label.time" />
+                            <TextField fx:id="assignmentWishTimeTextField" />
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                         </HBox>
-                        <ListView fx:id="assignmentWishesListView" VBox.vgrow="SOMETIMES"/>
+                        <ListView fx:id="assignmentWishesListView" VBox.vgrow="SOMETIMES" />
                     </VBox>
                 </Tab>
             </TabPane>

@@ -67,7 +67,9 @@ public class XSSF {
                   .getEndInclusive()
                   .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
       headerCell.setCellStyle(headerCellStyle);
-      sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 * (columns - 1)));
+      if (columns > 1) {
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 * (columns - 1)));
+      }
 
       final List<Integer> columnHeights =
           IntStream.range(0, columns).map(value -> 1).boxed().collect(Collectors.toList());

@@ -36,12 +36,20 @@ public class XSSF {
       throws IOException {
     try (final var workbook = new XSSFWorkbook()) {
       final var sheet = workbook.createSheet();
+
       final var format = workbook.createDataFormat();
 
-      final var topOpenCellStyle = workbook.createCellStyle();
-      topOpenCellStyle.setBorderLeft(BorderStyle.THIN);
-      topOpenCellStyle.setBorderRight(BorderStyle.THIN);
-      topOpenCellStyle.setBorderBottom(BorderStyle.THIN);
+      final var defaultFont = workbook.createFont();
+
+      final var headingFont = workbook.createFont();
+      headingFont.setFontHeightInPoints((short) 18);
+
+      final var boldFont = workbook.createFont();
+      boldFont.setBold(true);
+
+      final var headingCellStyle = workbook.createCellStyle();
+      headingCellStyle.setAlignment(HorizontalAlignment.CENTER);
+      headingCellStyle.setFont(headingFont);
 
       final var dateTimeCellStyle = workbook.createCellStyle();
       dateTimeCellStyle.setBorderTop(BorderStyle.THIN);
@@ -49,13 +57,29 @@ public class XSSF {
       dateTimeCellStyle.setBorderRight(BorderStyle.THIN);
       dateTimeCellStyle.setDataFormat(format.getFormat("NN, YYYY-MM-DD HH:MM"));
       dateTimeCellStyle.setAlignment(HorizontalAlignment.LEFT);
+      dateTimeCellStyle.setFont(boldFont);
+
+      final var churchFormTopOpenCellStyle = workbook.createCellStyle();
+      churchFormTopOpenCellStyle.setBorderLeft(BorderStyle.THIN);
+      churchFormTopOpenCellStyle.setBorderRight(BorderStyle.THIN);
+      churchFormTopOpenCellStyle.setBorderBottom(BorderStyle.THIN);
+      churchFormTopOpenCellStyle.setFont(boldFont);
+
+      final var churchFormTopBottomOpenCellStyle = workbook.createCellStyle();
+      churchFormTopBottomOpenCellStyle.setBorderLeft(BorderStyle.THIN);
+      churchFormTopBottomOpenCellStyle.setBorderRight(BorderStyle.THIN);
+      churchFormTopBottomOpenCellStyle.setFont(boldFont);
 
       final var topBottomOpenCellStyle = workbook.createCellStyle();
       topBottomOpenCellStyle.setBorderLeft(BorderStyle.THIN);
       topBottomOpenCellStyle.setBorderRight(BorderStyle.THIN);
+      topBottomOpenCellStyle.setFont(defaultFont);
 
-      final var headerCellStyle = workbook.createCellStyle();
-      headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
+      final var topOpenCellStyle = workbook.createCellStyle();
+      topOpenCellStyle.setBorderLeft(BorderStyle.THIN);
+      topOpenCellStyle.setBorderRight(BorderStyle.THIN);
+      topOpenCellStyle.setBorderBottom(BorderStyle.THIN);
+      topOpenCellStyle.setFont(defaultFont);
 
       final var headerCell = sheet.createRow(0).createCell(0);
       headerCell.setCellValue(
@@ -69,7 +93,8 @@ public class XSSF {
                   .getPlanningWindow()
                   .getEndInclusive()
                   .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
-      headerCell.setCellStyle(headerCellStyle);
+      headerCell.setCellStyle(headingCellStyle);
+      headerCell.getRow().setHeight((short) (headingFont.getFontHeight() + 82));
       if (columns > 1) {
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 * (columns - 1)));
       }
@@ -99,12 +124,13 @@ public class XSSF {
 
                 final var churchFormCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
                 churchFormCell.setCellValue(mass.getChurch() + " - " + mass.getForm());
-                churchFormCell.setCellStyle(topOpenCellStyle);
+                churchFormCell.setCellStyle(churchFormTopOpenCellStyle);
 
                 if (mass.getAnnotation() != null) {
+                  churchFormCell.setCellStyle(churchFormTopBottomOpenCellStyle);
                   final var annotationCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
                   annotationCell.setCellValue(mass.getAnnotation());
-                  annotationCell.setCellStyle(topOpenCellStyle);
+                  annotationCell.setCellStyle(churchFormTopOpenCellStyle);
                 }
 
                 for (final Service service : mass.getServices()) {

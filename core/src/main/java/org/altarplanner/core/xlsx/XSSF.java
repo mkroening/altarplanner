@@ -133,7 +133,9 @@ public class XSSF {
                   annotationCell.setCellStyle(churchFormTopOpenCellStyle);
                 }
 
-                for (final Service service : mass.getServices()) {
+                final var orderedServices =
+                    mass.getServices().stream().sorted().collect(Collectors.toUnmodifiableList());
+                for (final Service service : orderedServices) {
                   final var serviceCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
                   serviceCell.setCellValue(service.getDesc());
                   serviceCell.setCellStyle(topBottomOpenCellStyle);

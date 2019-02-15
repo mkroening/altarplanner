@@ -5,12 +5,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.ZoneId;
+import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -56,7 +59,14 @@ public class XSSF {
       dateTimeCellStyle.setBorderTop(BorderStyle.THIN);
       dateTimeCellStyle.setBorderLeft(BorderStyle.THIN);
       dateTimeCellStyle.setBorderRight(BorderStyle.THIN);
-      dateTimeCellStyle.setDataFormat(format.getFormat("NN, YYYY-MM-DD HH:MM"));
+      dateTimeCellStyle.setDataFormat(
+          format.getFormat(
+              "NN, "
+                  + DateTimeFormatterBuilder.getLocalizedDateTimePattern(
+                      FormatStyle.SHORT,
+                      FormatStyle.SHORT,
+                      IsoChronology.INSTANCE,
+                      Locale.getDefault())));
       dateTimeCellStyle.setAlignment(HorizontalAlignment.LEFT);
       dateTimeCellStyle.setFont(boldFont);
 

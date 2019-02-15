@@ -35,7 +35,8 @@ public class XSSF {
   public static void exportScheduleCompact(Schedule schedule, Path output, int columns)
       throws IOException {
     try (final var workbook = new XSSFWorkbook()) {
-      final var sheet = workbook.createSheet();
+      final var sheet =
+          workbook.createSheet(Config.RESOURCE_BUNDLE.getString("altarServerSchedule"));
 
       final var format = workbook.createDataFormat();
 
@@ -83,7 +84,8 @@ public class XSSF {
 
       final var headerCell = sheet.createRow(0).createCell(0);
       headerCell.setCellValue(
-          "Altar Plan: "
+          Config.RESOURCE_BUNDLE.getString("altarServerSchedule")
+              + ": "
               + schedule
                   .getPlanningWindow()
                   .getStart()

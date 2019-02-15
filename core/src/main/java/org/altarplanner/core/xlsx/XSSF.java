@@ -5,12 +5,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.ZoneId;
+import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -35,28 +38,64 @@ public class XSSF {
   public static void exportScheduleCompact(Schedule schedule, Path output, int columns)
       throws IOException {
     try (final var workbook = new XSSFWorkbook()) {
-      final var sheet = workbook.createSheet();
+      final var sheet =
+          workbook.createSheet(Config.RESOURCE_BUNDLE.getString("altarServerSchedule"));
+
+      final var format = workbook.createDataFormat();
+
+      final var defaultFont = workbook.createFont();
+
+      final var headingFont = workbook.createFont();
+      headingFont.setFontHeightInPoints((short) 18);
+
+      final var boldFont = workbook.createFont();
+      boldFont.setBold(true);
+
+      final var headingCellStyle = workbook.createCellStyle();
+      headingCellStyle.setAlignment(HorizontalAlignment.CENTER);
+      headingCellStyle.setFont(headingFont);
+
+      final var dateTimeCellStyle = workbook.createCellStyle();
+      dateTimeCellStyle.setBorderTop(BorderStyle.THIN);
+      dateTimeCellStyle.setBorderLeft(BorderStyle.THIN);
+      dateTimeCellStyle.setBorderRight(BorderStyle.THIN);
+      dateTimeCellStyle.setDataFormat(
+          format.getFormat(
+              "NN, "
+                  + DateTimeFormatterBuilder.getLocalizedDateTimePattern(
+                      FormatStyle.SHORT,
+                      FormatStyle.SHORT,
+                      IsoChronology.INSTANCE,
+                      Locale.getDefault())));
+      dateTimeCellStyle.setAlignment(HorizontalAlignment.LEFT);
+      dateTimeCellStyle.setFont(boldFont);
+
+      final var churchFormTopOpenCellStyle = workbook.createCellStyle();
+      churchFormTopOpenCellStyle.setBorderLeft(BorderStyle.THIN);
+      churchFormTopOpenCellStyle.setBorderRight(BorderStyle.THIN);
+      churchFormTopOpenCellStyle.setBorderBottom(BorderStyle.THIN);
+      churchFormTopOpenCellStyle.setFont(boldFont);
+
+      final var churchFormTopBottomOpenCellStyle = workbook.createCellStyle();
+      churchFormTopBottomOpenCellStyle.setBorderLeft(BorderStyle.THIN);
+      churchFormTopBottomOpenCellStyle.setBorderRight(BorderStyle.THIN);
+      churchFormTopBottomOpenCellStyle.setFont(boldFont);
+
+      final var topBottomOpenCellStyle = workbook.createCellStyle();
+      topBottomOpenCellStyle.setBorderLeft(BorderStyle.THIN);
+      topBottomOpenCellStyle.setBorderRight(BorderStyle.THIN);
+      topBottomOpenCellStyle.setFont(defaultFont);
 
       final var topOpenCellStyle = workbook.createCellStyle();
       topOpenCellStyle.setBorderLeft(BorderStyle.THIN);
       topOpenCellStyle.setBorderRight(BorderStyle.THIN);
       topOpenCellStyle.setBorderBottom(BorderStyle.THIN);
-
-      final var bottomOpenCellStyle = workbook.createCellStyle();
-      bottomOpenCellStyle.setBorderTop(BorderStyle.THIN);
-      bottomOpenCellStyle.setBorderLeft(BorderStyle.THIN);
-      bottomOpenCellStyle.setBorderRight(BorderStyle.THIN);
-
-      final var topBottomOpenCellStyle = workbook.createCellStyle();
-      topBottomOpenCellStyle.setBorderLeft(BorderStyle.THIN);
-      topBottomOpenCellStyle.setBorderRight(BorderStyle.THIN);
-
-      final var headerCellStyle = workbook.createCellStyle();
-      headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
+      topOpenCellStyle.setFont(defaultFont);
 
       final var headerCell = sheet.createRow(0).createCell(0);
       headerCell.setCellValue(
-          "Altar Plan: "
+          Config.RESOURCE_BUNDLE.getString("altarServerSchedule")
+              + ": "
               + schedule
                   .getPlanningWindow()
                   .getStart()
@@ -66,8 +105,11 @@ public class XSSF {
                   .getPlanningWindow()
                   .getEndInclusive()
                   .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
-      headerCell.setCellStyle(headerCellStyle);
-      sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 * (columns - 1)));
+      headerCell.setCellStyle(headingCellStyle);
+      headerCell.getRow().setHeight((short) (headingFont.getFontHeight() + 82));
+      if (columns > 1) {
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 * (columns - 1)));
+      }
 
       final List<Integer> columnHeights =
           IntStream.range(0, columns).map(value -> 1).boxed().collect(Collectors.toList());
@@ -87,21 +129,25 @@ public class XSSF {
                 rowIndex++;
 
                 final var dateTimeCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
-                dateTimeCell.setCellValue(
-                    mass.getDateTime().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
-                dateTimeCell.setCellStyle(bottomOpenCellStyle);
+                final var date =
+                    Date.from(mass.getDateTime().atZone(ZoneId.systemDefault()).toInstant());
+                dateTimeCell.setCellValue(date);
+                dateTimeCell.setCellStyle(dateTimeCellStyle);
 
                 final var churchFormCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
                 churchFormCell.setCellValue(mass.getChurch() + " - " + mass.getForm());
-                churchFormCell.setCellStyle(topOpenCellStyle);
+                churchFormCell.setCellStyle(churchFormTopOpenCellStyle);
 
                 if (mass.getAnnotation() != null) {
+                  churchFormCell.setCellStyle(churchFormTopBottomOpenCellStyle);
                   final var annotationCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
                   annotationCell.setCellValue(mass.getAnnotation());
-                  annotationCell.setCellStyle(topOpenCellStyle);
+                  annotationCell.setCellStyle(churchFormTopOpenCellStyle);
                 }
 
-                for (final Service service : mass.getServices()) {
+                final var orderedServices =
+                    mass.getServices().stream().sorted().collect(Collectors.toUnmodifiableList());
+                for (final Service service : orderedServices) {
                   final var serviceCell = sheet.getRow(rowIndex++).createCell(2 * columnIndex);
                   serviceCell.setCellValue(service.getDesc());
                   serviceCell.setCellStyle(topBottomOpenCellStyle);
@@ -130,6 +176,7 @@ public class XSSF {
       final var isoLocalDateTimeWithoutSecondsCellStyle = workbook.createCellStyle();
       isoLocalDateTimeWithoutSecondsCellStyle.setDataFormat(
           format.getFormat("NN, YYYY-MM-DD HH:MM"));
+      isoLocalDateTimeWithoutSecondsCellStyle.setAlignment(HorizontalAlignment.LEFT);
 
       final int rowOffset = 3;
       final int columnOffset = 2;

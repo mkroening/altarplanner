@@ -46,7 +46,7 @@ public class ScheduleExporterXSSF {
     final var textFormatter =
         new TextFormatter<>(
             new IntegerStringConverter(),
-            3,
+            1,
             change -> {
               if (change.getText().matches("[0-9]*")) {
                 return change;

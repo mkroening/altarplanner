@@ -29,10 +29,6 @@ subprojects {
         options.encoding = "UTF-8"
     }
 
-    dependencyLocking {
-        lockAllConfigurations()
-    }
-
     repositories {
         jcenter()
     }

@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies {
         classpath("gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.5")
+        classpath("org.javamodularity:moduleplugin:1.4.1")
     }
 }
 

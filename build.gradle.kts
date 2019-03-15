@@ -13,11 +13,13 @@ buildscript {
     }
     dependencies {
         classpath("gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.5")
+        classpath("org.javamodularity:moduleplugin:1.4.1")
     }
 }
 
 subprojects {
-    apply(plugin = "java-base")
+    apply(plugin = "java")
+    apply(plugin = "org.javamodularity.moduleplugin")
     apply(from = "${project.rootDir}/staticCodeAnalysis.gradle.kts")
 
     configure<JavaPluginConvention> {
@@ -27,10 +29,6 @@ subprojects {
 
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-    }
-
-    dependencyLocking {
-        lockAllConfigurations()
     }
 
     repositories {

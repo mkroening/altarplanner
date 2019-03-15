@@ -1,0 +1,14 @@
+--add-opens
+  java.base/java.lang=org.drools.core
+
+--add-opens
+  java.base/java.util=xstream
+
+--add-opens
+  java.base/java.lang.reflect=xstream
+
+--add-opens
+  java.base/java.text=xstream
+
+--add-opens
+  java.desktop/java.awt.font=xstream

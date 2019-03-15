@@ -141,7 +141,7 @@ public class Launcher extends Application {
       stage.getScene().setRoot(root);
     } else {
       Scene scene = new Scene(root);
-      scene.getStylesheets().add("org/altarplanner/app/style.css");
+      scene.getStylesheets().add(Launcher.class.getResource("style.css").toExternalForm());
       stage.setScene(scene);
     }
     stage.show();

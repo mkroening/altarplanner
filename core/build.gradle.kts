@@ -4,12 +4,25 @@ plugins {
     `java-library`
 }
 
+patchModules.config = listOf(
+        "xmlpull=xpp3_min-1.1.4c.jar"
+)
+
+configurations {
+    "implementation" {
+        exclude(group = "com.sun.xml.bind", module = "jaxb-core")
+        exclude(group = "com.sun.xml.bind", module = "jaxb-impl")
+        exclude(group = "javax.activation", module = "activation")
+        exclude(group = "org.jboss.spec.javax.xml.bind", module = "jboss-jaxb-api_2.3_spec")
+    }
+}
+
 dependencies {
-    api("org.threeten:threeten-extra:+") {
+    api("org.threeten:threeten-extra:1.5.0") {
         because("we use additional date-time classes like LocalDateRange")
     }
 
-    implementation(platform("org.optaplanner:optaplanner-bom:+")) {
+    implementation(platform("org.optaplanner:optaplanner-bom:7.18.0.Final")) {
         because("we depend on optaplanner projects")
     }
 
@@ -35,7 +48,7 @@ dependencies {
         because("we want to use the RI JAXB runtime")
     }
 
-    implementation("com.migesok:jaxb-java-time-adapters:+") {
+    implementation("com.migesok:jaxb-java-time-adapters:1.1.3") {
         because("these JAXB adapters for JSR-310 save us some boilerplate code")
     }
 
@@ -43,11 +56,11 @@ dependencies {
         because("this helps us serialize optaplanner scores")
     }
 
-    implementation("org.apache.poi:poi-ooxml:+") {
+    implementation("org.apache.poi:poi-ooxml:4.0.1") {
         because("we use POI-XSSF to write Excel files")
     }
 
-    testImplementation(enforcedPlatform("org.junit:junit-bom:+")) {
+    testImplementation(enforcedPlatform("org.junit:junit-bom:5.4.0")) {
         because("we use JUnit modules")
     }
 

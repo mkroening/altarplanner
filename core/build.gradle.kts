@@ -4,6 +4,19 @@ plugins {
     `java-library`
 }
 
+patchModules.config = listOf(
+        "xmlpull=xpp3_min-1.1.4c.jar"
+)
+
+configurations {
+    "implementation" {
+        exclude(group = "com.sun.xml.bind", module = "jaxb-core")
+        exclude(group = "com.sun.xml.bind", module = "jaxb-impl")
+        exclude(group = "javax.activation", module = "activation")
+        exclude(group = "org.jboss.spec.javax.xml.bind", module = "jboss-jaxb-api_2.3_spec")
+    }
+}
+
 dependencies {
     api("org.threeten:threeten-extra:1.5.0") {
         because("we use additional date-time classes like LocalDateRange")

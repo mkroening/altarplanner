@@ -58,7 +58,7 @@ dependencies {
         because("we use POI-XSSF to write Excel files")
     }
 
-    testImplementation(enforcedPlatform("org.junit:junit-bom:5.4.0")) {
+    testImplementation(enforcedPlatform("org.junit:junit-bom:5.4.1")) {
         because("we use JUnit modules")
     }
 

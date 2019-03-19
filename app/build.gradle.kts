@@ -9,10 +9,13 @@ patchModules.config = listOf(
         "xmlpull=xpp3_min-1.1.4c.jar"
 )
 
-javafx.modules = listOf(
-        "javafx.controls",
-        "javafx.fxml"
-)
+javafx {
+    version = "12"
+    modules = listOf(
+            "javafx.controls",
+            "javafx.fxml"
+    )
+}
 
 dependencies {
     compile(project(":core")) {

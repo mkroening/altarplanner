@@ -14,22 +14,19 @@ buildscript {
 
 apply(plugin = "checkstyle")
 configure<CheckstyleExtension> {
-    val checkstyleVersion: String by project
-    toolVersion = checkstyleVersion
+    toolVersion = "8.16"
     isIgnoreFailures = true
 }
 
 apply(plugin = "com.github.spotbugs")
 configure<SpotBugsExtension> {
-    val spotBugsVersion: String by project
-    toolVersion = spotBugsVersion
+    toolVersion = "3.1.10"
     isIgnoreFailures = true
 }
 
 apply(plugin = "pmd")
 configure<PmdExtension> {
-    val pmdVersion: String by project
-    toolVersion = pmdVersion
+    toolVersion = "6.10.0"
     ruleSets = listOf()
     ruleSetFiles = files("${project.rootDir}/config/pmd/ruleSet.xml")
     isIgnoreFailures = true

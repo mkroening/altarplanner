@@ -19,8 +19,7 @@ dependencies {
         because("we need the domain, solver and IO implementation of the core project")
     }
 
-    val logbackVersion: String by project
-    compile("ch.qos.logback:logback-classic:$logbackVersion") {
+    compile("ch.qos.logback:logback-classic:1.2.3") {
         because("we require a SLF4J binding for logging")
     }
 

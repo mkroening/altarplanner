@@ -30,13 +30,11 @@ dependencies {
         because("we require a constraint solver")
     }
 
-    val slf4jVersion: String by project
-    implementation("org.slf4j:slf4j-api:$slf4jVersion") {
+    implementation("org.slf4j:slf4j-api:1.7.26") {
         because("we do logging via these interfaces")
     }
 
-    val jaxbVersion: String by project
-    api(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:$jaxbVersion")) {
+    api(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:2.3.2")) {
         because("we depend on official JAXB artifacts")
     }
 
@@ -64,8 +62,7 @@ dependencies {
         because("we use JUnit modules")
     }
 
-    val logbackVersion: String by project
-    testImplementation("ch.qos.logback:logback-classic:$logbackVersion") {
+    testImplementation("ch.qos.logback:logback-classic:1.2.3") {
         because("we use this SLF4J API implementation for logging while testing")
     }
 
@@ -73,8 +70,7 @@ dependencies {
         because("this is used for finding the best algorithm for our domain")
     }
 
-    val freemarkerVersion: String by project
-    testImplementation("org.freemarker:freemarker:$freemarkerVersion") {
+    testImplementation("org.freemarker:freemarker:2.3.28") {
         because("currently the version provided by optaplanner-benchmark can't be resolved, required for benchmark templates")
     }
 

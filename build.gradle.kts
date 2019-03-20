@@ -1,3 +1,6 @@
+import com.github.spotbugs.SpotBugsExtension
+import org.javamodularity.moduleplugin.tasks.PatchModuleExtension
+
 description = "AltarPlanner creates altar server schedules. This project is the multi-project parent."
 
 plugins {
@@ -31,6 +34,11 @@ subprojects {
     }
 
     apply(plugin = "org.javamodularity.moduleplugin")
+    configure<PatchModuleExtension> {
+        config = listOf(
+                "xmlpull=xpp3_min-1.1.4c.jar"
+        )
+    }
 
     apply(plugin = "checkstyle")
     val checkstyleVersion = "8.18"
@@ -41,7 +49,7 @@ subprojects {
 
     apply(plugin = "com.github.spotbugs")
     val spotbugsVersion = "3.1.12"
-    configure<com.github.spotbugs.SpotBugsExtension> {
+    configure<SpotBugsExtension> {
         toolVersion = spotbugsVersion
         isIgnoreFailures = true
     }

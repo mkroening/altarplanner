@@ -5,10 +5,6 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.0.7"
 }
 
-patchModules.config = listOf(
-        "xmlpull=xpp3_min-1.1.4c.jar"
-)
-
 javafx {
     version = "12"
     modules = listOf(

@@ -4,10 +4,6 @@ plugins {
     `java-library`
 }
 
-patchModules.config = listOf(
-        "xmlpull=xpp3_min-1.1.4c.jar"
-)
-
 configurations {
     implementation {
         // Outdated optaplanner-persistence-jaxb dependencies, split package between jaxb.impl and jaxb.core

@@ -1,4 +1,4 @@
-include("core")
-include("app")
+include("altarplanner-core")
+include("altarplanner-app")
 
 rootProject.name = "altarplanner"

@@ -21,6 +21,14 @@ subprojects {
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
     }
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+    dependencies {
+        testImplementation(platform("org.junit:junit-bom:5.4.1"))
+        testImplementation("org.junit.jupiter:junit-jupiter-api")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    }
 
     apply(plugin = "org.javamodularity.moduleplugin")
 

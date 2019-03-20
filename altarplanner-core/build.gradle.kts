@@ -63,10 +63,6 @@ dependencies {
         because("we use POI-XSSF to write Excel files")
     }
 
-    testImplementation(enforcedPlatform("org.junit:junit-bom:5.4.1")) {
-        because("we use JUnit modules")
-    }
-
     testImplementation("ch.qos.logback:logback-classic:1.2.3") {
         because("we use this SLF4J API implementation for logging while testing")
     }
@@ -82,16 +78,4 @@ dependencies {
     testImplementation("org.optaplanner:optaplanner-test") {
         because("we use this JUnit integration to test score rules in DRL")
     }
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api") {
-        because("we require a testing API for writing tests")
-    }
-
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") {
-        because("a test engine implementation is required for running the tests")
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

@@ -9,10 +9,15 @@ patchModules.config = listOf(
 )
 
 configurations {
-    "implementation" {
+    implementation {
+        // Outdated optaplanner-persistence-jaxb dependencies, split package between jaxb.impl and jaxb.core
         exclude(group = "com.sun.xml.bind", module = "jaxb-core")
         exclude(group = "com.sun.xml.bind", module = "jaxb-impl")
+
+        // Outdated optaplanner-persistence-jaxb dependency, split package between activation and jakarta.activation
         exclude(group = "javax.activation", module = "activation")
+
+        // Unnecessary optaplanner-persistence-jaxb dependency
         exclude(group = "org.jboss.spec.javax.xml.bind", module = "jboss-jaxb-api_2.3_spec")
     }
 }

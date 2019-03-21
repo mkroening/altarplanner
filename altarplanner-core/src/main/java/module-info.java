@@ -1,7 +1,7 @@
 module org.altarplanner.core {
+  requires io.github.threetenjaxb.core;
   requires java.xml;
   requires java.xml.bind;
-  requires jaxb.java.time.adapters;
   requires org.optaplanner.core;
   requires org.optaplanner.persistence.jaxb;
   requires org.threeten.extra;

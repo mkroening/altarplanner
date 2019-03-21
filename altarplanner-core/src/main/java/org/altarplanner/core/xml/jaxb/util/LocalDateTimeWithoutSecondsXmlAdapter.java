@@ -1,7 +1,8 @@
 package org.altarplanner.core.xml.jaxb.util;
 
-import com.migesok.jaxb.adapter.javatime.TemporalAccessorXmlAdapter;
 import java.time.LocalDateTime;
+
+import io.github.threetenjaxb.core.TemporalAccessorXmlAdapter;
 import org.altarplanner.core.util.DateTimeFormatterUtil;
 
 public class LocalDateTimeWithoutSecondsXmlAdapter

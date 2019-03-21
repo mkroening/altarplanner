@@ -1,6 +1,5 @@
 package org.altarplanner.core.domain.state;
 
-import com.migesok.jaxb.adapter.javatime.LocalDateXmlAdapter;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +14,8 @@ import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import io.github.threetenjaxb.core.LocalDateXmlAdapter;
 import org.altarplanner.core.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.xml.StrictJAXB;
 import org.threeten.extra.LocalDateRange;

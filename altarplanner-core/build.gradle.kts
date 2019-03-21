@@ -47,7 +47,7 @@ dependencies {
         because("we want to use the RI JAXB runtime")
     }
 
-    implementation("com.migesok:jaxb-java-time-adapters:1.1.3") {
+    implementation("io.github.threeten-jaxb:threeten-jaxb-core:1.2") {
         because("these JAXB adapters for JSR-310 save us some boilerplate code")
     }
 

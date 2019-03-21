@@ -23,7 +23,7 @@ dependencies {
         because("we use additional date-time classes like LocalDateRange")
     }
 
-    implementation(platform("org.optaplanner:optaplanner-bom:7.18.0.Final")) {
+    implementation(platform("org.optaplanner:optaplanner-bom:7.19.0.Final")) {
         because("we depend on optaplanner projects")
     }
 

@@ -1,6 +1,6 @@
 module org.altarplanner.app {
   requires java.xml.bind;
-  requires controlsfx;
+  requires org.controlsfx.controls;
   requires javafx.base;
   requires javafx.controls;
   requires javafx.fxml;

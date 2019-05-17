@@ -6,7 +6,7 @@ plugins {
 }
 
 javafx {
-    version = "12"
+    version = "12.0.1"
     modules = listOf(
             "javafx.controls",
             "javafx.fxml"
@@ -22,7 +22,7 @@ dependencies {
         because("we require a SLF4J binding for logging")
     }
 
-    compile("org.controlsfx:controlsfx:9.0.0") {
+    compile("org.controlsfx:controlsfx:11.0.0") {
         because("we use the CheckComboBox")
     }
 }

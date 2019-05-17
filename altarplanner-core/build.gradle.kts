@@ -23,7 +23,7 @@ dependencies {
         because("we use additional date-time classes like LocalDateRange")
     }
 
-    implementation(platform("org.optaplanner:optaplanner-bom:7.19.0.Final")) {
+    implementation(platform("org.optaplanner:optaplanner-bom:7.21.0.Final")) {
         because("we depend on optaplanner projects")
     }
 
@@ -55,7 +55,7 @@ dependencies {
         because("this helps us serialize optaplanner scores")
     }
 
-    implementation("org.apache.poi:poi-ooxml:4.0.1") {
+    implementation("org.apache.poi:poi-ooxml:4.1.0") {
         because("we use POI-XSSF to write Excel files")
     }
 

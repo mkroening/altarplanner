@@ -5,8 +5,8 @@ description = "AltarPlanner creates altar server schedules. This project is the 
 
 plugins {
     java
-    id("org.javamodularity.moduleplugin") version "1.4.1" apply false
-    id("com.github.spotbugs") version "1.7.1" apply false
+    id("org.javamodularity.moduleplugin") version "1.5.0" apply false
+    id("com.github.spotbugs") version "2.0.0" apply false
     id("com.github.ben-manes.versions") version "0.21.0"
 }
 
@@ -28,7 +28,7 @@ subprojects {
         useJUnitPlatform()
     }
     dependencies {
-        testImplementation(platform("org.junit:junit-bom:5.4.1"))
+        testImplementation(platform("org.junit:junit-bom:5.4.2"))
         testImplementation("org.junit.jupiter:junit-jupiter-api")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     }
@@ -41,7 +41,7 @@ subprojects {
     }
 
     apply(plugin = "checkstyle")
-    val checkstyleVersion = "8.18"
+    val checkstyleVersion = "8.20"
     configure<CheckstyleExtension> {
         toolVersion = checkstyleVersion
         isIgnoreFailures = true
@@ -55,7 +55,7 @@ subprojects {
     }
 
     apply(plugin = "pmd")
-    val pmdVersion = "6.12.0"
+    val pmdVersion = "6.14.0"
     configure<PmdExtension> {
         toolVersion = pmdVersion
         ruleSets = listOf()
@@ -78,7 +78,7 @@ tasks.named<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask>("
     resolutionStrategy {
         componentSelection {
             all {
-                val rejected = listOf("alpha", "beta", "rc", "cr", "m", "preview", "b", "ea")
+                val rejected = listOf("alpha", "beta", "rc", "cr", "m", "preview", "b", "ea", "0.t0")
                         .map { qualifier -> Regex("(?i).*[.-]$qualifier[.\\d-+]*") }
                         .any { it.matches(candidate.version) }
                 if (rejected) {

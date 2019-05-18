@@ -30,9 +30,6 @@ dependencies {
 application {
     mainClassName = "$moduleName/org.altarplanner.app.Launcher"
     applicationDefaultJvmArgs = listOf(
-            "--add-exports", "javafx.base/com.sun.javafx.runtime=controlsfx",
-            "--add-exports", "javafx.base/com.sun.javafx.collections=controlsfx",
-            "--add-exports", "javafx.controls/com.sun.javafx.scene.control=controlsfx",
             "--add-opens", "java.base/java.lang=org.drools.core",
             "--add-opens", "java.base/java.util=xstream",
             "--add-opens", "java.base/java.lang.reflect=xstream",

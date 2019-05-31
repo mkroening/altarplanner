@@ -14,7 +14,7 @@ javafx {
 }
 
 dependencies {
-    compile(project(":altarplanner-core")) {
+    compile(project(":altarplanner-core-planning")) {
         because("we need the domain, solver and IO implementation of the core project")
     }
 

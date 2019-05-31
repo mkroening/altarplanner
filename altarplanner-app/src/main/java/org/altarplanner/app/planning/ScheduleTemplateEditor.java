@@ -25,10 +25,10 @@ import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import javax.xml.bind.UnmarshalException;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.mass.PlanningMassTemplate;
-import org.altarplanner.core.domain.state.ScheduleTemplate;
-import org.altarplanner.core.util.LocalDateRangeUtil;
+import org.altarplanner.core.planning.domain.ServiceType;
+import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
+import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
+import org.altarplanner.core.planning.util.LocalDateRangeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

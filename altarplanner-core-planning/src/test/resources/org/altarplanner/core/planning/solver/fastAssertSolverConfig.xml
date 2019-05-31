@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+    <environmentMode>FAST_ASSERT</environmentMode>
+    <moveThreadCount>2</moveThreadCount>
+
+    <solutionClass>org.altarplanner.core.planning.domain.state.Schedule</solutionClass>
+    <entityClass>org.altarplanner.core.planning.domain.planning.Service</entityClass>
+
+    <scoreDirectorFactory>
+        <scoreDrl>org/altarplanner/core/planning/solver/scoreRules.drl</scoreDrl>
+    </scoreDirectorFactory>
+
+    <termination>
+        <scoreCalculationCountLimit>10000</scoreCalculationCountLimit>
+    </termination>
+
+    <constructionHeuristic/>
+
+    <localSearch/>
+</solver>

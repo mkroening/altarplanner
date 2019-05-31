@@ -9,7 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.ServiceType;
+import org.altarplanner.core.planning.domain.ServiceType;
 
 public class ServiceTypeEditor {
 

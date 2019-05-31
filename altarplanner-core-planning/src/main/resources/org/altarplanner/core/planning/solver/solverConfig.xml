@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+    <moveThreadCount>AUTO</moveThreadCount>
+
+    <solutionClass>org.altarplanner.core.planning.domain.state.Schedule</solutionClass>
+    <entityClass>org.altarplanner.core.planning.domain.planning.Service</entityClass>
+
+    <scoreDirectorFactory>
+        <scoreDrl>org/altarplanner/core/planning/solver/scoreRules.drl</scoreDrl>
+    </scoreDirectorFactory>
+
+    <termination>
+        <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
+    </termination>
+
+    <constructionHeuristic/>
+
+    <localSearch/>
+</solver>

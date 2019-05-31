@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.mass.PlanningMassTemplate;
+import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
 import org.threeten.extra.LocalDateRange;
 
 public class PlanningMassTemplateGenerator {

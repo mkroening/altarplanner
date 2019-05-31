@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plannerBenchmark>
+    <benchmarkDirectory>benchmarks</benchmarkDirectory>
+
+    <inheritedSolverBenchmark>
+        <solver>
+            <solutionClass>org.altarplanner.core.planning.domain.state.Schedule</solutionClass>
+            <entityClass>org.altarplanner.core.planning.domain.planning.Service</entityClass>
+            <scoreDirectorFactory>
+                <scoreDrl>org/altarplanner/core/planning/solver/scoreRules.drl</scoreDrl>
+            </scoreDirectorFactory>
+            <termination>
+                <minutesSpentLimit>5</minutesSpentLimit>
+            </termination>
+        </solver>
+    </inheritedSolverBenchmark>
+
+    <solverBenchmark>
+        <name>Default Config</name>
+        <solver>
+            <constructionHeuristic/>
+            <localSearch/>
+        </solver>
+    </solverBenchmark>
+
+    <solverBenchmark>
+        <name>2 move threads</name>
+        <solver>
+            <moveThreadCount>2</moveThreadCount>
+            <constructionHeuristic/>
+            <localSearch/>
+        </solver>
+    </solverBenchmark>
+
+    <solverBenchmark>
+        <name>4 move threads</name>
+        <solver>
+            <moveThreadCount>4</moveThreadCount>
+            <constructionHeuristic/>
+            <localSearch/>
+        </solver>
+    </solverBenchmark>
+</plannerBenchmark>

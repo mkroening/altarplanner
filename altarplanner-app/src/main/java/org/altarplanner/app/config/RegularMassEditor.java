@@ -23,8 +23,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.domain.ServiceType;
-import org.altarplanner.core.domain.mass.RegularMass;
+import org.altarplanner.core.planning.domain.ServiceType;
+import org.altarplanner.core.planning.domain.mass.RegularMass;
 
 public class RegularMassEditor {
 

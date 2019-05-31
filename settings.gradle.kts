@@ -1,3 +1,3 @@
 rootProject.name = "altarplanner"
-include("altarplanner-core", "altarplanner-app")
+include("altarplanner-core-planning", "altarplanner-app")
 

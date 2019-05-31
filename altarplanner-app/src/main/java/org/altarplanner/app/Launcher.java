@@ -24,10 +24,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.xml.bind.UnmarshalException;
 import org.altarplanner.app.planning.SolverView;
-import org.altarplanner.core.domain.state.Config;
-import org.altarplanner.core.domain.state.Schedule;
-import org.altarplanner.core.domain.state.ScheduleTemplate;
-import org.altarplanner.core.util.LocalDateRangeUtil;
+import org.altarplanner.core.planning.domain.state.Config;
+import org.altarplanner.core.planning.domain.state.Schedule;
+import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
+import org.altarplanner.core.planning.util.LocalDateRangeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

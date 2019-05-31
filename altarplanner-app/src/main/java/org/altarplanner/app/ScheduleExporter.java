@@ -9,8 +9,8 @@ import java.util.Optional;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javax.xml.bind.UnmarshalException;
-import org.altarplanner.core.domain.state.Schedule;
-import org.altarplanner.core.util.LocalDateRangeUtil;
+import org.altarplanner.core.planning.domain.state.Schedule;
+import org.altarplanner.core.planning.util.LocalDateRangeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

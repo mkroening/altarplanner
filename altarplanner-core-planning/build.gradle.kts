@@ -6,14 +6,14 @@ plugins {
 
 configurations {
     implementation {
-        // Outdated optaplanner-persistence-jaxb dependencies, split package between jaxb.impl and jaxb.core
+        // Outdated optaplanner-benchmark dependencies, split package between jaxb.impl and jaxb.core
         exclude(group = "com.sun.xml.bind", module = "jaxb-core")
         exclude(group = "com.sun.xml.bind", module = "jaxb-impl")
 
-        // Outdated optaplanner-persistence-jaxb dependency, split package between activation and jakarta.activation
+        // Outdated optaplanner-benchmark dependency, split package between activation and jakarta.activation
         exclude(group = "javax.activation", module = "activation")
 
-        // Unnecessary optaplanner-persistence-jaxb dependency
+        // Unnecessary optaplanner-benchmark dependency
         exclude(group = "org.jboss.spec.javax.xml.bind", module = "jboss-jaxb-api_2.3_spec")
     }
 }
@@ -35,22 +35,6 @@ dependencies {
         because("we do logging via these interfaces")
     }
 
-    api(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:2.3.2")) {
-        because("we depend on official JAXB artifacts")
-    }
-
-    api("jakarta.xml.bind:jakarta.xml.bind-api") {
-        because("we use the JAXB API for XML Binding")
-    }
-
-    implementation("org.glassfish.jaxb:jaxb-runtime") {
-        because("we want to use the RI JAXB runtime")
-    }
-
-    implementation("io.github.threeten-jaxb:threeten-jaxb-core:1.2") {
-        because("these JAXB adapters for JSR-310 save us some boilerplate code")
-    }
-
     implementation("org.apache.poi:poi-ooxml:4.1.0") {
         because("we use POI-XSSF to write Excel files")
     }
@@ -61,6 +45,18 @@ dependencies {
 
     testImplementation("org.optaplanner:optaplanner-benchmark") {
         because("this is used for finding the best algorithm for our domain")
+    }
+
+    testImplementation(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:2.3.2")) {
+        because("we need to replace the outdated optaplanner-benchmark dependencies")
+    }
+
+    testImplementation("jakarta.xml.bind:jakarta.xml.bind-api") {
+        because("optaplanner-benchmark uses the JAXB API")
+    }
+
+    testRuntime("org.glassfish.jaxb:jaxb-runtime") {
+        because("we let optaplanner-benchmark use the JAXB RI")
     }
 
     testImplementation("org.freemarker:freemarker:2.3.28") {

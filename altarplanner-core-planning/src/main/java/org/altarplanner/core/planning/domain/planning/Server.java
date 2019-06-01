@@ -9,34 +9,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.request.DateOffRequest;
 import org.altarplanner.core.planning.domain.request.DateTimeOnRequest;
 import org.altarplanner.core.planning.domain.request.ServiceTypeOffRequest;
 import org.altarplanner.core.planning.domain.state.Config;
-import org.altarplanner.core.planning.xml.jaxb.util.LocalDateRangeXmlAdapter;
-import org.altarplanner.core.planning.xml.jaxb.util.LocalDateTimeWithoutSecondsXmlAdapter;
 import org.threeten.extra.LocalDateRange;
 
-@XmlType(
-    propOrder = {
-      "surname",
-      "forename",
-      "year",
-      "xmlID",
-      "absences",
-      "dateTimeOnWishes",
-      "weeklyAbsences",
-      "inabilities"
-    })
 public class Server extends AbstractPersistable implements Comparable<Server> {
 
   private String surname;
@@ -51,14 +30,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     this.surname = Config.RESOURCE_BUNDLE.getString("server.surname");
     this.forename = Config.RESOURCE_BUNDLE.getString("server.forename");
   }
-
-  @XmlID
-  @XmlAttribute
-  public String getXmlID() {
-    return surname + "_" + forename + "-" + year;
-  }
-
-  public void setXmlID(String xmlID) {}
 
   public String getDesc() {
     return surname + ", " + forename;
@@ -103,7 +74,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
         .map(dateTime -> new DateTimeOnRequest(this, dateTime));
   }
 
-  @XmlAttribute
   public String getSurname() {
     return surname;
   }
@@ -112,7 +82,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     this.surname = surname;
   }
 
-  @XmlAttribute
   public String getForename() {
     return forename;
   }
@@ -121,7 +90,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     this.forename = forename;
   }
 
-  @XmlAttribute
   public int getYear() {
     return year;
   }
@@ -130,8 +98,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     this.year = year;
   }
 
-  @XmlList
-  @XmlJavaTypeAdapter(LocalDateRangeXmlAdapter.class)
   public List<LocalDateRange> getAbsences() {
     return absences;
   }
@@ -140,7 +106,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     this.absences = absences;
   }
 
-  @XmlList
   public List<DayOfWeek> getWeeklyAbsences() {
     return weeklyAbsences;
   }
@@ -149,9 +114,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     this.weeklyAbsences = weeklyAbsences;
   }
 
-  @XmlIDREF
-  @XmlElementWrapper(name = "inabilities")
-  @XmlElement(name = "inability")
   public List<ServiceType> getInabilities() {
     return inabilities;
   }
@@ -160,8 +122,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
     this.inabilities = inabilities;
   }
 
-  @XmlList
-  @XmlJavaTypeAdapter(LocalDateTimeWithoutSecondsXmlAdapter.class)
   public List<LocalDateTime> getDateTimeOnWishes() {
     return dateTimeOnWishes;
   }
@@ -201,6 +161,6 @@ public class Server extends AbstractPersistable implements Comparable<Server> {
 
   @Override
   public String toString() {
-    return "Server{" + getXmlID() + "}";
+    return "Server{" + surname + "_" + forename + "-" + year + "}";
   }
 }

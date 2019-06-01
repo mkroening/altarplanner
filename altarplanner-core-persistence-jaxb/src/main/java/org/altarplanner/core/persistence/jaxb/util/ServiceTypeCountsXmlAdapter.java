@@ -1,4 +1,4 @@
-package org.altarplanner.core.planning.xml.jaxb.util;
+package org.altarplanner.core.persistence.jaxb.util;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.ServiceTypeXmlAdapter;
 import org.altarplanner.core.planning.domain.ServiceType;
 
 public class ServiceTypeCountsXmlAdapter
@@ -19,7 +21,11 @@ public class ServiceTypeCountsXmlAdapter
   }
 
   public static class Entry {
-    @XmlAttribute @XmlIDREF public ServiceType serviceType;
+    @XmlJavaTypeAdapter(ServiceTypeXmlAdapter.class)
+    @XmlAttribute
+    @XmlIDREF
+    public ServiceType serviceType;
+
     @XmlAttribute public int count;
   }
 

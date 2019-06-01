@@ -1,4 +1,4 @@
-package org.altarplanner.core.planning.xml.jaxb.util;
+package org.altarplanner.core.persistence.jaxb.util;
 
 import java.time.LocalTime;
 

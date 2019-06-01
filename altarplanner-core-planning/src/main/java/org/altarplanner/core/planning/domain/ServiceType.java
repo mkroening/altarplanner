@@ -4,12 +4,8 @@ import java.io.Serializable;
 import java.time.Year;
 import java.util.Comparator;
 import java.util.Objects;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlType;
 import org.altarplanner.core.planning.domain.state.Config;
 
-@XmlType(propOrder = {"name", "maxYear", "minYear", "xmlID"})
 public class ServiceType implements Comparable<ServiceType>, Serializable {
 
   private String name;
@@ -19,14 +15,6 @@ public class ServiceType implements Comparable<ServiceType>, Serializable {
   public ServiceType() {
     this.name = Config.RESOURCE_BUNDLE.getString("serviceType.name");
   }
-
-  @XmlAttribute
-  @XmlID
-  public String getXmlID() {
-    return name + "_" + maxYear + "-" + minYear;
-  }
-
-  public void setXmlID(String xmlID) {}
 
   public String getDesc() {
     return name
@@ -39,7 +27,6 @@ public class ServiceType implements Comparable<ServiceType>, Serializable {
         + ")";
   }
 
-  @XmlAttribute
   public String getName() {
     return name;
   }
@@ -48,7 +35,6 @@ public class ServiceType implements Comparable<ServiceType>, Serializable {
     this.name = name;
   }
 
-  @XmlAttribute
   public int getMaxYear() {
     return maxYear;
   }
@@ -57,7 +43,6 @@ public class ServiceType implements Comparable<ServiceType>, Serializable {
     this.maxYear = maxYear;
   }
 
-  @XmlAttribute
   public int getMinYear() {
     return minYear;
   }
@@ -95,6 +80,6 @@ public class ServiceType implements Comparable<ServiceType>, Serializable {
 
   @Override
   public String toString() {
-    return "ServiceType{" + getXmlID() + "}";
+    return "ServiceType{" + name + "_" + maxYear + "-" + minYear + "}";
   }
 }

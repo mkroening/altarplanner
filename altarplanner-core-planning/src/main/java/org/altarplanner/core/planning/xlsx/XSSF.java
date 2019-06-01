@@ -229,10 +229,18 @@ public class XSSF {
                                 .filter(service -> server.equals(service.getServer()))
                                 .findAny()
                                 .ifPresent(
-                                    service ->
-                                        serverRow
-                                            .createCell(columnOffset + massIndex)
-                                            .setCellValue(service.getType().getXmlID())));
+                                    service -> {
+                                      final var serviceType = service.getType();
+                                      final var serviceString =
+                                          serviceType.getName()
+                                              + "_"
+                                              + serviceType.getMaxYear()
+                                              + "-"
+                                              + serviceType.getMinYear();
+                                      serverRow
+                                          .createCell(columnOffset + massIndex)
+                                          .setCellValue(serviceString);
+                                    }));
               });
 
       sheet.createFreezePane(columnOffset, rowOffset);

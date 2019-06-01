@@ -1,6 +1,9 @@
 package org.altarplanner.core.persistence.jaxb.domain.state;
 
 import io.github.threetenjaxb.core.LocalDateXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.ServiceTypeXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.mass.PlanningMassXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.planning.ServerXmlAdapter;
 import org.altarplanner.core.persistence.jaxb.domain.request.PairRequestXmlAdapter;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.mass.PlanningMass;
@@ -50,6 +53,7 @@ public class ScheduleBean implements Serializable {
 
   @XmlElementWrapper(name = "serviceTypes")
   @XmlElement(name = "serviceType")
+  @XmlJavaTypeAdapter(ServiceTypeXmlAdapter.class)
   public List<ServiceType> getServiceTypes() {
     return serviceTypes;
   }
@@ -60,6 +64,7 @@ public class ScheduleBean implements Serializable {
 
   @XmlElementWrapper(name = "servers")
   @XmlElement(name = "server")
+  @XmlJavaTypeAdapter(ServerXmlAdapter.class)
   public List<Server> getServers() {
     return servers;
   }
@@ -81,6 +86,7 @@ public class ScheduleBean implements Serializable {
 
   @XmlElementWrapper(name = "publishedMasses")
   @XmlElement(name = "planningMass")
+  @XmlJavaTypeAdapter(PlanningMassXmlAdapter.class)
   public List<PlanningMass> getPublishedMasses() {
     return publishedMasses;
   }
@@ -91,6 +97,7 @@ public class ScheduleBean implements Serializable {
 
   @XmlElementWrapper(name = "finalDraftMasses")
   @XmlElement(name = "planningMass")
+  @XmlJavaTypeAdapter(PlanningMassXmlAdapter.class)
   public List<PlanningMass> getFinalDraftMasses() {
     return finalDraftMasses;
   }
@@ -101,6 +108,7 @@ public class ScheduleBean implements Serializable {
 
   @XmlElementWrapper(name = "futureDraftMasses")
   @XmlElement(name = "planningMass")
+  @XmlJavaTypeAdapter(PlanningMassXmlAdapter.class)
   public List<PlanningMass> getFutureDraftMasses() {
     return futureDraftMasses;
   }

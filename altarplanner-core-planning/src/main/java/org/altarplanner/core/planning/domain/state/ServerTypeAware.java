@@ -2,8 +2,6 @@ package org.altarplanner.core.planning.domain.state;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import org.altarplanner.core.planning.domain.ServiceType;
 
 public abstract class ServerTypeAware {
@@ -18,8 +16,6 @@ public abstract class ServerTypeAware {
     this.serviceTypes = other.serviceTypes;
   }
 
-  @XmlElementWrapper(name = "serviceTypes")
-  @XmlElement(name = "serviceType")
   public List<ServiceType> getServiceTypes() {
     return serviceTypes;
   }

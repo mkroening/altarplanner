@@ -1,5 +1,8 @@
 package org.altarplanner.core.persistence.jaxb.domain.state;
 
+import org.altarplanner.core.persistence.jaxb.domain.ServiceTypeXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.mass.RegularMassXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.planning.ServerXmlAdapter;
 import org.altarplanner.core.persistence.jaxb.domain.request.PairRequestXmlAdapter;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.mass.RegularMass;
@@ -27,6 +30,7 @@ public class ConfigBean implements Serializable {
 
   @XmlElementWrapper(name = "serviceTypes")
   @XmlElement(name = "serviceType")
+  @XmlJavaTypeAdapter(ServiceTypeXmlAdapter.class)
   public List<ServiceType> getServiceTypes() {
     return serviceTypes;
   }
@@ -37,6 +41,7 @@ public class ConfigBean implements Serializable {
 
   @XmlElementWrapper(name = "servers")
   @XmlElement(name = "server")
+  @XmlJavaTypeAdapter(ServerXmlAdapter.class)
   public List<Server> getServers() {
     return servers;
   }
@@ -58,6 +63,7 @@ public class ConfigBean implements Serializable {
 
   @XmlElementWrapper(name = "regularMasses")
   @XmlElement(name = "regularMass")
+  @XmlJavaTypeAdapter(RegularMassXmlAdapter.class)
   public List<RegularMass> getRegularMasses() {
     return regularMasses;
   }

@@ -1,7 +1,4 @@
 module org.altarplanner.core.planning {
-  requires io.github.threetenjaxb.core;
-  requires java.xml;
-  requires java.xml.bind;
   requires transitive org.optaplanner.core;
   requires org.threeten.extra;
   requires poi;
@@ -17,9 +14,7 @@ module org.altarplanner.core.planning {
   exports org.altarplanner.core.planning.util;
   exports org.altarplanner.core.planning.xlsx;
 
-  exports org.altarplanner.core.planning.xml.jaxb.util to com.sun.xml.bind;
-
-  opens org.altarplanner.core.planning.domain.state to java.xml.bind, org.optaplanner.core;
+  opens org.altarplanner.core.planning.domain.state to org.optaplanner.core;
   opens org.altarplanner.core.planning.domain.mass to org.optaplanner.core;
   opens org.altarplanner.core.planning.domain.planning to org.optaplanner.core;
   opens org.altarplanner.core.planning.solver;

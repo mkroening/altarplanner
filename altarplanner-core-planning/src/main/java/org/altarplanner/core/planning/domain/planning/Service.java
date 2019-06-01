@@ -4,10 +4,6 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlIDREF;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.mass.PlanningMass;
 import org.altarplanner.core.planning.solver.ServerStrengthWeightFactory;
@@ -17,7 +13,6 @@ import org.optaplanner.core.api.domain.entity.PlanningPin;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 @PlanningEntity(difficultyWeightFactoryClass = ServiceDifficultyWeightFactory.class)
-@XmlType(propOrder = {"type", "server"})
 public class Service extends AbstractPersistable implements Comparable<Service> {
 
   private PlanningMass mass;
@@ -43,7 +38,6 @@ public class Service extends AbstractPersistable implements Comparable<Service> 
         + ")";
   }
 
-  @XmlTransient
   public PlanningMass getMass() {
     return mass;
   }
@@ -52,8 +46,6 @@ public class Service extends AbstractPersistable implements Comparable<Service> 
     this.mass = mass;
   }
 
-  @XmlIDREF
-  @XmlAttribute
   public ServiceType getType() {
     return type;
   }
@@ -62,8 +54,6 @@ public class Service extends AbstractPersistable implements Comparable<Service> 
     this.type = type;
   }
 
-  @XmlIDREF
-  @XmlAttribute
   @PlanningVariable(
       valueRangeProviderRefs = {"serverRange"},
       strengthWeightFactoryClass = ServerStrengthWeightFactory.class)

@@ -1,6 +1,8 @@
 package org.altarplanner.core.persistence.jaxb.domain.state;
 
 import io.github.threetenjaxb.core.LocalDateXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.ServiceTypeXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.mass.PlanningMassTemplateXmlAdapter;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
 
@@ -25,6 +27,7 @@ public class ScheduleTemplateBean implements Serializable {
 
     @XmlElementWrapper(name = "serviceTypes")
     @XmlElement(name = "serviceType")
+    @XmlJavaTypeAdapter(ServiceTypeXmlAdapter.class)
     public List<ServiceType> getServiceTypes() {
         return serviceTypes;
     }
@@ -35,6 +38,7 @@ public class ScheduleTemplateBean implements Serializable {
 
     @XmlElementWrapper(name = "planningMassTemplates")
     @XmlElement(name = "planningMassTemplate")
+    @XmlJavaTypeAdapter(PlanningMassTemplateXmlAdapter.class)
     public List<PlanningMassTemplate> getPlanningMassTemplates() {
         return planningMassTemplates;
     }

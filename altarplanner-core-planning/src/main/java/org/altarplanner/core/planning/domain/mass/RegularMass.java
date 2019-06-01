@@ -6,11 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.altarplanner.core.planning.domain.ServiceType;
-import org.altarplanner.core.planning.xml.jaxb.util.LocalTimeWithoutSecondsXmlAdapter;
-import org.altarplanner.core.planning.xml.jaxb.util.ServiceTypeCountsXmlAdapter;
 
 public class RegularMass extends BaseMass implements TemplateMass, Comparable<RegularMass> {
 
@@ -26,7 +22,6 @@ public class RegularMass extends BaseMass implements TemplateMass, Comparable<Re
     this.serviceTypeCounts = new HashMap<>();
   }
 
-  @XmlAttribute
   public DayOfWeek getDay() {
     return day;
   }
@@ -35,8 +30,6 @@ public class RegularMass extends BaseMass implements TemplateMass, Comparable<Re
     this.day = day;
   }
 
-  @XmlJavaTypeAdapter(LocalTimeWithoutSecondsXmlAdapter.class)
-  @XmlAttribute
   public LocalTime getTime() {
     return time;
   }
@@ -45,7 +38,6 @@ public class RegularMass extends BaseMass implements TemplateMass, Comparable<Re
     this.time = time;
   }
 
-  @XmlJavaTypeAdapter(ServiceTypeCountsXmlAdapter.class)
   @Override
   public Map<ServiceType, Integer> getServiceTypeCounts() {
     return serviceTypeCounts;

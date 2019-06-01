@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.altarplanner.core.planning.domain.ServiceType;
-import org.altarplanner.core.planning.xml.jaxb.util.ServiceTypeCountsXmlAdapter;
 
 public class PlanningMassTemplate extends DatedMass implements TemplateMass {
 
@@ -22,7 +20,6 @@ public class PlanningMassTemplate extends DatedMass implements TemplateMass {
     this.serviceTypeCounts = new HashMap<>(regularMass.serviceTypeCounts);
   }
 
-  @XmlJavaTypeAdapter(ServiceTypeCountsXmlAdapter.class)
   @Override
   public Map<ServiceType, Integer> getServiceTypeCounts() {
     return serviceTypeCounts;

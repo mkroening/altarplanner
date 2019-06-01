@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlTransient;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.planning.Service;
 import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
@@ -35,8 +32,6 @@ public class PlanningMass extends DatedMass {
     this.pinned = false;
   }
 
-  @XmlElementWrapper(name = "services")
-  @XmlElement(name = "service")
   public List<Service> getServices() {
     return services;
   }
@@ -50,7 +45,6 @@ public class PlanningMass extends DatedMass {
    *
    * @return true if the mass is pinned (no changes allowed)
    */
-  @XmlTransient
   public boolean isPinned() {
     return pinned;
   }

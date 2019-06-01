@@ -1,7 +1,6 @@
 package org.altarplanner.core.planning.domain.planning;
 
 import java.io.Serializable;
-import javax.xml.bind.annotation.XmlTransient;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 public abstract class AbstractPersistable implements Serializable {
@@ -11,7 +10,6 @@ public abstract class AbstractPersistable implements Serializable {
   protected AbstractPersistable() {}
 
   @PlanningId
-  @XmlTransient
   public Integer getPlanningId() {
     return planningId;
   }

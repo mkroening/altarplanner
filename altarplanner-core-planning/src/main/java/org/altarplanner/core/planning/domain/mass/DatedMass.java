@@ -5,9 +5,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.Objects;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.altarplanner.core.planning.xml.jaxb.util.LocalDateTimeWithoutSecondsXmlAdapter;
 
 public abstract class DatedMass extends BaseMass implements Comparable<DatedMass> {
 
@@ -26,8 +23,6 @@ public abstract class DatedMass extends BaseMass implements Comparable<DatedMass
     this(datedMass, datedMass.dateTime);
   }
 
-  @XmlJavaTypeAdapter(LocalDateTimeWithoutSecondsXmlAdapter.class)
-  @XmlAttribute
   public LocalDateTime getDateTime() {
     return dateTime;
   }

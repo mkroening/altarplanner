@@ -23,12 +23,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshalException;
 import org.altarplanner.app.planning.SolverView;
 import org.altarplanner.core.persistence.jaxb.JAXB;
 import org.altarplanner.core.planning.domain.state.Config;
 import org.altarplanner.core.planning.domain.state.Schedule;
-import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
 import org.altarplanner.core.planning.util.LocalDateRangeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -206,7 +204,7 @@ public class Launcher extends Application {
 
       final Schedule createdSchedule;
       if (lastScheduleFile != null) {
-        final Schedule lastSchedule = Schedule.unmarshal(lastScheduleFile.toPath());
+        final Schedule lastSchedule = JAXB.unmarshalSchedule(lastScheduleFile.toPath());
         createdSchedule = new Schedule(scheduleTemplate, lastSchedule, CONFIG);
         LOGGER.info("Last Schedule has been loaded from {}", lastScheduleFile);
       } else {
@@ -231,7 +229,7 @@ public class Launcher extends Application {
       final File createdScheduleFile = createdScheduleFileChooser.showSaveDialog(primaryStage);
 
       if (createdScheduleFile != null) {
-        createdSchedule.marshal(createdScheduleFile.toPath());
+        JAXB.marshalSchedule(createdSchedule, createdScheduleFile.toPath());
         LOGGER.info("Schedule has been saved as {}", createdScheduleFile);
       } else {
         LOGGER.info("Schedule has not been saved, because no file has been selected");
@@ -242,7 +240,7 @@ public class Launcher extends Application {
   }
 
   @FXML
-  private void planSchedule() throws IOException, UnmarshalException {
+  private void planSchedule() throws IOException, JAXBException {
     final FileChooser lastScheduleFileChooser = new FileChooser();
     lastScheduleFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openSchedule"));
     lastScheduleFileChooser
@@ -254,7 +252,7 @@ public class Launcher extends Application {
     final File scheduleFile = lastScheduleFileChooser.showOpenDialog(primaryStage);
 
     if (scheduleFile != null) {
-      final Schedule schedule = Schedule.unmarshal(scheduleFile.toPath());
+      final Schedule schedule = JAXB.unmarshalSchedule(scheduleFile.toPath());
       LOGGER.info("Schedule has been loaded from {}", scheduleFile);
       loadParent(
           "planning/solverView.fxml",
@@ -266,7 +264,7 @@ public class Launcher extends Application {
   }
 
   @FXML
-  private void exportSchedule() throws IOException, UnmarshalException {
+  private void exportSchedule() throws IOException, JAXBException {
     ScheduleExporter.exportSchedule(primaryStage);
   }
 }

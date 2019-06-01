@@ -2,8 +2,7 @@ module org.altarplanner.core.planning {
   requires io.github.threetenjaxb.core;
   requires java.xml;
   requires java.xml.bind;
-  requires org.optaplanner.core;
-  requires org.optaplanner.persistence.jaxb;
+  requires transitive org.optaplanner.core;
   requires org.threeten.extra;
   requires poi;
   requires poi.ooxml;

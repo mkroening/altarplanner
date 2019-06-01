@@ -7,7 +7,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
+import javax.xml.bind.JAXBException;
 import org.altarplanner.app.Launcher;
+import org.altarplanner.core.persistence.jaxb.JAXB;
 import org.altarplanner.core.planning.domain.state.Schedule;
 import org.altarplanner.core.planning.solver.ScheduleSolver;
 import org.altarplanner.core.planning.util.LocalDateRangeUtil;
@@ -52,13 +54,13 @@ public class SolverView {
 
       File selectedFile = fileChooser.showSaveDialog(scoreLabel.getParent().getScene().getWindow());
       if (selectedFile != null) {
-        schedule.marshal(selectedFile.toPath());
+        JAXB.marshalSchedule(schedule, selectedFile.toPath());
         LOGGER.info("Schedule has been saved as {}", selectedFile);
         Launcher.loadParent("launcher.fxml", true);
       } else {
         LOGGER.info("Schedule has not been saved, because no file has been selected");
       }
-    } catch (IOException e) {
+    } catch (IOException | JAXBException e) {
       e.printStackTrace();
     }
   }

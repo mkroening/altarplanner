@@ -36,8 +36,8 @@ class XmlInconsistencyTests {
     final var schedule = new Schedule(scheduleTemplate, config);
 
     final var schedulePath = Files.createTempFile(null, null);
-    schedule.marshal(schedulePath);
-    Schedule.unmarshal(schedulePath);
+    JAXB.marshalSchedule(schedule, schedulePath);
+    JAXB.unmarshalSchedule(schedulePath);
   }
 
   @Test
@@ -46,7 +46,7 @@ class XmlInconsistencyTests {
     config.setPairs(List.of());
     config.setServers(List.of());
 
-    final var pastSchedule = Schedule.unmarshal(EXPECTED_INITIALIZED_SCHEDULE);
+    final var pastSchedule = JAXB.unmarshalSchedule(EXPECTED_INITIALIZED_SCHEDULE);
 
     final var planningMassTemplate = new PlanningMassTemplate();
     planningMassTemplate.setDateTime(
@@ -56,8 +56,8 @@ class XmlInconsistencyTests {
     final var schedule = new Schedule(scheduleTemplate, pastSchedule, config);
 
     final var schedulePath = Files.createTempFile(null, null);
-    schedule.marshal(schedulePath);
-    Schedule.unmarshal(schedulePath);
+    JAXB.marshalSchedule(schedule, schedulePath);
+    JAXB.unmarshalSchedule(schedulePath);
   }
 
   @Test
@@ -66,7 +66,7 @@ class XmlInconsistencyTests {
     config.setPairs(List.of());
     config.setServers(config.getServers().subList(0, config.getServers().size() / 2));
 
-    final var pastSchedule = Schedule.unmarshal(EXPECTED_INITIALIZED_SCHEDULE);
+    final var pastSchedule = JAXB.unmarshalSchedule(EXPECTED_INITIALIZED_SCHEDULE);
 
     final var planningMassTemplate = new PlanningMassTemplate();
     planningMassTemplate.setDateTime(
@@ -76,7 +76,7 @@ class XmlInconsistencyTests {
     final var schedule = new Schedule(scheduleTemplate, pastSchedule, config);
 
     final var schedulePath = Files.createTempFile(null, null);
-    schedule.marshal(schedulePath);
-    Schedule.unmarshal(schedulePath);
+    JAXB.marshalSchedule(schedule, schedulePath);
+    JAXB.unmarshalSchedule(schedulePath);
   }
 }

@@ -1,7 +1,6 @@
 package org.altarplanner.core.planning.domain.state;
 
 import java.io.Serializable;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -13,15 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import javax.xml.bind.UnmarshalException;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import io.github.threetenjaxb.core.LocalDateXmlAdapter;
 import org.altarplanner.core.planning.domain.mass.PlanningMass;
 import org.altarplanner.core.planning.domain.planning.AbstractPersistable;
 import org.altarplanner.core.planning.domain.planning.Server;
@@ -30,20 +21,15 @@ import org.altarplanner.core.planning.domain.request.DateOffRequest;
 import org.altarplanner.core.planning.domain.request.DateTimeOnRequest;
 import org.altarplanner.core.planning.domain.request.PairRequest;
 import org.altarplanner.core.planning.domain.request.ServiceTypeOffRequest;
-import org.altarplanner.core.planning.xml.StrictJAXB;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
-import org.optaplanner.persistence.jaxb.api.score.buildin.hardsoft.HardSoftScoreJaxbXmlAdapter;
 import org.threeten.extra.LocalDateRange;
 
 @PlanningSolution
-@XmlRootElement
-@XmlType(
-    propOrder = {"publishedMasses", "finalDraftMasses", "futureDraftMasses", "feastDays", "score"})
 public class Schedule extends ServerAware implements FeastDayAware, Serializable {
 
   private List<PlanningMass> publishedMasses;
@@ -73,8 +59,8 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
             .map(PlanningMass::new)
             .collect(Collectors.toUnmodifiableList());
     this.feastDays = scheduleTemplate.getFeastDays();
-    setPlanningIds();
-    setPinned();
+    updatePlanningIds();
+    updateMassIsPinned();
     setServiceTypes();
   }
 
@@ -115,26 +101,16 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
         this.futureDraftMasses = List.of();
       }
     }
-    setPlanningIds();
-    setPinned();
+    updatePlanningIds();
+    updateMassIsPinned();
     setServiceTypes();
   }
 
-  public static Schedule unmarshal(Path input) throws UnmarshalException {
-    Schedule unmarshalled = StrictJAXB.unmarshal(input, Schedule.class);
-    unmarshalled
-        .getAllMasses()
-        .forEach(mass -> mass.getServices().forEach(service -> service.setMass(mass)));
-    unmarshalled.setPlanningIds();
-    unmarshalled.setPinned();
-    return unmarshalled;
+  public void updateServiceMassReferences() {
+    getAllMasses().forEach(mass -> mass.getServices().forEach(service -> service.setMass(mass)));
   }
 
-  public void marshal(Path output) {
-    StrictJAXB.marshal(this, output);
-  }
-
-  private void setPlanningIds() {
+  public void updatePlanningIds() {
     final List<List<? extends AbstractPersistable>> abstractPersistableLists =
         List.of(getServices(), getServers());
     abstractPersistableLists.forEach(
@@ -142,7 +118,7 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
             IntStream.range(0, list.size()).forEach(index -> list.get(index).setPlanningId(index)));
   }
 
-  private void setPinned() {
+  public void updateMassIsPinned() {
     publishedMasses.forEach(mass -> mass.setPinned(true));
     finalDraftMasses.forEach(mass -> mass.setPinned(false));
     futureDraftMasses.forEach(mass -> mass.setPinned(false));
@@ -235,8 +211,6 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
     return super.getPairs();
   }
 
-  @XmlElementWrapper(name = "publishedMasses")
-  @XmlElement(name = "planningMass")
   public List<PlanningMass> getPublishedMasses() {
     return publishedMasses;
   }
@@ -245,8 +219,6 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
     this.publishedMasses = publishedMasses;
   }
 
-  @XmlElementWrapper(name = "finalDraftMasses")
-  @XmlElement(name = "planningMass")
   public List<PlanningMass> getFinalDraftMasses() {
     return finalDraftMasses;
   }
@@ -255,8 +227,6 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
     this.finalDraftMasses = finalDraftMasses;
   }
 
-  @XmlElementWrapper(name = "futureDraftMasses")
-  @XmlElement(name = "planningMass")
   public List<PlanningMass> getFutureDraftMasses() {
     return futureDraftMasses;
   }
@@ -265,8 +235,6 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
     this.futureDraftMasses = futureDraftMasses;
   }
 
-  @XmlList
-  @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
   public List<LocalDate> getFeastDays() {
     return feastDays;
   }
@@ -275,7 +243,6 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
     this.feastDays = feastDays;
   }
 
-  @XmlJavaTypeAdapter(HardSoftScoreJaxbXmlAdapter.class)
   public HardSoftScore getScore() {
     return score;
   }

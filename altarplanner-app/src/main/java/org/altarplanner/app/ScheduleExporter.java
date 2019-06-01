@@ -8,7 +8,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import javax.xml.bind.UnmarshalException;
+import javax.xml.bind.JAXBException;
+import org.altarplanner.core.persistence.jaxb.JAXB;
 import org.altarplanner.core.planning.domain.state.Schedule;
 import org.altarplanner.core.planning.util.LocalDateRangeUtil;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class ScheduleExporter {
   private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleExporter.class);
 
   public static void exportSchedule(final Window fileChooserOwnerWindow)
-      throws IOException, UnmarshalException {
+      throws IOException, JAXBException {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openSchedule"));
     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -30,7 +31,7 @@ public class ScheduleExporter {
     final var input =
         Optional.ofNullable(fileChooser.showOpenDialog(fileChooserOwnerWindow)).map(File::toPath);
     if (input.isPresent()) {
-      Schedule schedule = Schedule.unmarshal(input.get());
+      Schedule schedule = JAXB.unmarshalSchedule(input.get());
       LOGGER.info("Schedule has been loaded from {}", input);
 
       fileChooser.setTitle(Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.saveSchedule"));

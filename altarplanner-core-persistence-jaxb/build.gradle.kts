@@ -4,6 +4,20 @@ plugins {
     `java-library`
 }
 
+configurations {
+    implementation {
+        // Outdated optaplanner-persistence-jaxb dependencies, split package between jaxb.impl and jaxb.core
+        exclude(group = "com.sun.xml.bind", module = "jaxb-core")
+        exclude(group = "com.sun.xml.bind", module = "jaxb-impl")
+
+        // Outdated optaplanner-persistence-jaxb dependency, split package between activation and jakarta.activation
+        exclude(group = "javax.activation", module = "activation")
+
+        // Unnecessary optaplanner-persistence-jaxb dependency
+        exclude(group = "org.jboss.spec.javax.xml.bind", module = "jboss-jaxb-api_2.3_spec")
+    }
+}
+
 dependencies {
     implementation(project(":altarplanner-core-planning")) {
         because("these are the classes to enable persistence for")
@@ -17,10 +31,14 @@ dependencies {
         because("we use the JAXB API for XML Binding")
     }
 
-    implementation(platform("org.optaplanner:optaplanner-bom:7.19.0.Final"))
+    implementation(platform("org.optaplanner:optaplanner-bom:7.21.0.Final"))
 
     implementation("org.optaplanner:optaplanner-core") {
         because("this module directly uses optaplanner to generate sample instances to test marshalling and unmarshalling")
+    }
+
+    implementation("org.optaplanner:optaplanner-persistence-jaxb") {
+        because("we need an XmlAdapter for HardSoftScore")
     }
 
     implementation("io.github.threeten-jaxb:threeten-jaxb-core:1.2") {

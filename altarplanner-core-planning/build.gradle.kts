@@ -23,12 +23,12 @@ dependencies {
         because("we use additional date-time classes like LocalDateRange")
     }
 
-    implementation(platform("org.optaplanner:optaplanner-bom:7.21.0.Final")) {
+    api(platform("org.optaplanner:optaplanner-bom:7.21.0.Final")) {
         because("we depend on optaplanner projects")
     }
 
-    implementation("org.optaplanner:optaplanner-core") {
-        because("we require a constraint solver")
+    api("org.optaplanner:optaplanner-core") {
+        because("we require a constraint solver, we use HardSoftScore in our API")
     }
 
     implementation("org.slf4j:slf4j-api:1.7.26") {
@@ -49,10 +49,6 @@ dependencies {
 
     implementation("io.github.threeten-jaxb:threeten-jaxb-core:1.2") {
         because("these JAXB adapters for JSR-310 save us some boilerplate code")
-    }
-
-    implementation("org.optaplanner:optaplanner-persistence-jaxb") {
-        because("this helps us serialize optaplanner scores")
     }
 
     implementation("org.apache.poi:poi-ooxml:4.1.0") {

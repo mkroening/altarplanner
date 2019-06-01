@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshalException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +38,7 @@ class JAXBTests {
   void writeExpectedFiles() throws JAXBException {
     JAXB.marshalConfig(BigDomainGenerator.genConfig(), EXPECTED_CONFIG);
     JAXB.marshalScheduleTemplate(BigDomainGenerator.generateScheduleTemplate(), EXPECTED_SCHEDULE_TEMPLATE);
-    BigDomainGenerator.generateInitializedSchedule().marshal(EXPECTED_INITIALIZED_SCHEDULE);
+    JAXB.marshalSchedule(BigDomainGenerator.generateInitializedSchedule(), EXPECTED_INITIALIZED_SCHEDULE);
   }
 
   @Test
@@ -81,18 +80,18 @@ class JAXBTests {
   }
 
   @Test
-  void scheduleUnmarshalling() throws UnmarshalException {
+  void scheduleUnmarshalling() throws JAXBException {
     final Schedule expected = BigDomainGenerator.generateInitializedSchedule();
-    final Schedule unmarshalled = Schedule.unmarshal(EXPECTED_INITIALIZED_SCHEDULE);
+    final Schedule unmarshalled = JAXB.unmarshalSchedule(EXPECTED_INITIALIZED_SCHEDULE);
     Assertions.assertEquals(expected, unmarshalled);
   }
 
   @Test
-  void scheduleMarshalling() throws IOException {
+  void scheduleMarshalling() throws IOException, JAXBException {
     final List<String> expectedLines =
         Files.lines(EXPECTED_INITIALIZED_SCHEDULE).collect(Collectors.toUnmodifiableList());
     final Path marshalledPath = Files.createTempFile(null, null);
-    BigDomainGenerator.generateInitializedSchedule().marshal(marshalledPath);
+    JAXB.marshalSchedule(BigDomainGenerator.generateInitializedSchedule(), marshalledPath);
     final List<String> marshalledLines =
         Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());
     Files.delete(marshalledPath);
@@ -102,7 +101,7 @@ class JAXBTests {
   @Test
   void scheduleConstructionConfigIdentities() throws IOException, JAXBException {
     final Config config = JAXB.unmarshalConfig(EXPECTED_CONFIG);
-    final Schedule oldSchedule = Schedule.unmarshal(EXPECTED_INITIALIZED_SCHEDULE);
+    final Schedule oldSchedule = JAXB.unmarshalSchedule(EXPECTED_INITIALIZED_SCHEDULE);
     final PlanningMassTemplate newMass = new PlanningMassTemplate();
     newMass.setDateTime(
         LocalDateTime.of(oldSchedule.getPlanningWindow().getEnd(), LocalTime.of(11, 0)));
@@ -121,8 +120,8 @@ class JAXBTests {
         freshSchedule.getServices().get(serviceIndex).getServer());
 
     final Path tmpPath = Files.createTempFile(null, null);
-    freshSchedule.marshal(tmpPath);
-    final Schedule unmarshalledSchedule = Schedule.unmarshal(tmpPath);
+    JAXB.marshalSchedule(freshSchedule, tmpPath);
+    final Schedule unmarshalledSchedule = JAXB.unmarshalSchedule(tmpPath);
     Files.delete(tmpPath);
 
     Assertions.assertEquals(

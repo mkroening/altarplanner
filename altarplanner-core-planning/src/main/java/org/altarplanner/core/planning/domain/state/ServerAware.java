@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.planning.Server;
 import org.altarplanner.core.planning.domain.request.PairRequest;
-import org.altarplanner.core.planning.xml.jaxb.util.PairRequestXmlAdapter;
 
-@XmlType(propOrder = {"servers", "pairs"})
 public abstract class ServerAware extends ServerTypeAware {
 
   private List<Server> servers;
@@ -58,8 +53,6 @@ public abstract class ServerAware extends ServerTypeAware {
         pairRequest -> pairRequest.getKey() == server || pairRequest.getValue() == server);
   }
 
-  @XmlElementWrapper(name = "servers")
-  @XmlElement(name = "server")
   public List<Server> getServers() {
     return servers;
   }
@@ -68,9 +61,6 @@ public abstract class ServerAware extends ServerTypeAware {
     this.servers = servers;
   }
 
-  @XmlElementWrapper(name = "pairs")
-  @XmlElement(name = "pair")
-  @XmlJavaTypeAdapter(PairRequestXmlAdapter.class)
   public List<PairRequest> getPairs() {
     return pairs;
   }

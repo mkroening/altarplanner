@@ -2,9 +2,12 @@ package org.altarplanner.core.persistence.jaxb;
 
 import org.altarplanner.core.persistence.jaxb.domain.state.ConfigBean;
 import org.altarplanner.core.persistence.jaxb.domain.state.ConfigXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.state.ScheduleBean;
 import org.altarplanner.core.persistence.jaxb.domain.state.ScheduleTemplateBean;
 import org.altarplanner.core.persistence.jaxb.domain.state.ScheduleTemplateXmlAdapter;
+import org.altarplanner.core.persistence.jaxb.domain.state.ScheduleXmlAdapter;
 import org.altarplanner.core.planning.domain.state.Config;
+import org.altarplanner.core.planning.domain.state.Schedule;
 import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
 
 import javax.xml.bind.JAXBContext;
@@ -47,5 +50,15 @@ public class JAXB {
   public static ScheduleTemplate unmarshalScheduleTemplate(Path input) throws JAXBException {
     final var scheduleTemplateBean = unmarshal(input, ScheduleTemplateBean.class);
     return new ScheduleTemplateXmlAdapter().unmarshal(scheduleTemplateBean);
+  }
+
+  public static void marshalSchedule(Schedule schedule, Path output) throws JAXBException {
+    final var scheduleBean = new ScheduleXmlAdapter().marshal(schedule);
+    marshal(scheduleBean, output);
+  }
+
+  public static Schedule unmarshalSchedule(Path input) throws JAXBException {
+    final var scheduleBean = unmarshal(input, ScheduleBean.class);
+    return new ScheduleXmlAdapter().unmarshal(scheduleBean);
   }
 }

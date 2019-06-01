@@ -38,7 +38,7 @@ class JAXBTests {
   @Disabled
   void writeExpectedFiles() throws JAXBException {
     JAXB.marshalConfig(BigDomainGenerator.genConfig(), EXPECTED_CONFIG);
-    BigDomainGenerator.generateScheduleTemplate().marshal(EXPECTED_SCHEDULE_TEMPLATE);
+    JAXB.marshalScheduleTemplate(BigDomainGenerator.generateScheduleTemplate(), EXPECTED_SCHEDULE_TEMPLATE);
     BigDomainGenerator.generateInitializedSchedule().marshal(EXPECTED_INITIALIZED_SCHEDULE);
   }
 
@@ -62,18 +62,18 @@ class JAXBTests {
   }
 
   @Test
-  void scheduleTemplateUnmarshalling() throws UnmarshalException {
+  void scheduleTemplateUnmarshalling() throws JAXBException {
     final ScheduleTemplate expected = BigDomainGenerator.generateScheduleTemplate();
-    final ScheduleTemplate unmarshalled = ScheduleTemplate.unmarshal(EXPECTED_SCHEDULE_TEMPLATE);
+    final ScheduleTemplate unmarshalled = JAXB.unmarshalScheduleTemplate(EXPECTED_SCHEDULE_TEMPLATE);
     Assertions.assertEquals(expected, unmarshalled);
   }
 
   @Test
-  void scheduleTemplateMarshalling() throws IOException {
+  void scheduleTemplateMarshalling() throws IOException, JAXBException {
     final List<String> expectedLines =
         Files.lines(EXPECTED_SCHEDULE_TEMPLATE).collect(Collectors.toUnmodifiableList());
     final Path marshalledPath = Files.createTempFile(null, null);
-    BigDomainGenerator.generateScheduleTemplate().marshal(marshalledPath);
+    JAXB.marshalScheduleTemplate(BigDomainGenerator.generateScheduleTemplate(), marshalledPath);
     final List<String> marshalledLines =
         Files.lines(marshalledPath).collect(Collectors.toUnmodifiableList());
     Files.delete(marshalledPath);

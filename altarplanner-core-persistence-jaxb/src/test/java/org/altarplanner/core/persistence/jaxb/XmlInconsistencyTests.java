@@ -32,7 +32,7 @@ class XmlInconsistencyTests {
     config.getServiceTypes().add(newServiceType);
     config.getServers().get(0).getInabilities().add(newServiceType);
 
-    final var scheduleTemplate = ScheduleTemplate.unmarshal(EXPECTED_SCHEDULE_TEMPLATE);
+    final var scheduleTemplate = JAXB.unmarshalScheduleTemplate(EXPECTED_SCHEDULE_TEMPLATE);
     final var schedule = new Schedule(scheduleTemplate, config);
 
     final var schedulePath = Files.createTempFile(null, null);

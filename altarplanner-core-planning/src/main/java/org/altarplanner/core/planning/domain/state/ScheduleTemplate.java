@@ -1,27 +1,15 @@
 package org.altarplanner.core.planning.domain.state;
 
-import java.nio.file.Path;
+import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
+import org.threeten.extra.LocalDateRange;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.xml.bind.UnmarshalException;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import io.github.threetenjaxb.core.LocalDateXmlAdapter;
-import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
-import org.altarplanner.core.planning.xml.StrictJAXB;
-import org.threeten.extra.LocalDateRange;
-
-@XmlRootElement
-@XmlType(propOrder = {"planningMassTemplates", "feastDays"})
 public class ScheduleTemplate extends ServerTypeAware implements FeastDayAware {
 
   private List<PlanningMassTemplate> planningMassTemplates;
@@ -53,14 +41,6 @@ public class ScheduleTemplate extends ServerTypeAware implements FeastDayAware {
     this(planningMassTemplates, Collections.emptyList());
   }
 
-  public static ScheduleTemplate unmarshal(Path input) throws UnmarshalException {
-    return StrictJAXB.unmarshal(input, ScheduleTemplate.class);
-  }
-
-  public void marshal(Path output) {
-    StrictJAXB.marshal(this, output);
-  }
-
   public LocalDateRange getDateRange() {
     final LocalDate start = Collections.min(planningMassTemplates).getDateTime().toLocalDate();
     final LocalDate endInclusive =
@@ -68,8 +48,6 @@ public class ScheduleTemplate extends ServerTypeAware implements FeastDayAware {
     return LocalDateRange.ofClosed(start, endInclusive);
   }
 
-  @XmlElementWrapper(name = "planningMassTemplates")
-  @XmlElement(name = "planningMassTemplate")
   public List<PlanningMassTemplate> getPlanningMassTemplates() {
     return planningMassTemplates;
   }
@@ -78,8 +56,6 @@ public class ScheduleTemplate extends ServerTypeAware implements FeastDayAware {
     this.planningMassTemplates = planningMassTemplates;
   }
 
-  @XmlList
-  @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
   public List<LocalDate> getFeastDays() {
     return feastDays;
   }

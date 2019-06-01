@@ -180,7 +180,7 @@ public class Launcher extends Application {
   }
 
   @FXML
-  private void createSchedule() throws IOException, UnmarshalException {
+  private void createSchedule() throws IOException, JAXBException {
     final FileChooser massFileChooser = new FileChooser();
     massFileChooser.setTitle(RESOURCE_BUNDLE.getString("fileChooserTitle.openScheduleTemplate"));
     massFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -190,7 +190,7 @@ public class Launcher extends Application {
     final File massFile = massFileChooser.showOpenDialog(primaryStage);
 
     if (massFile != null) {
-      final var scheduleTemplate = ScheduleTemplate.unmarshal(massFile.toPath());
+      final var scheduleTemplate = JAXB.unmarshalScheduleTemplate(massFile.toPath());
       LOGGER.info("Masses have been loaded from {}", massFile);
 
       final FileChooser lastScheduleFileChooser = new FileChooser();

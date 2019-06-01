@@ -23,6 +23,10 @@ dependencies {
         because("this module directly uses optaplanner to generate sample instances to test marshalling and unmarshalling")
     }
 
+    implementation("io.github.threeten-jaxb:threeten-jaxb-core:1.2") {
+        because("we need XmlAdapters for the ThreeTen date and time API")
+    }
+
     testRuntime("ch.qos.logback:logback-classic:1.2.3") {
         because("we use this SLF4J API implementation for logging while testing")
     }

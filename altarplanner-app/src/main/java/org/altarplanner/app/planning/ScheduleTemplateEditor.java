@@ -23,8 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
-import javax.xml.bind.UnmarshalException;
+import javax.xml.bind.JAXBException;
 import org.altarplanner.app.Launcher;
+import org.altarplanner.core.persistence.jaxb.JAXB;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
@@ -288,7 +289,7 @@ public class ScheduleTemplateEditor {
   }
 
   @FXML
-  private void openFile() throws IOException, UnmarshalException {
+  private void openFile() throws IOException, JAXBException {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle(
         Launcher.RESOURCE_BUNDLE.getString("fileChooserTitle.openScheduleTemplate"));
@@ -299,7 +300,7 @@ public class ScheduleTemplateEditor {
 
     File selectedFile = fileChooser.showOpenDialog(removeButton.getScene().getWindow());
     if (selectedFile != null) {
-      ScheduleTemplate scheduleTemplate = ScheduleTemplate.unmarshal(selectedFile.toPath());
+      ScheduleTemplate scheduleTemplate = JAXB.unmarshalScheduleTemplate(selectedFile.toPath());
       serviceTypeCountTableView.getItems().setAll(scheduleTemplate.getServiceTypes());
       planningMassTemplateListView.getItems().setAll(scheduleTemplate.getPlanningMassTemplates());
       feastDays = scheduleTemplate.getFeastDays();
@@ -314,9 +315,9 @@ public class ScheduleTemplateEditor {
   }
 
   @FXML
-  private void saveAsAndBack() throws IOException {
+  private void saveAsAndBack() throws IOException, JAXBException {
     if (!planningMassTemplateListView.getItems().isEmpty()) {
-      final var massCollection =
+      final var scheduleTemplate =
           new ScheduleTemplate(planningMassTemplateListView.getItems(), feastDays);
 
       FileChooser fileChooser = new FileChooser();
@@ -329,12 +330,12 @@ public class ScheduleTemplateEditor {
       fileChooser.setInitialFileName(
           Launcher.RESOURCE_BUNDLE.getString("general.domain.scheduleTemplate")
               + '_'
-              + LocalDateRangeUtil.getHyphenString(massCollection.getDateRange())
+              + LocalDateRangeUtil.getHyphenString(scheduleTemplate.getDateRange())
               + ".xml");
 
       File selectedFile = fileChooser.showSaveDialog(removeButton.getScene().getWindow());
       if (selectedFile != null) {
-        massCollection.marshal(selectedFile.toPath());
+        JAXB.marshalScheduleTemplate(scheduleTemplate, selectedFile.toPath());
         LOGGER.info("Masses have been saved as {}", selectedFile);
 
         Launcher.loadParent("launcher.fxml", true);

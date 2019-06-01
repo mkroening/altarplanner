@@ -11,6 +11,7 @@ import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.threeten.extra.LocalDateRange;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,9 +23,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class BigDomainGenerator {
-
-  public static final String REPRODUCIBLE_CONSTRUCTION_SOLVER_CONFIG_RESOURCE =
-      "org/altarplanner/core/persistence/jaxb/util/reproducibleConstructionSolverConfig.xml";
 
   private static final LocalDate TODAY = LocalDate.of(2018, 1, 1);
   private static final LocalDateRange PLANNING_WINDOW;
@@ -203,9 +201,16 @@ public class BigDomainGenerator {
   }
 
   public static Schedule generateInitializedSchedule() {
-    Schedule uninitialized = generateSchedule();
-    SolverFactory<Schedule> solverFactory =
-        SolverFactory.createFromXmlResource(REPRODUCIBLE_CONSTRUCTION_SOLVER_CONFIG_RESOURCE);
-    return solverFactory.buildSolver().solve(uninitialized);
+    final var uninitialized = generateSchedule();
+    try {
+      final var inputStream =
+          BigDomainGenerator.class
+              .getResource("reproducibleConstructionSolverConfig.xml")
+              .openStream();
+      final var solverFactory = SolverFactory.<Schedule>createFromXmlInputStream(inputStream);
+      return solverFactory.buildSolver().solve(uninitialized);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

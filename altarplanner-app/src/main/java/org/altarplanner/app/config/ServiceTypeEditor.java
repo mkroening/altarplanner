@@ -9,7 +9,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.altarplanner.app.Launcher;
+import org.altarplanner.core.persistence.jaxb.JAXB;
 import org.altarplanner.core.planning.domain.ServiceType;
+
+import javax.xml.bind.JAXBException;
 
 public class ServiceTypeEditor {
 
@@ -126,9 +129,9 @@ public class ServiceTypeEditor {
   }
 
   @FXML
-  private void saveAndBack() throws IOException {
+  private void saveAndBack() throws IOException, JAXBException {
     Launcher.CONFIG.setServiceTypes(List.copyOf(serviceTypeListView.getItems()));
-    Launcher.CONFIG.marshal(Launcher.CONFIG_PATH);
+    JAXB.marshalConfig(Launcher.CONFIG, Launcher.CONFIG_PATH);
     Launcher.loadParent("launcher.fxml", true);
   }
 

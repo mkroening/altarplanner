@@ -33,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import org.altarplanner.app.Launcher;
+import org.altarplanner.core.persistence.jaxb.JAXB;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.planning.Server;
 import org.altarplanner.core.planning.domain.request.PairRequest;
@@ -41,6 +42,8 @@ import org.controlsfx.control.CheckComboBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.threeten.extra.LocalDateRange;
+
+import javax.xml.bind.JAXBException;
 
 public class ServerEditor {
 
@@ -578,10 +581,10 @@ public class ServerEditor {
   }
 
   @FXML
-  private void saveAndBack() throws IOException {
+  private void saveAndBack() throws IOException, JAXBException {
     applyListViews(serverListView.getSelectionModel().getSelectedItem());
     Launcher.CONFIG.setServers(List.copyOf(serverListView.getItems()));
-    Launcher.CONFIG.marshal(Launcher.CONFIG_PATH);
+    JAXB.marshalConfig(Launcher.CONFIG, Launcher.CONFIG_PATH);
     Launcher.loadParent("launcher.fxml", true);
   }
 

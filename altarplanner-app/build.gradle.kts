@@ -18,6 +18,10 @@ dependencies {
         because("we need the domain, solver and IO implementation of the core project")
     }
 
+    compile(project(":altarplanner-core-persistence-jaxb")) {
+        because("the data persists in XML files")
+    }
+
     compile("ch.qos.logback:logback-classic:1.2.3") {
         because("we require a SLF4J binding for logging")
     }

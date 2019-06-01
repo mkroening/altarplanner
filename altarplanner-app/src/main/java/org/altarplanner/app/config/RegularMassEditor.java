@@ -23,8 +23,11 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import org.altarplanner.app.Launcher;
+import org.altarplanner.core.persistence.jaxb.JAXB;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.mass.RegularMass;
+
+import javax.xml.bind.JAXBException;
 
 public class RegularMassEditor {
 
@@ -258,9 +261,9 @@ public class RegularMassEditor {
   }
 
   @FXML
-  private void saveAndBack() throws IOException {
+  private void saveAndBack() throws IOException, JAXBException {
     Launcher.CONFIG.setRegularMasses(List.copyOf(regularMassListView.getItems()));
-    Launcher.CONFIG.marshal(Launcher.CONFIG_PATH);
+    JAXB.marshalConfig(Launcher.CONFIG, Launcher.CONFIG_PATH);
     Launcher.loadParent("launcher.fxml", true);
   }
 }

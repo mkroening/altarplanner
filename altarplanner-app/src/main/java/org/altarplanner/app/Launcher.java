@@ -22,8 +22,10 @@ import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 import org.altarplanner.app.planning.SolverView;
+import org.altarplanner.core.persistence.jaxb.JAXB;
 import org.altarplanner.core.planning.domain.state.Config;
 import org.altarplanner.core.planning.domain.state.Schedule;
 import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
@@ -44,11 +46,11 @@ public class Launcher extends Application {
     Config tmpConfig;
     if (Files.exists(CONFIG_PATH)) {
       try {
-        tmpConfig = Config.unmarshal(CONFIG_PATH);
+        tmpConfig = JAXB.unmarshalConfig(CONFIG_PATH);
         LOGGER.info("Successfully loaded {}", CONFIG_PATH);
-      } catch (UnmarshalException e) {
+      } catch (JAXBException e) {
         e.printStackTrace();
-        LOGGER.warn("{} corrupt!", CONFIG_PATH);
+        LOGGER.warn("Failed to load {}!", CONFIG_PATH);
         final var corruptPath =
             Path.of(
                 "config_corrupt_"
@@ -66,7 +68,6 @@ public class Launcher extends Application {
         }
         LOGGER.info("Creating new config.");
         tmpConfig = new Config();
-        tmpConfig.marshal(CONFIG_PATH);
       }
     } else {
       LOGGER.warn("{} does not exist, creating new Config", CONFIG_PATH);

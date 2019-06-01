@@ -5,17 +5,29 @@ plugins {
 }
 
 dependencies {
-    testImplementation(project(":altarplanner-core-planning")) {
+    implementation(project(":altarplanner-core-planning")) {
         because("these are the classes to enable persistence for")
     }
 
-    testImplementation(platform("org.optaplanner:optaplanner-bom:7.19.0.Final"))
+    api(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:2.3.2")) {
+        because("the JAXB API and runtime should be in sync")
+    }
 
-    testImplementation("org.optaplanner:optaplanner-core") {
+    api("jakarta.xml.bind:jakarta.xml.bind-api") {
+        because("we use the JAXB API for XML Binding")
+    }
+
+    implementation(platform("org.optaplanner:optaplanner-bom:7.19.0.Final"))
+
+    implementation("org.optaplanner:optaplanner-core") {
         because("this module directly uses optaplanner to generate sample instances to test marshalling and unmarshalling")
     }
 
-    testImplementation("ch.qos.logback:logback-classic:1.2.3") {
+    testRuntime("ch.qos.logback:logback-classic:1.2.3") {
         because("we use this SLF4J API implementation for logging while testing")
+    }
+
+    testImplementation("org.glassfish.jaxb:jaxb-runtime") {
+        because("we use the RI JAXB runtime for testing")
     }
 }

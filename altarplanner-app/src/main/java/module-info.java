@@ -8,6 +8,7 @@ module org.altarplanner.app {
   requires org.threeten.extra;
   requires slf4j.api;
   requires org.altarplanner.core.planning;
+  requires org.altarplanner.core.persistence.jaxb;
 
   exports org.altarplanner.app to javafx.graphics;
 

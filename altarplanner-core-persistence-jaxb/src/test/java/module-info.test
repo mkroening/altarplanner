@@ -1,0 +1,35 @@
+--add-opens
+  java.base/java.lang=org.drools.core
+
+--add-opens
+  java.base/java.util=xstream
+
+--add-opens
+  java.base/java.lang.reflect=xstream
+
+--add-opens
+  java.base/java.text=xstream
+
+--add-opens
+  java.desktop/java.awt.font=xstream
+
+--add-modules
+  org.altarplanner.core.planning
+
+--add-reads
+  org.altarplanner.core.persistence.jaxb=org.altarplanner.core.planning
+
+--add-reads
+  org.altarplanner.core.persistence.jaxb=org.optaplanner.core
+
+--add-modules
+  java.xml.bind
+
+--add-reads
+  org.altarplanner.core.persistence.jaxb=java.xml.bind
+
+--add-modules
+  org.threeten.extra
+
+--add-reads
+  org.altarplanner.core.persistence.jaxb=org.threeten.extra

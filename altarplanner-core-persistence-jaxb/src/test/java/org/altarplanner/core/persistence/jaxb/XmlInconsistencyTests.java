@@ -1,22 +1,23 @@
-package org.altarplanner.core.planning.xml;
+package org.altarplanner.core.persistence.jaxb;
 
-import static org.altarplanner.core.planning.xml.JaxbIOTests.EXPECTED_CONFIG;
-import static org.altarplanner.core.planning.xml.JaxbIOTests.EXPECTED_INITIALIZED_SCHEDULE;
-import static org.altarplanner.core.planning.xml.JaxbIOTests.EXPECTED_SCHEDULE_TEMPLATE;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Map;
-import javax.xml.bind.UnmarshalException;
 import org.altarplanner.core.planning.domain.ServiceType;
 import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
 import org.altarplanner.core.planning.domain.state.Config;
 import org.altarplanner.core.planning.domain.state.Schedule;
 import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
 import org.junit.jupiter.api.Test;
+
+import javax.xml.bind.UnmarshalException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
+
+import static org.altarplanner.core.persistence.jaxb.JaxbIOTests.EXPECTED_CONFIG;
+import static org.altarplanner.core.persistence.jaxb.JaxbIOTests.EXPECTED_INITIALIZED_SCHEDULE;
+import static org.altarplanner.core.persistence.jaxb.JaxbIOTests.EXPECTED_SCHEDULE_TEMPLATE;
 
 class XmlInconsistencyTests {
 

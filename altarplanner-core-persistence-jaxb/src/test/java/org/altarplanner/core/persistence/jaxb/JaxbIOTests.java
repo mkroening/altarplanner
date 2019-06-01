@@ -1,9 +1,15 @@
-package org.altarplanner.core.planning.xml;
+package org.altarplanner.core.persistence.jaxb;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import org.altarplanner.core.persistence.jaxb.util.BigDomainGenerator;
+import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
+import org.altarplanner.core.planning.domain.state.Config;
+import org.altarplanner.core.planning.domain.state.Schedule;
+import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
+import javax.xml.bind.UnmarshalException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,18 +18,15 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.xml.bind.UnmarshalException;
-import org.altarplanner.core.planning.domain.mass.PlanningMassTemplate;
-import org.altarplanner.core.planning.domain.state.Config;
-import org.altarplanner.core.planning.domain.state.Schedule;
-import org.altarplanner.core.planning.domain.state.ScheduleTemplate;
-import org.altarplanner.core.planning.domain.util.BigDomainGenerator;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class JaxbIOTests {
 
-  private static final String XML_TEST_PATHNAME = "src/test/resources/org/altarplanner/core/planning/xml/";
+  private static final String XML_TEST_PATHNAME =
+      "src/test/resources/org/altarplanner/core/persistence/jaxb/sample/";
   static final Path EXPECTED_CONFIG = Path.of(XML_TEST_PATHNAME + "bigConfig.xml");
   static final Path EXPECTED_SCHEDULE_TEMPLATE =
       Path.of(XML_TEST_PATHNAME + "bigScheduleTemplate.xml");
@@ -42,7 +45,7 @@ class JaxbIOTests {
   void configUnmarshalling() throws UnmarshalException {
     final Config expected = BigDomainGenerator.genConfig();
     final Config unmarshalled = Config.unmarshal(EXPECTED_CONFIG);
-    assertEquals(expected, unmarshalled);
+    Assertions.assertEquals(expected, unmarshalled);
   }
 
   @Test
@@ -61,7 +64,7 @@ class JaxbIOTests {
   void scheduleTemplateUnmarshalling() throws UnmarshalException {
     final ScheduleTemplate expected = BigDomainGenerator.generateScheduleTemplate();
     final ScheduleTemplate unmarshalled = ScheduleTemplate.unmarshal(EXPECTED_SCHEDULE_TEMPLATE);
-    assertEquals(expected, unmarshalled);
+    Assertions.assertEquals(expected, unmarshalled);
   }
 
   @Test
@@ -80,7 +83,7 @@ class JaxbIOTests {
   void scheduleUnmarshalling() throws UnmarshalException {
     final Schedule expected = BigDomainGenerator.generateInitializedSchedule();
     final Schedule unmarshalled = Schedule.unmarshal(EXPECTED_INITIALIZED_SCHEDULE);
-    assertEquals(expected, unmarshalled);
+    Assertions.assertEquals(expected, unmarshalled);
   }
 
   @Test
@@ -109,7 +112,7 @@ class JaxbIOTests {
     final int serverIndex =
         freshSchedule.getServers().indexOf(freshSchedule.getServices().get(0).getServer());
 
-    assertEquals(
+    Assertions.assertEquals(
         freshSchedule.getServers().get(serverIndex),
         freshSchedule.getServices().get(serviceIndex).getServer());
     assertNotSame(
@@ -121,7 +124,7 @@ class JaxbIOTests {
     final Schedule unmarshalledSchedule = Schedule.unmarshal(tmpPath);
     Files.delete(tmpPath);
 
-    assertEquals(
+    Assertions.assertEquals(
         unmarshalledSchedule.getServers().get(serverIndex),
         unmarshalledSchedule.getServices().get(serviceIndex).getServer());
     assertSame(

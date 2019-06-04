@@ -22,12 +22,20 @@ dependencies {
         because("the data persists in XML files")
     }
 
+    compile(project(":altarplanner-core-persistence-poi")) {
+        because("we need to import and export from/to Microsoft Excel files")
+    }
+
     compile("ch.qos.logback:logback-classic:1.2.3") {
         because("we require a SLF4J binding for logging")
     }
 
     compile("org.controlsfx:controlsfx:11.0.0") {
         because("we use the CheckComboBox")
+    }
+
+    runtime("org.glassfish.jaxb:jaxb-runtime") {
+        because("we use the JAXB RI")
     }
 }
 

@@ -1,4 +1,4 @@
-package org.altarplanner.core.planning.xlsx;
+package org.altarplanner.core.persistence.poi;
 
 import java.io.IOException;
 import java.nio.file.Files;

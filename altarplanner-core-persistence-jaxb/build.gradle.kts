@@ -49,7 +49,7 @@ dependencies {
         because("we use this SLF4J API implementation for logging while testing")
     }
 
-    testImplementation("org.glassfish.jaxb:jaxb-runtime") {
+    testRuntime("org.glassfish.jaxb:jaxb-runtime") {
         because("we use the RI JAXB runtime for testing")
     }
 }

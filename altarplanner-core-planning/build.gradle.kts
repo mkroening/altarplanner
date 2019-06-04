@@ -35,10 +35,6 @@ dependencies {
         because("we do logging via these interfaces")
     }
 
-    implementation("org.apache.poi:poi-ooxml:4.1.0") {
-        because("we use POI-XSSF to write Excel files")
-    }
-
     testImplementation("ch.qos.logback:logback-classic:1.2.3") {
         because("we use this SLF4J API implementation for logging while testing")
     }

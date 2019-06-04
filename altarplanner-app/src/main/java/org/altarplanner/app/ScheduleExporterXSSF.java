@@ -10,8 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
+import org.altarplanner.core.persistence.poi.XSSF;
 import org.altarplanner.core.planning.domain.state.Schedule;
-import org.altarplanner.core.planning.xlsx.XSSF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

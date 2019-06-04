@@ -19,8 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.altarplanner.app.Launcher;
+import org.altarplanner.core.persistence.poi.XSSF;
 import org.altarplanner.core.planning.domain.planning.Server;
-import org.altarplanner.core.planning.xlsx.XSSF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

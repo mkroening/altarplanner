@@ -1,5 +1,5 @@
 module org.altarplanner.core.planning {
-  requires transitive org.optaplanner.core;
+  requires org.optaplanner.core;
   requires transitive org.threeten.extra;
   requires slf4j.api;
 

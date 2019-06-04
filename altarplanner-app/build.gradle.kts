@@ -14,6 +14,10 @@ javafx {
 }
 
 dependencies {
+    compile("org.controlsfx:controlsfx:11.0.0") {
+        because("we use the CheckComboBox")
+    }
+    
     compile(project(":altarplanner-core-planning")) {
         because("we need the domain, solver and IO implementation of the core project")
     }
@@ -26,12 +30,12 @@ dependencies {
         because("we need to import and export from/to Microsoft Excel files")
     }
 
-    compile("ch.qos.logback:logback-classic:1.2.3") {
-        because("we require a SLF4J binding for logging")
+    compile("org.slf4j:slf4j-api:1.7.26") {
+        because("we do logging via these interfaces")
     }
 
-    compile("org.controlsfx:controlsfx:11.0.0") {
-        because("we use the CheckComboBox")
+    runtime("ch.qos.logback:logback-classic:1.2.3") {
+        because("we use the logback slf4j implementation")
     }
 
     runtime("org.glassfish.jaxb:jaxb-runtime") {

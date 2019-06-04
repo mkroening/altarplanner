@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":altarplanner-core-planning")) {
+    api(project(":altarplanner-core-planning")) {
         because("these are the classes to import/export")
     }
 

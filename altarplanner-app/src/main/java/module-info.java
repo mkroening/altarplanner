@@ -1,15 +1,14 @@
 module org.altarplanner.app {
-  requires java.xml.bind;
-  requires org.controlsfx.controls;
-  requires javafx.base;
   requires javafx.controls;
   requires javafx.fxml;
-  requires javafx.graphics;
-  requires org.threeten.extra;
-  requires slf4j.api;
+
+  requires org.controlsfx.controls;
+
   requires org.altarplanner.core.planning;
   requires org.altarplanner.core.persistence.jaxb;
   requires org.altarplanner.core.persistence.poi;
+
+  requires slf4j.api;
 
   exports org.altarplanner.app to javafx.graphics;
 

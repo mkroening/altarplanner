@@ -1,9 +1,8 @@
 module org.altarplanner.core.persistence.jaxb {
-  requires org.altarplanner.core.planning;
-  requires java.xml.bind;
+  requires transitive org.altarplanner.core.planning;
+  requires transitive java.xml.bind;
   requires org.optaplanner.persistence.jaxb;
   requires io.github.threetenjaxb.core;
-  requires org.threeten.extra;
 
   exports org.altarplanner.core.persistence.jaxb;
   exports org.altarplanner.core.persistence.jaxb.domain;

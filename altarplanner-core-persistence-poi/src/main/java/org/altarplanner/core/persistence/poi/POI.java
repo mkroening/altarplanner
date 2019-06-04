@@ -33,7 +33,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class XSSF {
+public class POI {
 
   public static void exportScheduleCompact(Schedule schedule, Path output, int columns)
       throws IOException {

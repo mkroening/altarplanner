@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.altarplanner.app.Launcher;
-import org.altarplanner.core.persistence.poi.XSSF;
+import org.altarplanner.core.persistence.poi.POI;
 import org.altarplanner.core.planning.domain.planning.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +84,7 @@ public class ServerImporter {
 
   public void setInputFile(final Path input) {
     this.input = input;
-    final List<String> header = XSSF.readHeader(input);
+    final List<String> header = POI.readHeader(input);
     surnameHeadingChoiceBox.getItems().setAll(header);
     surnameHeadingChoiceBox.getSelectionModel().select(0);
     forenameHeadingChoiceBox.getItems().setAll(header);
@@ -115,7 +115,7 @@ public class ServerImporter {
                                   .getSelectedIndex()))
               : Map.of();
       final var readServers =
-          XSSF.readServers(
+          POI.readServers(
               input,
               surnameHeadingChoiceBox.getSelectionModel().getSelectedIndex(),
               forenameHeadingChoiceBox.getSelectionModel().getSelectedIndex(),

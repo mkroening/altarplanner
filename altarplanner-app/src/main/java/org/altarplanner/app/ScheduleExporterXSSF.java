@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
-import org.altarplanner.core.persistence.poi.XSSF;
+import org.altarplanner.core.persistence.poi.POI;
 import org.altarplanner.core.planning.domain.state.Schedule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,10 +71,10 @@ public class ScheduleExporterXSSF {
   private void exportSchedule() throws IOException {
     switch (formatChoiceBox.getSelectionModel().getSelectedIndex()) {
       case 0:
-        XSSF.exportScheduleCompact(schedule, output, compactFormatColumnCountProperty.getValue());
+        POI.exportScheduleCompact(schedule, output, compactFormatColumnCountProperty.getValue());
         break;
       case 1:
-        XSSF.exportScheduleOverview(schedule, output);
+        POI.exportScheduleOverview(schedule, output);
         break;
     }
     LOGGER.info("Schedule has been exported as {}", output);

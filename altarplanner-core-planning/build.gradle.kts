@@ -4,20 +4,6 @@ plugins {
     `java-library`
 }
 
-configurations {
-    implementation {
-        // Outdated optaplanner-benchmark dependencies, split package between jaxb.impl and jaxb.core
-        exclude(group = "com.sun.xml.bind", module = "jaxb-core")
-        exclude(group = "com.sun.xml.bind", module = "jaxb-impl")
-
-        // Outdated optaplanner-benchmark dependency, split package between activation and jakarta.activation
-        exclude(group = "javax.activation", module = "activation")
-
-        // Unnecessary optaplanner-benchmark dependency
-        exclude(group = "org.jboss.spec.javax.xml.bind", module = "jboss-jaxb-api_2.3_spec")
-    }
-}
-
 dependencies {
     api("org.threeten:threeten-extra:1.5.0") {
         because("we use additional date-time classes like LocalDateRange")
@@ -37,26 +23,6 @@ dependencies {
 
     testImplementation("ch.qos.logback:logback-classic:1.2.3") {
         because("we use this SLF4J API implementation for logging while testing")
-    }
-
-    testImplementation("org.optaplanner:optaplanner-benchmark") {
-        because("this is used for finding the best algorithm for our domain")
-    }
-
-    testImplementation(enforcedPlatform("org.glassfish.jaxb:jaxb-bom:2.3.2")) {
-        because("we need to replace the outdated optaplanner-benchmark dependencies")
-    }
-
-    testImplementation("jakarta.xml.bind:jakarta.xml.bind-api") {
-        because("optaplanner-benchmark uses the JAXB API")
-    }
-
-    testRuntime("org.glassfish.jaxb:jaxb-runtime") {
-        because("we let optaplanner-benchmark use the JAXB RI")
-    }
-
-    testImplementation("org.freemarker:freemarker:2.3.28") {
-        because("currently the version provided by optaplanner-benchmark can't be resolved, required for benchmark templates")
     }
 
     testImplementation("org.optaplanner:optaplanner-test") {

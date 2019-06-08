@@ -1,7 +1,6 @@
-package org.altarplanner.core.planning.benchmark;
+package org.altarplanner.core.benchmark;
 
 import org.altarplanner.core.planning.domain.state.Schedule;
-import org.altarplanner.core.planning.domain.util.BigDomainGenerator;
 import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
 import org.optaplanner.benchmark.impl.aggregator.swingui.BenchmarkAggregatorFrame;
 
@@ -12,7 +11,7 @@ public class RunBenchmarks {
   public static void main(String[] args) {}
 
   private static void runBenchmark(PlannerBenchmarkFactory benchmarkFactory) {
-    Schedule schedule = BigDomainGenerator.generateSchedule();
+    Schedule schedule = new Schedule();
     benchmarkFactory.buildPlannerBenchmark(schedule).benchmark();
   }
 

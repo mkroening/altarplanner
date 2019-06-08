@@ -173,7 +173,7 @@ public class ScheduleTemplateEditor {
                 planningMassTemplateListView
                     .getSelectionModel()
                     .getSelectedItem()
-                    .setForm(newValue.isBlank() ? null : newValue.trim());
+                    .setAnnotation(newValue.isBlank() ? null : newValue.trim());
               }
             });
 

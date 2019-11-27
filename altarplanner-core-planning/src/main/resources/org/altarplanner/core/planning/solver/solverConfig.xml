@@ -10,7 +10,7 @@
     </scoreDirectorFactory>
 
     <termination>
-        <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
+        <unimprovedMinutesSpentLimit>5</unimprovedMinutesSpentLimit>
     </termination>
 
     <constructionHeuristic/>

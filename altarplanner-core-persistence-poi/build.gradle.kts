@@ -9,7 +9,7 @@ dependencies {
         because("these are the classes to import/export")
     }
 
-    implementation("org.apache.poi:poi-ooxml:4.1.0") {
+    implementation("org.apache.poi:poi-ooxml:4.1.1") {
         because("we use POI-XSSF to read/write Excel files")
     }
 }

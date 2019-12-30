@@ -2,11 +2,11 @@ description = "This module contains the GUI written in JavaFX with FXML."
 
 plugins {
     application
-    id("org.openjfx.javafxplugin") version "0.0.7"
+    id("org.openjfx.javafxplugin") version "0.0.8"
 }
 
 javafx {
-    version = "12.0.1"
+    version = "13.0.1"
     modules = listOf(
             "javafx.controls",
             "javafx.fxml"
@@ -14,7 +14,7 @@ javafx {
 }
 
 dependencies {
-    compile("org.controlsfx:controlsfx:11.0.0") {
+    compile("org.controlsfx:controlsfx:11.0.1") {
         because("we use the CheckComboBox")
     }
     

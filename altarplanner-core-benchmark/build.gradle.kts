@@ -31,7 +31,7 @@ dependencies {
         because("this is used for finding the best algorithm for our domain")
     }
 
-    implementation("org.freemarker:freemarker:2.3.28") {
+    implementation("org.freemarker:freemarker:2.3.29") {
         because("currently the version provided by optaplanner-benchmark can't be resolved, required for benchmark templates")
     }
 

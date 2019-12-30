@@ -6,8 +6,8 @@ description = "AltarPlanner creates altar server schedules. This project is the 
 plugins {
     java
     id("org.javamodularity.moduleplugin") version "1.5.0" apply false
-    id("com.github.spotbugs") version "2.0.0" apply false
-    id("com.github.ben-manes.versions") version "0.21.0"
+    id("com.github.spotbugs") version "3.0.0" apply false
+    id("com.github.ben-manes.versions") version "0.27.0"
 }
 
 allprojects {
@@ -28,9 +28,10 @@ subprojects {
         useJUnitPlatform()
     }
     dependencies {
-        testImplementation(platform("org.junit:junit-bom:5.4.2"))
+        testImplementation(platform("org.junit:junit-bom:5.5.2"))
         testImplementation("org.junit.jupiter:junit-jupiter-api")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
 
     apply(plugin = "org.javamodularity.moduleplugin")
@@ -41,7 +42,7 @@ subprojects {
     }
 
     apply(plugin = "checkstyle")
-    val checkstyleVersion = "8.20"
+    val checkstyleVersion = "8.28"
     configure<CheckstyleExtension> {
         toolVersion = checkstyleVersion
         isIgnoreFailures = true
@@ -55,7 +56,7 @@ subprojects {
     }
 
     apply(plugin = "pmd")
-    val pmdVersion = "6.14.0"
+    val pmdVersion = "6.20.0"
     configure<PmdExtension> {
         toolVersion = pmdVersion
         ruleSets = listOf()

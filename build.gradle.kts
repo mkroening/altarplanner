@@ -42,14 +42,14 @@ subprojects {
     }
 
     apply(plugin = "checkstyle")
-    val checkstyleVersion = "8.28"
+    val checkstyleVersion = "8.26"
     configure<CheckstyleExtension> {
         toolVersion = checkstyleVersion
         isIgnoreFailures = true
     }
 
     apply(plugin = "com.github.spotbugs")
-    val spotbugsVersion = "3.1.12"
+    val spotbugsVersion = "4.0.0-beta4"
     configure<SpotBugsExtension> {
         toolVersion = spotbugsVersion
         isIgnoreFailures = true

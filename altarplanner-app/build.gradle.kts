@@ -30,7 +30,7 @@ dependencies {
         because("we need to import and export from/to Microsoft Excel files")
     }
 
-    compile("org.slf4j:slf4j-api:1.7.26") {
+    compile("org.slf4j:slf4j-api:1.7.30") {
         because("we do logging via these interfaces")
     }
 

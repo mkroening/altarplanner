@@ -8,7 +8,7 @@ module org.altarplanner.app {
   requires org.altarplanner.core.persistence.jaxb;
   requires org.altarplanner.core.persistence.poi;
 
-  requires slf4j.api;
+  requires org.slf4j;
 
   exports org.altarplanner.app to javafx.graphics;
 

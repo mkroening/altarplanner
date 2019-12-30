@@ -1,7 +1,7 @@
 module org.altarplanner.core.planning {
   requires org.optaplanner.core;
   requires transitive org.threeten.extra;
-  requires slf4j.api;
+  requires org.slf4j;
 
   exports org.altarplanner.core.planning.domain;
   exports org.altarplanner.core.planning.domain.mass;

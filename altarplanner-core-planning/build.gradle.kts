@@ -17,7 +17,7 @@ dependencies {
         because("we require a constraint solver, we use HardSoftScore in our API")
     }
 
-    implementation("org.slf4j:slf4j-api:1.7.26") {
+    implementation("org.slf4j:slf4j-api:1.7.30") {
         because("we do logging via these interfaces")
     }
 

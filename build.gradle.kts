@@ -28,7 +28,7 @@ subprojects {
         useJUnitPlatform()
     }
     dependencies {
-        testImplementation(platform("org.junit:junit-bom:5.5.2"))
+        testImplementation(platform("org.junit:junit-bom:5.6.0"))
         testImplementation("org.junit.jupiter:junit-jupiter-api")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -49,14 +49,14 @@ subprojects {
     }
 
     apply(plugin = "com.github.spotbugs")
-    val spotbugsVersion = "4.0.0-beta4"
+    val spotbugsVersion = "4.0.0-RC1"
     configure<SpotBugsExtension> {
         toolVersion = spotbugsVersion
         isIgnoreFailures = true
     }
 
     apply(plugin = "pmd")
-    val pmdVersion = "6.20.0"
+    val pmdVersion = "6.21.0"
     configure<PmdExtension> {
         toolVersion = pmdVersion
         ruleSets = listOf()

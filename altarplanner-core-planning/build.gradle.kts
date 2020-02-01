@@ -9,7 +9,7 @@ dependencies {
         because("we use additional date-time classes like LocalDateRange")
     }
 
-    api(platform("org.optaplanner:optaplanner-bom:7.29.0.Final")) {
+    api(platform("org.optaplanner:optaplanner-bom:7.32.0.Final")) {
         because("we depend on optaplanner projects")
     }
 

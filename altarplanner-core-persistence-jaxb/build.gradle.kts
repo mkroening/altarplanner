@@ -45,11 +45,11 @@ dependencies {
         because("we need XmlAdapters for the ThreeTen date and time API")
     }
 
-    testRuntime("ch.qos.logback:logback-classic:1.2.3") {
+    testRuntimeOnly("ch.qos.logback:logback-classic:1.2.3") {
         because("we use this SLF4J API implementation for logging while testing")
     }
 
-    testRuntime("org.glassfish.jaxb:jaxb-runtime") {
+    testRuntimeOnly("org.glassfish.jaxb:jaxb-runtime") {
         because("we use the RI JAXB runtime for testing")
     }
 }

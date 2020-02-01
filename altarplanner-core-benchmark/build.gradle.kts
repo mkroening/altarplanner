@@ -39,11 +39,11 @@ dependencies {
         because("we do logging via these interfaces")
     }
 
-    runtime("org.glassfish.jaxb:jaxb-runtime") {
+    runtimeOnly("org.glassfish.jaxb:jaxb-runtime") {
         because("we use the JAXB RI")
     }
 
-    runtime("ch.qos.logback:logback-classic:1.2.3") {
+    runtimeOnly("ch.qos.logback:logback-classic:1.2.3") {
         because("we use this SLF4J API implementation for logging while testing")
     }
 }

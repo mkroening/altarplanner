@@ -18,8 +18,8 @@ allprojects {
 subprojects {
     apply(plugin = "java")
     configure<JavaPluginConvention> {
-        sourceCompatibility = JavaVersion.VERSION_13
-        targetCompatibility = JavaVersion.VERSION_13
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"

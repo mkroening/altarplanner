@@ -128,7 +128,11 @@ public class Schedule extends ServerAware implements FeastDayAware, Serializable
     final var serviceTypes =
         getServices().stream().map(Service::getType).collect(Collectors.toUnmodifiableSet());
     getServers()
-        .forEach(server -> server.getInabilities().removeIf(Predicate.not(serviceTypes::contains)));
+        .forEach(server -> server.setInabilities(
+            server.getInabilities().stream()
+              .filter(serviceTypes::contains)
+              .collect(Collectors.toUnmodifiableList())
+          ));
     setServiceTypes(serviceTypes.stream().sorted().collect(Collectors.toUnmodifiableList()));
   }
 

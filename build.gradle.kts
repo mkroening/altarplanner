@@ -12,7 +12,7 @@ plugins {
 
 allprojects {
     group = "org.altarplanner"
-    version = "0.1-SNAPSHOT"
+    version = "0.1.0"
 }
 
 subprojects {
